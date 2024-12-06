@@ -7,3 +7,21 @@
 
 "Vision":
   color: "#009f36"
+
+"SCI Q1":
+  color: "#CC0033"
+
+"SCI Q2":
+  color: "#003366"
+
+"SCI Q3":
+  color: "#FFCC00"
+
+"SCI Q4":
+  color: "#669933"
+
+"EI":
+  color: "#9999FF"
+
+"Conference":
+  color: "#FFFF00"
