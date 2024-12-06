@@ -8,10 +8,6 @@ profile:
   align: right
   image: prof_pic.png
   image_circular: true # crops the image to make it circular
-  more_info: >
-    <p>Room 108, H Building</p>
-    <p>Tongji University (Jiading Campus)</p>
-    <p>Shanghai, China 201804</p>
 
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
