@@ -39,6 +39,9 @@ layout: default
     {% endif %}
 
     <div class="clearfix">{{ content }}</div>
+    
+    <!-- Divider -->   
+    <hr class="dashed-divider">
 
     <!-- News -->
     {% if page.news and site.announcements.enabled %}
@@ -48,6 +51,9 @@ layout: default
       {% include news.liquid limit=true %}
     {% endif %}
 
+    <!-- Divider -->   
+    <hr class="dashed-divider">
+
     <!-- Latest posts -->
     {% if site.latest_posts.enabled %}
       <h2>
@@ -56,6 +62,9 @@ layout: default
       {% include latest_posts.liquid %}
     {% endif %}
 
+    <!-- Divider -->   
+    <hr class="dashed-divider">
+
     <!-- Selected papers -->
     {% if page.selected_papers %}
       <h2>
@@ -63,6 +72,9 @@ layout: default
       </h2>
       {% include selected_papers.liquid %}
     {% endif %}
+
+    <!-- Divider -->   
+    <hr class="dashed-divider">
 
     <!-- Social -->
     {% if page.social %}
@@ -77,4 +89,16 @@ layout: default
       {% include scripts/newsletter.liquid center=true %}
     {% endif %}
   </article>
+
+  <!-- Divider -->
+  <hr class="dashed-divider">
+
+  <!-- Visitor count -->
+  <div class="visitor-count" style="text-align: center; margin-top: 30px;">
+    <div style="transform: scale(0.6); transform-origin: top center;">
+      <script type='text/javascript' id='clustrmaps' src='//clustrmaps.com/map_v2.js?d=iWTm2HbayeimtnXDADURqs5_Im3_wek8M_WS3lq5qLI&cl=ffffff&w=a'></script>
+    </div>
+  </div>
+
 </div>
+
