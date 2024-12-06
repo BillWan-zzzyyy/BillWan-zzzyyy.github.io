@@ -6,7 +6,7 @@ subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
 
 profile:
   align: right
-  image: /assets/_img/prof_pic.png
+  image: assets/_img/prof_pic.png
   image_circular: true # crops the image to make it circular
 
 news: true # includes a list of news items
