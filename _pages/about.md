@@ -1,13 +1,13 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
 subtitle: <a href='#'><b>Incoming PhD student</b> at University of Wisconsin-Madison CEE</a>
 
 
 profile:
   align: right
-  image: zhengyangwan.jpg
+  image: prof_pic.webp
   image_circular: false # crops the image to make it circular
   more_info: >
     <p style="margin-left: 50px;">Valldemosa, Spain, 2024</p>
