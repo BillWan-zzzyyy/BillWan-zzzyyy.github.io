@@ -2,12 +2,15 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: <a href='#'><b>Incoming PhD student</b> at University of Wisconsin-Madison CEE</a>
+
 
 profile:
   align: right
   image: prof_pic.jpg
   image_circular: true # crops the image to make it circular
+  more_info: >
+    <p>Valldemosa, Spain, 2024</p>
 
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
