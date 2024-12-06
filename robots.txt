@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://BillWan-zzzyyy.github.io/sitemap.xml
+Sitemap: https://BillWan-zzzyyy.github.iohttps://zhengyangwan.com/sitemap.xml
