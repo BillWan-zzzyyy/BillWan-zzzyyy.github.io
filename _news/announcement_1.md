@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I graduated from Nanyang Model High School and began pursuing my Bachelor's degree at Tongji University.
+I began pursuing my Bachelor's degree at Tongji University.🧐
