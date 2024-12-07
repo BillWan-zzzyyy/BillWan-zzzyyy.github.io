@@ -109,12 +109,12 @@
     {
       "language": "Mandarin",
       "fluency": "Native speaker",
-      "icon": "fa-solid fa-chinese"
+      "icon": "fa-solid fa-font"
     },
     {
       "language": "English",
       "fluency": "Fluent (Spent $900 on IELTS and $600 on GRE)",
-      "icon": "fa-flag-us"
+      "icon": "fa-solid fa-flag-us"
     }
   ],
   "interests": [
@@ -153,13 +153,12 @@
       "icon": "fa-solid fa-gamepad",
       "keywords": [
         "CS2 (I'm a fan of the entire Counter-Strike series！)",
-        "HellDivers 2: For SUPER EARTH!",
-        "FIFA 14 (I play different FIFA every year, but 14 is the BEST.",
+        "FIFA 14 (I play the latest FIFA every year, but 14 is the BEST.)",
         "Stellaris: Research completed.",
         "Left 4 Dead 2: So...you are not gonna release 3, right?",
-        "Wallpaper Engine: Not a game, a masterpiece.",
+        "Wallpaper Engine: Not a game, a Masterpiece.",
         "Forest: godmode on",
-        "EURO TRUCK SIMULATOR: I knew that one day I’d end up developing driving simulator"
+        "Euro Truck Simulator: I knew that one day I’d end up developing driving simulator."
       ]
     }
   ]
