@@ -10,7 +10,7 @@ profile:
   image: prof_pic.webp
   image_circular: false # crops the image to make it circular
   more_info: >
-    <p style="margin-left: 50px;">Valldemosa, Spain, 2024</p>
+    <p style="margin-left: 45px;">Valldemosa, Spain, 2024</p>
 
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
