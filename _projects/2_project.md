@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Driving Simulation Platform for Virtual Track Train (VTT)
-description: Conduct driving simulations of VTT's hybrid control mode.
+title: Driving Simulation for Virtual Track Train
+description: Conduct driving simulations of Virtual Track Train's hybrid control mode.
 img: assets/img/drivingsimulator.jpg
 importance: 1
 category: Tongji University
