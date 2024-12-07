@@ -1,11 +1,11 @@
 ---
 layout: page
-title: project 2
-description: a project with a background image and giscus comments
-img: assets/img/3.jpg
-importance: 2
-category: work
-giscus_comments: true
+title: Driving Simulation Platform for Virtual Track Train (VTT)
+description: Conduct driving simulations of VTT's hybrid control mode.
+img: assets/img/drivingsimulator.jpg
+importance: 1
+category: Tongji University
+related_publications: true
 ---
 
 Every project has a beautiful feature showcase page.
