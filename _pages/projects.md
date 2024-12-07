@@ -2,7 +2,7 @@
 layout: page
 title: Projects
 permalink: /projects/
-description: _The mind is the final frontier._
+description: <i>The mind is the final frontier.</i>
 nav: true
 nav_order: 3
 display_categories: [UW-Madison, Tongji University]
