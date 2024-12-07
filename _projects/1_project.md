@@ -1,10 +1,10 @@
 ---
 layout: page
-title: project 1
-description: with background image
-img: assets/img/12.jpg
+title: SkyDrive
+description: SkyDrive is a multi-agent human-in-the-loop, digital-twin-enabled traffic simulator.
+img: assets/img/skydrive.jpg
 importance: 1
-category: work
+category: UW-Madison
 related_publications: true
 ---
 
