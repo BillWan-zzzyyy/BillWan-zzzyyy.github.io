@@ -1,7 +1,7 @@
 ---
 layout: cv
 permalink: /cv/
-title: CV
+title: CV-v2412
 nav: true
 nav_order: 5
 cv_pdf: CV_ZhengyangWan_2412.pdf
