@@ -32,7 +32,7 @@
       "startDate": "2022-09-01",
       "endDate": "2025-06-30",
       "score": "",
-      "Thesis Title": ["Study on Curving Passing Performance of Virtual Track Train Based on Driving Simulation Platform"]
+      "Thesis Title": ["Study on Curving Passing Performance of Virtual Track Train Based on Driving Simulation Platform"],
       "Advisor": "Dr. Hechao Zhou"
     },
     {
@@ -82,27 +82,6 @@
       "icon": "fa-solid fa-tag"
     },
     {
-      "name": "Quantum Information",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
-      "url": "https://example.com",
-      "icon": "fa-solid fa-envelope"
-    },
-    {
-      "name": "Quantum Cryptography",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
-      "url": "https://example.com",
-      "icon": "fa-solid fa-hashtag"
-    },
-    {
-      "name": "Quantum Communication",
-      "date": "2018-01-01",
-      "issuer": "Stanford University",
-      "url": "https://example.com",
-      "icon": "fa-solid fa-calendar"
-    },
-    {
       "name": "Quantum Teleportation",
       "date": "2018-01-01",
       "issuer": "Stanford University",
@@ -139,15 +118,28 @@
   ],
   "interests": [
     {
-      "name": "Physics",
-      "icon": "fa-solid fa-tag",
+      "name": "Football",
+      "icon": "fa-solid fa-futbol",
       "keywords": [
-        "Quantum Mechanics",
-        "Quantum Computing",
-        "Quantum Information",
-        "Quantum Cryptography",
-        "Quantum Communication",
-        "Quantum Teleportation"
+        "Arsenal",
+        "LM/RM/LB/RB",
+        "North London Forever!"
+      ]
+    },
+    {
+      "name": "Travel",
+      "icon": "fa-solid fa-plane",
+      "keywords": [
+        "China, Japan, UAE, Cambodia",
+        "UK, Germany, Spain",
+        "USA"
+      ]
+    },
+    {
+      "name": "Photography",
+      "icon": "fa-solid fa-camera",
+      "keywords": [
+        "Fujifilm XT30 II"
       ]
     }
   ]
