@@ -2,7 +2,7 @@
 layout: page
 permalink: /publications/
 title: Publications
-description: _To boldly go where no man has gone before._
+description: <i>To boldly go where no man has gone before.</i>
 nav: true
 nav_order: 2
 ---
