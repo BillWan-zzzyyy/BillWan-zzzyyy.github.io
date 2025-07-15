@@ -19,8 +19,7 @@ layout: default
     <!-- Social -->
     {% if page.social %}
       <div class="social">
-        <div class="contact-icons">{% include social.liquid %}</div>
-
+        <div class="contact-icons text-left">{% include social.liquid %}</div>
         <div class="contact-note">{{ site.contact_note }}</div>
       </div>
     {% endif %}
@@ -28,7 +27,6 @@ layout: default
     {% if site.newsletter.enabled and site.footer_fixed %}
       {% include scripts/newsletter.liquid center=true %}
     {% endif %}
-
 
     {% if page.profile %}
       <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
