@@ -40,6 +40,19 @@ layout: default
 
     <div class="clearfix">{{ content }}</div>
     
+    <!-- Social -->
+    {% if page.social %}
+      <div class="social">
+        <div class="contact-icons">{% include social.liquid %}</div>
+
+        <div class="contact-note">{{ site.contact_note }}</div>
+      </div>
+    {% endif %}
+
+    {% if site.newsletter.enabled and site.footer_fixed %}
+      {% include scripts/newsletter.liquid center=true %}
+    {% endif %}
+
     <!-- Divider -->   
     <hr class="dashed-divider">
 
@@ -78,22 +91,6 @@ layout: default
     <!-- Divider -->   
     <hr class="dashed-divider">
 
-    <!-- Social -->
-    {% if page.social %}
-      <div class="social">
-        <div class="contact-icons">{% include social.liquid %}</div>
-
-        <div class="contact-note">{{ site.contact_note }}</div>
-      </div>
-    {% endif %}
-
-    {% if site.newsletter.enabled and site.footer_fixed %}
-      {% include scripts/newsletter.liquid center=true %}
-    {% endif %}
-  </article>
-
-  <!-- Divider -->
-  <hr class="dashed-divider">
 
   <!-- Visitor count -->
   <div class="visitor-count" style="text-align: center; margin-top: 30px;">
