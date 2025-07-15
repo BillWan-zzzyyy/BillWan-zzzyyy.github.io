@@ -14,8 +14,6 @@ layout: default
     <p class="desc">{{ page.subtitle }}</p>
   </header>
 
-  <article>
-
     <!-- Social -->
     {% if page.social %}
       <div class="social" style="text-align: left; margin-top: 0rem;">
@@ -28,6 +26,7 @@ layout: default
       {% include scripts/newsletter.liquid center=true %}
     {% endif %}
 
+  <article>
     {% if page.profile %}
       <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
         {% if page.profile.image %}
