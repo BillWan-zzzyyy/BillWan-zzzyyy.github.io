@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: <b>Incoming PhD student</b> at University of Wisconsin-Madison CEE
+subtitle: '<b>Incoming PhD student</b> at <span class="highlight-text">University of Wisconsin-Madison</span> CEE'
 
 
 profile:
