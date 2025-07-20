@@ -21,13 +21,17 @@ strong {
 
 h2 {
   font-weight: 600;
+}
+
+ht {
+  font-weight: 600;
   display: inline-block; /* 让 h2 的宽度贴合内容，下划线长度会以此为基准 */
   position: relative;    /* 关键：为伪元素的绝对定位提供一个锚点 */
   padding-bottom: 8px;   /* 可选：为下划线留出足够的空间，避免重叠 */
 }
 
 /* 创建并定义下划线本体 */
-h2::after {
+ht::after {
   content: '';         /* 伪元素必须有 content 属性 */
   position: absolute;
   bottom: 0;           /* 定位在 h2 元素的底部 */
