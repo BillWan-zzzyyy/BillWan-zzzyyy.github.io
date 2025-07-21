@@ -22,7 +22,7 @@ Hello there!🤺
 I am an incoming Ph.D. student in the [​Department of Civil and Environmental Engineering](https://engineering.wisc.edu/departments/civil-environmental-engineering/) (CEE) at [University of Wisconsin-Madison](https://www.wisc.edu/) (UW-Madison). I will join [Sky-Lab](https://sky-lab-uw.github.io/) at UW-Madison in Fall 2025 under the guidance of [Dr. Sikai (Sky) Chen](https://sky-lab-uw.github.io/people/). Hope to see you soon in Madison!🥳
 
 My research seeks to accelerate the development of future intelligent transportation technologies. 🧐Specifically, I focus on: 
-- **autonomous driving**
+- **Autonomous driving**
 - **human-centered AI in autonomous systems**
 - **intelligent transportation systems (ITS)**
 
