@@ -69,9 +69,9 @@ layout: default
 
     <!-- Latest posts -->
     {% if site.latest_posts.enabled %}
-      <ht>
+      <h7>
         <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
-      </ht>
+      </h7>
       {% include latest_posts.liquid %}
     {% endif %}
     {% endcomment %}
@@ -81,9 +81,9 @@ layout: default
 
     <!-- Selected papers -->
     {% if page.selected_papers %}
-      <ht>
+      <h7>
         <a href="{{ '/publications/' | relative_url }}" style="color: inherit">Selected Publications</a>
-      </ht>
+      </h7>
       {% include selected_papers.liquid %}
     {% endif %}
 
