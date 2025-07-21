@@ -24,6 +24,7 @@ h2 {
 }
 
 h6 {
+  font-size: 1.5rem;
   font-weight: 600;
   display: inline-block; /* 让 h2 的宽度贴合内容，下划线长度会以此为基准 */
   position: relative;    /* 关键：为伪元素的绝对定位提供一个锚点 */
