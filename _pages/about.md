@@ -25,8 +25,8 @@ Before joining UW-Madison, I obtained my M.S. in Transportation Engineering at [
 
 At Sky-Lab, my research seeks to accelerate the development of future intelligent transportation technologies. 🧐Specifically, I focus on: 
 - **Autonomous driving**
-- **human-centered AI in autonomous systems**
-- **intelligent transportation systems (ITS)**
+- **Human-centered AI in autonomous systems**
+- **Intelligent transportation systems (ITS)**
 
 An equally important dimension of my work is to validate our methods through **real‑vehicle testing**: I have contributed to the development of [SkyDrive](https://arxiv.org/abs/2504.18010) — a simulation platform at Sky-Lab for socially‑aware and human‑AI collaborative future transportation.
 
