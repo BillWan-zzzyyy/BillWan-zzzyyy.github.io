@@ -11,6 +11,7 @@ h3,
 h4,
 h5,
 h6,
+h7,
 em,
 div,
 li,
@@ -23,7 +24,7 @@ h2 {
   font-weight: 600;
 }
 
-ht {
+h7 {
   font-weight: 600;
   display: inline-block; /* 让 h2 的宽度贴合内容，下划线长度会以此为基准 */
   position: relative;    /* 关键：为伪元素的绝对定位提供一个锚点 */
@@ -31,15 +32,15 @@ ht {
 }
 
 /* 创建并定义下划线本体 */
-ht::after {
+h7::after {
   content: '';         /* 伪元素必须有 content 属性 */
   position: absolute;
   bottom: 0;           /* 定位在 h2 元素的底部 */
   left: 0;             /* 从 h2 元素的左侧开始 */
 
   /* --- 自定义部分 --- */
-  width: 80px;             /* 1. 自定义长度：可以是百分比(如 50%)或固定值(如 80px) */
-  height: 4px;             /* 2. 自定义粗细/宽度 */
+  width: 60px;             /* 1. 自定义长度：可以是百分比(如 50%)或固定值(如 80px) */
+  height: 6px;             /* 2. 自定义粗细/宽度 */
   background-color: var(--global-theme-color);/* 3. 自定义颜色 */
 }
 
