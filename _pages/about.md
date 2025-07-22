@@ -32,4 +32,4 @@ An equally important dimension of my work is to validate our methods through **r
 
 
 > 📢***Note:***
-> This website is still under development. Please check back later for the full version and updates.
+> **This website is still under development. Please check back later for the full version and updates.**
