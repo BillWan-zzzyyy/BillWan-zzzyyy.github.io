@@ -49,7 +49,7 @@ d-article {
     display: inline;
   }
   blockquote {
-    border-left: 2px solid var(--global-theme-color) !important;
+    border-left: 2px solid var(--global-quote-left) !important;
   }
 
   // Style taken from code blocks
