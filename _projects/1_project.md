@@ -2,7 +2,7 @@
 layout: page
 title: SkyDrive
 description: SkyDrive is a multi-agent human-in-the-loop, digital-twin-enabled traffic simulator.
-img: assets/img/skydrive.jpg
+img: assets/img/fig 1.jpg
 importance: 1
 category: UW-Madison
 related_publications: true
