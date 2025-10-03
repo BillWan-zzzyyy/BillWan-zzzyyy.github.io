@@ -63,7 +63,7 @@ module Jekyll
       rescue Exception => e
         # Handle any errors that may occur during fetching
         error_message = "抓取失败: #{e.message}"
-        citation_count = "<span style='color: red;'>#{error_message}</span>"
+        citation_count = "#{error_message}"
 
         # Print the error message including the exception class and message
         puts "Error fetching citation count for #{article_id}: #{e.class} - #{e.message}"
