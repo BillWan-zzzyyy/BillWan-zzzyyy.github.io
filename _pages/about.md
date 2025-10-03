@@ -28,7 +28,7 @@ As for now, I am working to accelerate the development of future intelligent tra
 - **Human-centered AI in autonomous systems**
 - **Intelligent transportation systems (ITS)**
 
-An equally important dimension of my work is to validate our methods through **real‑vehicle testing**: I have contributed to the development of <img src="assets/img/Sky-Drive.png" width="25" height="25" style="vertical-align: middle; margin: 0 2px;"/>[SkyDrive](https://arxiv.org/abs/2504.18010) — a comprehensive test platform at Sky-Lab for future transportation.
+An equally important dimension of my work is to validate autonomous driving related methods through **real‑vehicle testing**: I have contributed to the development of <img src="assets/img/Sky-Drive.png" width="25" height="25" style="vertical-align: middle; margin: 0 2px;"/>[SkyDrive](https://arxiv.org/abs/2504.18010) — a comprehensive test platform at Sky-Lab for future transportation.
 
 
 > 📢***Note:***
