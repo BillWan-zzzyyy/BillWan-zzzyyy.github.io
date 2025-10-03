@@ -29,7 +29,7 @@ module Jekyll
           end
 
           # Sleep for a random amount of time to avoid being blocked
-          sleep(rand(10.5..13.5))
+          sleep(rand(5.5..7.5))
 
           # Fetch the article page
           doc = Nokogiri::HTML(URI.open(article_url, "User-Agent" => "Ruby/#{RUBY_VERSION}"))
@@ -62,7 +62,8 @@ module Jekyll
 
       rescue Exception => e
         # Handle any errors that may occur during fetching
-        citation_count = "N/A"
+        error_message = "抓取失败: #{e.message}"
+        citation_count = "<span style='color: red;'>#{error_message}</span>"
 
         # Print the error message including the exception class and message
         puts "Error fetching citation count for #{article_id}: #{e.class} - #{e.message}"
