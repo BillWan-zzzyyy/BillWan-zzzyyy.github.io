@@ -1,11 +1,11 @@
 ---
 layout: page
-title: project 3 with very long name
+title: Study of VRUs
 description: a project that redirects to another website
 img: assets/img/7.jpg
 redirect: https://unsplash.com
-importance: 3
-category: work
+importance: 2
+category: UW-Madison
 ---
 
 Every project has a beautiful feature showcase page.
