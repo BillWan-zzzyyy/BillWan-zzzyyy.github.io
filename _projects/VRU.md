@@ -2,7 +2,7 @@
 layout: page
 title: Study of VRUs
 description: a project that redirects to another website
-img: assets/img/7.jpg
+img: assets/img/VRU.png
 redirect: https://unsplash.com
 importance: 2
 category: UW-Madison
