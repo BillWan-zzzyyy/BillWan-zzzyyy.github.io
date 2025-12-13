@@ -17,8 +17,8 @@ module Jekyll
     # --- Configuration ---
     CACHE_FILE_PATH   = File.join(Dir.pwd, "_cache", "scholar_citations.json")
     WINDOW_SECONDS    = 24 * 60 * 60 # 固定 24 小时窗口（每天刷新）
-    MAX_RETRIES       = 3 # 最大重试次数
-    RETRY_DELAY       = 10 # 重试延迟（秒）
+    MAX_RETRIES       = 2 # 最大重试次数（降低以避免过度请求）
+    RETRY_DELAY       = 15 # 重试延迟（秒，增加以避免被拦截）
     REQUEST_TIMEOUT   = 30 # 请求超时（秒）
     # 使用更新的 User-Agent 列表，随机选择以降低被检测风险
     USER_AGENTS = [
@@ -30,6 +30,8 @@ module Jekyll
 
     # 进程级缓存（本次构建内常驻）
     @@cache = nil
+    # 记录上次请求时间，用于控制请求频率
+    @@last_request_time = nil
 
     def initialize(tag_name, params, tokens)
       super
@@ -60,8 +62,20 @@ module Jekyll
       end
 
       # 4) 窗口外（需刷新）：尝试抓取；成功后更新缓存与 refreshed_at
-      # 温和请求节流（在首次请求前）
-      sleep(rand(5.5..7.5))
+      # 控制请求频率：确保每次请求之间至少间隔一定时间
+      if @@last_request_time
+        time_since_last = Time.now - @@last_request_time
+        min_interval = 10.0 # 最小间隔10秒
+        if time_since_last < min_interval
+          sleep_time = min_interval - time_since_last + rand(2.0..5.0)
+          puts "Info: Waiting #{sleep_time.round(1)}s before next request to avoid rate limiting..."
+          sleep(sleep_time)
+        end
+      else
+        # 首次请求前的延迟
+        sleep(rand(5.0..8.0))
+      end
+      @@last_request_time = Time.now
 
       retries = 0
       begin
@@ -71,19 +85,16 @@ module Jekyll
         # 随机选择 User-Agent
         user_agent = USER_AGENTS.sample
         
-        # 更完整的请求头，模拟真实浏览器
+        # 简化请求头，移除可能暴露爬虫特征的头部
+        # 只保留最必要的头部，避免过度模拟
         headers = {
           "User-Agent" => user_agent,
-          "Accept" => "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+          "Accept" => "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
           "Accept-Language" => "en-US,en;q=0.9",
-          "Accept-Encoding" => "gzip, deflate, br",
+          "Accept-Encoding" => "gzip, deflate",
           "Connection" => "keep-alive",
-          "Upgrade-Insecure-Requests" => "1",
-          "Sec-Fetch-Dest" => "document",
-          "Sec-Fetch-Mode" => "navigate",
-          "Sec-Fetch-Site" => "none",
-          "Sec-Fetch-User" => "?1",
-          "Referer" => "https://scholar.google.com/"
+          "Referer" => "https://scholar.google.com/",
+          "DNT" => "1"
         }
 
         # 使用超时设置打开URL
@@ -170,7 +181,24 @@ module Jekyll
       rescue OpenURI::HTTPError => e
         # HTTP 错误处理
         status_code = e.io.status[0].to_i rescue nil
-        if status_code == 429 || status_code == 503
+        if status_code == 403
+          # 403 Forbidden - 被 Google Scholar 拦截
+          puts "Warning: HTTP 403 (Forbidden) for #{article_id} - Google Scholar blocked the request"
+          if retries < MAX_RETRIES
+            retries += 1
+            # 403 错误时增加更长的延迟
+            delay = RETRY_DELAY * 2 + rand(5..15)
+            puts "Retrying (#{retries}/#{MAX_RETRIES}) after #{delay}s with different approach..."
+            sleep(delay)
+            # 尝试使用不同的 User-Agent
+            retry
+          else
+            puts "Error: HTTP 403 for #{article_id} after #{MAX_RETRIES} retries - Google Scholar is blocking requests"
+            cached = self.class.get_cached(@@cache, article_id)
+            return cached if cached
+            return "访问被拒绝"
+          end
+        elsif status_code == 429 || status_code == 503
           # 429 Too Many Requests 或 503 Service Unavailable
           if retries < MAX_RETRIES
             retries += 1
