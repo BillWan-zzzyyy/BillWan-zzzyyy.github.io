@@ -48,11 +48,15 @@ module Jekyll
       # 2) 判断是否处于“锁定窗口期”
       locked = self.class.locked_window?(@@cache)
 
-      # 3) 窗口内：严格只读缓存；无则返回 "N/A"
+      # 3) 窗口内：优先使用缓存；如果缓存中没有该文章，也尝试抓取（新文章）
       if locked
         cached = self.class.get_cached(@@cache, article_id)
-        return cached if cached
-        return "N/A"
+        if cached
+          return cached
+        else
+          # 窗口内但缓存中没有该文章，可能是新添加的，允许抓取一次
+          puts "Info: Article #{article_id} not in cache during locked window, attempting fetch..."
+        end
       end
 
       # 4) 窗口外（需刷新）：尝试抓取；成功后更新缓存与 refreshed_at
@@ -91,12 +95,44 @@ module Jekyll
         doc = Nokogiri::HTML(html_content)
         citation_count_raw = 0
 
+        # 方法1: 从 meta description 标签提取
         description_meta = doc.at('meta[name="description"]') || doc.at('meta[property="og:description"]')
         if description_meta
-          cited_by_text = description_meta["content"]
-          if (m = cited_by_text.match(/Cited by (\d+[,\d]*)/))
+          cited_by_text = description_meta["content"] || ""
+          if (m = cited_by_text.match(/Cited by (\d+[,\d]*)/i))
             citation_count_raw = m[1].delete(",").to_i
+            puts "Info: Found citation count #{citation_count_raw} from meta description for #{article_id}"
           end
+        end
+
+        # 方法2: 如果方法1失败，尝试从页面文本中提取
+        if citation_count_raw == 0
+          # 查找包含 "Cited by" 的文本节点
+          doc.css('*').each do |element|
+            text = element.text
+            if text =~ /Cited by\s+(\d+[,\d]*)/i
+              citation_count_raw = $1.delete(",").to_i
+              puts "Info: Found citation count #{citation_count_raw} from page text for #{article_id}"
+              break
+            end
+          end
+        end
+
+        # 方法3: 尝试从 gsc_oci_value 类中提取（Google Scholar 使用的类名）
+        if citation_count_raw == 0
+          citation_elem = doc.at('.gsc_oci_value') || doc.at('[class*="gsc_oci"]')
+          if citation_elem
+            text = citation_elem.text.strip
+            if text =~ /(\d+[,\d]*)/
+              citation_count_raw = $1.delete(",").to_i
+              puts "Info: Found citation count #{citation_count_raw} from gsc_oci element for #{article_id}"
+            end
+          end
+        end
+
+        # 如果仍然为0，记录警告但继续处理（可能是真的0引用）
+        if citation_count_raw == 0
+          puts "Warning: Could not extract citation count for #{article_id}, defaulting to 0"
         end
 
         # 检查是否被重定向到验证页面或错误页面
@@ -106,18 +142,26 @@ module Jekyll
           raise "Google Scholar 检测到异常流量，请稍后重试"
         end
 
-        formatted = Helpers.number_to_human(
-          citation_count_raw,
-          format: "%n%u",
-          precision: 2,
-          units: { thousand: "K", million: "M", billion: "B" }
-        )
+        # 格式化引用数（小于1000的直接显示数字）
+        if citation_count_raw < 1000
+          formatted = citation_count_raw.to_s
+        else
+          formatted = Helpers.number_to_human(
+            citation_count_raw,
+            format: "%n%u",
+            precision: 2,
+            units: { thousand: "K", million: "M", billion: "B" }
+          )
+        end
 
         # 写入条目
         self.class.set_cached(@@cache, article_id, formatted)
 
-        # **关键：刷新窗口起点** —— 仅在真正抓到一次数据后更新
-        self.class.set_refreshed!(@@cache)
+        # **关键：刷新窗口起点** —— 仅在窗口外（需要全局刷新）时更新
+        # 如果在窗口内抓取新文章，不更新全局刷新时间，避免重置窗口
+        unless locked
+          self.class.set_refreshed!(@@cache)
+        end
 
         # 持久化到文件
         self.class.save_cache(@@cache)

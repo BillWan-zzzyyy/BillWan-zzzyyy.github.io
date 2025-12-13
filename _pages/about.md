@@ -28,7 +28,7 @@ As for now, I am working to accelerate the development of future intelligent tra
 - **Vision language model for autonomous driving**
 - **Intelligent transportation systems (ITS)**
 
-An equally important dimension of my work is to validate autonomous driving related methods through **real‑vehicle testing**: I have contributed to the development of <img src="assets/img/Sky-Drive.png" width="25" height="25" style="vertical-align: middle; margin: 0 2px;"/>[SkyDrive](https://github.com/BillWan-zzzyyy/Sky-Drive) — a comprehensive test platform at Sky-Lab for future transportation system.
+An equally important dimension of my work is to validate autonomous driving related methods through **real‑vehicle testing**: I have contributed to the development of <img src="assets/img/Sky-Drive.png" width="25" height="25" style="vertical-align: middle; margin: 0 2px;"/>[SkyDrive](https://github.com/BillWan-zzzyyy/Sky-Drive), an open source platform for future transportation system and autonomous driving by Sky-Lab.
 
 
 > 📢***Note:***
