@@ -6,6 +6,7 @@ require "open-uri"
 require "json"
 require "fileutils"
 require "time"
+require "timeout"
 
 module Helpers
   extend ActiveSupport::NumberHelper
@@ -82,13 +83,12 @@ module Jekyll
         }
 
         # 使用超时设置打开URL
-        open_options = {
-          headers: headers,
-          read_timeout: REQUEST_TIMEOUT,
-          open_timeout: REQUEST_TIMEOUT
-        }
-
-        doc = Nokogiri::HTML(URI.open(article_url, open_options))
+        # URI.open 的第二个参数直接传递 headers 哈希
+        # 使用 Timeout 包装以确保超时控制
+        html_content = Timeout.timeout(REQUEST_TIMEOUT) do
+          URI.open(article_url, headers).read
+        end
+        doc = Nokogiri::HTML(html_content)
         citation_count_raw = 0
 
         description_meta = doc.at('meta[name="description"]') || doc.at('meta[property="og:description"]')
