@@ -7,6 +7,7 @@ require "json"
 require "fileutils"
 require "time"
 require "timeout"
+require "cgi"
 
 module Helpers
   extend ActiveSupport::NumberHelper
@@ -165,6 +166,9 @@ module Jekyll
           )
         end
 
+        # 确保返回值是 URL 安全的（移除空格和特殊字符，用于 shields.io badge）
+        formatted = formatted.strip.gsub(/\s+/, "")
+
         # 写入条目
         self.class.set_cached(@@cache, article_id, formatted)
 
@@ -196,7 +200,7 @@ module Jekyll
             puts "Error: HTTP 403 for #{article_id} after #{MAX_RETRIES} retries - Google Scholar is blocking requests"
             cached = self.class.get_cached(@@cache, article_id)
             return cached if cached
-            return "访问被拒绝"
+            return "N/A"  # 返回 URL 安全的值
           end
         elsif status_code == 429 || status_code == 503
           # 429 Too Many Requests 或 503 Service Unavailable
@@ -209,13 +213,13 @@ module Jekyll
             puts "Error: HTTP #{status_code} for #{article_id} after #{MAX_RETRIES} retries"
             cached = self.class.get_cached(@@cache, article_id)
             return cached if cached
-            return "请求被限制，请稍后重试"
+            return "N/A"  # 返回 URL 安全的值
           end
         else
           puts "Error: HTTP #{status_code || 'unknown'} for #{article_id}: #{e.message}"
           cached = self.class.get_cached(@@cache, article_id)
           return cached if cached
-          return "HTTP错误: #{status_code || 'unknown'}"
+          return "N/A"  # 返回 URL 安全的值
         end
       rescue Timeout::Error, Errno::ETIMEDOUT => e
         # 超时错误
@@ -228,14 +232,14 @@ module Jekyll
           puts "Error: Timeout for #{article_id} after #{MAX_RETRIES} retries"
           cached = self.class.get_cached(@@cache, article_id)
           return cached if cached
-          return "请求超时"
+          return "N/A"  # 返回 URL 安全的值
         end
       rescue StandardError => e
         # 其他错误
         puts "Error fetching citation count for #{article_id}: #{e.class} - #{e.message}"
         cached = self.class.get_cached(@@cache, article_id)
         return cached if cached
-        return "抓取失败: #{e.message}"
+        return "N/A"  # 返回 URL 安全的值，避免在 badge URL 中出现特殊字符
       end
     end
 
