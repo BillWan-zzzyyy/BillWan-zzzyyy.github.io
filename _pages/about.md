@@ -25,7 +25,7 @@ Before joining UW-Madison, I obtained my M.S. in Transportation Engineering at [
 As for now, I am working to accelerate the development of future intelligent transportation technologies. 🧐 Specifically, I focus on:
 
 - **Autonomous driving**
-- **Vision language model for autonomous driving**
+- **Vision-Language-Action model**
 - **Intelligent transportation systems**
 
 An equally important dimension of my work is to validate autonomous driving related methods through **real‑vehicle testing**: I have contributed to the development of `<img src="assets/img/Sky-Drive.png" width="25" height="25" style="vertical-align: middle; margin: 0 2px;"/>`[SkyDrive](https://github.com/BillWan-zzzyyy/Sky-Drive), an open source multi-agent platform for future transportation system and autonomous driving by Sky-Lab.
