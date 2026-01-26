@@ -7,10 +7,10 @@ subtitle: <span class="highlight-text"> Ph.D. student </span>at The University o
 
 profile:
   align: right
-  image: prof_pic.webp
+  image: DSCF1344.webp
   image_circular: false # crops the image to make it circular
   more_info: >
-    <p style="margin-left: 33px;">Valldemosa, Spain, 2024</p>
+    <p style="margin-left: 33px;">Chicago, US, 2025</p>
 
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
