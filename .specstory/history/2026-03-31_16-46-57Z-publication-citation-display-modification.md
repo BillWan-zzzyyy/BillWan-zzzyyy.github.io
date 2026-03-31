@@ -1125,7 +1125,14 @@ Parameters:
 {
   "name": "Per-paper custom badges",
   "overview": "将 bib.liquid 中每篇论文的 Google Scholar citation 和 GitHub Stars Shields.io 徽章替换为与总数徽章同风格的自定义 HTML 徽章，但保持原有小尺寸。",
-  "plan": "# 每篇论文徽章改为自定义 HTML 样式\n\n## 需要修改的文件\n\n仅修改 [&#96;_layouts/bib.liquid&#96;](_layouts/bib.liquid) 第 318-343 行。\n\n## 当前代码（需要替换的部分）\n\n&#96;&#96;&#96;318:343:_layouts/bib.liquid\n          {% if site.enable_publication_badges.google_scholar and entry_has_google_scholar_badge %}\n            {% assign gs_count = site.data.scholar_citations.articles[entry.google_scholar_id] | default: 0 %}\n            \u003ca\n              href=\"https://scholar.google.com/citations?view_op=view_citation\u0026hl=en\u0026user={{ site.scholar_userid }}\u0026citation_for_view={{ site.scholar_userid }}"
+  "plan": "# 每篇论文徽章改为自定义 HTML 样式\n\n## 需要修改的文件\n\n仅修改 [&#96;_layouts/bib.liquid&#96;](_layouts/bib.liquid) 第 318-343 行。\n\n## 当前代码（需要替换的部分）\n\n&#96;&#96;&#96;318:343:_layouts/bib.liquid\n          {% if site.enable_publication_badges.google_scholar and entry_has_google_scholar_badge %}\n            {% assign gs_count = site.data.scholar_citations.articles[entry.google_scholar_id] | default: 0 %}\n            \u003ca\n              href=\"https://scholar.google.com/citations?view_op=view_citation\u0026hl=en\u0026user={{ site.scholar_userid }}\u0026citation_for_view={{ site.scholar_userid }}:{{ entry.google_scholar_id }}\"\n              aria-label=\"Google Scholar link\"\n              role=\"button\"\n            \u003e\n              \u003cimg\n                src=\"https://img.shields.io/badge/scholar-{{ gs_count }}-4285F4?logo=googlescholar\u0026labelColor=beige\"\n                alt=\"{{ gs_count }} Google Scholar citations\"\n              \u003e\n            \u003c/a\u003e\n          {% endif %}\n          {% if site.enable_publication_badges.github_stars and entry_has_github_stars_badge %}\n            {% assign star_count = site.data.github_stars.repos[entry.github_repo] | default: 0 %}\n            \u003ca\n              href=\"https://github.com/{{ entry.github_repo }}\"\n              aria-label=\"GitHub repository\"\n              role=\"button\"\n            \u003e\n              \u003cimg\n                src=\"https://img.shields.io/badge/github-{{ star_count }}%20★-181717?logo=github\u0026labelColor=beige\"\n                alt=\"{{ star_count }} GitHub stars\"\n              \u003e\n            \u003c/a\u003e\n          {% endif %}\n&#96;&#96;&#96;\n\n## 替换方案\n\n使用与 &#96;publications.md&#96; 总数徽章相同的设计风格，但尺寸缩小以匹配 Shields.io 默认 badge 大小（约 20px 高）：\n\n- 字体大小：标签部分 &#96;0.7rem&#96;，数字部分 &#96;0.75rem&#96;\n- 图标大小：&#96;0.8rem&#96;\n- 内边距：&#96;0.15rem 0.4rem&#96;\n- 圆角：&#96;4px&#96;\n- 配色方案保持一致：\n  - Scholar: 标签区 &#96;#f5f0e6&#96; + &#96;#4285F4&#96; 文字，数字区 &#96;#4285F4&#96; 背景白色文字\n  - GitHub: 标签区 &#96;#f5f0e6&#96; + &#96;#181717&#96; 文字/图标，数字区 &#96;#181717&#96; 背景白色文字\n\n不修改的部分：Altmetric、Dimensions、InspireHEP 的 badge 保持原样。\n",
+  "todos": [
+    {
+      "content": "将 bib.liquid 中 Google Scholar 和 GitHub Stars 的 Shields.io badge 替换为自定义 HTML 徽章（小尺寸）",
+      "id": "replace-per-paper-badges",
+      "status": "pending"
+    }
+  ]
 }
 ```
 Additional data:
@@ -1141,7 +1148,14 @@ Additional data:
   }
 }
 ```
-Status: **loading**
+Result:
+
+```json
+{
+  "rejected": {}
+}
+```
+Status: **completed**
 
 
 </details>
@@ -1151,3 +1165,161 @@ Status: **loading**
 <summary>Tool use: **create_plan**</summary>
 
 </details></tool-use>
+
+---
+
+_**User**_
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+---
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write">
+<details>
+<summary>Tool use: **todo_write**</summary>
+
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "将 bib.liquid 中 Google Scholar 和 GitHub Stars 的 Shields.io badge 替换为自定义 HTML 徽章（小尺寸）",
+      "id": "replace-per-paper-badges",
+      "status": "in_progress"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "将 bib.liquid 中 Google Scholar 和 GitHub Stars 的 Shields.io badge 替换为自定义 HTML 徽章（小尺寸）",
+      "id": "replace-per-paper-badges",
+      "status": "pending"
+    }
+  ],
+  "success": true,
+  "wasMerge": true
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2">
+<details><summary>Tool use: **read_file_v2** • Read file: d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_layouts\bib.liquid</summary>
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2">
+
+<details><summary>Tool use: **edit_file_v2** • Edit file: d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_layouts\bib.liquid</summary>
+
+</details>
+
+</tool-use>
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2">
+<details><summary>Tool use: **read_file_v2** • Read file: d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_layouts\bib.liquid</summary>
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+代码替换正确。
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write">
+<details>
+<summary>Tool use: **todo_write**</summary>
+
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "将 bib.liquid 中 Google Scholar 和 GitHub Stars 的 Shields.io badge 替换为自定义 HTML 徽章（小尺寸）",
+      "id": "replace-per-paper-badges",
+      "status": "completed"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "将 bib.liquid 中 Google Scholar 和 GitHub Stars 的 Shields.io badge 替换为自定义 HTML 徽章（小尺寸）",
+      "id": "replace-per-paper-badges",
+      "status": "in_progress"
+    }
+  ],
+  "success": true,
+  "wasMerge": true
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+修改完成。`_layouts/bib.liquid` 中每篇论文的 Google Scholar 和 GitHub Stars 徽章已从 Shields.io 图片替换为自定义 HTML 徽章：
+
+- **风格一致**：与 `publications.md` 顶部总数徽章采用相同的双色分段设计（左侧标签 + 右侧数字）
+- **尺寸保持不变**：字体 `0.7rem`/`0.75rem`，图标 `0.8rem`，内边距 `0.15rem 0.4rem`，圆角 `4px`，与原 Shields.io 默认 badge 大小匹配
+- **GitHub 图标清晰**：使用深色 `#181717`，在浅色 `#f5f0e6` 背景上清晰可见
+- **InspireHEP badge** 保持原样未改动
