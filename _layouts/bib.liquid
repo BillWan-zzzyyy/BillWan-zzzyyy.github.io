@@ -21,9 +21,9 @@
           {% if badge_color %}style="background-color:{{ badge_color }}; color: white"{% else %}style="color: white"{% endif %}
         >
           {% if site.data.venues[entry.abbr].url %}
-            <a href="{{ site.data.venues[entry.abbr].url }}">{{ entry.abbr }}</a>
+            <a href="{{ site.data.venues[entry.abbr].url }}" style="color: white">{{ entry.abbr }}</a>
           {% else %}
-            <div>{{- entry.abbr -}}</div>
+            <div style="color: white">{{- entry.abbr -}}</div>
           {% endif %}
         </abbr>
       {% endif %}
