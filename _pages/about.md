@@ -29,6 +29,3 @@ As for now, I am working to accelerate the development of future intelligent tra
 - **Intelligent transportation systems**
 
 An equally important dimension of my work is to validate autonomous driving related methods through **real‑vehicle testing**: I have contributed to the development of <img src="../assets/img/Sky-Drive.png" width="25" height="25" style="vertical-align: middle; margin: 0 2px;"/>[SkyDrive](https://github.com/BillWan-zzzyyy/Sky-Drive), an open source multi-agent platform for future transportation system and autonomous driving by Sky-Lab.
-
-> 📢***Note:***
-> **This website is still under development. Please check back later for the latest updates.**
