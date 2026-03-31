@@ -6,13 +6,13 @@
       {%- if entry.abbr -%}
         {% assign badge_color = nil %}
         {% if entry.priority == "0" %}
-          {% assign badge_color = "#E8A0BF" %}
+          {% assign badge_color = "#B5607A" %}
         {% elsif entry.priority == "1" %}
-          {% assign badge_color = "#C17C74" %}
+          {% assign badge_color = "#8C5050" %}
         {% elsif entry.priority == "2" %}
-          {% assign badge_color = "#7C9CB5" %}
+          {% assign badge_color = "#4A708A" %}
         {% elsif entry.priority == "3" %}
-          {% assign badge_color = "#D4B896" %}
+          {% assign badge_color = "#8C7050" %}
         {% elsif site.data.venues[entry.abbr].color != blank %}
           {% assign badge_color = site.data.venues[entry.abbr].color %}
         {% endif %}
