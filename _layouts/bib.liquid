@@ -267,11 +267,16 @@
         {% assign entry_has_google_scholar_badge = true %}
       {% endif %}
 
+      {% assign entry_has_github_stars_badge = false %}
+      {% if entry.github_repo %}
+        {% assign entry_has_github_stars_badge = true %}
+      {% endif %}
+
       {% assign entry_has_inspirehep_badge = false %}
       {% if entry.inspirehep_id %}
         {% assign entry_has_inspirehep_badge = true %}
       {% endif %}
-      {% if entry_has_altmetric_badge or entry_has_dimensions_badge or entry_has_google_scholar_badge or entry_has_inspirehep_badge %}
+      {% if entry_has_altmetric_badge or entry_has_dimensions_badge or entry_has_google_scholar_badge or entry_has_github_stars_badge or entry_has_inspirehep_badge %}
         <div class="badges">
           {% if site.enable_publication_badges.altmetric and entry_has_altmetric_badge %}
             <span
@@ -318,6 +323,19 @@
               <img
                 src="https://img.shields.io/badge/scholar-{{ gs_count }}-4285F4?logo=googlescholar&labelColor=beige"
                 alt="{{ gs_count }} Google Scholar citations"
+              >
+            </a>
+          {% endif %}
+          {% if site.enable_publication_badges.github_stars and entry_has_github_stars_badge %}
+            {% assign star_count = site.data.github_stars.repos[entry.github_repo] | default: 0 %}
+            <a
+              href="https://github.com/{{ entry.github_repo }}"
+              aria-label="GitHub repository"
+              role="button"
+            >
+              <img
+                src="https://img.shields.io/badge/github-{{ star_count }}%20★-181717?logo=github&labelColor=beige"
+                alt="{{ star_count }} GitHub stars"
               >
             </a>
           {% endif %}

@@ -9,13 +9,18 @@ nav_order: 2
 
 <!-- _pages/publications.md -->
 
-{% if site.data.scholar_citations %}
-<div style="margin-bottom: 1.5rem;">
+<div style="margin-bottom: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+  {% if site.data.scholar_citations %}
   <a href="https://scholar.google.com/citations?user={{ site.scholar_userid }}" target="_blank">
     <img src="https://img.shields.io/badge/Google%20Scholar-{{ site.data.scholar_citations.total_citations }}%20citations-4285F4?logo=googlescholar&labelColor=beige" alt="Total Google Scholar citations">
   </a>
+  {% endif %}
+  {% if site.data.github_stars %}
+  <a href="https://github.com/{{ site.github_username }}" target="_blank">
+    <img src="https://img.shields.io/badge/GitHub-{{ site.data.github_stars.total_stars }}%20★-181717?logo=github&labelColor=beige" alt="Total GitHub stars">
+  </a>
+  {% endif %}
 </div>
-{% endif %}
 
 <!-- Bibsearch Feature -->
 
