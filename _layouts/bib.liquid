@@ -18,7 +18,7 @@
         {% endif %}
         <abbr
           class="badge rounded w-100"
-          {% if badge_color %}style="background-color:{{ badge_color }}"{% endif %}
+          {% if badge_color %}style="background-color:{{ badge_color }}; color: white"{% else %}style="color: white"{% endif %}
         >
           {% if site.data.venues[entry.abbr].url %}
             <a href="{{ site.data.venues[entry.abbr].url }}">{{ entry.abbr }}</a>
