@@ -1,6 +1,21 @@
 ---
 ---
 
+@article{huang2026drivevlmrl,
+  title={DriveVLM-RL: Neuroscience-Inspired Reinforcement Learning with Vision-Language Models for Safe and Deployable Autonomous Driving},
+  author={Huang, Zilin and Sheng, Zihao and Wan, Zhengyang and Qu, Yansong and You, Junwei and Jiang, Sicong and Chen✉, Sikai},
+  journal={arXiv preprint arXiv:2603.18315},
+  year={2026},
+  bibtex_show={true},
+  abbr={arXiv},
+  google_scholar_id={Y0pCki6q_DkC},
+  preview={drivevlmrl.webp},
+  abstract={Ensuring safe decision-making in autonomous vehicles remains a fundamental challenge despite rapid advances in end-to-end learning approaches. Traditional reinforcement learning (RL) methods rely on manually engineered rewards or sparse collision signals, which fail to capture the rich contextual understanding required for safe driving and make unsafe exploration unavoidable in real-world settings. Recent vision-language models (VLMs) offer promising semantic understanding capabilities; however, their high inference latency and susceptibility to hallucination hinder direct application to real-time vehicle control. To address these limitations, this paper proposes DriveVLM-RL, a neuroscience-inspired framework that integrates VLMs into RL through a dual-pathway architecture for safe and deployable autonomous driving. The framework decomposes semantic reward learning into a Static Pathway for continuous spatial safety assessment using CLIP-based contrasting language goals, and a Dynamic Pathway for attention-gated multi-frame semantic risk reasoning using a lightweight detector and a large VLM. A hierarchical reward synthesis mechanism fuses semantic signals with vehicle states, while an asynchronous training pipeline decouples expensive VLM inference from environment interaction. All VLM components are used only during offline training and are removed at deployment, ensuring real-time feasibility. Experiments in the CARLA simulator show significant improvements in collision avoidance, task success, and generalization across diverse traffic scenarios, including strong robustness under settings without explicit collision penalties. These results demonstrate that DriveVLM-RL provides a practical paradigm for integrating foundation models into autonomous driving without compromising real-time feasibility.},
+  annotation={* Equal Contribution<br>✉ Corresponding Author},
+  selected={true}
+}
+
+
 @article{huang2025sky,
   title={Sky-Drive: A Distributed Multi-Agent Simulation Platform for Socially-Aware and Human-AI Collaborative Future Transportation},
   author={Huang*, Zilin and Sheng*, Zihao and Wan*, Zhengyang and Qu, Yansong and Luo, Yuhao and Wang, Boyue and Li, Pei and Chen, Yen-Jung and Chen, Jiancong and Long, Keke and Meng, Jiayi and Leng, Yue and Chen✉, Sikai},
