@@ -19,7 +19,6 @@
 首页底部的黄色提示框 "This website is still under development" 给访客留下负面第一印象。研究表明**访客平均在你的网站上只停留约 30 秒**——这条提示暗示网站还没准备好。建议直接删除。学术网站本身就是持续更新的，无需特别声明。
 
 ### 1.3 修正过时信息
-- **`assets/json/resume.json`**：`basics.location` 仍写着"同济大学，上海" → 更新为 UW-Madison, Madison, WI
 - **`_config.yml`**：博客名称仍为 "al-folio"，描述仍为 "a simple whitespace theme for academics" → 即使博客隐藏，这些信息也会出现在 HTML metadata/SEO 中，应更新
 
 ### 1.4 移除冗余下拉菜单
