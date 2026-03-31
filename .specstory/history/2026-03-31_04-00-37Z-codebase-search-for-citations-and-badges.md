@@ -21,7 +21,6 @@ Search across all file types. Return complete file paths and relevant code snipp
 
 _**Agent (composer-2-fast)**_
 
-
 正在并行搜索代码库中与 Google Scholar、citation、徽章及出版物页面相关的配置与实现。
 
 
@@ -406,13 +405,6 @@ _**Agent (composer-2-fast)**_
 
 _**Agent (composer-2-fast)**_
 
-
-
-
-
-
-_**Agent (composer-2-fast)**_
-
 <tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search">
 <details>
 <summary>Tool use: **ripgrep_raw_search**</summary>
@@ -574,13 +566,6 @@ _**Agent (composer-2-fast)**_
 
 _**Agent (composer-2-fast)**_
 
-
-
-
-
-
-_**Agent (composer-2-fast)**_
-
 <tool-use data-tool-type="search" data-tool-name="glob_file_search">
 <details>
 <summary>Tool use: **glob_file_search** • Searched codebase "" • **1** result in **1** directory</summary>
@@ -714,13 +699,6 @@ File not found
 <summary>Tool use: **read_file_v2**</summary>
 
 </details></tool-use>
-
-_**Agent (composer-2-fast)**_
-
-
-
-
-
 
 _**Agent (composer-2-fast)**_
 
@@ -900,13 +878,6 @@ Status: **completed**
 
 _**Agent (composer-2-fast)**_
 
-
-
-
-
-
-_**Agent (composer-2-fast)**_
-
 <tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search">
 <details>
 <summary>Tool use: **ripgrep_raw_search**</summary>
@@ -997,13 +968,6 @@ Directory: **d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_plugin
 
 _**Agent (composer-2-fast)**_
 
-
-
-
-
-
-_**Agent (composer-2-fast)**_
-
 <tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search">
 <details>
 <summary>Tool use: **ripgrep_raw_search**</summary>
@@ -1064,13 +1028,6 @@ _**Agent (composer-2-fast)**_
 <summary>Tool use: **read_file_v2**</summary>
 
 </details></tool-use>
-
-_**Agent (composer-2-fast)**_
-
-
-
-
-
 
 _**Agent (composer-2-fast)**_
 
@@ -1160,13 +1117,6 @@ _**Agent (composer-2-fast)**_
 
 _**Agent (composer-2-fast)**_
 
-
-
-
-
-
-_**Agent (composer-2-fast)**_
-
 <tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search">
 <details>
 <summary>Tool use: **ripgrep_raw_search**</summary>
@@ -1217,13 +1167,6 @@ _**Agent (composer-2-fast)**_
 <summary>Tool use: **read_file_v2**</summary>
 
 </details></tool-use>
-
-_**Agent (composer-2-fast)**_
-
-
-
-
-
 
 _**Agent (composer-2-fast)**_
 
@@ -1305,13 +1248,6 @@ Status: **completed**
 
 _**Agent (composer-2-fast)**_
 
-
-
-
-
-
-_**Agent (composer-2-fast)**_
-
 <tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search">
 <details>
 <summary>Tool use: **ripgrep_raw_search**</summary>
@@ -1375,13 +1311,6 @@ _**Agent (composer-2-fast)**_
 <summary>Tool use: **read_file_v2**</summary>
 
 </details></tool-use>
-
-_**Agent (composer-2-fast)**_
-
-
-
-
-
 
 _**Agent (composer-2-fast)**_
 
@@ -1454,13 +1383,6 @@ Status: **completed**
 <summary>Tool use: **ripgrep_raw_search**</summary>
 
 </details></tool-use>
-
-_**Agent (composer-2-fast)**_
-
-
-
-
-
 
 _**Agent (composer-2-fast)**_
 
@@ -1554,13 +1476,6 @@ Status: **completed**
 
 _**Agent (composer-2-fast)**_
 
-
-
-
-
-
-_**Agent (composer-2-fast)**_
-
 <tool-use data-tool-type="read" data-tool-name="read_file_v2">
 <details><summary>Tool use: **read_file_v2** • Read file: d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\assets\js\common.js</summary>
 
@@ -1573,7 +1488,6 @@ _**Agent (composer-2-fast)**_
 </details></tool-use>
 
 _**Agent (composer-2-fast)**_
-
 
 以下是对仓库 **`d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io`** 的检索结论（已排除 `.specstory` 等对话历史，只报告站点源码与数据文件）。
 
@@ -1684,4 +1598,70 @@ enable_publication_badges:
 ```12:18:d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_pages\publications.md
 {% if site.data.scholar_citations %}
 <div style="margin-bottom: 1.5rem;">
-  <a href="https://scholar.google.com/citations?user={{ site.scholar_use
+  <a href="https://scholar.google.com/citations?user={{ site.scholar_userid }}" target="_blank">
+    <img src="https://img.shields.io/badge/Google%20Scholar-{{ site.data.scholar_citations.total_citations }}%20citations-4285F4?logo=googlescholar&labelColor=beige" alt="Total Google Scholar citations">
+  </a>
+</div>
+{% endif %}
+```
+
+- 仅当存在 **`site.data.scholar_citations`**（即 Jekyll 会加载 **`d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_data\scholar_citations.json`**）时才渲染该块。  
+- 数字来自 JSON 里的 **`total_citations`**，不是运行时爬取。
+
+当前数据文件示例：
+
+```1:10:d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_data\scholar_citations.json
+{
+  "total_citations": 10,
+  "last_updated": "2026-03-31",
+  "articles": {
+    "9yKSN-GCB0IC": 10,
+    "Y0pCki6q_DkC": 0,
+    "zYLM7Y9cAGgC": 0,
+    "2osOgNQ5qMEC": 0
+  }
+}
+```
+
+---
+
+## 6. 单篇论文 Google Scholar 徽章（与总引用一致的数据源）
+
+`d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_layouts\bib.liquid` 中（节选）：
+
+```311:322:d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_layouts\bib.liquid
+          {% if site.enable_publication_badges.google_scholar and entry_has_google_scholar_badge %}
+            {% assign gs_count = site.data.scholar_citations.articles[entry.google_scholar_id] | default: 0 %}
+            <a
+              href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user={{ site.scholar_userid }}&citation_for_view={{ site.scholar_userid }}:{{ entry.google_scholar_id }}"
+              aria-label="Google Scholar link"
+              role="button"
+            >
+              <img
+                src="https://img.shields.io/badge/scholar-{{ gs_count }}-4285F4?logo=googlescholar&labelColor=beige"
+                alt="{{ gs_count }} Google Scholar citations"
+              >
+            </a>
+          {% endif %}
+```
+
+- 每篇的 `google_scholar_id` 对应 JSON 里 `articles` 的键；缺省为 `0`。  
+- **首页 selected publications** 与 **完整列表** 共用 `bib` 模板，因此逻辑相同。
+
+---
+
+## 7. 模板里的 GitHub 相关徽章 / 链接
+
+- **Repositories 页：** `d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_pages\repositories.md` 通过 `repository/repo_user.liquid`、`repo.liquid`、`repo_trophies.liquid` 嵌入 **github-readme-stats** 与 **github-profile-trophy** 的图片（见第 2 节路径）。  
+- **社交栏：** `d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_includes\social.liquid` 中 `github_username` → Font Awesome GitHub 链到 `https://github.com/{{ site.github_username }}`。  
+- **配置：** `_config.yml` 中 `repo_theme_light`、`repo_theme_dark`、`repo_trophies` 与上述 include 配合使用。
+
+---
+
+### 简要结论
+
+- **Scholar / citation：** 集中在 `_config.yml`、`bib.liquid`、`publications.md`、`_data/scholar_citations.json`、`_includes/social.liquid`；博客引用在 `citation.liquid`。  
+- **shields.io：** 用于 Google Scholar（总引用与单篇）和 InspireHEP 徽章 URL。  
+- **无浏览器端拉 Scholar 引用；** 总引用与单篇计数依赖 **`_data/scholar_citations.json`** 在构建时注入。  
+- **InspireHEP** 仍在构建时用 Ruby 插件请求 API。  
+- **GitHub：** readme-stats / trophy 为外链图片；项目卡片上的 **star 占位 span 未见配套 JS**。

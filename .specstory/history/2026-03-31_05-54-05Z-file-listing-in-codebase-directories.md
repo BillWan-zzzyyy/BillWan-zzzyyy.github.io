@@ -18,7 +18,6 @@ Return the complete list of filenames for each directory.
 
 _**Agent (composer-2-fast)**_
 
-
 正在搜索这三个目录中的文件。
 
 
@@ -135,4 +134,79 @@ I'm sorting and presenting the news results in logical order as requested.
 
 **Listing files**
 
-I'm organizing the news files in natural numeric order: announcement_1.md through announcement_11.md. I'm returning absolute file paths for the news files as requested. </details></think>
+I'm organizing the news files in natural numeric order: announcement_1.md through announcement_11.md. I'm returning absolute file paths for the news files as requested. 
+
+**Sorting posts**
+
+I'm sorting the news files chronologically by date prefix in filename. </details></think>
+
+_**Agent (composer-2-fast)**_
+
+根据仓库里的搜索结果，三个位置如下。
+
+## 1. `d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_news\`（共 11 个文件）
+
+| 文件名 |
+|--------|
+| `announcement_1.md` |
+| `announcement_2.md` |
+| `announcement_3.md` |
+| `announcement_4.md` |
+| `announcement_5.md` |
+| `announcement_6.md` |
+| `announcement_7.md` |
+| `announcement_8.md` |
+| `announcement_9.md` |
+| `announcement_10.md` |
+| `announcement_11.md` |
+
+---
+
+## 2. `d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_posts\`（共 29 个文件）
+
+| 文件名 |
+|--------|
+| `2015-03-15-formatting-and-links.md` |
+| `2015-05-15-images.md` |
+| `2015-07-15-code.md` |
+| `2015-10-20-disqus-comments.md` |
+| `2015-10-20-math.md` |
+| `2018-12-22-distill.md` |
+| `2020-09-28-twitter.md` |
+| `2021-07-04-diagrams.md` |
+| `2022-02-01-redirect.md` |
+| `2022-12-10-giscus-comments.md` |
+| `2023-03-20-table-of-contents.md` |
+| `2023-03-21-tables.md` |
+| `2023-04-24-videos.md` |
+| `2023-04-25-audios.md` |
+| `2023-04-25-sidebar-table-of-contents.md` |
+| `2023-05-12-custom-blockquotes.md` |
+| `2023-07-04-jupyter-notebook.md` |
+| `2023-07-12-post-bibliography.md` |
+| `2023-12-12-tikzjax.md` |
+| `2024-01-26-chartjs.md` |
+| `2024-01-26-echarts.md` |
+| `2024-01-26-geojson-map.md` |
+| `2024-01-27-advanced-images.md` |
+| `2024-01-27-code-diff.md` |
+| `2024-01-27-vega-lite.md` |
+| `2024-04-15-pseudocode.md` |
+| `2024-04-28-post-citation.md` |
+| `2024-04-29-typograms.md` |
+| `2024-05-01-tabs.md` |
+
+---
+
+## 3. `d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_projects\` 下匹配 `*_project.md`（共 6 个文件）
+
+| 文件名 |
+|--------|
+| `4_project.md` |
+| `5_project.md` |
+| `6_project.md` |
+| `7_project.md` |
+| `8_project.md` |
+| `9_project.md` |
+
+说明：`_projects` 里若还有其它不以 `_project.md` 结尾的文件，不会出现在第 3 组里；当前 glob 只匹配到上述 6 个。

@@ -719,6 +719,10 @@ footer.sticky-bottom {
       margin-bottom: 1rem;
 
       .preview {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
       }
 
       .abbr {
@@ -728,9 +732,10 @@ footer.sticky-bottom {
           display: inline-block;
           background-color: var(--global-theme-color);
           margin-bottom: 0.5rem;
+          color: white;
 
           a {
-            color: white;
+            color: inherit;
 
             &:hover {
               text-decoration: none;
