@@ -485,4 +485,669 @@ Let me analyze the current badges:
    - We could switch from Shields.io badges to custom HTML elements with inline styles
    - We could add CSS `transform: scale()` or `height` to the `<img>` tags to make them larger
 
-2. **GitHub icon is too light**: The GitHub badge has `logo=github` with badge color `181717` (dark). The GitHub logo on Shields.io is by default black/dark. </details></think>
+2. **GitHub icon is too light**: The GitHub badge has `logo=github` with badge color `181717` (dark). The GitHub logo on Shields.io is by default black/dark. 
+
+The GitHub logo should appear dark on the beige background, but the user says it's too light. I can use the `logoColor` parameter to explicitly set the logo to white or black to make it more visible and contrasting against the beige background.
+
+For the text size issue, Shields.io doesn't support custom font sizing directly, so I'd need to either scale the image elements with CSS or suggest switching to custom HTML badges instead.</details></think>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ask_question">
+<details>
+<summary>Tool use: **ask_question**</summary>
+
+
+Parameters:
+
+```json
+{
+  "questions": [
+    {
+      "id": "font_approach",
+      "options": [
+        {
+          "id": "scale_img",
+          "label": "继续用 Shields.io 徽章，通过 CSS height 把图片放大（简单，但放大后可能略有模糊）"
+        },
+        {
+          "id": "custom_html",
+          "label": "改用自定义 HTML + CSS 徽章（可完全控制字体大小、粗细、颜色、图标，效果更好）"
+        }
+      ],
+      "prompt": "当前总数统计是用 Shields.io 生成的图片徽章，无法直接控制字体大小/粗细。你希望用哪种方式实现“加大加粗”？"
+    }
+  ]
+}
+```
+Additional data:
+
+```json
+{
+  "currentSelections": {
+    "font_approach": [
+      "custom_html"
+    ]
+  },
+  "freeformTexts": {
+    "font_approach": ""
+  },
+  "status": "submitted"
+}
+```
+Result:
+
+```json
+{
+  "answers": [
+    {
+      "freeformText": "",
+      "questionId": "font_approach",
+      "selectedOptionIds": [
+        "custom_html"
+      ]
+    }
+  ]
+}
+```
+User decision: **accepted**
+
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="unknown" data-tool-name="ask_question"><details>
+<summary>Tool use: **ask_question**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<think><details><summary>Thought Process</summary>
+The user wants to switch to custom HTML + CSS badges. Let me plan this out:
+
+1. Replace the Shields.io `<img>` badges with custom HTML elements
+2. Use inline styles or a CSS class for styling
+3. Include proper icons (Google Scholar and GitHub)
+4. Make text bigger and bolder
+5. Fix GitHub icon visibility
+
+For the icons, I can use:
+- Google Scholar: SVG icon or Font Awesome icon (if available)
+- GitHub: SVG icon or Font Awesome icon
+
+Let me check what icon libraries are available in this al-folio theme.</details></think>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search">
+<details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "glob": "*.{liquid,html,scss,css,md}",
+  "outputMode": "files_with_matches",
+  "pattern": "font-awesome|fontawesome|fa-brands|fa-solid|bootstrap-icons|material-icons"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "files_with_matches",
+  "pattern": "font-awesome|fontawesome|fa-brands|fa-solid|bootstrap-icons|material-icons",
+  "topFiles": [
+    {
+      "matchCount": 1,
+      "uri": ".\\.specstory\\history\\2026-03-31_03-20-20Z-find-all-publication-data.md"
+    },
+    {
+      "matchCount": 1,
+      "uri": ".\\_layouts\\bib.liquid"
+    },
+    {
+      "matchCount": 1,
+      "uri": ".\\.specstory\\history\\2026-03-31_04-00-37Z-codebase-search-for-citations-and-badges.md"
+    },
+    {
+      "matchCount": 1,
+      "uri": ".\\.specstory\\history\\2025-12-17_16-58-27Z-img-标签前多余字符.md"
+    },
+    {
+      "matchCount": 1,
+      "uri": ".\\.specstory\\history\\2026-03-31_03-15-59Z.md"
+    },
+    {
+      "matchCount": 1,
+      "uri": ".\\.specstory\\history\\2025-11-21_06-01-34Z-网站谷歌学术引用插件.md"
+    },
+    {
+      "matchCount": 1,
+      "uri": ".\\lighthouse_results\\mobile\\alshedivat_github_io_al_folio_.html"
+    },
+    {
+      "matchCount": 1,
+      "uri": ".\\lighthouse_results\\desktop\\alshedivat_github_io_al_folio_.html"
+    },
+    {
+      "matchCount": 1,
+      "uri": ".\\assets\\css\\main.scss"
+    },
+    {
+      "matchCount": 1,
+      "uri": ".\\_sass\\font-awesome\\v4-shims.scss"
+    }
+  ],
+  "totalFiles": 32,
+  "totalMatches": 32
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search">
+<details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "glob": "*.{liquid,html,scss}",
+  "outputMode": "files_with_matches",
+  "pattern": "fa-github|fa-google|ai-google-scholar"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "files_with_matches",
+  "pattern": "fa-github|fa-google|ai-google-scholar",
+  "topFiles": [
+    {
+      "matchCount": 1,
+      "uri": ".\\_includes\\social.liquid"
+    },
+    {
+      "matchCount": 1,
+      "uri": ".\\_includes\\projects.liquid"
+    },
+    {
+      "matchCount": 1,
+      "uri": ".\\_includes\\projects_horizontal.liquid"
+    }
+  ],
+  "totalFiles": 3,
+  "totalMatches": 3
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search">
+<details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "context": 2,
+  "path": "d:\\OneDrive - UW-Madison\\My_Github\\BillWan-zzzyyy.github.io\\_includes\\social.liquid",
+  "pattern": "fa-github|academicons|ai-google-scholar|ai ai-"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "content",
+  "path": "d:\\OneDrive - UW-Madison\\My_Github\\BillWan-zzzyyy.github.io\\_includes\\social.liquid",
+  "pattern": "fa-github|academicons|ai-google-scholar|ai ai-",
+  "topFiles": [
+    {
+      "matchCount": 48,
+      "uri": "_includes\\social.liquid"
+    }
+  ],
+  "totalFiles": 1,
+  "totalMatches": 14
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search">
+<details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+
+Parameters:
+
+```json
+{
+  "caseInsensitive": false,
+  "glob": "*.{liquid,html,scss}",
+  "outputMode": "files_with_matches",
+  "pattern": "academicons|ai ai-"
+}
+```
+Additional data:
+
+```json
+{
+  "isPruned": true,
+  "outputMode": "files_with_matches",
+  "pattern": "academicons|ai ai-",
+  "topFiles": [
+    {
+      "matchCount": 1,
+      "uri": ".\\lighthouse_results\\mobile\\alshedivat_github_io_al_folio_.html"
+    },
+    {
+      "matchCount": 1,
+      "uri": ".\\lighthouse_results\\desktop\\alshedivat_github_io_al_folio_.html"
+    },
+    {
+      "matchCount": 1,
+      "uri": ".\\_includes\\social.liquid"
+    },
+    {
+      "matchCount": 1,
+      "uri": ".\\_includes\\head.liquid"
+    }
+  ],
+  "totalFiles": 4,
+  "totalMatches": 4
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="unknown" data-tool-name="ripgrep_raw_search"><details>
+<summary>Tool use: **ripgrep_raw_search**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<think><details><summary>Thought Process</summary>
+The project already has:
+- Font Awesome (fa-brands fa-github)
+- Academicons (ai ai-google-scholar)
+
+So I can use these icon libraries for the custom HTML badges. Let me now create the plan.
+
+The plan would be:
+1. Replace the Shields.io `<img>` badges in `_pages/publications.md` with custom HTML elements
+2. Use `<i class="ai ai-google-scholar">` for Scholar icon and `<i class="fa-brands fa-github">` for GitHub icon
+3. Style them with inline CSS or add a small CSS block for bigger, bolder text
+
+
+4. Ensure the GitHub icon stands out with a dark color scheme.</details></think>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+已确认项目中已有 Font Awesome（`fa-brands fa-github`）和 Academicons（`ai ai-google-scholar`）图标库。现在可以制定完整方案。
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="create_plan">
+<details>
+<summary>Tool use: **create_plan**</summary>
+
+
+Parameters:
+
+```json
+{
+  "name": "Custom HTML badges",
+  "overview": "将 publications 页面的 Shields.io 图片徽章替换为自定义 HTML + CSS 徽章，实现字体加大加粗、GitHub 图标清晰可见。",
+  "plan": "# 自定义 HTML 徽章替换 Shields.io\n\n## 需要修改的文件\n\n仅修改 [&#96;_pages/publications.md&#96;](_pages/publications.md) 第 12-23 行。\n\n## 当前代码\n\n&#96;&#96;&#96;12:23:_pages/publications.md\n\u003cdiv style=\"margin-bottom: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;\"\u003e\n  {% if site.data.scholar_citations %}\n  \u003ca href=\"https://scholar.google.com/citations?user={{ site.scholar_userid }}\" target=\"_blank\"\u003e\n    \u003cimg src=\"https://img.shields.io/badge/Google%20Scholar-{{ site.data.scholar_citations.total_citations }}-4285F4?style=for-the-badge\u0026logo=googlescholar\u0026labelColor=beige\" alt=\"Total Google Scholar citations\"\u003e\n  \u003c/a\u003e\n  {% endif %}\n  {% if site.data.github_stars %}\n  \u003ca href=\"https://github.com/{{ site.github_username }}\" target=\"_blank\"\u003e\n    \u003cimg src=\"https://img.shields.io/badge/GitHub-{{ site.data.github_stars.total_stars }}%20★-181717?style=for-the-badge\u0026logo=github\u0026labelColor=beige\" alt=\"Total GitHub stars\"\u003e\n  \u003c/a\u003e\n  {% endif %}\n\u003c/div\u003e\n&#96;&#96;&#96;\n\n## 替换方案\n\n将两个 Shields.io &#96;\u003cimg\u003e&#96; 替换为自定义 HTML 徽章，使用项目已有的图标库：\n\n- Google Scholar 图标：&#96;\u003ci class=\"ai ai-google-scholar\"\u003e&#96;（Academicons）\n- GitHub 图标：&#96;\u003ci class=\"fa-brands fa-github\"\u003e&#96;（Font Awesome）\n\n每个徽章为一个 &#96;\u003ca\u003e&#96; 标签内的 inline-flex 容器，包含：\n- 左侧：图标 + 标签文字（浅色背景）\n- 右侧：加大加粗的数字（主题色背景，白色文字）\n\n样式要点：\n- 字体大小约 &#96;1rem&#96;，数字部分 &#96;font-weight: 700&#96;\n- GitHub 图标使用深色（&#96;#181717&#96;），确保在浅色背景上清晰可见\n- Google Scholar 图标使用品牌蓝色（&#96;#4285F4&#96;）\n- 圆角设计，整体风格与 for-the-badge 类似但更大更醒目\n- 使用 inline style 避免需要修改额外的 SCSS 文件\n",
+  "todos": [
+    {
+      "content": "将 _pages/publications.md 中的 Shields.io 徽章替换为自定义 HTML + CSS 徽章",
+      "id": "replace-badges",
+      "status": "pending"
+    }
+  ]
+}
+```
+Additional data:
+
+```json
+{
+  "hasOpenedEditor": true,
+  "planUri": "file:///c%3A/Users/Xblank/.cursor/plans/custom_html_badges_14fc3f5b.plan.md",
+  "reviewData": {
+    "isShowingInput": false,
+    "selectedOption": "none",
+    "status": "Requested"
+  }
+}
+```
+Result:
+
+```json
+{
+  "rejected": {}
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="unknown" data-tool-name="create_plan"><details>
+<summary>Tool use: **create_plan**</summary>
+
+</details></tool-use>
+
+---
+
+_**User**_
+
+Implement the plan as specified, it is attached for your reference. Do NOT edit the plan file itself.
+
+To-do's from the plan have already been created. Do not create them again. Mark them as in_progress as you work, starting with the first one. Don't stop until you have completed all the to-dos.
+
+---
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write">
+<details>
+<summary>Tool use: **todo_write**</summary>
+
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "将 _pages/publications.md 中的 Shields.io 徽章替换为自定义 HTML + CSS 徽章",
+      "id": "replace-badges",
+      "status": "in_progress"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "将 _pages/publications.md 中的 Shields.io 徽章替换为自定义 HTML + CSS 徽章",
+      "id": "replace-badges",
+      "status": "pending"
+    }
+  ],
+  "success": true,
+  "wasMerge": true
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2">
+<details><summary>Tool use: **read_file_v2** • Read file: d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_pages\publications.md</summary>
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2">
+
+<details><summary>Tool use: **edit_file_v2** • Edit file: d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_pages\publications.md</summary>
+
+</details>
+
+</tool-use>
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2">
+<details><summary>Tool use: **read_file_v2** • Read file: d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_pages\publications.md</summary>
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write">
+<details>
+<summary>Tool use: **todo_write**</summary>
+
+
+Parameters:
+
+```json
+{
+  "merge": true
+}
+```
+Result:
+
+```json
+{
+  "finalTodos": [
+    {
+      "content": "将 _pages/publications.md 中的 Shields.io 徽章替换为自定义 HTML + CSS 徽章",
+      "id": "replace-badges",
+      "status": "completed"
+    }
+  ],
+  "initialTodos": [
+    {
+      "content": "将 _pages/publications.md 中的 Shields.io 徽章替换为自定义 HTML + CSS 徽章",
+      "id": "replace-badges",
+      "status": "in_progress"
+    }
+  ],
+  "success": true,
+  "wasMerge": true
+}
+```
+Status: **completed**
+
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="unknown" data-tool-name="todo_write"><details>
+<summary>Tool use: **todo_write**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+修改完成。现在两个徽章已从 Shields.io 图片替换为自定义 HTML + CSS 实现：
+
+**Google Scholar 徽章：**
+- 左侧：Academicons 的 `ai-google-scholar` 图标（蓝色，1.3rem）+ "Google Scholar" 文字（加粗 600）
+- 右侧：数字（1.1rem，加粗 700，白色文字，蓝色 `#4285F4` 背景）
+
+**GitHub 徽章：**
+- 左侧：Font Awesome 的 `fa-github` 图标（深色 `#181717`，1.3rem，清晰可见）+ "GitHub" 文字
+- 右侧：数字 + ★（1.1rem，加粗 700，白色文字，深色 `#181717` 背景）
+
+两者共用的设计：圆角 6px、轻微阴影、浅色标签背景（`#f5f0e6`），整体更大更醒目。
+
+---
+
+_**User**_
+
+@c:\Users\Xblank\.cursor\plans\custom_html_badges_14fc3f5b.plan.md 请你把每篇论文下的citation和star统计也改为这种样式，但是大小和现在的版本一样，不要放大
+
+---
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<think><details><summary>Thought Process</summary>
+The user wants me to also change the per-paper citation and star badges (in `_layouts/bib.liquid`) to use the same custom HTML + CSS style as the total badges, but keep them at the original smaller size. Let me first read the current state of both files to understand what we're working with.</details></think>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+让我先查看当前两个文件的状态。
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2">
+<details><summary>Tool use: **read_file_v2** • Read file: d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_pages\publications.md</summary>
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2">
+<details><summary>Tool use: **read_file_v2** • Read file: d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_layouts\bib.liquid</summary>
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<think><details><summary>Thought Process</summary>
+Now I understand the current state. The user wants me to change the per-paper badges (in `bib.liquid`, lines 318-343) from Shields.io `<img>` tags to custom HTML badges matching the same style as the total badges in `publications.md`, but at a smaller size (matching the current Shields.io badge size).
+
+The current Shields.io badges have a default height of about 20px. I need to create custom HTML badges that are similar in size. Let me create a plan.
+
+The changes needed:
+1. In `_layouts/bib.liquid`, replace the Google Scholar badge (lines 318-330) with custom HTML
+
+
+2. Replace the GitHub Stars badge (lines 331-343) with custom HTML as well
+3. Keep both badges at the same small size as the current Shields.io implementation, using a smaller font size and tighter padding to match the 20px height.</details></think>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+现在我了解了两个文件的当前状态。需要修改 `_layouts/bib.liquid` 中第 318-343 行的两个 Shields.io 徽章。
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="create_plan">
+<details>
+<summary>Tool use: **create_plan**</summary>
+
+
+Parameters:
+
+```json
+{
+  "name": "Per-paper custom badges",
+  "overview": "将 bib.liquid 中每篇论文的 Google Scholar citation 和 GitHub Stars Shields.io 徽章替换为与总数徽章同风格的自定义 HTML 徽章，但保持原有小尺寸。",
+  "plan": "# 每篇论文徽章改为自定义 HTML 样式\n\n## 需要修改的文件\n\n仅修改 [&#96;_layouts/bib.liquid&#96;](_layouts/bib.liquid) 第 318-343 行。\n\n## 当前代码（需要替换的部分）\n\n&#96;&#96;&#96;318:343:_layouts/bib.liquid\n          {% if site.enable_publication_badges.google_scholar and entry_has_google_scholar_badge %}\n            {% assign gs_count = site.data.scholar_citations.articles[entry.google_scholar_id] | default: 0 %}\n            \u003ca\n              href=\"https://scholar.google.com/citations?view_op=view_citation\u0026hl=en\u0026user={{ site.scholar_userid }}\u0026citation_for_view={{ site.scholar_userid }}"
+}
+```
+Additional data:
+
+```json
+{
+  "hasOpenedEditor": true,
+  "planUri": "file:///c%3A/Users/Xblank/.cursor/plans/per-paper_custom_badges_60ea3611.plan.md",
+  "reviewData": {
+    "isShowingInput": false,
+    "selectedOption": "none",
+    "status": "Requested"
+  }
+}
+```
+Status: **loading**
+
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="unknown" data-tool-name="create_plan"><details>
+<summary>Tool use: **create_plan**</summary>
+
+</details></tool-use>
