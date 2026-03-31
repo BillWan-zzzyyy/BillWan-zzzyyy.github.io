@@ -1,36 +1,28 @@
 "AJP":
   url: https://aapt.scitation.org/journal/ajp
-  color: "#00369f"
 
 "PhysRev":
   url: https://journals.aps.org/
 
 "Vision":
-  color: "#009f36"
 
 "SCI Q1":
-  color: "#CC0033"
 
 "SCI Q2":
-  color: "#003366"
 
 "SCI Q3":
-  color: "#FFCC00"
 
 "SCI Q4":
-  color: "#669933"
 
 "EI":
-  color: "#9999FF"
 
 "CSCD":
-  color: "#CC99CC"
 
 "Conference":
-  color: "#FFFF00"
 
 "Patent":
-  color: "#663399"
 
 "arXiv":
-  color: "#FF9999"
+
+"JICV":
+  url: https://www.sciopen.com/journal/2096-4498
