@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Typography preview — Zhengyang Wan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@400;600&family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&family=Crimson+Pro:wght@400;600&family=JetBrains+Mono:wght@400&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400&family=Roboto:wght@300;400;500;700&family=Roboto+Slab:wght@400;500;700&display=swap">
+  <style>
+    :root {
+      --bg: #fafafa;
+      --card-bg: #ffffff;
+      --border: #e5e5e5;
+      --text: #1a1a1a;
+      --muted: #666;
+      --muted-2: #888;
+      --badge: #B8508A;
+    }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    body {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .page-header { margin-bottom: 2rem; }
+    .page-header h1 { font: 600 22px/1.2 system-ui; margin: 0 0 0.5rem; }
+    .page-header p { font: 14px/1.5 system-ui; color: var(--muted); margin: 0; }
+
+    .demo {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem 2rem 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+    .demo .label {
+      font: 600 11px/1 system-ui, sans-serif;
+      color: var(--muted-2);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px dashed var(--border);
+    }
+    .demo .label .opt-num { color: var(--badge); font-weight: 700; margin-right: 0.5rem; }
+    .demo .name {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin: 0 0 0.25rem;
+      letter-spacing: -0.01em;
+    }
+    .demo .subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      margin: 0 0 1.25rem;
+      font-weight: 400;
+    }
+    .demo .bio {
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 0 0 1.5rem;
+    }
+    .demo .pub {
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    .demo .badge {
+      display: inline-block;
+      background: var(--badge);
+      color: #fff;
+      font: 600 11px/1 system-ui, sans-serif;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+    .demo .pubtitle {
+      font-size: 17px;
+      font-weight: 600;
+      line-height: 1.4;
+      margin: 0 0 0.4rem;
+    }
+    .demo .pubauthors {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.5;
+      margin: 0 0 0.25rem;
+    }
+    .demo .pubmeta {
+      font-size: 13px;
+      color: var(--muted-2);
+      margin: 0;
+    }
+
+    /* ---------- Per-option font assignments ---------- */
+
+    /* Option 0: current site (Roboto + Roboto Slab) */
+    .opt-current               { font-family: Roboto, -apple-system, sans-serif; }
+    .opt-current .name,
+    .opt-current .subtitle     { font-family: 'Roboto Slab', Georgia, serif; }
+
+    /* Option 1: Inter everywhere */
+    .opt-inter                 { font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif; }
+
+    /* Option 2: Source Serif 4 body + Inter headings */
+    .opt-serif-editorial       { font-family: 'Source Serif 4', Georgia, serif; }
+    .opt-serif-editorial .name,
+    .opt-serif-editorial .subtitle,
+    .opt-serif-editorial .pubtitle { font-family: Inter, -apple-system, sans-serif; }
+
+    /* Option 3: IBM Plex Sans */
+    .opt-plex                  { font-family: 'IBM Plex Sans', -apple-system, sans-serif; }
+
+    /* Option 4: Crimson Pro body + Inter display */
+    .opt-crimson               { font-family: 'Crimson Pro', Georgia, serif; }
+    .opt-crimson .name,
+    .opt-crimson .subtitle     { font-family: Inter, -apple-system, sans-serif; }
+
+    /* Option 5: Geist Sans */
+    .opt-geist                 { font-family: Geist, -apple-system, sans-serif; }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <h1>Typography preview — Zhengyang Wan</h1>
+    <p>Same content rendered in 6 font sets. Scroll through, pick the one you like, and tell Claude the option number.</p>
+  </header>
+
+  <!-- ============================================================
+       OPTION 0 — Current site (Roboto + Roboto Slab)
+       ============================================================ -->
+  <section class="demo opt-current">
+    <div class="label"><span class="opt-num">Option 0</span>Current — Roboto + Roboto Slab (al-folio default)</div>
+    <h2 class="name">Zhengyang Wan</h2>
+    <p class="subtitle">Ph.D. student at The University of Wisconsin-Madison CEE</p>
+    <p class="bio">Hello there! I am a first-year Ph.D. student in the Department of Civil and Environmental Engineering at the University of Wisconsin-Madison (UW-Madison). I joined Sky-Lab at UW-Madison in Fall 2025 under the guidance of Dr. Sikai (Sky) Chen. On Wisconsin!</p>
+    <div class="pub">
+      <span class="badge">arXiv</span>
+      <p class="pubtitle">Sim2Real-AD: A Modular Sim-to-Real Framework for Deploying VLM-Guided Reinforcement Learning in Real-World Autonomous Driving</p>
+      <p class="pubauthors">Huang, Z., Wan, Z., Sheng, Z., Wang, B., You, J., Leng, Y., &amp; Chen, S. ✉</p>
+      <p class="pubmeta">arXiv:2604.03497 · 2026</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       OPTION 1 — Inter (Modern ML researcher)
+       ============================================================ -->
+  <section class="demo opt-inter">
+    <div class="label"><span class="opt-num">Option 1</span>Inter — Modern ML researcher (Karpathy / Anthropic vibe)</div>
+    <h2 class="name">Zhengyang Wan</h2>
+    <p class="subtitle">Ph.D. student at The University of Wisconsin-Madison CEE</p>
+    <p class="bio">Hello there! I am a first-year Ph.D. student in the Department of Civil and Environmental Engineering at the University of Wisconsin-Madison (UW-Madison). I joined Sky-Lab at UW-Madison in Fall 2025 under the guidance of Dr. Sikai (Sky) Chen. On Wisconsin!</p>
+    <div class="pub">
+      <span class="badge">arXiv</span>
+      <p class="pubtitle">Sim2Real-AD: A Modular Sim-to-Real Framework for Deploying VLM-Guided Reinforcement Learning in Real-World Autonomous Driving</p>
+      <p class="pubauthors">Huang, Z., Wan, Z., Sheng, Z., Wang, B., You, J., Leng, Y., &amp; Chen, S. ✉</p>
+      <p class="pubmeta">arXiv:2604.03497 · 2026</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       OPTION 2 — Source Serif 4 body + Inter headings (Editorial)
+       ============================================================ -->
+  <section class="demo opt-serif-editorial">
+    <div class="label"><span class="opt-num">Option 2</span>Source Serif 4 + Inter — Editorial / Distill-style</div>
+    <h2 class="name">Zhengyang Wan</h2>
+    <p class="subtitle">Ph.D. student at The University of Wisconsin-Madison CEE</p>
+    <p class="bio">Hello there! I am a first-year Ph.D. student in the Department of Civil and Environmental Engineering at the University of Wisconsin-Madison (UW-Madison). I joined Sky-Lab at UW-Madison in Fall 2025 under the guidance of Dr. Sikai (Sky) Chen. On Wisconsin!</p>
+    <div class="pub">
+      <span class="badge">arXiv</span>
+      <p class="pubtitle">Sim2Real-AD: A Modular Sim-to-Real Framework for Deploying VLM-Guided Reinforcement Learning in Real-World Autonomous Driving</p>
+      <p class="pubauthors">Huang, Z., Wan, Z., Sheng, Z., Wang, B., You, J., Leng, Y., &amp; Chen, S. ✉</p>
+      <p class="pubmeta">arXiv:2604.03497 · 2026</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       OPTION 3 — IBM Plex Sans (Coherent IBM family)
+       ============================================================ -->
+  <section class="demo opt-plex">
+    <div class="label"><span class="opt-num">Option 3</span>IBM Plex Sans — Coherent IBM family (CMU / IBM Research vibe)</div>
+    <h2 class="name">Zhengyang Wan</h2>
+    <p class="subtitle">Ph.D. student at The University of Wisconsin-Madison CEE</p>
+    <p class="bio">Hello there! I am a first-year Ph.D. student in the Department of Civil and Environmental Engineering at the University of Wisconsin-Madison (UW-Madison). I joined Sky-Lab at UW-Madison in Fall 2025 under the guidance of Dr. Sikai (Sky) Chen. On Wisconsin!</p>
+    <div class="pub">
+      <span class="badge">arXiv</span>
+      <p class="pubtitle">Sim2Real-AD: A Modular Sim-to-Real Framework for Deploying VLM-Guided Reinforcement Learning in Real-World Autonomous Driving</p>
+      <p class="pubauthors">Huang, Z., Wan, Z., Sheng, Z., Wang, B., You, J., Leng, Y., &amp; Chen, S. ✉</p>
+      <p class="pubmeta">arXiv:2604.03497 · 2026</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       OPTION 4 — Crimson Pro body + Inter display (Classical academic)
+       ============================================================ -->
+  <section class="demo opt-crimson">
+    <div class="label"><span class="opt-num">Option 4</span>Crimson Pro + Inter — Classical academic (Garamond-style serif)</div>
+    <h2 class="name">Zhengyang Wan</h2>
+    <p class="subtitle">Ph.D. student at The University of Wisconsin-Madison CEE</p>
+    <p class="bio">Hello there! I am a first-year Ph.D. student in the Department of Civil and Environmental Engineering at the University of Wisconsin-Madison (UW-Madison). I joined Sky-Lab at UW-Madison in Fall 2025 under the guidance of Dr. Sikai (Sky) Chen. On Wisconsin!</p>
+    <div class="pub">
+      <span class="badge">arXiv</span>
+      <p class="pubtitle">Sim2Real-AD: A Modular Sim-to-Real Framework for Deploying VLM-Guided Reinforcement Learning in Real-World Autonomous Driving</p>
+      <p class="pubauthors">Huang, Z., Wan, Z., Sheng, Z., Wang, B., You, J., Leng, Y., &amp; Chen, S. ✉</p>
+      <p class="pubmeta">arXiv:2604.03497 · 2026</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       OPTION 5 — Geist Sans (Bleeding-edge 2024+)
+       ============================================================ -->
+  <section class="demo opt-geist">
+    <div class="label"><span class="opt-num">Option 5</span>Geist Sans — Bleeding-edge 2024+ (Vercel-era)</div>
+    <h2 class="name">Zhengyang Wan</h2>
+    <p class="subtitle">Ph.D. student at The University of Wisconsin-Madison CEE</p>
+    <p class="bio">Hello there! I am a first-year Ph.D. student in the Department of Civil and Environmental Engineering at the University of Wisconsin-Madison (UW-Madison). I joined Sky-Lab at UW-Madison in Fall 2025 under the guidance of Dr. Sikai (Sky) Chen. On Wisconsin!</p>
+    <div class="pub">
+      <span class="badge">arXiv</span>
+      <p class="pubtitle">Sim2Real-AD: A Modular Sim-to-Real Framework for Deploying VLM-Guided Reinforcement Learning in Real-World Autonomous Driving</p>
+      <p class="pubauthors">Huang, Z., Wan, Z., Sheng, Z., Wang, B., You, J., Leng, Y., &amp; Chen, S. ✉</p>
+      <p class="pubmeta">arXiv:2604.03497 · 2026</p>
+    </div>
+  </section>
+
+</body>
+</html>
