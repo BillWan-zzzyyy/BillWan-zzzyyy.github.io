@@ -1323,3 +1323,58 @@ _**Agent (claude-4.6-opus-high-thinking)**_
 - **尺寸保持不变**：字体 `0.7rem`/`0.75rem`，图标 `0.8rem`，内边距 `0.15rem 0.4rem`，圆角 `4px`，与原 Shields.io 默认 badge 大小匹配
 - **GitHub 图标清晰**：使用深色 `#181717`，在浅色 `#f5f0e6` 背景上清晰可见
 - **InspireHEP badge** 保持原样未改动
+
+---
+
+_**User**_
+
+每条publication下图标的scholar改为Scholar，github改为Github
+
+---
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2">
+<details><summary>Tool use: **read_file_v2** • Read file: d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_layouts\bib.liquid</summary>
+
+</details>
+</tool-use>
+
+<tool-use data-tool-type="read" data-tool-name="read_file_v2"><details>
+<summary>Tool use: **read_file_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2">
+
+<details><summary>Tool use: **edit_file_v2** • Edit file: d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_layouts\bib.liquid</summary>
+
+</details>
+
+</tool-use>
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2">
+
+<details><summary>Tool use: **edit_file_v2** • Edit file: d:\OneDrive - UW-Madison\My_Github\BillWan-zzzyyy.github.io\_layouts\bib.liquid</summary>
+
+</details>
+
+</tool-use>
+
+<tool-use data-tool-type="write" data-tool-name="edit_file_v2"><details>
+<summary>Tool use: **edit_file_v2**</summary>
+
+</details></tool-use>
+
+_**Agent (claude-4.6-opus-high-thinking)**_
+
+已完成，`scholar` 改为 `Scholar`，`github` 改为 `Github`。
