@@ -58,6 +58,10 @@ on:
       - "!INSTALL.md"
       - "!README.md"
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Update Scholar Citations", "Update GitHub Stars"]
+    types: [completed]
+    branches: [main]
 
 permissions:
   contents: write
@@ -66,16 +70,17 @@ jobs:
   deploy:
     # available images: https://github.com/actions/runner-images#available-images
     runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Ruby 💎
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3.5"
           bundler-cache: true
       - name: Setup Python 🐍
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.13"
           cache: "pip" # caching pip dependencies
