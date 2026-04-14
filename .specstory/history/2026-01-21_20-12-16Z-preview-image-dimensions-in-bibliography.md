@@ -141,4 +141,7 @@ _**Agent (gpt-5.3-codex-xhigh)**_
 - `assets/img/publication_preview/drivevlmrl.webp`：`552 × 458`
 - `assets/img/publication_preview/skydrive_new.webp`：`1170 × 692`
 - `assets/img/publication_preview/preview_partd24.webp`：`759 × 557`
--
+- `assets/img/publication_preview/vtt24.webp`：`200 × 87`
+- `assets/img/publication_preview/brownian-motion.gif`：`100 × 100`
+
+如果你是指你当前光标附近那条 `preview={skydrive_new.webp}`，就是 `1170 × 692`。
