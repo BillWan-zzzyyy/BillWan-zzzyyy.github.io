@@ -4,8 +4,8 @@ permalink: /cv/
 title: CV
 nav: true
 nav_order: 5
-cv_pdf: CV_ZhengyangWan_2412.pdf
-description: You can obtain the PDF version of my CV by clicking the PDF icon on the right.(v2412)
+cv_pdf: My_CV2505_RenderCV_sb2nov_Theme.pdf
+description: A full PDF version of my CV is available via the button on the right (v2505).
 toc:
   sidebar: left
 ---

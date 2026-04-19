@@ -49,7 +49,10 @@
   <!-- Entry bib key -->
   <div id="{{ entry.key }}" class="{% if site.enable_publication_thumbnails %}col-sm-8{% else %}col-sm-10{% endif %}">
     <!-- Title -->
-    <div class="title">{{ entry.title }}</div>
+    <div class="title">
+      {% if entry.selected %}<span class="selected-dot" aria-label="Selected"></span>{% endif %}
+      {{ entry.title }}
+    </div>
     <!-- Author -->
     <div class="author">
       {% assign author_array_size = entry.author_array | size %}
@@ -84,10 +87,10 @@
           {%- if forloop.last and author_array_limit == author_array_size %}and&nbsp;{% endif -%}
         {% endif %}
         {%- if author_is_self -%}
-          <em>
+          <strong class="author-self">
             {{- author.first }}
             {{ author_last_html -}}
-          </em>
+          </strong>
         {%- else -%}
           {%- if coauthor_url -%}
             <a href="{{ coauthor_url }}">
@@ -151,11 +154,11 @@
     {% assign proceedings = 'inproceedings,incollection' | split: ',' %}
     {% assign thesis = 'thesis,mastersthesis,phdthesis' | split: ',' %}
     {% if entry.type == 'article' %}
-      {% capture entrytype %}<em>{{ entry.journal }}</em>{% endcapture %}
+      {% capture entrytype %}<span class="venue-pill">{{ entry.journal }}</span>{% endcapture %}
     {% elsif proceedings contains entry.type %}
-      {% capture entrytype %}<em>In {{ entry.booktitle }}</em>{% endcapture %}
+      {% capture entrytype %}<span class="venue-pill">In {{ entry.booktitle }}</span>{% endcapture %}
     {% elsif thesis contains entry.type %}
-      {% capture entrytype %}<em>{{ entry.school }}</em>{% endcapture %}
+      {% capture entrytype %}<span class="venue-pill">{{ entry.school }}</span>{% endcapture %}
     {% else %}
       {% capture entrytype %}{% endcapture %}
     {% endif %}
@@ -309,33 +312,29 @@
           {% if site.enable_publication_badges.google_scholar and entry_has_google_scholar_badge %}
             {% assign gs_count = site.data.scholar_citations.articles[entry.google_scholar_id] | default: 0 %}
             <a
+              class="badge-pill"
               href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user={{ site.scholar_userid }}&citation_for_view={{ site.scholar_userid }}:{{ entry.google_scholar_id }}"
-              aria-label="Google Scholar link"
+              aria-label="Google Scholar citations"
               role="button"
-              style="display: inline-flex; align-items: stretch; text-decoration: none; border-radius: 4px; overflow: hidden; vertical-align: middle;"
             >
-              <span style="display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.4rem; background: #f5f0e6; color: #4285F4; font-size: 0.7rem; font-weight: 600; line-height: 1;">
-                <i class="ai ai-google-scholar" style="font-size: 0.8rem;"></i> Scholar
+              <span class="badge-pill__label">
+                <i class="ai ai-google-scholar"></i> Scholar
               </span>
-              <span style="display: inline-flex; align-items: center; padding: 0.15rem 0.4rem; background: #4285F4; color: #fff; font-size: 0.75rem; font-weight: 700; line-height: 1;">
-                {{ gs_count }}
-              </span>
+              <span class="badge-pill__value">{{ gs_count }}</span>
             </a>
           {% endif %}
           {% if site.enable_publication_badges.github_stars and entry_has_github_stars_badge %}
             {% assign star_count = site.data.github_stars.repos[entry.github_repo] | default: 0 %}
             <a
+              class="badge-pill"
               href="https://github.com/{{ entry.github_repo }}"
-              aria-label="GitHub repository"
+              aria-label="GitHub repository stars"
               role="button"
-              style="display: inline-flex; align-items: stretch; text-decoration: none; border-radius: 4px; overflow: hidden; vertical-align: middle;"
             >
-              <span style="display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.15rem 0.4rem; background: #f5f0e6; color: #181717; font-size: 0.7rem; font-weight: 600; line-height: 1;">
-                <i class="fa-brands fa-github" style="font-size: 0.8rem; color: #181717;"></i> Github
+              <span class="badge-pill__label">
+                <i class="fa-brands fa-github"></i> GitHub
               </span>
-              <span style="display: inline-flex; align-items: center; padding: 0.15rem 0.4rem; background: #181717; color: #fff; font-size: 0.75rem; font-weight: 700; line-height: 1;">
-                {{ star_count }} ★
-              </span>
+              <span class="badge-pill__value">{{ star_count }} ★</span>
             </a>
           {% endif %}
           {% if site.enable_publication_badges.inspirehep and entry_has_inspirehep_badge %}

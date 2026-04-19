@@ -1,154 +1,47 @@
-/*****************************
- * CV shared styles
- *****************************/
+/*******************************************************************************
+ * CV — Academic Editorial timeline.
+ *
+ * Sections render as <section class="cv-section"> with a serif title and a
+ * hairline rule. Time-table entries use a CSS grid with a mono year gutter
+ * on the left, institution/role/items on the right.
+ ******************************************************************************/
 
-div.container-link-button {
-  margin-right: 0.5rem;
+// ------------ CV page header + PDF button ---------------------------------
+.cv-pdf-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  i { margin-right: $sp-1; }
 }
 
-table.table-cv {
-  background-color: transparent !important;
+@media (max-width: 576px) {
+  .cv-pdf-button {
+    position: static;
+    margin-top: $sp-3;
+  }
 }
 
-a.btncv {
-  color: var(--global-text-color) !important;
-  border: 1px solid var(--global-text-color) !important;
-  border-radius: 0.125rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  text-decoration: none;
-  font-weight: 400;
-  font-size: 0.7rem;
-  text-align: center;
-  vertical-align: middle;
-  text-transform: uppercase;
-  white-space: nowrap;
+// ------------ Section wrapper ---------------------------------------------
+.cv-section {
+  margin-top: $sp-7;
+  margin-bottom: $sp-5;
+
+  &:first-child { margin-top: $sp-5; }
+
+  .cv-section__title {
+    font-family: $ff-serif;
+    font-size: $fs-xl;
+    font-weight: $fw-semibold;
+    color: var(--global-text-color);
+    margin: 0 0 $sp-4;
+    padding-bottom: $sp-3;
+    border-bottom: 1px solid var(--hairline);
+    letter-spacing: -0.005em;
+  }
 }
 
-a.btncv:hover {
-  color: var(--global-theme-color) !important;
-  border-color: var(--global-theme-color) !important;
-  text-decoration: none !important;
-}
-
-/*****************************
- * CV TIME_TABLE styles
- *****************************/
-
-p.location {
-  font-size: 0.7rem;
-  white-space: nowrap;
-}
-
-i.iconlocation {
-  color: var(--global-theme-color);
-  font-size: 0.8rem;
-}
-
-i.iconinstitution {
-  color: var(--global-theme-color);
-  font-size: 0.95rem;
-  margin-right: 0.3rem;
-}
-
-i.icondepartment {
-  color: var(--global-theme-color);
-  font-size: 0.8rem;
-  margin-right: 0.3rem;
-}
-
-table.institution {
-  margin-bottom: 1rem;
-}
-
-td.department {
-  font-size: 0.8rem;
-}
-
-div.container-links {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-/*****************************
- * CV MAP styles
- *****************************/
-
-div.container-pdf {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-/*****************************
- * CV LIST_GROUPS styles
- *****************************/
-
-div.list-groups {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  flex-direction: row;
-  align-content: center;
-}
-
-div.list-group {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 2rem;
-}
-
-td.list-group-category {
-  color: var(--global-theme-color);
-  margin-bottom: 0.5rem;
-}
-
-td.list-group-category-icon {
-  font-size: 0.8rem;
-  color: var(--global-theme-color);
-  width: 1.4rem;
-  padding-right: 0.4rem;
-}
-
-td.list-group-name {
-  font-size: 0.8rem;
-}
-
-td.list-group-level {
-  font-size: 0.8rem;
-  padding-left: 0.5rem;
-}
-
-td.list-group-school {
-  font-size: 0.7rem;
-  padding-left: 0.5rem;
-  text-align: center;
-}
-
-p.list-group-time {
-  font-size: 0.7rem;
-  padding-left: 0.5rem;
-}
-
-td.list-group-link {
-  padding-left: 0.5rem;
-}
-
-/*****************************
- * CV TOC styles
- *****************************/
-
+// ------------ Anchor (offset so #id scrolls below the fixed nav) ---------
 a.anchor {
   display: block;
   position: relative;
@@ -156,9 +49,306 @@ a.anchor {
   visibility: hidden;
 }
 
+// ------------ Time-table entries ------------------------------------------
+// Structure emitted by _includes/cv/time_table.liquid:
+//   <ul.card-text.font-weight-light.list-group.list-group-flush>
+//     <li.list-group-item>
+//       <div.row>
+//         <div.col-xs-2.cl-sm-2.col-md-2.text-center> ← year badge
+//         <div.col-xs-10.cl-sm-10.col-md-10>        ← title / institution / items
+//
+// We override the Bootstrap grid with a CSS grid so year + content align
+// cleanly on a shared baseline.
+
+.cv-section ul.list-group,
+.cv-section ul.list-group-flush {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+
+  > li.list-group-item {
+    background: transparent;
+    border: 0;
+    border-top: 1px solid var(--hairline);
+    padding: $sp-5 0;
+
+    &:first-child { border-top: 0; }
+
+    > .row {
+      display: grid;
+      grid-template-columns: 6.5rem 1fr;
+      gap: $sp-4;
+      margin: 0;
+      align-items: baseline;
+
+      // Kill Bootstrap col-sm-* width; let grid handle layout.
+      > [class*="col-"] {
+        flex: none;
+        max-width: none;
+        width: auto;
+        padding: 0;
+      }
+    }
+  }
+}
+
+// Year column
+.cv-section .table-cv {
+  background: transparent !important;
+  width: 100%;
+  margin: 0;
+
+  td { padding: 0; border: 0; }
+
+  .badge {
+    display: inline-block;
+    padding: $sp-1 $sp-2;
+    background: transparent !important;
+    color: var(--global-theme-color) !important;
+    border: 1px solid var(--global-theme-color);
+    border-radius: $r-sm;
+    font-family: $ff-mono;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    min-width: 0;
+  }
+}
+
+p.location {
+  font-family: $ff-mono;
+  font-size: $fs-xs;
+  color: var(--mono-meta-color);
+  white-space: nowrap;
+  margin: $sp-1 0 0;
+
+  i.iconlocation {
+    color: var(--global-theme-color);
+    font-size: 0.9em;
+    margin-right: $sp-1;
+  }
+}
+
+// Right column (title / institution / department / description)
+.cv-section {
+  h5.title {
+    font-family: $ff-sans;
+    font-size: $fs-md;
+    font-weight: $fw-semibold;
+    color: var(--global-text-color);
+    margin: 0 0 $sp-2;
+  }
+
+  // Institution table (keeps legacy markup; drop table chrome).
+  table.institution {
+    background: transparent !important;
+    width: auto;
+    margin: 0 0 $sp-2;
+
+    td {
+      border: 0;
+      padding: 0 $sp-2 0 0;
+      font-family: $ff-sans;
+      font-size: $fs-sm;
+      color: var(--global-text-color);
+      background: transparent;
+    }
+
+    td.institution { color: var(--global-text-color); }
+
+    td.department {
+      font-family: $ff-mono;
+      font-size: $fs-xs;
+      color: var(--mono-meta-color);
+    }
+
+    i.iconinstitution,
+    i.icondepartment {
+      color: var(--global-theme-color);
+      font-size: 0.95em;
+      margin-right: $sp-1;
+    }
+  }
+
+  .items {
+    list-style: none;
+    padding: 0;
+    margin: $sp-3 0 0;
+
+    > li {
+      position: relative;
+      padding: $sp-1 0 $sp-1 $sp-4;
+      font-family: $ff-serif;
+      font-size: $fs-base;
+      line-height: $lh-snug;
+      color: var(--global-text-color);
+
+      &::before {
+        content: '·';
+        position: absolute;
+        left: $sp-2;
+        font-family: $ff-mono;
+        color: var(--global-theme-color);
+        font-weight: $fw-bold;
+      }
+
+      .item-title {
+        font-weight: $fw-semibold;
+      }
+
+      .subitems {
+        list-style: none;
+        padding: 0;
+        margin: $sp-1 0 0;
+
+        > li {
+          padding: 0 0 0 $sp-3;
+          font-size: $fs-sm;
+          color: var(--global-text-color-light);
+
+          .subitem { display: inline; }
+        }
+      }
+    }
+  }
+
+  // Link buttons beneath an entry (papers, slides, project page, etc.).
+  .container-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $sp-2;
+    margin: $sp-3 0 $sp-2;
+
+    .container-link-button {
+      margin: 0;
+    }
+  }
+}
+
+a.btncv {
+  display: inline-flex;
+  align-items: center;
+  color: var(--global-text-color) !important;
+  background: transparent !important;
+  border: 1px solid var(--btn-outline) !important;
+  border-radius: $r-md;
+  padding: $sp-1 $sp-3;
+  font-family: $ff-sans;
+  font-size: $fs-xs;
+  font-weight: $fw-semibold;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: none !important;
+  transition:
+    color $dur-base $ease-out,
+    border-color $dur-base $ease-out;
+
+  &:hover,
+  &:focus {
+    color: var(--global-theme-color) !important;
+    border-color: var(--global-theme-color) !important;
+    text-decoration: none !important;
+    background: transparent !important;
+  }
+}
+
+// ------------ CV MAP (key/value "general info") ---------------------------
+.table-cv-map {
+  background-color: transparent;
+  border: none;
+  color: var(--global-text-color);
+  font-family: $ff-serif;
+  font-size: $fs-base;
+
+  td { border: 0; padding: $sp-1 $sp-3 $sp-1 0; }
+}
+
+.date-column {
+  width: 6.5rem;
+  transform: none;
+  font-family: $ff-mono;
+  font-size: $fs-xs;
+  color: var(--mono-meta-color);
+}
+
+div.container-pdf {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $sp-2;
+  align-items: center;
+  margin-top: $sp-3;
+}
+
+// ------------ CV LIST_GROUPS (skills, languages) -------------------------
+div.list-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $sp-5;
+  justify-content: flex-start;
+  margin-top: $sp-3;
+}
+
+div.list-group {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-bottom: $sp-5;
+}
+
+td.list-group-category {
+  color: var(--global-theme-color);
+  font-family: $ff-sans;
+  font-size: $fs-sm;
+  font-weight: $fw-semibold;
+  margin-bottom: $sp-2;
+}
+
+td.list-group-category-icon {
+  font-size: 0.8rem;
+  color: var(--global-theme-color);
+  width: 1.4rem;
+  padding-right: $sp-1;
+}
+
+td.list-group-name {
+  font-family: $ff-serif;
+  font-size: $fs-sm;
+  color: var(--global-text-color);
+}
+
+td.list-group-level {
+  font-family: $ff-mono;
+  font-size: $fs-xs;
+  padding-left: $sp-2;
+  color: var(--mono-meta-color);
+}
+
+td.list-group-school {
+  font-size: $fs-xs;
+  padding-left: $sp-2;
+  text-align: center;
+  color: var(--mono-meta-color);
+}
+
+p.list-group-time {
+  font-family: $ff-mono;
+  font-size: $fs-xs;
+  padding-left: $sp-2;
+  color: var(--mono-meta-color);
+}
+
+td.list-group-link {
+  padding-left: $sp-2;
+}
+
+// ------------ CV TOC (optional, used by some templates) ------------------
 ul.timeline {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: $sp-5;
+  margin-bottom: $sp-5;
 }
 
 ul.timeline li {
@@ -166,23 +356,27 @@ ul.timeline li {
   min-height: 2.2rem;
   color: var(--global-text-color);
   list-style-position: inside;
+  font-family: $ff-serif;
 }
 
 span.badge-toc {
-  color: var(--global-bg-color);
-  background-color: var(--global-theme-color);
-  border-radius: 0.125rem;
-  padding: 0.125rem 0.5rem 0.125rem 0.5rem;
-  font-weight: 700 !important;
   display: inline-block;
   inline-size: fit-content;
+  color: var(--global-bg-color);
+  background-color: var(--global-theme-color);
+  border-radius: $r-sm;
+  padding: $sp-1 $sp-2;
+  font-family: $ff-mono;
+  font-size: $fs-xs;
+  font-weight: $fw-bold !important;
+  letter-spacing: 0.03em;
 }
 
 ul.timeline li::before {
   content: "";
   min-height: 2.5rem;
   width: 1px;
-  background: var(--global-text-color);
+  background: var(--hairline);
   margin: 0;
   padding: 0;
   position: absolute;
@@ -190,26 +384,11 @@ ul.timeline li::before {
   top: -0.5rem;
 }
 
-/*ul.timeline::before {
-     content: "●";
-     font-size: 1em;
-     display: inline-block;
-     margin: 0;
-     padding: 0;
-     position: relative;
-     left: -2px;
-     top: 0.4rem;
-     color: var(--global-text-color);
+// ------------ Mobile: collapse year gutter --------------------------------
+@media (max-width: 576px) {
+  .cv-section ul.list-group > li.list-group-item > .row,
+  .cv-section ul.list-group-flush > li.list-group-item > .row {
+    grid-template-columns: 1fr;
+    gap: $sp-2;
+  }
 }
- ul.timeline::after {
-     content: "●";
-     font-size: 1em;
-     display: inline-block;
-     margin: 0;
-     padding: 0;
-     position: relative;
-     left: -2px;
-     top: -1rem;
-     color: var(--global-text-color);
-}
-*/

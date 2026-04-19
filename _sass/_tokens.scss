@@ -1,0 +1,108 @@
+/*******************************************************************************
+ * Design tokens — Academic Editorial base + Modern Tech accents
+ *
+ * Single source of truth for color, type, spacing, radius, shadow, motion.
+ * Consumed by _themes.scss via CSS variables. Do NOT reference tokens directly
+ * from component Sass — always go through CSS vars so dark mode works.
+ ******************************************************************************/
+
+// ------------ Color: red scale (UW-Madison brand, #c5050c at 500) ---------
+$red-50:  #fff5f5 !default;
+$red-100: #ffe5e5 !default;
+$red-200: #fbc2c2 !default;
+$red-300: #f28e8e !default;
+$red-400: #e25a5a !default;
+$red-500: #c5050c !default;
+$red-600: #a10309 !default;
+$red-700: #7d0207 !default;
+$red-800: #5c0105 !default;
+$red-900: #3d0003 !default;
+
+// ------------ Color: neutrals (light, Tailwind-style) ---------------------
+$n-0:   #ffffff !default;
+$n-50:  #fafafa !default;
+$n-100: #f3f4f6 !default;
+$n-200: #e5e7eb !default;
+$n-300: #d1d5db !default;
+$n-400: #9ca3af !default;
+$n-500: #6b7280 !default;
+$n-600: #4b5563 !default;
+$n-700: #374151 !default;
+$n-800: #1f2937 !default;
+$n-900: #111827 !default;
+
+// ------------ Color: cool-ink (dark mode) --------------------------------
+$ink-0:   #0f1216 !default;
+$ink-50:  #151820 !default;
+$ink-100: #1a1e26 !default;
+$ink-200: #262b36 !default;
+$ink-300: #363c48 !default;
+$ink-400: #5b6271 !default;
+$ink-500: #8a92a1 !default;
+$ink-600: #adb4c0 !default;
+$ink-700: #c9ced7 !default;
+$ink-800: #dde0e6 !default;
+$ink-900: #e8eaed !default;
+
+// ------------ Typography families ----------------------------------------
+$ff-serif: 'Source Serif 4', ui-serif, Georgia, 'Times New Roman', serif;
+$ff-sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+$ff-mono:  'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+
+// ------------ Typography scale (rem) -------------------------------------
+$fs-xs:   0.75rem;    // mono eyebrow, small pills
+$fs-sm:   0.875rem;   // mono meta, news date, stat pills
+$fs-base: 1rem;       // body
+$fs-md:   1.125rem;   // publication title
+$fs-lg:   1.375rem;   // subsection heading
+$fs-xl:   1.75rem;    // h2
+$fs-2xl:  2.5rem;     // hero h1
+$fs-3xl:  3.25rem;    // display (reserved)
+
+$lh-tight:   1.1;
+$lh-snug:    1.25;
+$lh-heading: 1.35;
+$lh-body:    1.65;
+$lh-relaxed: 1.7;
+
+$fw-regular:  400;
+$fw-medium:   500;
+$fw-semibold: 600;
+$fw-bold:     700;
+
+$tracking-wide: 0.08em;    // uppercase eyebrow / nav labels
+$tracking-normal: 0;
+
+// ------------ Spacing scale (px) -----------------------------------------
+$sp-1: 4px;
+$sp-2: 8px;
+$sp-3: 12px;
+$sp-4: 16px;
+$sp-5: 24px;
+$sp-6: 32px;
+$sp-7: 48px;
+$sp-8: 64px;
+$sp-9: 96px;
+
+// ------------ Radius -----------------------------------------------------
+$r-sm:   2px;
+$r-md:   4px;
+$r-lg:   6px;
+$r-pill: 999px;
+
+// ------------ Shadow -----------------------------------------------------
+$sh-none:  none;
+$sh-soft:  0 1px 2px rgba(0, 0, 0, 0.06);
+$sh-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+// ------------ Motion -----------------------------------------------------
+$dur-fast: 120ms;
+$dur-base: 150ms;
+$dur-slow: 240ms;
+$ease-out: cubic-bezier(0.2, 0, 0, 1);
+
+// ------------ Semantic ---------------------------------------------------
+// Prefer reading these through CSS variables defined in _themes.scss.
+// Kept here for Sass-only consumers (e.g. early partials).
+$hairline-light: rgba(0, 0, 0, 0.08);
+$hairline-dark:  #262b36;

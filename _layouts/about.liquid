@@ -2,8 +2,16 @@
 layout: default
 ---
 <div class="post">
-  <header class="post-header">
-    <h1 class="post-title">
+  <header class="post-header about-header">
+    <p class="eyebrow">
+      {%- if page.eyebrow -%}
+        {{ page.eyebrow }}
+      {%- else -%}
+        PhD Candidate · CEE · UW–Madison
+      {%- endif -%}
+    </p>
+
+    <h1 class="post-title about-title">
       {% if site.title == 'blank' %}
         <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
         {{ site.last_name }}
@@ -11,11 +19,12 @@ layout: default
         {{ site.title }}
       {% endif %}
     </h1>
-    <div class="desc" style="margin-top: 0.2rem; margin-bottom: 0.2rem;">{{ page.subtitle }}</div>
+
+    <div class="desc about-subtitle">{{ page.subtitle }}</div>
 
     <!-- Social -->
     {% if page.social %}
-      <div class="social" style="text-align: left; margin-top: 0rem;">
+      <div class="social" style="text-align: left; margin-top: 0.5rem;">
         <div class="contact-icons">{% include social.liquid %}</div>
         <div class="contact-note">{{ site.contact_note }}</div>
       </div>
@@ -24,80 +33,73 @@ layout: default
     {% if site.newsletter.enabled and site.footer_fixed %}
       {% include scripts/newsletter.liquid center=true %}
     {% endif %}
-</header>
+  </header>
 
   <article>
     {% if page.profile %}
       <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
-        {% if page.profile.image %}
-          {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-          {% if page.profile.image_circular %}
-            {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
-          {% else %}
-            {% assign profile_image_class = 'img-fluid z-depth-1
-      rounded' %}
+        <div class="profile__card">
+          {% if page.profile.image %}
+            {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+            {% if page.profile.image_circular %}
+              {% assign profile_image_class = 'img-fluid rounded-circle' %}
+            {% else %}
+              {% assign profile_image_class = 'img-fluid rounded' %}
+            {% endif %}
+            {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px) 30vw, 95vw{% endcapture %}
+            {%
+              include figure.liquid
+              loading="eager"
+              path=profile_image_path
+              class=profile_image_class
+              sizes=sizes
+              alt=page.profile.image
+              cache_bust=true
+            %}
           {% endif %}
-          {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
-      30vw, 95vw"{% endcapture %}
-          {%
-            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
-            cache_bust=true
-          %}
-        {% endif %}
-        {% if page.profile.more_info %}
-          <div class="more-info">{{ page.profile.more_info }}</div>
-        {% endif %}
+          {% if page.profile.more_info %}
+            <div class="more-info">{{ page.profile.more_info }}</div>
+          {% endif %}
+        </div>
       </div>
     {% endif %}
 
-    <div class="clearfix">{{ content }}</div>
+    <div class="bio clearfix">{{ content }}</div>
 
-    <!-- Divider -->   
-    <hr class="dashed-divider">
+    <ul class="meta-strip" aria-label="At a glance">
+      <li>PhD @ UW–Madison</li>
+      <li>CEE</li>
+      <li>Chicago, US</li>
+      <li>2025—</li>
+    </ul>
 
-    <!-- News -->
+    <!-- Recent News -->
     {% if page.news and site.announcements.enabled %}
-      <h6>
-        <a href="{{ '/news/' | relative_url }}" style="color: inherit">Recent News</a>
-      </h6>
-      {% include news.liquid limit=true %}
+      <hr class="section-rule">
+      <section class="home-section">
+        <h6>
+          <a href="{{ '/news/' | relative_url }}">Recent News</a>
+        </h6>
+        {% include news.liquid limit=true %}
+      </section>
     {% endif %}
 
-    {% comment %}
-    <!-- Divider -->   
-    <hr class="dashed-divider">
-
-    <!-- Latest posts -->
-    {% if site.latest_posts.enabled %}
-      <h6>
-        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
-      </h6>
-      {% include latest_posts.liquid %}
-    {% endif %}
-    {% endcomment %}
-
-    <!-- Divider -->   
-    <hr class="dashed-divider">
-
-    <!-- Selected papers -->
+    <!-- Selected Publications -->
     {% if page.selected_papers %}
-      <h6>
-        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">Selected Publications</a>
-      </h6>
-      {% include selected_papers.liquid %}
+      <hr class="section-rule">
+      <section class="home-section">
+        <h6>
+          <a href="{{ '/publications/' | relative_url }}">Selected Publications</a>
+        </h6>
+        {% include selected_papers.liquid %}
+      </section>
     {% endif %}
-
   </article>
 
-    <!-- Divider -->   
-    <hr class="dashed-divider">
-
-  <!-- Visitor count -->
-  <div class="visitor-count" style="text-align: center; margin-top: 30px;">
+  <!-- Visitor heatmap ornament (muted, low emphasis) -->
+  <div class="footer__ornament" aria-hidden="true">
     <div style="transform: scale(0.7); transform-origin: top center;">
       <script type='text/javascript' id='clustrmaps' src='//clustrmaps.com/map_v2.js?d=iWTm2HbayeimtnXDADURqs5_Im3_wek8M_WS3lq5qLI&cl=ffffff&w=a'></script>
     </div>
   </div>
-
 </div>
-
