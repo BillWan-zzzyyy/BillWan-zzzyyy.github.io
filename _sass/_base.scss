@@ -599,8 +599,8 @@ footer.sticky-bottom {
 
   .news-row {
     display: grid;
-    grid-template-columns: minmax(8ch, 10ch) 1fr;
-    gap: $sp-4;
+    grid-template-columns: minmax(10ch, 12ch) 1fr;
+    gap: $sp-5;
     padding: $sp-3 0;
     border-bottom: 1px solid var(--hairline);
     align-items: baseline;
@@ -609,9 +609,10 @@ footer.sticky-bottom {
 
     .news-date {
       font-family: $ff-mono;
-      font-size: $fs-xs;
+      font-size: $fs-sm;
+      font-weight: $fw-medium;
       letter-spacing: 0.02em;
-      color: var(--mono-meta-color);
+      color: var(--global-text-color);
       white-space: nowrap;
       padding-top: 0.15em;
     }
@@ -1056,13 +1057,8 @@ footer.sticky-bottom {
     border-radius: $r-md;
     overflow: hidden;
     border: 1px solid var(--hairline);
-    transition: border-color $dur-base $ease-out, background $dur-base $ease-out;
     font-family: $ff-mono;
     line-height: 1;
-
-    &:hover {
-      border-color: var(--global-theme-color);
-    }
 
     .stat-pill__label {
       display: inline-flex;
@@ -1086,7 +1082,7 @@ footer.sticky-bottom {
       font-size: $fs-xs;
       font-weight: $fw-bold;
       color: var(--global-bg-color);
-      background: var(--global-theme-color);
+      background: var(--global-text-color);
     }
   }
 
@@ -1205,19 +1201,22 @@ footer.sticky-bottom {
 
         // Legacy self-highlight: bib.liquid originally wrapped the author's
         // own name in <em>. Keep that working for backward-compat.
+        // Intentionally NOT tinted — names stay in body color (cultural
+        // convention: red on names reads as inauspicious in zh-CN).
         > em {
           font-weight: $fw-bold;
           font-style: normal;
-          color: var(--global-theme-color);
+          color: var(--global-text-color);
           border-bottom: 0;
         }
 
         // New self-highlight: <strong class="author-self"> (after bib.liquid refactor).
+        // Same rule: bold charcoal, never accent.
         > strong.author-self,
         strong.author-self {
           font-weight: $fw-bold;
           font-style: normal;
-          color: var(--global-theme-color);
+          color: var(--global-text-color);
           border-bottom: 0;
         }
 
@@ -1235,31 +1234,24 @@ footer.sticky-bottom {
         }
       }
 
+      // Periodical = venue + middot + month/year. Mono outer (month/year),
+      // serif italic inner (venue), nothing boxed.
       .periodical {
         font-family: $ff-mono;
-        font-size: $fs-xs;
+        font-size: $fs-sm;
         letter-spacing: 0.02em;
         color: var(--mono-meta-color);
         margin-top: $sp-2;
-
-        em {
-          font-style: normal;
-          color: var(--global-text-color);
-        }
       }
 
-      // Inline mono venue pill (wraps entry.journal / booktitle when rendered
-      // inside bib.liquid's updated periodical block).
-      .venue-pill {
-        display: inline-block;
-        padding: 0 $sp-2;
-        border: 1px solid var(--hairline);
-        border-radius: $r-md;
-        font-family: $ff-mono;
-        font-size: $fs-xs;
-        letter-spacing: 0.02em;
+      .venue {
+        font-family: $ff-serif;
+        font-size: $fs-base;
+        font-style: italic;
+        font-weight: $fw-regular;
         color: var(--global-text-color);
-        background: var(--global-bg-subtle);
+        letter-spacing: normal;
+        margin-right: 0.15em;
       }
 
       .links {
@@ -1327,11 +1319,6 @@ footer.sticky-bottom {
         border: 1px solid var(--hairline);
         font-family: $ff-mono;
         line-height: 1;
-        transition: border-color $dur-base $ease-out;
-
-        &:hover {
-          border-color: var(--global-theme-color);
-        }
 
         .badge-pill__label {
           display: inline-flex;

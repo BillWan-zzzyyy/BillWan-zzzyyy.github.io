@@ -12,16 +12,7 @@ horizontal: false
 <!-- pages/projects.md -->
 <div class="projects">
 {% if site.enable_project_categories and page.display_categories %}
-  <nav class="filter-chips" aria-label="Project categories">
-    <a href="#all">All</a>
-    {% for category in page.display_categories %}
-      <a href="#{{ category | slugify }}">{{ category }}</a>
-    {% endfor %}
-  </nav>
-  <a id="all"></a>
-
   {% for category in page.display_categories %}
-    <a id="{{ category | slugify }}"></a>
     <a class="anchor" id="{{ category }}"></a>
     <h2 class="category">{{ category }}</h2>
     {% assign categorized_projects = site.projects | where: "category", category %}

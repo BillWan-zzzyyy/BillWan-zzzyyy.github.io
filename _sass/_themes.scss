@@ -1,31 +1,33 @@
 /*******************************************************************************
  * Themes — consume tokens from _tokens.scss, expose via CSS variables.
  *
- * Red (#c5050c) stays the single accent color in BOTH light and dark modes
- * (override al-folio's default cyan-in-dark behaviour — verified contrast
- *  ratio: red on ink-0 = 5.1:1 AA). Dark mode uses cool-ink instead of pure
- * black so code/images don't feel like they're punching a hole in the page.
+ * Palette: Scheme 2 (charcoal + deep teal, MIT/ETH-inspired). Light surfaces
+ * are a warm off-white (#FAFAF7) paired with soft charcoal body text
+ * (#1F2937); accent is deep teal (#0F5257). Dark surfaces keep the cool-ink
+ * foundation; accent shifts to a lighter teal (#4FC3C7) for AA contrast.
+ * No red is emitted by any live rule — the $red-* tokens in _tokens.scss
+ * stay defined only for legacy class names.
  ******************************************************************************/
 
 @use "sass:color";
 
 :root {
-  // Surfaces
-  --global-bg-color:           #{$n-0};
+  // Surfaces (warm off-white, not pure #fff)
+  --global-bg-color:           #{$warm-bg-light};
   --global-card-bg-color:      #{$n-0};
-  --global-code-bg-color:      #{$code-bg-color-light};
-  --global-bg-subtle:          #{$n-100};
+  --global-code-bg-color:      #{$warm-subtle};
+  --global-bg-subtle:          #{$warm-subtle};
 
-  // Text
-  --global-text-color:         #{$n-900};
+  // Text (soft charcoal, not pure #000)
+  --global-text-color:         #{$charcoal};
   --global-text-color-light:   #{$n-500};
 
-  // Accent — red stays red in both modes
-  --global-theme-color:        #{$red-500};
-  --global-hover-color:        #{$red-600};
+  // Accent — deep teal (Stanford / MIT / ETH "cold-rational" direction)
+  --global-theme-color:        #{$teal-500};
+  --global-hover-color:        #{$teal-600};
   --global-hover-text-color:   #{$n-0};
-  --global-highlight-color:    #{$red-700};
-  --global-quote-left:         #{$red-600};
+  --global-highlight-color:    #{$teal-500};
+  --global-quote-left:         #{$teal-500};
 
   // Footer
   --global-footer-bg-color:    #{$n-900};
@@ -98,12 +100,12 @@ html[data-theme="dark"] {
   --global-text-color:         #{$ink-900};
   --global-text-color-light:   #{$ink-500};
 
-  // Accent — red stays red (override al-folio cyan default)
-  --global-theme-color:        #{$red-500};
-  --global-hover-color:        #{$red-400};
-  --global-hover-text-color:   #{$n-0};
-  --global-highlight-color:    #{$red-400};
-  --global-quote-left:         #{$red-400};
+  // Accent — lighter teal for AA on cool ink (9.7:1 contrast).
+  --global-theme-color:        #{$teal-light};
+  --global-hover-color:        #{$teal-light-hover};
+  --global-hover-text-color:   #{$ink-0};
+  --global-highlight-color:    #{$teal-light};
+  --global-quote-left:         #{$teal-light};
 
   // Footer
   --global-footer-bg-color:    #{$ink-50};

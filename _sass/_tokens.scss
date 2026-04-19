@@ -6,7 +6,25 @@
  * from component Sass — always go through CSS vars so dark mode works.
  ******************************************************************************/
 
-// ------------ Color: red scale (UW-Madison brand, #c5050c at 500) ---------
+// ------------ Color: teal scale (accent — MIT/ETH-inspired) ---------------
+// Light-mode primary = $teal-500 #0F5257. Dark-mode brighter variant
+// = $teal-light for AA contrast on cool-ink surfaces.
+$teal-50:  #e6f0f1 !default;
+$teal-100: #cde1e3 !default;
+$teal-200: #9ec3c7 !default;
+$teal-300: #6fa5ab !default;
+$teal-400: #408790 !default;
+$teal-500: #0F5257 !default;
+$teal-600: #0B3F43 !default;
+$teal-700: #082E31 !default;
+$teal-800: #061F21 !default;
+$teal-900: #031213 !default;
+$teal-light:       #4FC3C7 !default;  // dark-mode accent
+$teal-light-hover: #6FDCE0 !default;  // dark-mode hover
+
+// ------------ Color: red scale (DORMANT — kept for legacy references) -----
+// No live rule emits red as of 2026-04-19; scale retained so any stray
+// references (e.g. .btn-outline-red class name) still resolve.
 $red-50:  #fff5f5 !default;
 $red-100: #ffe5e5 !default;
 $red-200: #fbc2c2 !default;
@@ -104,5 +122,10 @@ $ease-out: cubic-bezier(0.2, 0, 0, 1);
 // ------------ Semantic ---------------------------------------------------
 // Prefer reading these through CSS variables defined in _themes.scss.
 // Kept here for Sass-only consumers (e.g. early partials).
-$hairline-light: rgba(0, 0, 0, 0.08);
-$hairline-dark:  #262b36;
+$hairline-light: rgba(0, 0, 0, 0.06);
+$hairline-dark:  #1D2028;
+
+// ------------ Warm neutrals (for Scheme 2: charcoal + deep teal) ----------
+$warm-bg-light:   #FAFAF7;  // warm off-white
+$warm-subtle:     #F0F0EC;  // label bg, code bg
+$charcoal:        #1F2937;  // body text (not pure black)

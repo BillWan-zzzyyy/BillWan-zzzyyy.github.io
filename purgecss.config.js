@@ -18,7 +18,7 @@ module.exports = {
       "footer__ornament",
       "author-self",
       "selected-dot",
-      "venue-pill",
+      "venue",
       "stat-pill",
       "stat-pill-row",
       "stat-pill__label",

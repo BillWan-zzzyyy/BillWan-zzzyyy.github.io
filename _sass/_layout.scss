@@ -35,18 +35,11 @@ body.sticky-bottom-footer {
 }
 
 .profile__card {
-  border: 1px solid var(--hairline);
-  border-radius: $r-sm;
-  padding: $sp-3;
-  background: var(--global-card-bg-color);
-  transition: border-color $dur-base $ease-out;
-
-  &:hover {
-    border-color: var(--global-theme-color);
-  }
+  padding: 0;
+  background: transparent;
 
   .more-info {
-    margin-top: $sp-2;
+    margin-top: $sp-3;
     font-family: $ff-mono;
     font-size: $fs-xs;
     color: var(--mono-meta-color);
@@ -69,7 +62,9 @@ body.sticky-bottom-footer {
 }
 
 .highlight-text {
-  color: var(--global-theme-color);
+  // Intentionally not tinted — names / role labels stay in body color.
+  // "Ph.D. student" renders as bold charcoal, never accent.
+  color: var(--global-text-color);
   font-weight: $fw-semibold;
 }
 
@@ -137,17 +132,18 @@ body.sticky-bottom-footer {
   margin-top: $sp-6;
 
   > h6 {
-    font-family: $ff-sans;
-    font-size: $fs-xs;
+    font-family: $ff-serif;
+    font-size: $fs-xl;
     font-weight: $fw-semibold;
-    letter-spacing: $tracking-wide;
-    text-transform: uppercase;
-    color: var(--mono-meta-color);
-    display: inline-block;
-    padding-bottom: $sp-2;
-    margin: 0 0 $sp-4;
+    letter-spacing: -0.005em;
+    text-transform: none;
+    color: var(--global-text-color);
+    display: block;
+    padding-bottom: 0;
+    margin: $sp-2 0 $sp-5;
+    line-height: $lh-snug;
 
-    // Kill the legacy ornamental underline — let section-rule do the work.
+    // Kill the legacy ornamental underline — hairline .section-rule does the work.
     &::after {
       content: none;
     }

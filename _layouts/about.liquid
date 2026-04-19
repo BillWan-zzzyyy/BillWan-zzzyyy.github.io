@@ -3,14 +3,6 @@ layout: default
 ---
 <div class="post">
   <header class="post-header about-header">
-    <p class="eyebrow">
-      {%- if page.eyebrow -%}
-        {{ page.eyebrow }}
-      {%- else -%}
-        PhD Candidate · CEE · UW–Madison
-      {%- endif -%}
-    </p>
-
     <h1 class="post-title about-title">
       {% if site.title == 'blank' %}
         <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
@@ -65,13 +57,6 @@ layout: default
     {% endif %}
 
     <div class="bio clearfix">{{ content }}</div>
-
-    <ul class="meta-strip" aria-label="At a glance">
-      <li>PhD @ UW–Madison</li>
-      <li>CEE</li>
-      <li>Chicago, US</li>
-      <li>2025—</li>
-    </ul>
 
     <!-- Recent News -->
     {% if page.news and site.announcements.enabled %}

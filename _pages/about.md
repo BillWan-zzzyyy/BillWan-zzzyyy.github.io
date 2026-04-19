@@ -10,7 +10,7 @@ profile:
   image: DSCF1344.webp
   image_circular: false # crops the image to make it circular
   more_info: >
-    <p style="margin-left: 35px;">Chicago, US, 2025</p>
+    <p>Chicago, US, 2025</p>
 
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
