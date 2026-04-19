@@ -141,11 +141,11 @@ p.location {
 // Right column (title / institution / department / description)
 .cv-section {
   h5.title {
-    font-family: $ff-sans;
-    font-size: $fs-md;
-    font-weight: $fw-semibold;
-    color: var(--global-text-color);
-    margin: 0 0 $sp-2;
+    font-family: $ff-sans !important;
+    font-size: $fs-md !important;
+    font-weight: $fw-semibold !important;
+    color: var(--global-text-color) !important;
+    margin: 0 0 $sp-2 !important;
   }
 
   // Institution table (keeps legacy markup; drop table chrome).

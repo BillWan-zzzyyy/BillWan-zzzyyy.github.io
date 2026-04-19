@@ -8,7 +8,10 @@
               <tbody>
                 <tr>
                   <td>
-                    <span class="cv-year-badge text-uppercase align-middle">
+                    <span
+                      class="cv-year-badge text-uppercase align-middle"
+                      style="background: transparent !important; background-color: transparent !important; background-image: none !important; color: var(--global-theme-color) !important; border: 1px solid var(--global-theme-color) !important; box-shadow: none !important;"
+                    >
                       {{- content.year -}}
                     </span>
                   </td>
@@ -29,7 +32,7 @@
         {% endif %}
         <div class="col-xs-10 cl-sm-10 col-md-10 mt-2 mt-md-0">
           {% if content.title %}
-            <h5 class="title font-weight-bold ml-1 ml-md-4">{{ content.title }}</h5>
+            <h5 class="title ml-1 ml-md-4" style="color: var(--global-text-color) !important;">{{ content.title }}</h5>
           {% endif %}
           {% if content.department or content.institution %}
             <table class="table-cv ml-1 ml-md-4 institution">
