@@ -482,11 +482,11 @@ ul.task-list input[type="checkbox"] {
   text-align: left;
 
   .contact-icons {
-    font-size: 1.25rem;
-    margin-bottom: $sp-2;
+    font-size: 1.6rem;
+    margin-bottom: $sp-3;
     display: flex;
     flex-wrap: wrap;
-    gap: $sp-3;
+    gap: $sp-4;
 
     a {
       i::before {
