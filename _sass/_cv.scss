@@ -102,16 +102,16 @@ a.anchor {
   td { padding: 0; border: 0; }
 }
 
-// Armored year badge — beats any residual MDB .danger-color-dark / .badge-*
-// shading by overriding BOTH the `background` shorthand and the more-
-// specific `background-color` longhand, plus locking color + border !important.
-.cv-year-badge,
-.cv-section .table-cv .badge,
-.cv-section .table-cv .badge.cv-year-badge {
+// CV year badge — standalone class, no Bootstrap/MDB .badge hook in the
+// markup so no external stylesheet can reach this element. All properties
+// still carry !important as a safety net in case the .badge class is
+// ever re-introduced on a descendant.
+.cv-year-badge {
   display: inline-block !important;
   padding: $sp-1 $sp-2 !important;
   background: transparent !important;
   background-color: transparent !important;
+  background-image: none !important;
   color: var(--global-theme-color) !important;
   border: 1px solid var(--global-theme-color) !important;
   border-radius: $r-sm !important;

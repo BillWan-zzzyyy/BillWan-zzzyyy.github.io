@@ -1050,13 +1050,14 @@ footer.sticky-bottom {
   }
 
   // Stat pill (Scholar total / GitHub total at top of publications page).
+  // No outer border — the two-tone (label bg + value bg) halves carry the
+  // visual weight; an extra hairline around them reads as a redundant frame.
   .stat-pill {
     display: inline-flex;
     align-items: stretch;
     text-decoration: none;
     border-radius: $r-md;
     overflow: hidden;
-    border: 1px solid var(--hairline);
     font-family: $ff-mono;
     line-height: 1;
 
@@ -1310,13 +1311,13 @@ footer.sticky-bottom {
       }
 
       // Inline mono badge pills (Scholar, GitHub etc.) — matched to stat-pill look.
+      // No outer hairline — the half-pills are self-contained.
       .badge-pill {
         display: inline-flex;
         align-items: stretch;
         text-decoration: none;
         border-radius: $r-md;
         overflow: hidden;
-        border: 1px solid var(--hairline);
         font-family: $ff-mono;
         line-height: 1;
 
