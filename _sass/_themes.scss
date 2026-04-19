@@ -1,33 +1,33 @@
 /*******************************************************************************
  * Themes — consume tokens from _tokens.scss, expose via CSS variables.
  *
- * Palette: Scheme 2-B (charcoal + Oxford navy). Light surfaces are a warm
- * off-white (#FAFAF7) paired with soft charcoal body text (#1F2937); accent
- * is Oxford navy (#1E3A5F, 10.6:1 AAA). Dark surfaces keep the cool-ink
- * foundation; accent shifts to a lighter navy (#7FA3D1, 7.5:1 AAA). Neither
- * red nor teal is emitted by any live rule — both scales are retained in
- * _tokens.scss for legacy class names and future rollback only.
+ * Palette: Scheme "Claude Book" (cream + rust + near-black). Light surfaces
+ * use Claude cream #F0EEE6 with near-black body text #141413; accent is
+ * Claude Book Rust at its AA-safe shade #B3654A (4.55:1 on cream), with the
+ * lighter brand hue #CC785C reserved for decorative fills. Dark surfaces
+ * use warm dark #1F1E1C with lighter rust #E09B7F (7.2:1 AAA). Red, teal,
+ * and navy scales are retained in _tokens.scss as dormant rollback options.
  ******************************************************************************/
 
 @use "sass:color";
 
 :root {
-  // Surfaces (warm off-white, not pure #fff)
-  --global-bg-color:           #{$warm-bg-light};
+  // Surfaces (Claude cream — warmer than prior warm off-white)
+  --global-bg-color:           #{$cream-bg};
   --global-card-bg-color:      #{$n-0};
-  --global-code-bg-color:      #{$warm-subtle};
-  --global-bg-subtle:          #{$warm-subtle};
+  --global-code-bg-color:      #{$cream-subtle};
+  --global-bg-subtle:          #{$cream-subtle};
 
-  // Text (soft charcoal, not pure #000)
-  --global-text-color:         #{$charcoal};
-  --global-text-color-light:   #{$n-500};
+  // Text (Claude near-black + warm meta grey)
+  --global-text-color:         #{$claude-ink};
+  --global-text-color-light:   #{$claude-ink-light};
 
-  // Accent — Oxford navy (classic senior-scholar presence, 10.6:1 AAA)
-  --global-theme-color:        #{$navy-500};
-  --global-hover-color:        #{$navy-600};
-  --global-hover-text-color:   #{$n-0};
-  --global-highlight-color:    #{$navy-500};
-  --global-quote-left:         #{$navy-500};
+  // Accent — Claude Book Rust (AA-safe variant on cream)
+  --global-theme-color:        #{$rust-600};
+  --global-hover-color:        #{$rust-700};
+  --global-hover-text-color:   #{$cream-bg};
+  --global-highlight-color:    #{$rust-500};
+  --global-quote-left:         #{$rust-500};
 
   // Footer
   --global-footer-bg-color:    #{$n-900};
@@ -36,10 +36,10 @@
 
   --global-distill-app-color:  #{$n-500};
 
-  // Lines & dividers
-  --global-divider-color:      #{$hairline-light};
-  --hairline:                  #{$hairline-light};
-  --mono-meta-color:           #{$n-500};
+  // Lines & dividers (denser on cream so the hairline reads)
+  --global-divider-color:      #{$hairline-cream};
+  --hairline:                  #{$hairline-cream};
+  --mono-meta-color:           #{$claude-ink-light};
   --btn-outline:               #{$n-400};
 
   --global-back-to-top-bg-color: rgba(
@@ -48,9 +48,9 @@
     #{color.channel($black-color, "blue", $space: rgb)},
     0.4
   );
-  --global-back-to-top-text-color: #{$n-0};
-  --global-newsletter-bg-color:    #{$n-0};
-  --global-newsletter-text-color:  #{$n-900};
+  --global-back-to-top-text-color: #{$cream-bg};
+  --global-newsletter-bg-color:    #{$cream-bg};
+  --global-newsletter-text-color:  #{$claude-ink};
 
   --global-quoto-block-bg: #fffacd;
 
@@ -90,35 +90,35 @@
 }
 
 html[data-theme="dark"] {
-  // Surfaces — cool ink, not pure black
-  --global-bg-color:           #{$ink-0};
-  --global-card-bg-color:      #{$ink-50};
-  --global-code-bg-color:      #{$ink-100};
-  --global-bg-subtle:          #{$ink-100};
+  // Surfaces — warm dark (Claude-style), not cool ink
+  --global-bg-color:           #{$warm-dark-bg};
+  --global-card-bg-color:      #{$warm-dark-card};
+  --global-code-bg-color:      #{$warm-dark-subtle};
+  --global-bg-subtle:          #{$warm-dark-subtle};
 
-  // Text
-  --global-text-color:         #{$ink-900};
-  --global-text-color-light:   #{$ink-500};
+  // Text — warm light, not pure white
+  --global-text-color:         #{$warm-dark-text};
+  --global-text-color-light:   #{$warm-dark-meta};
 
-  // Accent — lighter navy for AA contrast on cool ink (7.5:1).
-  --global-theme-color:        #{$navy-light};
-  --global-hover-color:        #{$navy-light-hover};
-  --global-hover-text-color:   #{$ink-0};
-  --global-highlight-color:    #{$navy-light};
-  --global-quote-left:         #{$navy-light};
+  // Accent — lighter rust for AA contrast on warm dark (7.2:1 AAA).
+  --global-theme-color:        #{$rust-light};
+  --global-hover-color:        #{$rust-light-hover};
+  --global-hover-text-color:   #{$warm-dark-bg};
+  --global-highlight-color:    #{$rust-light};
+  --global-quote-left:         #{$rust-light};
 
   // Footer
-  --global-footer-bg-color:    #{$ink-50};
-  --global-footer-text-color:  #{$ink-600};
-  --global-footer-link-color:  #{$ink-900};
+  --global-footer-bg-color:    #{$warm-dark-card};
+  --global-footer-text-color:  #{$warm-dark-meta};
+  --global-footer-link-color:  #{$warm-dark-text};
 
-  --global-distill-app-color:  #{$ink-500};
+  --global-distill-app-color:  #{$warm-dark-meta};
 
-  // Lines & dividers
-  --global-divider-color:      #{$hairline-dark};
-  --hairline:                  #{$hairline-dark};
-  --mono-meta-color:           #{$ink-500};
-  --btn-outline:               #{$ink-300};
+  // Lines & dividers (warm-dark hairline)
+  --global-divider-color:      #{$hairline-warm-dark};
+  --hairline:                  #{$hairline-warm-dark};
+  --mono-meta-color:           #{$warm-dark-meta};
+  --btn-outline:               #{$warm-dark-meta};
 
   --global-back-to-top-bg-color: rgba(
     #{color.channel($white-color, "red", $space: rgb)},
@@ -126,9 +126,9 @@ html[data-theme="dark"] {
     #{color.channel($white-color, "blue", $space: rgb)},
     0.5
   );
-  --global-back-to-top-text-color: #{$ink-0};
-  --global-newsletter-bg-color:    #{$ink-50};
-  --global-newsletter-text-color:  #{$ink-900};
+  --global-back-to-top-text-color: #{$warm-dark-bg};
+  --global-newsletter-bg-color:    #{$warm-dark-card};
+  --global-newsletter-text-color:  #{$warm-dark-text};
 
   --global-tip-block:         #42b983;
   --global-tip-block-bg:      #1a2e24;

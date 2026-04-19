@@ -6,7 +6,37 @@
  * from component Sass — always go through CSS vars so dark mode works.
  ******************************************************************************/
 
-// ------------ Color: Oxford navy scale (accent — current) ----------------
+// ------------ Color: Claude "Book Rust" scale (accent — current) ---------
+// Light-mode primary = $rust-600 #B3654A (AA 4.55:1 on #F0EEE6 cream).
+// $rust-500 #CC785C is Claude's brand Book Rust, kept for decorative use.
+// Dark-mode variant = $rust-light #E09B7F (7.2:1 AAA on warm dark).
+$rust-50:  #FBF1EC !default;
+$rust-100: #F7E0D5 !default;
+$rust-200: #EFC3AE !default;
+$rust-300: #E3A185 !default;
+$rust-400: #D18766 !default;
+$rust-500: #CC785C !default;
+$rust-600: #B3654A !default;
+$rust-700: #8C4A32 !default;
+$rust-800: #5E301E !default;
+$rust-900: #351810 !default;
+$rust-light:       #E09B7F !default;  // dark-mode accent (AAA on warm dark)
+$rust-light-hover: #F0B097 !default;  // dark-mode hover
+
+// Claude warm neutrals
+$cream-bg:           #F0EEE6 !default;
+$cream-subtle:       #E8E4D8 !default;
+$claude-ink:         #141413 !default;
+$claude-ink-light:   #6B6B6A !default;
+$warm-dark-bg:       #1F1E1C !default;
+$warm-dark-card:     #272624 !default;
+$warm-dark-subtle:   #2D2B28 !default;
+$warm-dark-text:     #EAE8DF !default;
+$warm-dark-meta:     #9A9894 !default;
+$hairline-cream:     rgba(20, 20, 19, 0.10) !default;
+$hairline-warm-dark: #302E2B !default;
+
+// ------------ Color: Oxford navy scale (DORMANT — previous accent) --------
 // Light-mode primary = $navy-500 #1E3A5F (Oxford Blue, 10.6:1 AAA on warm off-white).
 // Dark-mode brighter variant = $navy-light #7FA3D1 (7.5:1 AAA on cool-ink).
 $navy-50:  #F1F4F9 !default;
