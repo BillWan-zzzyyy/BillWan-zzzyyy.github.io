@@ -6,9 +6,23 @@
  * from component Sass — always go through CSS vars so dark mode works.
  ******************************************************************************/
 
-// ------------ Color: teal scale (accent — MIT/ETH-inspired) ---------------
-// Light-mode primary = $teal-500 #0F5257. Dark-mode brighter variant
-// = $teal-light for AA contrast on cool-ink surfaces.
+// ------------ Color: Oxford navy scale (accent — current) ----------------
+// Light-mode primary = $navy-500 #1E3A5F (Oxford Blue, 10.6:1 AAA on warm off-white).
+// Dark-mode brighter variant = $navy-light #7FA3D1 (7.5:1 AAA on cool-ink).
+$navy-50:  #F1F4F9 !default;
+$navy-100: #DCE3EE !default;
+$navy-200: #B5C3D9 !default;
+$navy-300: #8EA3C4 !default;
+$navy-400: #6783AF !default;
+$navy-500: #1E3A5F !default;
+$navy-600: #15274A !default;
+$navy-700: #0F1C36 !default;
+$navy-800: #091222 !default;
+$navy-900: #05080F !default;
+$navy-light:       #7FA3D1 !default;  // dark-mode accent
+$navy-light-hover: #9CB8DB !default;  // dark-mode hover
+
+// ------------ Color: teal scale (DORMANT — prior accent, kept for rollback)
 $teal-50:  #e6f0f1 !default;
 $teal-100: #cde1e3 !default;
 $teal-200: #9ec3c7 !default;

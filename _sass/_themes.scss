@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Themes — consume tokens from _tokens.scss, expose via CSS variables.
  *
- * Palette: Scheme 2 (charcoal + deep teal, MIT/ETH-inspired). Light surfaces
- * are a warm off-white (#FAFAF7) paired with soft charcoal body text
- * (#1F2937); accent is deep teal (#0F5257). Dark surfaces keep the cool-ink
- * foundation; accent shifts to a lighter teal (#4FC3C7) for AA contrast.
- * No red is emitted by any live rule — the $red-* tokens in _tokens.scss
- * stay defined only for legacy class names.
+ * Palette: Scheme 2-B (charcoal + Oxford navy). Light surfaces are a warm
+ * off-white (#FAFAF7) paired with soft charcoal body text (#1F2937); accent
+ * is Oxford navy (#1E3A5F, 10.6:1 AAA). Dark surfaces keep the cool-ink
+ * foundation; accent shifts to a lighter navy (#7FA3D1, 7.5:1 AAA). Neither
+ * red nor teal is emitted by any live rule — both scales are retained in
+ * _tokens.scss for legacy class names and future rollback only.
  ******************************************************************************/
 
 @use "sass:color";
@@ -22,12 +22,12 @@
   --global-text-color:         #{$charcoal};
   --global-text-color-light:   #{$n-500};
 
-  // Accent — deep teal (Stanford / MIT / ETH "cold-rational" direction)
-  --global-theme-color:        #{$teal-500};
-  --global-hover-color:        #{$teal-600};
+  // Accent — Oxford navy (classic senior-scholar presence, 10.6:1 AAA)
+  --global-theme-color:        #{$navy-500};
+  --global-hover-color:        #{$navy-600};
   --global-hover-text-color:   #{$n-0};
-  --global-highlight-color:    #{$teal-500};
-  --global-quote-left:         #{$teal-500};
+  --global-highlight-color:    #{$navy-500};
+  --global-quote-left:         #{$navy-500};
 
   // Footer
   --global-footer-bg-color:    #{$n-900};
@@ -100,12 +100,12 @@ html[data-theme="dark"] {
   --global-text-color:         #{$ink-900};
   --global-text-color-light:   #{$ink-500};
 
-  // Accent — lighter teal for AA on cool ink (9.7:1 contrast).
-  --global-theme-color:        #{$teal-light};
-  --global-hover-color:        #{$teal-light-hover};
+  // Accent — lighter navy for AA contrast on cool ink (7.5:1).
+  --global-theme-color:        #{$navy-light};
+  --global-hover-color:        #{$navy-light-hover};
   --global-hover-text-color:   #{$ink-0};
-  --global-highlight-color:    #{$teal-light};
-  --global-quote-left:         #{$teal-light};
+  --global-highlight-color:    #{$navy-light};
+  --global-quote-left:         #{$navy-light};
 
   // Footer
   --global-footer-bg-color:    #{$ink-50};
