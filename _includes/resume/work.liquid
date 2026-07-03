@@ -16,7 +16,7 @@
             <tbody>
               <tr>
                 <td>
-                  <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px"> {{ date }} </span>
+                  <span class="cv-year-badge text-uppercase align-middle"> {{ date }} </span>
                 </td>
               </tr>
               {% if content.location %}
@@ -36,8 +36,8 @@
           <h5 class="title font-weight-bold ml-1 ml-md-4">
             <a href="{{ content.url }}">{{ content.position }}</a>
           </h5>
-          <h5 class="ml-1 ml-md-4" style="font-size: 0.95rem">{{ content.name }}</h5>
-          <h5 class="ml-1 ml-md-4" style="font-size: 0.95rem; font-style: italic">{{ content.summary }}</h5>
+          <h5 class="cv-entry-meta ml-1 ml-md-4">{{ content.name }}</h5>
+          <h5 class="cv-entry-detail ml-1 ml-md-4">{{ content.summary }}</h5>
           <ul class="items">
             {% for item in content.highlights %}
               <li>

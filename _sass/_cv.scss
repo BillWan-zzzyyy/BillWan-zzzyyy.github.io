@@ -2,9 +2,13 @@
  * CV — Academic Editorial timeline.
  *
  * Sections render as <section class="cv-section"> with a serif title and a
- * hairline rule. Time-table entries use a CSS grid with a mono year gutter
+ * hairline rule. Time-table entries use a CSS grid with a year gutter
  * on the left, institution/role/items on the right.
  ******************************************************************************/
+
+.cv {
+  font-family: $ff-serif;
+}
 
 // ------------ CV page header + PDF button ---------------------------------
 .cv-pdf-button {
@@ -24,6 +28,7 @@
 
 // ------------ Section wrapper ---------------------------------------------
 .cv-section {
+  font-family: $ff-serif;
   margin-top: $sp-7;
   margin-bottom: $sp-5;
 
@@ -102,20 +107,18 @@ a.anchor {
   td { padding: 0; border: 0; }
 }
 
-// CV year badge — standalone class, no Bootstrap/MDB .badge hook in the
-// markup so no external stylesheet can reach this element. All properties
-// still carry !important as a safety net in case the .badge class is
-// ever re-introduced on a descendant.
+// CV year badge — standalone class, no Bootstrap/MDB .badge hook in the markup
+// so no external stylesheet can reintroduce the legacy red badge treatment.
 .cv-year-badge {
   display: inline-block !important;
   padding: $sp-1 $sp-2 !important;
-  background: transparent !important;
-  background-color: transparent !important;
+  background: var(--global-theme-color) !important;
+  background-color: var(--global-theme-color) !important;
   background-image: none !important;
-  color: var(--global-theme-color) !important;
+  color: var(--global-bg-color) !important;
   border: 1px solid var(--global-theme-color) !important;
   border-radius: $r-sm !important;
-  font-family: $ff-mono !important;
+  font-family: $ff-serif !important;
   font-size: $fs-xs !important;
   font-weight: $fw-semibold !important;
   letter-spacing: 0.04em !important;
@@ -125,7 +128,7 @@ a.anchor {
 }
 
 p.location {
-  font-family: $ff-mono;
+  font-family: $ff-serif;
   font-size: $fs-xs;
   color: var(--mono-meta-color);
   white-space: nowrap;
@@ -140,12 +143,33 @@ p.location {
 
 // Right column (title / institution / department / description)
 .cv-section {
-  h5.title {
-    font-family: $ff-sans !important;
+  h5,
+  h6 {
+    font-family: $ff-serif !important;
+    color: var(--global-text-color) !important;
+    letter-spacing: $tracking-normal !important;
+    text-transform: none !important;
+  }
+
+  h5.title,
+  h6.title {
     font-size: $fs-md !important;
     font-weight: $fw-semibold !important;
-    color: var(--global-text-color) !important;
     margin: 0 0 $sp-2 !important;
+  }
+
+  h5.cv-entry-meta,
+  h5.cv-entry-detail,
+  h6.cv-entry-meta,
+  h6.cv-entry-detail {
+    font-size: $fs-base !important;
+    font-weight: $fw-semibold !important;
+    margin: 0 0 $sp-2 !important;
+  }
+
+  h5.cv-entry-detail,
+  h6.cv-entry-detail {
+    font-style: italic;
   }
 
   // Institution table (keeps legacy markup; drop table chrome).
@@ -157,8 +181,8 @@ p.location {
     td {
       border: 0;
       padding: 0 $sp-2 0 0;
-      font-family: $ff-sans;
-      font-size: $fs-sm;
+      font-family: $ff-serif;
+      font-size: $fs-base;
       color: var(--global-text-color);
       background: transparent;
     }
@@ -166,8 +190,9 @@ p.location {
     td.institution { color: var(--global-text-color); }
 
     td.department {
-      font-family: $ff-mono;
-      font-size: $fs-xs;
+      font-family: $ff-serif;
+      font-size: $fs-base;
+      font-style: italic;
       color: var(--mono-meta-color);
     }
 
@@ -212,6 +237,7 @@ p.location {
 
         > li {
           padding: 0 0 0 $sp-3;
+          font-family: $ff-serif;
           font-size: $fs-sm;
           color: var(--global-text-color-light);
 
@@ -242,7 +268,7 @@ a.btncv {
   border: 1px solid var(--btn-outline) !important;
   border-radius: $r-md;
   padding: $sp-1 $sp-3;
-  font-family: $ff-sans;
+  font-family: $ff-serif;
   font-size: $fs-xs;
   font-weight: $fw-semibold;
   letter-spacing: 0.03em;
@@ -276,7 +302,7 @@ a.btncv {
 .date-column {
   width: 6.5rem;
   transform: none;
-  font-family: $ff-mono;
+  font-family: $ff-serif;
   font-size: $fs-xs;
   color: var(--mono-meta-color);
 }
@@ -308,7 +334,7 @@ div.list-group {
 
 td.list-group-category {
   color: var(--global-theme-color);
-  font-family: $ff-sans;
+  font-family: $ff-serif;
   font-size: $fs-sm;
   font-weight: $fw-semibold;
   margin-bottom: $sp-2;
@@ -328,7 +354,7 @@ td.list-group-name {
 }
 
 td.list-group-level {
-  font-family: $ff-mono;
+  font-family: $ff-serif;
   font-size: $fs-xs;
   padding-left: $sp-2;
   color: var(--mono-meta-color);
@@ -342,7 +368,7 @@ td.list-group-school {
 }
 
 p.list-group-time {
-  font-family: $ff-mono;
+  font-family: $ff-serif;
   font-size: $fs-xs;
   padding-left: $sp-2;
   color: var(--mono-meta-color);
