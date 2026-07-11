@@ -12,27 +12,15 @@
           {% else %}
             {% assign date = null %}
           {% endif %}
-          <table class="table-cv">
-            <tbody>
-              <tr>
-                <td>
-                  {% if date %}
-                    <span class="cv-year-badge text-uppercase align-middle"> {{ date }} </span>
-                  {% endif %}
-                </td>
-              </tr>
-              {% if content.location %}
-                <tr>
-                  <td>
-                    <p class="location">
-                      <i class="fa-solid fa-location-dot iconlocation"></i>
-                      {{ content.location }}
-                    </p>
-                  </td>
-                </tr>
-              {% endif %}
-            </tbody>
-          </table>
+          {% if date %}
+            <span class="cv-year-badge text-uppercase align-middle"> {{ date }} </span>
+          {% endif %}
+          {% if content.location %}
+            <p class="location">
+              <i class="fa-solid fa-location-dot iconlocation"></i>
+              {{ content.location }}
+            </p>
+          {% endif %}
         </div>
         <div class="col-xs-10 cl-sm-10 col-md-10 mt-2 mt-md-0">
           <h5 class="title font-weight-bold ml-1 ml-md-4">
