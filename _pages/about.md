@@ -1,6 +1,6 @@
 ---
 layout: about
-title: About
+title: Home
 permalink: /
 subtitle: <span class="highlight-text"> Ph.D. student </span>at The University of Wisconsin-Madison CEE
 
