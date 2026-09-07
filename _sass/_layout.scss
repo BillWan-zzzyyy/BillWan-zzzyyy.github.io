@@ -122,14 +122,8 @@ body.sticky-bottom-footer {
   }
 }
 
-.section-rule {
-  border: 0;
-  border-top: 1px solid var(--hairline);
-  margin: $sp-5 0 $sp-4;
-}
-
 .home-section {
-  margin-top: $sp-4;
+  margin-top: $sp-6;
 
   > h6 {
     font-family: $ff-serif;
@@ -143,7 +137,7 @@ body.sticky-bottom-footer {
     margin: 0 0 $sp-4;
     line-height: $lh-snug;
 
-    // Kill the legacy ornamental underline — hairline .section-rule does the work.
+    // Kill the legacy ornamental underline — whitespace separates the sections.
     &::after {
       content: none;
     }
@@ -186,7 +180,6 @@ body.sticky-bottom-footer {
 .footer__ornament {
   margin-top: $sp-6;
   padding-top: $sp-4;
-  border-top: 1px solid var(--hairline);
   opacity: 0.4;
   transition: opacity $dur-slow $ease-out;
   text-align: center;

@@ -69,7 +69,7 @@ h6 {
 }
 
 hr {
-  border-top: 1px solid var(--global-divider-color);
+  border: 0;
 }
 
 table {
@@ -294,7 +294,6 @@ ul.task-list input[type="checkbox"] {
 
 .navbar {
   box-shadow: none;
-  border-bottom: 1px solid var(--global-divider-color);
   background-color: var(--global-bg-color);
   opacity: 0.95;
 }
@@ -312,7 +311,7 @@ ul.task-list input[type="checkbox"] {
   }
 
   .dropdown-divider {
-    border-top: 1px solid var(--global-divider-color) !important;
+    border-top: 0 !important;
   }
 }
 
@@ -565,7 +564,6 @@ footer.fixed-bottom {
 }
 
 footer.sticky-bottom {
-  border-top: 1px solid var(--hairline);
   padding-top: $sp-6;
   padding-bottom: $sp-6;
   font-family: $ff-mono;
@@ -602,10 +600,7 @@ footer.sticky-bottom {
     grid-template-columns: minmax(10ch, 12ch) 1fr;
     gap: $sp-5;
     padding: $sp-3 0;
-    border-bottom: 1px solid var(--hairline);
     align-items: baseline;
-
-    &:last-child { border-bottom: 0; }
 
     .news-date {
       font-family: $ff-mono;
@@ -648,8 +643,7 @@ footer.sticky-bottom {
   letter-spacing: 0.05em;
   color: var(--mono-meta-color);
   border: 0;
-  border-top: 1px solid var(--hairline);
-  padding-top: $sp-3;
+  padding-top: 0;
   margin: $sp-6 0 $sp-3;
 }
 
@@ -690,7 +684,6 @@ footer.sticky-bottom {
 
 // Blog index header.
 .header-bar {
-  border-bottom: 1px solid var(--hairline);
   text-align: left;
   padding-top: $sp-5;
   padding-bottom: $sp-5;
@@ -705,7 +698,6 @@ footer.sticky-bottom {
 }
 
 .tag-category-list {
-  border-bottom: 1px solid var(--hairline);
   text-align: center;
   padding-top: $sp-4;
 
@@ -727,8 +719,7 @@ footer.sticky-bottom {
 // Page header (used by publications, CV, projects, news page layouts).
 .post-header {
   margin-bottom: $sp-5;
-  padding-bottom: $sp-3;
-  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 0;
   position: relative;
 
   .post-title {
@@ -789,7 +780,6 @@ footer.sticky-bottom {
   padding: 0;
 
   li {
-    border-bottom: 1px solid var(--global-divider-color);
     list-style: none;
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -988,7 +978,6 @@ footer.sticky-bottom {
   gap: $sp-2;
   margin: $sp-5 0 $sp-5;
   padding-bottom: $sp-3;
-  border-bottom: 1px solid var(--hairline);
 
   a {
     display: inline-flex;
@@ -1053,7 +1042,6 @@ footer.sticky-bottom {
   .research-interests {
     margin: 0 0 $sp-4;
     padding-bottom: $sp-4;
-    border-bottom: 1px solid var(--hairline);
 
     .research-interests__title {
       font-family: $ff-serif;
@@ -1138,8 +1126,7 @@ footer.sticky-bottom {
     color: var(--mono-meta-color);
     text-align: left;
     border: 0;
-    border-top: 1px solid var(--hairline);
-    padding-top: $sp-3;
+    padding-top: 0;
     margin: $sp-6 0 $sp-3;
   }
 
@@ -1160,9 +1147,6 @@ footer.sticky-bottom {
     > li {
       position: relative;
       padding: $sp-4 0;
-      border-bottom: 1px solid var(--hairline);
-
-      &:last-child { border-bottom: 0; }
 
       // Row selector: thumbnail is col-sm-3, body is col-sm-8/10 (from bib.liquid).
       // Keep Bootstrap grid; just polish the column contents.
@@ -1849,7 +1833,7 @@ ninja-keys::part(ninja-input-wrapper) {
 
   .popover-header {
     color: var(--global-text-color); // Header text color
-    border-bottom: 1px solid var(--global-divider-color);
+    border-bottom: 0;
   }
 
   .popover-body {

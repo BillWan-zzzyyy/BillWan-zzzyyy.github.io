@@ -11,7 +11,6 @@ module.exports = {
       "eyebrow",
       "meta-strip",
       "inline-logo",
-      "section-rule",
       "home-section",
       "profile__card",
       "mono-meta",

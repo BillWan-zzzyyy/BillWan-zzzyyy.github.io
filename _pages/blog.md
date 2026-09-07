@@ -97,7 +97,6 @@ pagination:
       {% endfor %}
       </div>
     </div>
-    <hr>
 
 {% endif %}
 
