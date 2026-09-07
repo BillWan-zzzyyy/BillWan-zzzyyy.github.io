@@ -79,6 +79,38 @@ layout: default
         {% include selected_papers.liquid %}
       </section>
     {% endif %}
+
+    <!-- Education -->
+    {% if page.education %}
+      <hr class="section-rule">
+      <section class="home-section">
+        <h6>Education</h6>
+        <ul class="home-list">
+          {% for edu in page.education %}
+            <li>
+              {% if edu.logo %}
+                <img src="{{ edu.logo | prepend: 'assets/img/' | relative_url }}" class="inline-logo" alt="{{ edu.institution }}">
+              {% endif %}
+              <strong>{{ edu.degree }}</strong>, {{ edu.institution }}
+              <span class="mono-meta">{{ edu.period }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+
+    <!-- Service -->
+    {% if page.service %}
+      <hr class="section-rule">
+      <section class="home-section">
+        <h6>Service</h6>
+        <ul class="home-list">
+          {% for item in page.service %}
+            <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
   </article>
 
   <!-- Visitor heatmap ornament (muted, low emphasis) -->

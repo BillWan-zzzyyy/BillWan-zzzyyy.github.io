@@ -7,7 +7,7 @@
  ******************************************************************************/
 
 // ------------ Color: Claude "Book Rust" scale (accent — current) ---------
-// Light-mode primary = $rust-600 #B3654A (AA 4.55:1 on #F0EEE6 cream).
+// Light-mode primary = $rust-600 #B3654A (4.31:1 on pure white #FFFFFF).
 // $rust-500 #CC785C is Claude's brand Book Rust, kept for decorative use.
 // Dark-mode variant = $rust-light #E09B7F (7.2:1 AAA on warm dark).
 $rust-50:  #FBF1EC !default;
@@ -23,9 +23,9 @@ $rust-900: #351810 !default;
 $rust-light:       #E09B7F !default;  // dark-mode accent (AAA on warm dark)
 $rust-light-hover: #F0B097 !default;  // dark-mode hover
 
-// Claude warm neutrals
-$cream-bg:           #F0EEE6 !default;
-$cream-subtle:       #E8E4D8 !default;
+// Light neutrals (pure white surfaces; warm-dark tokens keep the dark theme)
+$cream-bg:           #FFFFFF !default;  // was #F0EEE6
+$cream-subtle:       #F3F4F6 !default;  // was #E8E4D8 (== $n-100)
 $claude-ink:         #141413 !default;
 $claude-ink-light:   #6B6B6A !default;
 $warm-dark-bg:       #1F1E1C !default;
@@ -33,7 +33,8 @@ $warm-dark-card:     #272624 !default;
 $warm-dark-subtle:   #2D2B28 !default;
 $warm-dark-text:     #EAE8DF !default;
 $warm-dark-meta:     #9A9894 !default;
-$hairline-cream:     rgba(20, 20, 19, 0.10) !default;
+// Slightly denser than the old 0.10 so it still reads on pure white.
+$hairline-cream:     rgba(20, 20, 19, 0.12) !default;
 $hairline-warm-dark: #302E2B !default;
 
 // ------------ Color: Oxford navy scale (DORMANT — previous accent) --------

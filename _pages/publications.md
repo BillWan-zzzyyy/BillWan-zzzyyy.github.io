@@ -23,6 +23,28 @@ nav_order: 2
     {% endif %}
   </div>
 
+  <!-- Research interests -->
+  <section class="research-interests">
+    <h2 class="research-interests__title">Research</h2>
+    <div class="row align-items-center">
+      <div class="col-md-5 mb-3 mb-md-0">
+        {% include figure.liquid path="assets/img/drivingsimulator.jpg" class="img-fluid rounded z-depth-1" alt="Driving simulator used for closed-loop autonomous driving experiments" %}
+      </div>
+      <div class="col-md-7">
+        <p class="research-interests__group"><strong>Autonomous driving</strong></p>
+        <ul>
+          <li>Closed-loop simulation and sim-to-real transfer</li>
+          <li>Vision-Language-Action (VLA) models for driving</li>
+        </ul>
+        <p class="research-interests__group"><strong>Human-centric intelligent transportation</strong></p>
+        <ul>
+          <li>Human-AI collaborative driving and interaction</li>
+          <li>Socially-aware multi-agent systems</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   {% include bib_search.liquid %}
 
   {% bibliography %}

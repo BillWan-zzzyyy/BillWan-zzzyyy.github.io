@@ -15,6 +15,23 @@ profile:
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
+
+education: # rendered on the homepage after Selected Publications (see _layouts/about.liquid)
+  - degree: Ph.D. in Civil and Environmental Engineering
+    institution: University of Wisconsin–Madison
+    period: Sept 2025 – Present
+    logo: uwmadison.png
+  - degree: M.S. in Transportation Engineering
+    institution: Tongji University
+    period: Sept 2022 – Jun 2025
+    logo: tongji.png
+  - degree: B.E. in Vehicle Engineering
+    institution: Tongji University
+    period: Sept 2018 – Jun 2022
+    logo: tongji.png
+
+service: # rendered on the homepage after Education
+  - Reviewer, Transportation Research Board (TRB) Annual Meeting
 ---
 Hello there!🤺
 
