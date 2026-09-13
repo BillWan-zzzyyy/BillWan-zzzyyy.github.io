@@ -764,7 +764,7 @@ footer.sticky-bottom {
 
   .post-title {
     font-family: $ff-serif;
-    font-size: $fs-2xl;
+    font-size: 40px;
     font-weight: $fw-medium;
     line-height: $lh-tight;
     margin: 0 0 $sp-2;
@@ -1079,15 +1079,33 @@ footer.sticky-bottom {
     margin: $sp-6 0 $sp-4;
   }
 
-  // Scholar / GitHub totals — one grey line, no pills (markup in publications.md).
+  // Scholar / GitHub totals — prominent large figures above search.
   .pub-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $sp-6;
     font-family: $ff-sans;
-    font-size: $fs-sm;
     color: var(--global-text-color-light);
-    margin: 0 0 $sp-5;
+    margin: 0 0 $sp-7;
 
     a {
-      color: inherit;
+      display: grid;
+      gap: $sp-1;
+      min-width: 144px;
+      color: var(--global-text-color);
+      text-decoration: none;
+
+      strong {
+        font-size: 40px;
+        font-weight: $fw-semibold;
+        line-height: 1;
+        letter-spacing: -0.035em;
+      }
+
+      span {
+        font-size: 14px;
+        color: var(--global-text-color-light);
+      }
 
       &:hover {
         color: var(--global-theme-color);
@@ -1124,10 +1142,23 @@ footer.sticky-bottom {
 
     > li {
       position: relative;
-      padding: $sp-4 0;
+      padding: $sp-6 0;
 
-      // Row selector: thumbnail is col-sm-3, body is col-sm-8/10 (from bib.liquid).
-      // Keep Bootstrap grid; just polish the column contents.
+      .publication-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: $sp-6;
+        margin: 0;
+      }
+
+      .publication-row--with-media {
+        grid-template-columns: 220px minmax(0, 1fr);
+      }
+
+      .pub-media,
+      .pub-content {
+        min-width: 0;
+      }
 
       .preview {
         width: 100%;
@@ -1194,11 +1225,20 @@ footer.sticky-bottom {
 
       .title {
         font-family: $ff-serif;
-        font-size: $fs-md;
+        font-size: 22px;
         font-weight: $fw-medium;
         line-height: $lh-heading;
         color: var(--global-text-color);
         margin-bottom: $sp-1;
+      }
+
+      .pub-summary {
+        max-width: 760px;
+        margin: 0 0 $sp-3;
+        font-family: $ff-sans;
+        font-size: 17px;
+        line-height: 1.55;
+        color: var(--global-text-color-light);
       }
 
       .author {
@@ -1398,6 +1438,39 @@ footer.sticky-bottom {
 
     div.award.hidden.open {
       border-color: var(--global-highlight-color);
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    font-size: 16px;
+  }
+
+  .post-header .post-title {
+    font-size: 30px;
+  }
+
+  .publications ol.bibliography > li {
+    padding: $sp-5 0;
+
+    .publication-row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: $sp-4;
+    }
+
+    .pub-media {
+      width: 220px;
+      max-width: 100%;
+    }
+
+    .title {
+      font-size: 20px;
+    }
+
+    .pub-summary,
+    .author {
+      font-size: 16px;
     }
   }
 }

@@ -64,16 +64,14 @@ layout: default
         </div>
       </div>
     {% endif %}
-
-    <div class="bio about-hero__bio">{{ content }}</div>
   </div>
+
+  <div class="bio about-hero__bio">{{ content }}</div>
 
   <article class="about-home__content">
     {% if page.research %}
       <section class="home-section research-block" data-reveal>
         <h2 class="home-section__title">Research</h2>
-        {% assign rpath = page.research.image | prepend: 'assets/img/' %}
-        {% include figure.liquid path=rpath class="img-fluid rounded research-block__figure" width="1600" height="1034" sizes="(min-width: 1120px) 984px, calc(100vw - 80px)" alt=page.research.alt zoomable=true %}
         <div class="row">
           {% for g in page.research.groups %}
             <div class="col-md-6">
@@ -86,6 +84,8 @@ layout: default
             </div>
           {% endfor %}
         </div>
+        {% assign rpath = page.research.image | prepend: 'assets/img/' %}
+        {% include figure.liquid path=rpath class="img-fluid rounded research-block__figure" width="1600" height="1034" sizes="(min-width: 1180px) 1116px, calc(100vw - 40px)" alt=page.research.alt zoomable=true %}
       </section>
     {% endif %}
 

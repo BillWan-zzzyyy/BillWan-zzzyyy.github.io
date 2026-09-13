@@ -1,8 +1,8 @@
 ---
 ---
-<div class="row">
+<div class="row publication-row{% if site.enable_publication_thumbnails %} publication-row--with-media{% endif %}">
   {% if site.enable_publication_thumbnails %}
-    <div class="col col-sm-3 abbr">
+    <div class="pub-media abbr">
       {%- if entry.abbr -%}
         <abbr class="rounded">
           {% if site.data.venues[entry.abbr].url %}
@@ -36,12 +36,15 @@
   {% endif %}
 
   <!-- Entry bib key -->
-  <div id="{{ entry.key }}" class="{% if site.enable_publication_thumbnails %}col-sm-8{% else %}col-sm-10{% endif %}">
+  <div id="{{ entry.key }}" class="pub-content">
     <!-- Title -->
     <div class="title">
       {% if entry.selected %}<span class="selected-dot" aria-label="Selected"></span>{% endif %}
       {{ entry.title }}
     </div>
+    {% if entry.summary %}
+      <p class="pub-summary">{{ entry.summary }}</p>
+    {% endif %}
     <!-- Author -->
     <div class="author">
       {% assign author_array_size = entry.author_array | size %}
@@ -175,9 +178,6 @@
           {%- if entry.award_name %}{{ entry.award_name }}{% else %}Awarded{% endif -%}
         </button>
       {% endif %}
-      {% if entry.abstract %}
-        <button type="button" class="abstract" aria-expanded="false">Abs</button>
-      {% endif %}
       {% if entry.doi %}
         <a href="https://doi.org/{{ entry.doi }}">DOI</a>
       {% endif %}
@@ -296,8 +296,8 @@
             ></span>
           {% endif %}
           {% if site.enable_publication_badges.google_scholar and entry_has_google_scholar_badge %}
-            {% assign gs_count = site.data.scholar_citations.articles[entry.google_scholar_id] | default: 0 %}
-            {% if gs_count > 0 %}
+            {% assign gs_count = site.data.scholar_citations.articles[entry.google_scholar_id] %}
+            {% if gs_count != null %}
               <a
                 class="badge-pill"
                 href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user={{ site.scholar_userid }}&citation_for_view={{ site.scholar_userid }}:{{ entry.google_scholar_id }}"
@@ -310,16 +310,18 @@
             {% endif %}
           {% endif %}
           {% if site.enable_publication_badges.github_stars and entry_has_github_stars_badge %}
-            {% assign star_count = site.data.github_stars.repos[entry.github_repo] | default: 0 %}
-            <a
-              class="badge-pill"
-              href="https://github.com/{{ entry.github_repo }}"
-              aria-label="GitHub repository stars"
-              role="button"
-            >
-              <span class="badge-pill__label"> <i class="fa-brands fa-github"></i> GitHub </span>
-              <span class="badge-pill__value">{{ star_count }} ★</span>
-            </a>
+            {% assign star_count = site.data.github_stars.repos[entry.github_repo] %}
+            {% if star_count != null %}
+              <a
+                class="badge-pill"
+                href="https://github.com/{{ entry.github_repo }}"
+                aria-label="GitHub repository stars"
+                role="button"
+              >
+                <span class="badge-pill__label"> <i class="fa-brands fa-github"></i> GitHub </span>
+                <span class="badge-pill__value">{{ star_count }} ★</span>
+              </a>
+            {% endif %}
           {% endif %}
           {% if site.enable_publication_badges.inspirehep and entry_has_inspirehep_badge %}
             <a
@@ -343,13 +345,6 @@
       <!-- Hidden Award block -->
       <div class="award hidden d-print-inline">
         <p>{{ entry.award | markdownify }}</p>
-      </div>
-    {% endif %}
-
-    {% if entry.abstract %}
-      <!-- Hidden abstract block -->
-      <div class="abstract hidden">
-        <p>{{ entry.abstract }}</p>
       </div>
     {% endif %}
 

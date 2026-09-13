@@ -37,13 +37,13 @@ body.sticky-bottom-footer {
 .site-content {
   margin-top: clamp(40px, 6vw, 80px);
   min-height: 65vh;
-  padding-inline: 20px;
+  padding-inline: 32px;
 }
 
 .about-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  grid-template-areas: "header media" "bio bio";
+  grid-template-columns: minmax(0, 1fr) 300px;
+  grid-template-areas: "header media";
   column-gap: clamp(32px, 6vw, 96px);
   row-gap: $sp-7;
   align-items: center;
@@ -55,11 +55,12 @@ body.sticky-bottom-footer {
   margin: 0;
 
   .about-title {
-    font-size: clamp(40px, 5.2vw, 72px);
+    font-size: 72px;
     font-weight: $fw-semibold;
     letter-spacing: -0.045em;
     line-height: 1.06;
     margin-bottom: $sp-4;
+    white-space: nowrap;
 
     span {
       font-weight: inherit !important;
@@ -125,9 +126,11 @@ body.sticky-bottom-footer {
   }
 }
 
-.about-hero__bio {
-  grid-area: bio;
-  font-size: $fs-base;
+.bio.about-hero__bio {
+  width: min(100%, 760px);
+  max-width: 760px;
+  margin-top: $sp-7;
+  font-size: 17px;
   p:last-child {
     margin-bottom: 0;
   }
@@ -135,7 +138,7 @@ body.sticky-bottom-footer {
 
 .about-hero__media {
   grid-area: media;
-  width: 280px;
+  width: 300px;
   .profile {
     width: 100%;
   }
@@ -166,11 +169,11 @@ body.sticky-bottom-footer {
 }
 
 .home-hero-started .about-home .about-hero__header {
-  animation: home-hero-enter 600ms $ease-out both;
+  animation: home-hero-enter 1100ms $ease-out both;
 }
 
 .home-hero-started .about-home .about-hero__media {
-  animation: home-hero-enter 600ms $ease-out 80ms both;
+  animation: home-hero-enter 1100ms $ease-out 200ms both;
 }
 
 @keyframes home-hero-enter {
@@ -252,17 +255,40 @@ body.sticky-bottom-footer {
   }
 }
 
+@media (min-width: 768px) and (max-width: 991px) {
+  .about-hero {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "header" "media";
+    row-gap: $sp-6;
+  }
+}
+
 @media (max-width: 767px) {
+  .site-content {
+    padding-inline: 20px;
+  }
+
   .about-hero {
     grid-template-columns: 1fr;
-    grid-template-areas: "header" "media" "bio";
+    grid-template-areas: "header" "media";
     row-gap: $sp-6;
   }
   .about-hero__media {
-    width: 180px;
+    width: min(300px, 100%);
   }
   .about-home .about-hero__header .about-title {
-    font-size: clamp(40px, 9vw, 56px);
+    font-size: 44px;
+  }
+
+  .about-hero__bio {
+    margin-top: $sp-6;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 340px) {
+  .about-home .about-hero__header .about-title {
+    font-size: 38px;
   }
 }
 
@@ -338,7 +364,7 @@ body.sticky-bottom-footer {
 
   > .home-section__title {
     font-family: $ff-serif;
-    font-size: clamp(28px, 3.5vw, 40px);
+    font-size: 40px;
     font-weight: $fw-semibold;
     letter-spacing: -0.03em;
     text-transform: none;
@@ -372,16 +398,16 @@ body.sticky-bottom-footer {
 // --------------------------------------------------------------------------
 
 .research-block {
-  padding: clamp(20px, 4vw, 48px);
-  background: var(--global-bg-subtle);
-  border-radius: $r-lg;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
 
   > figure {
-    margin: 0 0 $sp-6;
+    margin: $sp-6 0 0;
   }
 
   .research-block__figure {
-    margin: 0 0 $sp-5;
+    margin: 0;
     border: 0;
     background: #fff;
     border-radius: $r-md !important;
@@ -484,21 +510,21 @@ body.sticky-bottom-footer {
 
 [data-reveal].reveal-pending {
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(8px);
 }
 
 [data-reveal].reveal-visible {
   opacity: 1;
   transform: none;
   transition:
-    opacity 450ms $ease-out,
-    transform 450ms $ease-out;
+    opacity 750ms $ease-out,
+    transform 750ms $ease-out;
 }
 
 .content-page > article > p,
 .content-page > article > ul,
 .content-page > article > ol {
-  max-width: 68ch;
+  max-width: 760px;
 }
 
 .skip-link {
@@ -518,7 +544,11 @@ body.sticky-bottom-footer {
 @media (max-width: 767px) {
   .home-section,
   .footer__ornament {
-    margin-top: 56px;
+    margin-top: 64px;
+  }
+
+  .home-section > .home-section__title {
+    font-size: 30px;
   }
 }
 
@@ -530,7 +560,7 @@ body.sticky-bottom-footer {
   p,
   ul,
   ol {
-    max-width: 68ch;
+    max-width: 760px;
   }
 
   p {
