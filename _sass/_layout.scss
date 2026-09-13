@@ -53,7 +53,6 @@ body.sticky-bottom-footer {
   grid-area: header;
   min-width: 0;
   margin: 0;
-  animation: home-hero-enter 600ms $ease-out both;
 
   .about-title {
     font-size: clamp(40px, 5.2vw, 72px);
@@ -137,7 +136,6 @@ body.sticky-bottom-footer {
 .about-hero__media {
   grid-area: media;
   width: 280px;
-  animation: home-hero-enter 600ms $ease-out 80ms both;
   .profile {
     width: 100%;
   }
@@ -145,7 +143,7 @@ body.sticky-bottom-footer {
 
 // Reserve the metallic gradient for identity and primary index-page titles.
 // Unsupported browsers keep the normal solid heading color declared in base.
-@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+@supports (-webkit-background-clip: text) {
   .post-header .post-title.gradient-title {
     width: fit-content;
     max-width: 100%;
@@ -161,6 +159,20 @@ body.sticky-bottom-footer {
   }
 }
 
+.home-hero-prepared .about-home .about-hero__header,
+.home-hero-prepared .about-home .about-hero__media {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.home-hero-started .about-home .about-hero__header {
+  animation: home-hero-enter 600ms $ease-out both;
+}
+
+.home-hero-started .about-home .about-hero__media {
+  animation: home-hero-enter 600ms $ease-out 80ms both;
+}
+
 @keyframes home-hero-enter {
   from {
     opacity: 0;
@@ -174,9 +186,13 @@ body.sticky-bottom-footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .home-hero-prepared .about-home .about-hero__header,
+  .home-hero-prepared .about-home .about-hero__media,
   .about-home .about-hero__header,
   .about-home .about-hero__media {
     animation: none;
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -198,8 +214,12 @@ body.sticky-bottom-footer {
   }
 
   .about-home .about-hero__header,
-  .about-home .about-hero__media {
+  .about-home .about-hero__media,
+  .home-hero-prepared .about-home .about-hero__header,
+  .home-hero-prepared .about-home .about-hero__media {
     animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 

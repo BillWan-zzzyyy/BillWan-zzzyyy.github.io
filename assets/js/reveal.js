@@ -4,6 +4,26 @@
   const visibleClass = "reveal-visible";
   const motionQuery = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : { matches: false };
   let observer;
+  const heroState = window.homeHeroState;
+
+  const finishHero = () => {
+    if (!heroState) return;
+    heroState.started = true;
+    heroState.cleanup();
+    document.documentElement.classList.remove("home-hero-prepared");
+    document.documentElement.classList.remove("home-hero-started");
+  };
+
+  const startHero = () => {
+    if (!heroState || heroState.started || document.visibilityState !== "visible") return;
+    if (motionQuery.matches || heroState.expired) {
+      finishHero();
+      return;
+    }
+    heroState.started = true;
+    heroState.cleanup();
+    document.documentElement.classList.add("home-hero-started");
+  };
 
   const reveal = (element) => {
     element.classList.remove(pendingClass);
@@ -45,7 +65,19 @@
     if (element) reveal(element);
   });
   if (motionQuery.addEventListener) {
-    motionQuery.addEventListener("change", (event) => event.matches && revealAll());
+    motionQuery.addEventListener("change", (event) => {
+      if (event.matches) {
+        finishHero();
+        revealAll();
+      }
+    });
+  }
+
+  window.addEventListener("pageshow", startHero);
+  document.addEventListener("visibilitychange", startHero);
+  if (document.visibilityState === "visible") {
+    if (window.requestAnimationFrame) window.requestAnimationFrame(startHero);
+    else startHero();
   }
 
   const safelyInit = () => {
