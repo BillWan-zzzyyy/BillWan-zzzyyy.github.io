@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Projects
+gradient_title: true
 permalink: /projects/
 description: Research in autonomous driving, simulation, and human–AI collaboration.
 nav: true

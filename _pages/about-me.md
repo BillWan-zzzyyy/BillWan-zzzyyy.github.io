@@ -2,6 +2,7 @@
 layout: page
 permalink: /about-me/
 title: About me
+gradient_title: true
 description: Education, honors, talks, and academic service.
 nav: true
 nav_order: 5

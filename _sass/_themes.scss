@@ -23,6 +23,9 @@
   --global-hover-text-color: #{$cream-bg};
   --global-highlight-color: #0066cc;
   --global-quote-left: #0066cc;
+  --title-gradient-start: #52606f;
+  --title-gradient-middle: #1479c9;
+  --title-gradient-end: #008b95;
 
   // Footer
   --global-footer-bg-color: #{$n-900};
@@ -109,6 +112,9 @@ html[data-theme="dark"] {
   --global-hover-text-color: #{$warm-dark-bg};
   --global-highlight-color: #2997ff;
   --global-quote-left: #2997ff;
+  --title-gradient-start: #d7dde5;
+  --title-gradient-middle: #63adff;
+  --title-gradient-end: #4ddbd3;
 
   // Footer
   --global-footer-bg-color: #{$warm-dark-card};

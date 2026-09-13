@@ -2,6 +2,7 @@
 layout: page
 permalink: /publications/
 title: Publications
+gradient_title: true
 description: Publications in autonomous driving and intelligent transportation.
 nav: true
 nav_order: 2

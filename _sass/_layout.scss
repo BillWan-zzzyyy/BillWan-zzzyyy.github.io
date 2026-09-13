@@ -53,6 +53,7 @@ body.sticky-bottom-footer {
   grid-area: header;
   min-width: 0;
   margin: 0;
+  animation: home-hero-enter 600ms $ease-out both;
 
   .about-title {
     font-size: clamp(40px, 5.2vw, 72px);
@@ -136,8 +137,69 @@ body.sticky-bottom-footer {
 .about-hero__media {
   grid-area: media;
   width: 280px;
+  animation: home-hero-enter 600ms $ease-out 80ms both;
   .profile {
     width: 100%;
+  }
+}
+
+// Reserve the metallic gradient for identity and primary index-page titles.
+// Unsupported browsers keep the normal solid heading color declared in base.
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .post-header .post-title.gradient-title {
+    width: fit-content;
+    max-width: 100%;
+    color: transparent;
+    background: linear-gradient(105deg, var(--title-gradient-start) 5%, var(--title-gradient-middle) 52%, var(--title-gradient-end) 95%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    span {
+      color: inherit;
+    }
+  }
+}
+
+@keyframes home-hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-home .about-hero__header,
+  .about-home .about-hero__media {
+    animation: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .post-header .post-title.gradient-title,
+  .post-header .post-title.gradient-title span {
+    color: CanvasText;
+    background: none;
+    -webkit-text-fill-color: CanvasText;
+  }
+}
+
+@media print {
+  .post-header .post-title.gradient-title,
+  .post-header .post-title.gradient-title span {
+    color: #1d1d1f !important;
+    background: none !important;
+    -webkit-text-fill-color: #1d1d1f !important;
+  }
+
+  .about-home .about-hero__header,
+  .about-home .about-hero__media {
+    animation: none !important;
   }
 }
 
