@@ -174,6 +174,12 @@ body.sticky-bottom-footer {
     margin-left: $sp-2;
     white-space: nowrap;
   }
+
+  .home-list__sub {
+    display: block;
+    margin: 2px 0 0;
+    white-space: normal;
+  }
 }
 
 // Footer ornament (hosts ClusterMaps widget at low emphasis)

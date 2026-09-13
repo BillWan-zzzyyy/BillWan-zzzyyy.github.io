@@ -49,6 +49,7 @@ module.exports = {
       "about-title",
       "about-subtitle",
       "home-list",
+      "home-list__sub",
       "about-me",
       "memories-list",
       "memory-date",

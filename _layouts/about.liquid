@@ -88,8 +88,11 @@ layout: default
               {% if edu.logo %}
                 <img src="{{ edu.logo | prepend: 'assets/img/' | relative_url }}" class="inline-logo" alt="{{ edu.institution }}">
               {% endif %}
-              <strong>{{ edu.degree }}</strong>, {{ edu.institution }}
+              <strong>{{ edu.degree }}</strong>, {% if edu.college %}{% if edu.college_url %}<a href="{{ edu.college_url }}">{{ edu.college }}</a>{% else %}{{ edu.college }}{% endif %}, {% endif %}{{ edu.institution }}
               <span class="mono-meta">{{ edu.period }}</span>
+              {% if edu.advisor %}
+                <div class="mono-meta home-list__sub">Advisor: {% if edu.advisor_url %}<a href="{{ edu.advisor_url }}">{{ edu.advisor }}</a>{% else %}{{ edu.advisor }}{% endif %}</div>
+              {% endif %}
             </li>
           {% endfor %}
         </ul>
