@@ -2,11 +2,12 @@
  * Styles for the base elements of the theme.
  ******************************************************************************/
 
-// Typography — Academic Editorial: serif display + body, sans UI, mono meta.
+// Typography — sans body/UI, serif reserved for display headings, mono for
+// news dates only.
 
 body {
-  font-family: $ff-serif;
-  font-size: $fs-base;
+  font-family: $ff-sans;
+  font-size: 1.0625rem;
   line-height: $lh-body;
 }
 
@@ -22,11 +23,12 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--global-text-color);
 }
 
-// Display: H1 + H2 go serif for editorial gravitas; H3–H6 stay sans for UI.
+// Display: H1–H3 go serif for editorial gravitas; H4–H6 stay sans for UI.
+// Weights stay at 500 — large + bold reads shouty at this scale.
 h1 {
   font-family: $ff-serif;
   font-size: $fs-2xl;
-  font-weight: $fw-semibold;
+  font-weight: $fw-medium;
   line-height: $lh-tight;
   letter-spacing: -0.01em;
 }
@@ -34,14 +36,14 @@ h1 {
 h2 {
   font-family: $ff-serif;
   font-size: $fs-xl;
-  font-weight: $fw-semibold;
+  font-weight: $fw-medium;
   line-height: $lh-snug;
 }
 
 h3 {
-  font-family: $ff-sans;
+  font-family: $ff-serif;
   font-size: $fs-lg;
-  font-weight: $fw-semibold;
+  font-weight: $fw-medium;
   line-height: $lh-heading;
 }
 
@@ -84,17 +86,23 @@ table {
   }
 }
 
+// Body links: ink-colored with a hairline underline; the accent appears only
+// on hover. Chrome (nav, icons, buttons, card links) opts out explicitly below.
 a,
 table.table a {
-  color: var(--global-theme-color);
+  color: var(--global-text-color);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--hairline);
+  transition:
+    color $dur-base $ease-out,
+    text-decoration-color $dur-base $ease-out;
 
   &:hover {
     color: var(--global-theme-color);
     text-decoration: underline;
-  }
-
-  &:hover:after :not(.nav-item.dropdown) {
-    width: 100%;
+    text-decoration-color: currentColor;
   }
 }
 
@@ -247,7 +255,6 @@ ul.task-list input[type="checkbox"] {
   .more-info {
     margin-bottom: 5px;
     margin-top: 5px;
-    font-family: monospace;
 
     p {
       display: inline-block;
@@ -326,6 +333,8 @@ ul.task-list input[type="checkbox"] {
 
 .navbar.navbar-light {
   a {
+    text-decoration: none;
+
     &:hover {
       text-decoration: none;
     }
@@ -334,8 +343,9 @@ ul.task-list input[type="checkbox"] {
   .navbar-brand {
     color: var(--global-text-color);
     font-family: $ff-sans;
-    font-weight: $fw-semibold;
+    font-weight: $fw-medium;
     letter-spacing: -0.005em;
+    text-decoration: none;
   }
 
   .navbar-nav .nav-item {
@@ -394,35 +404,6 @@ ul.task-list input[type="checkbox"] {
   }
 }
 
-// ⌘K search pill (mono label + hairline outline) — styled via new header markup.
-#search-toggle {
-  .search-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: $sp-2;
-    padding: $sp-1 $sp-2;
-    font-family: $ff-mono;
-    font-size: $fs-xs;
-    font-weight: $fw-medium;
-    text-transform: lowercase;
-    letter-spacing: 0;
-    color: var(--mono-meta-color);
-    background: transparent;
-    border: 1px solid var(--hairline);
-    border-radius: $r-md;
-    transition: color $dur-base $ease-out, border-color $dur-base $ease-out;
-
-    i {
-      font-size: 0.95em;
-    }
-  }
-
-  &:hover .search-pill {
-    color: var(--global-theme-color);
-    border-color: var(--global-theme-color);
-  }
-}
-
 .navbar-toggler {
   .icon-bar {
     display: block;
@@ -470,6 +451,10 @@ ul.task-list input[type="checkbox"] {
   background-color: inherit;
   color: var(--global-text-color);
 
+  i {
+    font-size: 1.1rem;
+  }
+
   &:hover {
     color: var(--global-hover-color);
   }
@@ -481,13 +466,15 @@ ul.task-list input[type="checkbox"] {
   text-align: left;
 
   .contact-icons {
-    font-size: 1.6rem;
+    font-size: 1.25rem;
     margin-bottom: $sp-3;
     display: flex;
     flex-wrap: wrap;
-    gap: $sp-4;
+    gap: $sp-5;
 
     a {
+      text-decoration: none;
+
       i::before {
         color: var(--mono-meta-color);
         transition: color $dur-base $ease-out;
@@ -502,7 +489,7 @@ ul.task-list input[type="checkbox"] {
   }
 
   .contact-note {
-    font-family: $ff-mono;
+    font-family: $ff-sans;
     font-size: $fs-xs;
     color: var(--mono-meta-color);
     letter-spacing: 0.02em;
@@ -555,6 +542,7 @@ footer.fixed-bottom {
 
   a {
     color: var(--global-footer-link-color);
+    text-decoration: none;
 
     &:hover {
       color: var(--global-theme-color);
@@ -577,6 +565,7 @@ footer.sticky-bottom {
 
   a {
     color: var(--mono-meta-color);
+    text-decoration: none;
 
     &:hover {
       color: var(--global-theme-color);
@@ -613,16 +602,16 @@ footer.sticky-bottom {
     }
 
     .news-body {
-      font-family: $ff-serif;
+      font-family: $ff-sans;
       font-size: $fs-base;
       line-height: $lh-body;
       color: var(--global-text-color);
 
       p { margin: 0; }
-      a { color: var(--global-theme-color); }
 
       .news-title {
         color: var(--global-text-color);
+        text-decoration: none;
         border-bottom: 1px solid transparent;
         transition: border-color $dur-base $ease-out, color $dur-base $ease-out;
 
@@ -710,7 +699,7 @@ footer.sticky-bottom {
       display: inline-block;
       padding: $sp-4 $sp-2;
       color: var(--global-text-color-light);
-      font-family: $ff-mono;
+      font-family: $ff-sans;
       font-size: $fs-sm;
     }
   }
@@ -718,23 +707,22 @@ footer.sticky-bottom {
 
 // Page header (used by publications, CV, projects, news page layouts).
 .post-header {
-  margin-bottom: $sp-5;
+  margin-bottom: $sp-6;
   padding-bottom: 0;
   position: relative;
 
   .post-title {
     font-family: $ff-serif;
     font-size: $fs-2xl;
-    font-weight: $fw-semibold;
+    font-weight: $fw-medium;
     line-height: $lh-tight;
     margin: 0 0 $sp-2;
     letter-spacing: -0.01em;
   }
 
   .post-description {
-    font-family: $ff-serif;
+    font-family: $ff-sans;
     font-size: $fs-base;
-    font-style: italic;
     color: var(--mono-meta-color);
     margin: 0;
   }
@@ -894,7 +882,7 @@ footer.sticky-bottom {
     }
 
     .card-text {
-      font-family: $ff-serif;
+      font-family: $ff-sans;
       font-size: $fs-base;
       color: var(--global-text-color);
       line-height: $lh-snug;
@@ -919,7 +907,7 @@ footer.sticky-bottom {
     list-style: none;
 
     li {
-      font-family: $ff-mono;
+      font-family: $ff-sans;
       font-size: $fs-xs;
       color: var(--mono-meta-color);
       padding: 0 $sp-2;
@@ -934,7 +922,7 @@ footer.sticky-bottom {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-family: $ff-mono;
+    font-family: $ff-sans;
     font-size: $fs-xs;
     color: var(--mono-meta-color);
 
@@ -1009,12 +997,12 @@ footer.sticky-bottom {
 }
 
 // ----------------------------------------------------------------------------
-// Publications — Academic Editorial with mono metadata accents.
+// Publications — quiet editorial rows, no interface chrome.
 //
 // Layout: year headers act as sticky gutter labels on desktop (≥992px) and
 // inline headers on mobile. Each paper is a hairline row — no boxed card.
-// Thumbnails are small, left-aligned; links are hairline pills; Scholar /
-// GitHub counts live in mono stat pills on the right.
+// Venue reads as a small grey tag, links as grey text separated by middots,
+// counts as one grey line.
 // ----------------------------------------------------------------------------
 
 .publications {
@@ -1024,102 +1012,30 @@ footer.sticky-bottom {
     color: var(--global-text-color);
     font-family: $ff-serif;
     font-size: $fs-2xl;
-    font-weight: $fw-semibold;
+    font-weight: $fw-medium;
     text-align: left;
     margin: $sp-6 0 $sp-4;
   }
 
-  // Row of stat pills (sits above the bibsearch + bibliography).
-  .stat-pill-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $sp-3;
-    align-items: center;
-    margin: $sp-3 0 $sp-4;
-  }
+  // Scholar / GitHub totals — one grey line, no pills (markup in publications.md).
+  .pub-stats {
+    font-family: $ff-sans;
+    font-size: $fs-sm;
+    color: var(--global-text-color-light);
+    margin: 0 0 $sp-5;
 
-  // Research interests block (image left, interest lists right).
-  .research-interests {
-    margin: 0 0 $sp-4;
-    padding-bottom: $sp-4;
+    a {
+      color: inherit;
 
-    .research-interests__title {
-      font-family: $ff-serif;
-      font-size: $fs-xl;
-      font-weight: $fw-semibold;
-      text-align: center;
-      margin: 0 0 $sp-4;
-    }
-
-    figure {
-      margin: 0;
-    }
-
-    .research-interests__group {
-      font-family: $ff-sans;
-      font-size: $fs-base;
-      font-weight: $fw-semibold;
-      margin: 0 0 $sp-1;
-    }
-
-    ul {
-      list-style: disc;
-      padding-left: 1.2em;
-      margin: 0 0 $sp-3;
-
-      li {
-        font-family: $ff-serif;
-        line-height: $lh-body;
-        margin-bottom: $sp-1;
+      &:hover {
+        color: var(--global-theme-color);
       }
-    }
-
-    ul:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  // Stat pill (Scholar total / GitHub total at top of publications page).
-  // No outer border — the two-tone (label bg + value bg) halves carry the
-  // visual weight; an extra hairline around them reads as a redundant frame.
-  .stat-pill {
-    display: inline-flex;
-    align-items: stretch;
-    text-decoration: none;
-    border-radius: $r-md;
-    overflow: hidden;
-    font-family: $ff-mono;
-    line-height: 1;
-
-    .stat-pill__label {
-      display: inline-flex;
-      align-items: center;
-      gap: $sp-2;
-      padding: $sp-2 $sp-3;
-      font-size: $fs-xs;
-      font-weight: $fw-semibold;
-      color: var(--global-text-color);
-      background: var(--global-bg-subtle);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-
-      i { font-size: 1em; }
-    }
-
-    .stat-pill__value {
-      display: inline-flex;
-      align-items: center;
-      padding: $sp-2 $sp-3;
-      font-size: $fs-xs;
-      font-weight: $fw-bold;
-      color: var(--global-bg-color);
-      background: var(--global-text-color);
     }
   }
 
   // Year group header (jekyll-scholar emits <h2 class="bibliography">YEAR</h2>).
   h2.bibliography {
-    font-family: $ff-mono;
+    font-family: $ff-sans;
     font-size: $fs-sm;
     font-weight: $fw-semibold;
     letter-spacing: 0.05em;
@@ -1154,38 +1070,51 @@ footer.sticky-bottom {
       .preview {
         width: 100%;
         height: auto;
-        aspect-ratio: 16 / 9;
+        aspect-ratio: 4 / 3;
         object-fit: cover;
         border: 1px solid var(--hairline);
-        border-radius: $r-sm;
+        border-radius: $r-md;
         box-shadow: none;
       }
 
+      .preview img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        border-radius: $r-md;
+        box-shadow: none;
+      }
+
+      // Venue tag — grey, uppercase, no theme color. The !important overrides
+      // the inline `background-color` jekyll-scholar/bib.liquid may still emit.
       .abbr {
         margin-bottom: $sp-2;
 
         abbr {
           display: inline-block;
+          width: auto;
           margin-bottom: $sp-2;
-          padding: $sp-1 $sp-2;
-          color: white;
-          background-color: var(--global-theme-color);
-          border-radius: $r-sm;
-          font-family: $ff-mono;
+          padding: 2px $sp-2;
+          color: var(--global-text-color-light) !important;
+          background: var(--global-bg-subtle) !important;
+          border-radius: $r-md;
+          font-family: $ff-sans;
           font-size: $fs-xs;
-          font-weight: $fw-semibold;
-          letter-spacing: 0.03em;
+          font-weight: $fw-medium;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
 
-          a {
-            color: inherit;
-            &:hover { text-decoration: none; }
+          a,
+          div {
+            color: inherit !important;
+            text-decoration: none;
+
+            &:hover {
+              color: var(--global-theme-color) !important;
+              text-decoration: none;
+            }
           }
-        }
-
-        .award {
-          color: var(--global-theme-color) !important;
-          background: transparent !important;
-          border: 1px solid var(--global-theme-color);
         }
       }
 
@@ -1202,27 +1131,23 @@ footer.sticky-bottom {
       .title {
         font-family: $ff-serif;
         font-size: $fs-md;
-        font-weight: $fw-semibold;
+        font-weight: $fw-medium;
         line-height: $lh-heading;
         color: var(--global-text-color);
         margin-bottom: $sp-1;
       }
 
       .author {
-        font-family: $ff-serif;
+        font-family: $ff-sans;
         font-size: $fs-base;
         color: var(--global-text-color);
         line-height: $lh-snug;
 
         a {
           color: var(--global-text-color);
-          border-bottom: 1px solid var(--hairline);
-          transition: border-color $dur-base $ease-out, color $dur-base $ease-out;
 
           &:hover {
-            border-bottom-color: var(--global-theme-color);
             color: var(--global-theme-color);
-            text-decoration: none;
           }
         }
 
@@ -1251,7 +1176,7 @@ footer.sticky-bottom {
           color: var(--global-text-color-light);
           border-bottom: 1px dashed var(--global-text-color-light);
           cursor: pointer;
-          font-family: $ff-mono;
+          font-family: $ff-sans;
           font-size: $fs-xs;
 
           &:hover {
@@ -1261,57 +1186,46 @@ footer.sticky-bottom {
         }
       }
 
-      // Periodical = venue + middot + month/year. Mono outer (month/year),
-      // serif italic inner (venue), nothing boxed.
+      // Periodical = venue + middot + month/year. One grey sans line,
+      // venue italic inside it, nothing boxed.
       .periodical {
-        font-family: $ff-mono;
+        font-family: $ff-sans;
         font-size: $fs-sm;
-        letter-spacing: 0.02em;
         color: var(--mono-meta-color);
         margin-top: $sp-2;
       }
 
       .venue {
-        font-family: $ff-serif;
-        font-size: $fs-base;
+        font-family: $ff-sans;
+        font-size: $fs-sm;
         font-style: italic;
         font-weight: $fw-regular;
-        color: var(--global-text-color);
+        color: var(--global-text-color-light);
         letter-spacing: normal;
         margin-right: 0.15em;
       }
 
-      .links {
+      .pub-links {
         margin-top: $sp-3;
-        display: flex;
-        flex-wrap: wrap;
-        gap: $sp-2;
 
-        a.btn {
-          color: var(--global-text-color);
-          background: transparent;
-          border: 1px solid var(--btn-outline);
-          border-radius: $r-md;
-          padding: $sp-1 $sp-3;
-          margin-left: 0;
+        a {
           font-family: $ff-sans;
-          font-size: $fs-xs;
-          font-weight: $fw-semibold;
-          letter-spacing: 0.03em;
-          text-transform: uppercase;
-          box-shadow: none;
-          transition: color $dur-base $ease-out, border-color $dur-base $ease-out;
+          font-size: $fs-sm;
+          color: var(--global-text-color-light);
+          text-decoration: none;
+          cursor: pointer;
+          transition: color $dur-base $ease-out;
 
           &:hover {
             color: var(--global-theme-color);
-            border-color: var(--global-theme-color);
-            background: transparent;
+            text-decoration: none;
           }
-        }
 
-        a.award.btn {
-          color: var(--global-theme-color);
-          border-color: var(--global-highlight-color);
+          + a::before {
+            content: '·';
+            margin: 0 $sp-2;
+            color: var(--hairline);
+          }
         }
       }
 
@@ -1336,36 +1250,35 @@ footer.sticky-bottom {
         }
       }
 
-      // Inline mono badge pills (Scholar, GitHub etc.) — matched to stat-pill look.
-      // No outer hairline — the half-pills are self-contained.
+      // Inline count tag (Scholar, GitHub) — same quiet grey chip as the venue.
       .badge-pill {
         display: inline-flex;
-        align-items: stretch;
-        text-decoration: none;
+        align-items: center;
+        gap: $sp-1;
+        padding: 2px $sp-2;
         border-radius: $r-md;
-        overflow: hidden;
-        font-family: $ff-mono;
-        line-height: 1;
+        font-family: $ff-sans;
+        font-size: $fs-xs;
+        font-weight: $fw-medium;
+        letter-spacing: 0.04em;
+        line-height: 1.5;
+        color: var(--global-text-color-light);
+        background: var(--global-bg-subtle);
+        text-decoration: none;
+        transition: color $dur-base $ease-out;
 
-        .badge-pill__label {
-          display: inline-flex;
-          align-items: center;
-          gap: $sp-1;
-          padding: $sp-1 $sp-2;
-          font-size: $fs-xs;
-          font-weight: $fw-semibold;
-          color: var(--global-text-color);
-          background: var(--global-bg-subtle);
+        &:hover {
+          color: var(--global-theme-color);
+          text-decoration: none;
         }
 
+        .badge-pill__label,
         .badge-pill__value {
           display: inline-flex;
           align-items: center;
-          padding: $sp-1 $sp-2;
-          font-size: $fs-xs;
-          font-weight: $fw-bold;
-          color: var(--global-bg-color);
-          background: var(--global-text-color);
+          gap: $sp-1;
+          color: inherit;
+          background: transparent;
         }
       }
 

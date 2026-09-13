@@ -28,9 +28,45 @@ body.sticky-bottom-footer {
  * Homepage hero & profile card
  ******************************************************************************/
 
+// Two-column hero: text measure on the left, portrait on the right.
+// Replaces the old float-right profile card (which left ragged paragraph widths).
+.about-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 68ch) 220px;
+  column-gap: $sp-8;
+  align-items: start;
+}
+
+.about-hero__text {
+  min-width: 0;
+}
+
+.about-hero__media {
+  width: 100%;
+
+  // Overrides the legacy `@media (min-width: 576px) { .profile { width: 30% } }`
+  // in _base.scss — the grid column now owns the portrait's width.
+  .profile {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .about-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero__media {
+    width: 160px;
+    margin: $sp-4 0 0;
+  }
+}
+
 .profile {
   img {
     width: 100%;
+    border-radius: $r-lg;
+    box-shadow: none;
   }
 }
 
@@ -40,10 +76,10 @@ body.sticky-bottom-footer {
 
   .more-info {
     margin-top: $sp-3;
-    font-family: $ff-mono;
-    font-size: $fs-sm;
+    font-family: $ff-sans;
+    font-size: $fs-xs;
     color: var(--mono-meta-color);
-    text-align: center;
+    text-align: left;
 
     p {
       margin: 0;
@@ -69,7 +105,7 @@ body.sticky-bottom-footer {
 }
 
 .bio {
-  max-width: 64ch;
+  max-width: 68ch;
   line-height: $lh-relaxed;
   color: var(--global-text-color);
 
@@ -78,14 +114,10 @@ body.sticky-bottom-footer {
   }
 
   a {
-    color: var(--global-theme-color);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: border-color $dur-base $ease-out;
+    color: var(--global-text-color);
 
     &:hover {
-      border-bottom-color: var(--global-theme-color);
-      text-decoration: none;
+      color: var(--global-theme-color);
     }
   }
 }
@@ -105,7 +137,7 @@ body.sticky-bottom-footer {
   gap: $sp-2 $sp-4;
   margin: $sp-4 0 0;
   padding: 0;
-  font-family: $ff-mono;
+  font-family: $ff-sans;
   font-size: $fs-xs;
   color: var(--mono-meta-color);
 
@@ -123,18 +155,18 @@ body.sticky-bottom-footer {
 }
 
 .home-section {
-  margin-top: $sp-6;
+  margin-top: $sp-7;
 
   > h6 {
     font-family: $ff-serif;
-    font-size: $fs-xl;
-    font-weight: $fw-semibold;
+    font-size: $fs-lg;
+    font-weight: $fw-medium;
     letter-spacing: -0.005em;
     text-transform: none;
     color: var(--global-text-color);
     display: block;
     padding-bottom: 0;
-    margin: 0 0 $sp-4;
+    margin: 0 0 $sp-5;
     line-height: $lh-snug;
 
     // Kill the legacy ornamental underline — whitespace separates the sections.
@@ -150,16 +182,70 @@ body.sticky-bottom-footer {
 
       &:hover {
         border-bottom-color: var(--global-theme-color);
+        text-decoration: none;
       }
     }
   }
 }
 
-// Simple bullet list used by the homepage Education / Service sections.
+// --------------------------------------------------------------------------
+// Homepage Research block — overview figure + two columns of interests.
+// --------------------------------------------------------------------------
+
+.research-block {
+  .research-block__figure {
+    margin: 0 0 $sp-5;
+    border: 1px solid var(--hairline);
+    border-radius: $r-lg;
+    max-width: none;
+    overflow: hidden;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .research-block__group {
+    font-family: $ff-sans;
+    font-weight: $fw-medium;
+    margin: 0 0 $sp-1;
+  }
+
+  ul {
+    padding-left: 1.2em;
+    margin: 0 0 $sp-3;
+
+    li {
+      margin-bottom: $sp-1;
+    }
+  }
+}
+
+// "All publications →" — quiet grey text link under the selected list.
+.home-more {
+  margin: $sp-5 0 0;
+
+  a {
+    font-family: $ff-sans;
+    font-size: $fs-sm;
+    color: var(--global-text-color-light);
+    text-decoration: none;
+    transition: color $dur-base $ease-out;
+
+    &:hover {
+      color: var(--global-theme-color);
+      text-decoration: none;
+    }
+  }
+}
+
+// Simple bullet list used by the About me Education / Service sections.
 .home-list {
   margin: 0;
   padding-left: 1.2em;
-  font-family: $ff-serif;
+  font-family: $ff-sans;
   line-height: $lh-body;
 
   li {
@@ -207,6 +293,12 @@ body.sticky-bottom-footer {
  ******************************************************************************/
 
 .about-me {
+  p,
+  ul,
+  ol {
+    max-width: 68ch;
+  }
+
   p {
     line-height: $lh-relaxed;
   }
@@ -215,7 +307,7 @@ body.sticky-bottom-footer {
     position: relative;
     font-family: $ff-serif;
     font-size: $fs-lg;
-    font-weight: $fw-semibold;
+    font-weight: $fw-medium;
     color: var(--global-text-color);
     margin: $sp-6 0 $sp-4;
     padding-bottom: $sp-2;
@@ -261,6 +353,7 @@ body.sticky-bottom-footer {
 
   .photo-row {
     margin-top: 0;
+    max-width: none;
 
     figure {
       margin: 0;

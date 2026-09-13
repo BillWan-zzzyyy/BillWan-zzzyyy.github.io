@@ -2,61 +2,89 @@
 layout: default
 ---
 <div class="post">
-  <header class="post-header about-header">
-    <h1 class="post-title about-title">
-      {% if site.title == 'blank' %}
-        <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
-        {{ site.last_name }}
-      {% else %}
-        {{ site.title }}
-      {% endif %}
-    </h1>
+  <!-- Hero: identity + bio on the left, portrait on the right -->
+  <div class="about-hero">
+    <div class="about-hero__text">
+      <header class="post-header about-header">
+        <h1 class="post-title about-title">
+          {% if site.title == 'blank' %}
+            <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
+            {{ site.last_name }}
+          {% else %}
+            {{ site.title }}
+          {% endif %}
+        </h1>
 
-    <div class="desc about-subtitle">{{ page.subtitle }}</div>
+        <div class="desc about-subtitle">{{ page.subtitle }}</div>
 
-    <!-- Social -->
-    {% if page.social %}
-      <div class="social" style="text-align: left; margin-top: 0.5rem;">
-        <div class="contact-icons">{% include social.liquid %}</div>
-        <div class="contact-note">{{ site.contact_note }}</div>
-      </div>
-    {% endif %}
+        <!-- Social -->
+        {% if page.social %}
+          <div class="social" style="text-align: left; margin-top: 0.5rem;">
+            <div class="contact-icons">{% include social.liquid %}</div>
+            <div class="contact-note">{{ site.contact_note }}</div>
+          </div>
+        {% endif %}
 
-    {% if site.newsletter.enabled and site.footer_fixed %}
-      {% include scripts/newsletter.liquid center=true %}
-    {% endif %}
-  </header>
+        {% if site.newsletter.enabled and site.footer_fixed %}
+          {% include scripts/newsletter.liquid center=true %}
+        {% endif %}
+      </header>
 
-  <article>
+      <div class="bio">{{ content }}</div>
+    </div>
+
     {% if page.profile %}
-      <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
-        <div class="profile__card">
-          {% if page.profile.image %}
-            {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-            {% if page.profile.image_circular %}
-              {% assign profile_image_class = 'img-fluid rounded-circle' %}
-            {% else %}
-              {% assign profile_image_class = 'img-fluid rounded' %}
+      <div class="about-hero__media">
+        <div class="profile">
+          <div class="profile__card">
+            {% if page.profile.image %}
+              {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+              {% if page.profile.image_circular %}
+                {% assign profile_image_class = 'img-fluid rounded-circle' %}
+              {% else %}
+                {% assign profile_image_class = 'img-fluid rounded' %}
+              {% endif %}
+              {% capture sizes %}(min-width: 768px) 220px, 160px{% endcapture %}
+              {%
+                include figure.liquid
+                loading="eager"
+                path=profile_image_path
+                class=profile_image_class
+                sizes=sizes
+                alt=page.profile.image
+                cache_bust=true
+              %}
             {% endif %}
-            {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px) 30vw, 95vw{% endcapture %}
-            {%
-              include figure.liquid
-              loading="eager"
-              path=profile_image_path
-              class=profile_image_class
-              sizes=sizes
-              alt=page.profile.image
-              cache_bust=true
-            %}
-          {% endif %}
-          {% if page.profile.more_info %}
-            <div class="more-info">{{ page.profile.more_info }}</div>
-          {% endif %}
+            {% if page.profile.more_info %}
+              <div class="more-info">{{ page.profile.more_info }}</div>
+            {% endif %}
+          </div>
         </div>
       </div>
     {% endif %}
+  </div>
 
-    <div class="bio clearfix">{{ content }}</div>
+  <article>
+    <!-- Research -->
+    {% if page.research %}
+      <section class="home-section research-block">
+        <h6>Research</h6>
+        {% assign rpath = page.research.image | prepend: 'assets/img/' %}
+        {% include figure.liquid path=rpath class="img-fluid rounded research-block__figure" alt=page.research.alt zoomable=true %}
+        <div class="row">
+          {% for g in page.research.groups %}
+            <div class="col-md-6">
+              <p class="research-block__group">{{ g.title }}</p>
+              <ul>
+                {% for item in g.items %}
+                  <li>{{ item }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
 
     <!-- Recent News -->
     {% if page.news and site.announcements.enabled %}
@@ -75,39 +103,9 @@ layout: default
           <a href="{{ '/publications/' | relative_url }}">Selected Publications</a>
         </h6>
         {% include selected_papers.liquid %}
-      </section>
-    {% endif %}
-
-    <!-- Education -->
-    {% if page.education %}
-      <section class="home-section">
-        <h6>Education</h6>
-        <ul class="home-list">
-          {% for edu in page.education %}
-            <li>
-              {% if edu.logo %}
-                <img src="{{ edu.logo | prepend: 'assets/img/' | relative_url }}" class="inline-logo" alt="{{ edu.institution }}">
-              {% endif %}
-              <strong>{{ edu.degree }}</strong>, {% if edu.college %}{% if edu.college_url %}<a href="{{ edu.college_url }}">{{ edu.college }}</a>{% else %}{{ edu.college }}{% endif %}, {% endif %}{{ edu.institution }}
-              <span class="mono-meta">{{ edu.period }}</span>
-              {% if edu.advisor %}
-                <div class="mono-meta home-list__sub">Advisor: {% if edu.advisor_url %}<a href="{{ edu.advisor_url }}">{{ edu.advisor }}</a>{% else %}{{ edu.advisor }}{% endif %}</div>
-              {% endif %}
-            </li>
-          {% endfor %}
-        </ul>
-      </section>
-    {% endif %}
-
-    <!-- Service -->
-    {% if page.service %}
-      <section class="home-section">
-        <h6>Service</h6>
-        <ul class="home-list">
-          {% for item in page.service %}
-            <li>{{ item }}</li>
-          {% endfor %}
-        </ul>
+        <p class="home-more">
+          <a href="{{ '/publications/' | relative_url }}">All publications →</a>
+        </p>
       </section>
     {% endif %}
   </article>
