@@ -23,12 +23,6 @@
 
 <!-- Fonts & Icons -->
 <link defer rel="stylesheet" href="{{ '/assets/css/academicons.min.css' | relative_url | bust_file_cache }}">
-<link
-  defer
-  rel="stylesheet"
-  type="text/css"
-  href="{{ site.third_party_libraries.google_fonts.url.fonts }}"
->
 
 <!-- Code Syntax Highlighting -->
 <link
@@ -147,3 +141,22 @@
 {% if page.tikzjax %}
   <link defer rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
 {% endif %}
+
+<noscript>
+  <style>
+    #navbarNav {
+      display: block;
+    }
+    .navbar-toggler,
+    #search-toggle,
+    #light-toggle {
+      display: none;
+    }
+    #navbar {
+      position: static;
+    }
+    body.fixed-top-nav {
+      padding-top: 0;
+    }
+  </style>
+</noscript>

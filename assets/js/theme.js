@@ -1,5 +1,7 @@
 // Has to be in the head tag, otherwise a flicker effect will occur.
 
+let themeSettingFallback = "light";
+
 // Toggle through light, dark, and system theme settings.
 let toggleThemeSetting = () => {
   let themeSetting = determineThemeSetting();
@@ -13,19 +15,24 @@ let toggleThemeSetting = () => {
 };
 
 // Change the theme setting and apply the theme.
-let setThemeSetting = (themeSetting) => {
-  localStorage.setItem("theme", themeSetting);
+let setThemeSetting = (themeSetting, animate = true) => {
+  themeSettingFallback = themeSetting;
+  try {
+    localStorage.setItem("theme", themeSetting);
+  } catch (_) {
+    // Storage can be unavailable in private or restricted browsing contexts.
+  }
 
   document.documentElement.setAttribute("data-theme-setting", themeSetting);
 
-  applyTheme();
+  applyTheme(animate);
 };
 
 // Apply the computed dark or light theme to the website.
-let applyTheme = () => {
+let applyTheme = (animate = true) => {
   let theme = determineComputedTheme();
 
-  transTheme();
+  if (animate) transTheme();
   setHighlight(theme);
   setGiscusTheme(theme);
   setSearchTheme(theme);
@@ -84,12 +91,16 @@ let applyTheme = () => {
 };
 
 let setHighlight = (theme) => {
+  const lightTheme = document.getElementById("highlight_theme_light");
+  const darkTheme = document.getElementById("highlight_theme_dark");
+  if (!lightTheme || !darkTheme) return;
+
   if (theme == "dark") {
-    document.getElementById("highlight_theme_light").media = "none";
-    document.getElementById("highlight_theme_dark").media = "";
+    lightTheme.media = "none";
+    darkTheme.media = "";
   } else {
-    document.getElementById("highlight_theme_dark").media = "none";
-    document.getElementById("highlight_theme_light").media = "";
+    darkTheme.media = "none";
+    lightTheme.media = "";
   }
 };
 
@@ -202,16 +213,23 @@ let transTheme = () => {
   document.documentElement.classList.add("transition");
   window.setTimeout(() => {
     document.documentElement.classList.remove("transition");
-  }, 500);
+  }, 200);
 };
 
 // Determine the expected state of the theme toggle, which can be "dark", "light", or
 // "system". Default is "light" (do not follow the OS preference on first visit).
 let determineThemeSetting = () => {
-  let themeSetting = localStorage.getItem("theme");
-  if (themeSetting != "dark" && themeSetting != "light" && themeSetting != "system") {
-    themeSetting = "light";
+  let themeSetting;
+  try {
+    themeSetting = localStorage.getItem("theme");
+  } catch (_) {
+    themeSetting = null;
   }
+  if (themeSetting != "dark" && themeSetting != "light" && themeSetting != "system") {
+    const attributeSetting = document.documentElement.getAttribute("data-theme-setting");
+    themeSetting = ["dark", "light", "system"].includes(attributeSetting) ? attributeSetting : themeSettingFallback;
+  }
+  themeSettingFallback = themeSetting;
   return themeSetting;
 };
 
@@ -234,19 +252,24 @@ let determineComputedTheme = () => {
 let initTheme = () => {
   let themeSetting = determineThemeSetting();
 
-  setThemeSetting(themeSetting);
+  setThemeSetting(themeSetting, false);
 
   // Add event listener to the theme toggle button.
   document.addEventListener("DOMContentLoaded", function () {
     const mode_toggle = document.getElementById("light-toggle");
 
-    mode_toggle.addEventListener("click", function () {
-      toggleThemeSetting();
-    });
+    if (mode_toggle) {
+      mode_toggle.addEventListener("click", function () {
+        toggleThemeSetting();
+      });
+    }
   });
 
   // Add event listener to the system theme preference change.
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
-    applyTheme();
-  });
+  const colorScheme = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");
+  if (colorScheme) {
+    colorScheme.addEventListener("change", () => {
+      if (determineThemeSetting() === "system") applyTheme();
+    });
+  }
 };

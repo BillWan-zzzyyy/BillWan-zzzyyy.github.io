@@ -2,29 +2,43 @@
  * Styles for the base elements of the theme.
  ******************************************************************************/
 
-// Typography — sans body/UI, serif reserved for display headings, mono for
-// news dates only.
+// Typography — system sans throughout, with system mono for code.
 
 body {
   font-family: $ff-sans;
-  font-size: 1.0625rem;
+  font-size: $fs-base;
   line-height: $lh-body;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-code, pre, kbd, samp, tt {
+code,
+pre,
+kbd,
+samp,
+tt {
   font-family: $ff-mono;
 }
 
-p, em, div, li, span, strong {
+p,
+em,
+div,
+li,
+span,
+strong {
   color: var(--global-text-color);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--global-text-color);
 }
 
-// Display: H1–H3 go serif for editorial gravitas; H4–H6 stay sans for UI.
-// Weights stay at 500 — large + bold reads shouty at this scale.
+// Large, compact headings follow the platform's clear information hierarchy.
 h1 {
   font-family: $ff-serif;
   font-size: $fs-2xl;
@@ -302,12 +316,21 @@ ul.task-list input[type="checkbox"] {
 .navbar {
   box-shadow: none;
   background-color: var(--global-bg-color);
-  opacity: 0.95;
+  border-bottom: 1px solid var(--global-divider-color);
+  min-height: 48px;
+
+  @supports ((-webkit-backdrop-filter: blur(18px)) or (backdrop-filter: blur(18px))) {
+    background-color: color-mix(in srgb, var(--global-bg-color) 82%, transparent);
+    -webkit-backdrop-filter: saturate(180%) blur(18px);
+    backdrop-filter: saturate(180%) blur(18px);
+  }
 }
 
 .navbar .dropdown-menu {
-  background-color: var(--global-bg-color);
+  background-color: var(--global-card-bg-color);
   border: 1px solid var(--global-divider-color);
+  border-radius: $r-sm;
+  box-shadow: $sh-hover;
 
   a:not(.active) {
     color: var(--global-text-color);
@@ -356,6 +379,9 @@ ul.task-list input[type="checkbox"] {
       font-family: $ff-sans;
       font-size: $fs-sm;
       font-weight: $fw-medium;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
       transition: color $dur-base $ease-out;
 
       &:hover {
@@ -369,7 +395,7 @@ ul.task-list input[type="checkbox"] {
       font-weight: $fw-semibold;
 
       &::after {
-        content: '';
+        content: "";
         position: absolute;
         left: $sp-3;
         right: $sp-3;
@@ -405,6 +431,10 @@ ul.task-list input[type="checkbox"] {
 }
 
 .navbar-toggler {
+  min-width: 44px;
+  min-height: 44px;
+  border: 0;
+
   .icon-bar {
     display: block;
     width: 22px;
@@ -412,7 +442,9 @@ ul.task-list input[type="checkbox"] {
     background-color: var(--global-text-color);
     border-radius: 1px;
     margin-bottom: 4px;
-    transition: all 0.2s;
+    transition:
+      transform $dur-base $ease-out,
+      opacity $dur-base $ease-out;
   }
 
   .top-bar {
@@ -446,6 +478,8 @@ ul.task-list input[type="checkbox"] {
 
 #light-toggle,
 #search-toggle {
+  min-width: 44px;
+  min-height: 44px;
   padding: 0;
   border: 0;
   background-color: inherit;
@@ -499,8 +533,8 @@ ul.task-list input[type="checkbox"] {
 .wechat-modal {
   display: none;
   position: fixed;
-  z-index: 1;
-  padding-top: 100px;
+  z-index: 1100;
+  padding-top: 0;
   left: 0;
   top: 0;
   width: 100%;
@@ -508,6 +542,18 @@ ul.task-list input[type="checkbox"] {
   overflow: auto;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.8);
+}
+
+.wechat-modal__close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--global-text-color);
+  background: var(--global-bg-color);
+  border: 0;
+  border-radius: $r-pill;
 }
 
 .wechat-modal > img {
@@ -529,7 +575,7 @@ ul.task-list input[type="checkbox"] {
 // Footer — hairline separator, mono metadata, red on hover.
 footer.fixed-bottom {
   background-color: var(--global-footer-bg-color);
-  font-family: $ff-mono;
+  font-family: $ff-sans;
   font-size: $fs-xs;
   letter-spacing: 0.02em;
 
@@ -554,7 +600,7 @@ footer.fixed-bottom {
 footer.sticky-bottom {
   padding-top: $sp-6;
   padding-bottom: $sp-6;
-  font-family: $ff-mono;
+  font-family: $ff-sans;
   font-size: $fs-xs;
   letter-spacing: 0.02em;
 
@@ -592,7 +638,7 @@ footer.sticky-bottom {
     align-items: baseline;
 
     .news-date {
-      font-family: $ff-mono;
+      font-family: $ff-sans;
       font-size: $fs-sm;
       font-weight: $fw-medium;
       letter-spacing: 0.02em;
@@ -607,13 +653,17 @@ footer.sticky-bottom {
       line-height: $lh-body;
       color: var(--global-text-color);
 
-      p { margin: 0; }
+      p {
+        margin: 0;
+      }
 
       .news-title {
         color: var(--global-text-color);
         text-decoration: none;
         border-bottom: 1px solid transparent;
-        transition: border-color $dur-base $ease-out, color $dur-base $ease-out;
+        transition:
+          border-color $dur-base $ease-out,
+          color $dur-base $ease-out;
 
         &:hover {
           color: var(--global-theme-color);
@@ -626,7 +676,7 @@ footer.sticky-bottom {
 }
 
 .news-year {
-  font-family: $ff-mono;
+  font-family: $ff-sans;
   font-size: $fs-sm;
   font-weight: $fw-semibold;
   letter-spacing: 0.05em;
@@ -694,7 +744,8 @@ footer.sticky-bottom {
     justify-content: center;
     display: flow-root;
 
-    p, li {
+    p,
+    li {
       list-style: none;
       display: inline-block;
       padding: $sp-4 $sp-2;
@@ -847,7 +898,7 @@ footer.sticky-bottom {
   .card {
     background: var(--global-card-bg-color);
     border: 1px solid var(--hairline);
-    border-radius: $r-md;
+    border-radius: $r-lg;
     box-shadow: none;
     overflow: hidden;
     transition:
@@ -855,20 +906,21 @@ footer.sticky-bottom {
       box-shadow $dur-base $ease-out,
       transform $dur-base $ease-out;
 
-    &:hover,
-    &.hoverable:hover {
-      border-color: var(--global-theme-color);
-      box-shadow: $sh-hover;
-      transform: translateY(-2px);
+    figure {
+      margin: 0;
     }
 
     img {
       width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 10;
+      object-fit: contain;
+      background: #fff;
       display: block;
     }
 
     .card-body {
-      padding: $sp-4;
+      padding: $sp-5;
     }
 
     .card-title {
@@ -888,7 +940,7 @@ footer.sticky-bottom {
       line-height: $lh-snug;
       margin-bottom: $sp-3;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -953,9 +1005,19 @@ footer.sticky-bottom {
     margin-bottom: $sp-3;
   }
 
-  // Legacy heading — kept for backward compat but visually minimal.
   h2.category {
-    display: none;
+    font-size: $fs-lg;
+    margin: $sp-7 0 $sp-5;
+    color: var(--global-text-color-light);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .projects .card:hover,
+  .projects .card.hoverable:hover {
+    border-color: var(--global-theme-color);
+    box-shadow: $sh-hover;
+    transform: translateY(-2px);
   }
 }
 
@@ -1049,7 +1111,7 @@ footer.sticky-bottom {
   @media (min-width: 992px) {
     h2.bibliography {
       position: sticky;
-      top: 56px; // navbar height (body.fixed-top-nav padding-top in _layout.scss)
+      top: 64px; // navbar height (body.fixed-top-nav padding-top in _layout.scss)
       background: var(--global-bg-color);
       z-index: 2;
     }
@@ -1071,7 +1133,8 @@ footer.sticky-bottom {
         width: 100%;
         height: auto;
         aspect-ratio: 4 / 3;
-        object-fit: cover;
+        object-fit: contain;
+        background: #fff;
         border: 1px solid var(--hairline);
         border-radius: $r-md;
         box-shadow: none;
@@ -1081,7 +1144,8 @@ footer.sticky-bottom {
         width: 100%;
         height: auto;
         aspect-ratio: 4 / 3;
-        object-fit: cover;
+        object-fit: contain;
+        background: #fff;
         border-radius: $r-md;
         box-shadow: none;
       }
@@ -1172,10 +1236,14 @@ footer.sticky-bottom {
           border-bottom: 0;
         }
 
-        > span.more-authors {
+        > .more-authors {
           color: var(--global-text-color-light);
           border-bottom: 1px dashed var(--global-text-color-light);
           cursor: pointer;
+          background: transparent;
+          border: 0;
+          border-bottom: 1px dashed currentColor;
+          padding: 0;
           font-family: $ff-sans;
           font-size: $fs-xs;
 
@@ -1206,25 +1274,29 @@ footer.sticky-bottom {
       }
 
       .pub-links {
-        margin-top: $sp-3;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 $sp-4;
+        margin-top: $sp-2;
 
-        a {
+        a,
+        button {
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
+          padding: 0;
+          border: 0;
+          background: transparent;
           font-family: $ff-sans;
           font-size: $fs-sm;
-          color: var(--global-text-color-light);
+          color: var(--global-theme-color);
           text-decoration: none;
           cursor: pointer;
           transition: color $dur-base $ease-out;
 
           &:hover {
-            color: var(--global-theme-color);
-            text-decoration: none;
-          }
-
-          + a::before {
-            content: '·';
-            margin: 0 $sp-2;
-            color: var(--hairline);
+            color: var(--global-hover-color);
+            text-decoration: underline;
           }
         }
       }
@@ -1362,8 +1434,71 @@ html.transition,
 html.transition *,
 html.transition *:before,
 html.transition *:after {
-  transition: all 750ms !important;
+  transition-property: color, background-color, border-color, box-shadow !important;
+  transition-duration: $dur-base !important;
+  transition-timing-function: $ease-out !important;
   transition-delay: 0 !important;
+}
+
+:focus-visible {
+  outline: 3px solid #0066cc;
+  outline: 3px solid var(--global-theme-color);
+  outline-offset: 3px;
+}
+
+figure > img,
+.profile img,
+.card img,
+video,
+iframe {
+  border-radius: $r-lg;
+}
+
+@media (max-width: 767.98px) {
+  .navbar-collapse {
+    padding: $sp-2 0 $sp-3;
+  }
+
+  .navbar.navbar-light .navbar-nav .nav-item .nav-link {
+    display: flex;
+    justify-content: flex-end;
+    padding-inline: $sp-3;
+  }
+
+  .navbar .dropdown-menu {
+    box-shadow: none;
+  }
+}
+
+input,
+textarea,
+select,
+button {
+  border-radius: $r-sm;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+  }
 }
 
 // Extra Markdown style (post Customization)
@@ -1394,7 +1529,7 @@ html.transition *:after {
 progress {
   position: fixed;
   left: 0;
-  top: 56px;
+  top: 64px;
   z-index: 10;
   width: 100%;
   height: 2px;
@@ -1406,15 +1541,21 @@ progress {
   color: var(--global-theme-color);
 }
 
-progress::-webkit-progress-bar { background-color: transparent; }
-progress::-webkit-progress-value { background-color: var(--global-theme-color); }
-progress::-moz-progress-bar { background-color: var(--global-theme-color); }
+progress::-webkit-progress-bar {
+  background-color: transparent;
+}
+progress::-webkit-progress-value {
+  background-color: var(--global-theme-color);
+}
+progress::-moz-progress-bar {
+  background-color: var(--global-theme-color);
+}
 
 .progress-container {
   width: 100%;
   background-color: transparent;
   position: fixed;
-  top: 56px;
+  top: 64px;
   left: 0;
   height: 2px;
   display: block;

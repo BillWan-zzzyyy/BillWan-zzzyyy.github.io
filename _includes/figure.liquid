@@ -8,6 +8,9 @@
   {% endif %}
 >
   <picture>
+    {% if include.reduced_motion_path %}
+      <source media="(prefers-reduced-motion: reduce)" srcset="{{ include.reduced_motion_path | relative_url }}">
+    {% endif %}
     <!-- Auto scaling with imagemagick -->
     <!--
       See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
@@ -36,13 +39,9 @@
       {% endif %}
       {% if include.width %}
         width="{{ include.width }}"
-      {% else %}
-        width="100%"
       {% endif %}
       {% if include.height %}
         height="{{ include.height }}"
-      {% else %}
-        height="auto"
       {% endif %}
       {% if include['min-width'] or include['min-height'] or include['max-width'] or include['max-height'] %}
         style="
@@ -60,8 +59,10 @@
           {% endif %}
         "
       {% endif %}
-      {% if include.alt %}
-        alt="{{ include.alt }}"
+      alt="{{ include.alt | default: '' | escape }}"
+      decoding="async"
+      {% if include.fetchpriority %}
+        fetchpriority="{{ include.fetchpriority }}"
       {% endif %}
       {% if include.title %}
         title="{{ include.title }}"
@@ -74,7 +75,7 @@
       {% elsif site.lazy_loading_images %}
         loading="lazy"
       {% endif %}
-      onerror="this.onerror=null; $('.responsive-img-srcset').remove();"
+      onerror="this.onerror=null; this.parentElement.querySelectorAll('source').forEach(function(source) { source.remove(); });"
     >
   </picture>
 

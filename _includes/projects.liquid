@@ -4,10 +4,10 @@
       {% if project.img %}
         {%
           include figure.liquid
-          loading="eager"
+          loading="lazy"
           path=project.img
-          sizes="250px"
-          alt="project thumbnail"
+          sizes="(min-width: 1200px) 530px, (min-width: 768px) calc((100vw - 70px) / 2), calc(100vw - 40px)"
+          alt=project.title
           class="card-img-top"
         %}
       {% endif %}

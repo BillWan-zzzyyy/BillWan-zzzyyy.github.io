@@ -2,7 +2,7 @@
 layout: page
 title: News
 permalink: /news/
-description: <i>Recent updates and milestones.</i>
+description: Recent updates and milestones.
 ---
 
 <div class="news news-archive">

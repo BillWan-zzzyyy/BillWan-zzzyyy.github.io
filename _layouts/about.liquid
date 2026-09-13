@@ -1,37 +1,36 @@
 ---
 layout: default
 ---
-<div class="post">
-  <!-- Hero: identity + bio on the left, portrait on the right -->
+<div class="post about-home">
   <div class="about-hero">
-    <div class="about-hero__text">
-      <header class="post-header about-header">
-        <h1 class="post-title about-title">
-          {% if site.title == 'blank' %}
-            <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
-            {{ site.last_name }}
-          {% else %}
-            {{ site.title }}
-          {% endif %}
-        </h1>
-
-        <div class="desc about-subtitle">{{ page.subtitle }}</div>
-
-        <!-- Social -->
-        {% if page.social %}
-          <div class="social" style="text-align: left; margin-top: 0.5rem;">
-            <div class="contact-icons">{% include social.liquid %}</div>
-            <div class="contact-note">{{ site.contact_note }}</div>
-          </div>
+    <header class="post-header about-header about-hero__header">
+      <h1 class="post-title about-title">
+        {% if site.title == 'blank' %}
+          <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
+          {{ site.last_name }}
+        {% else %}
+          {{ site.title }}
         {% endif %}
+      </h1>
 
-        {% if site.newsletter.enabled and site.footer_fixed %}
-          {% include scripts/newsletter.liquid center=true %}
-        {% endif %}
-      </header>
+      <div class="desc about-subtitle">{{ page.subtitle }}</div>
+      <p class="about-positioning">{{ page.positioning }}</p>
+      <nav class="about-actions" aria-label="Explore my work">
+        <a class="about-action" href="{{ '/publications/' | relative_url }}">Publications</a>
+        <a class="about-action" href="{{ '/projects/' | relative_url }}">Projects</a>
+      </nav>
 
-      <div class="bio">{{ content }}</div>
-    </div>
+      {% if page.social %}
+        <div class="social about-social">
+          <div class="contact-icons">{% include social.liquid %}</div>
+          <div class="contact-note">{{ site.contact_note }}</div>
+        </div>
+      {% endif %}
+
+      {% if site.newsletter.enabled and site.footer_fixed %}
+        {% include scripts/newsletter.liquid center=true %}
+      {% endif %}
+    </header>
 
     {% if page.profile %}
       <div class="about-hero__media">
@@ -44,14 +43,17 @@ layout: default
               {% else %}
                 {% assign profile_image_class = 'img-fluid rounded' %}
               {% endif %}
-              {% capture sizes %}(min-width: 768px) 220px, 160px{% endcapture %}
+              {% capture sizes %}(min-width: 768px) 280px, 180px{% endcapture %}
               {%
                 include figure.liquid
                 loading="eager"
+                fetchpriority="high"
+                width="1000"
+                height="1000"
                 path=profile_image_path
                 class=profile_image_class
                 sizes=sizes
-                alt=page.profile.image
+                alt=page.profile.alt
                 cache_bust=true
               %}
             {% endif %}
@@ -62,15 +64,16 @@ layout: default
         </div>
       </div>
     {% endif %}
+
+    <div class="bio about-hero__bio">{{ content }}</div>
   </div>
 
-  <article>
-    <!-- Research -->
+  <article class="about-home__content">
     {% if page.research %}
-      <section class="home-section research-block">
-        <h6>Research</h6>
+      <section class="home-section research-block" data-reveal>
+        <h2 class="home-section__title">Research</h2>
         {% assign rpath = page.research.image | prepend: 'assets/img/' %}
-        {% include figure.liquid path=rpath class="img-fluid rounded research-block__figure" alt=page.research.alt zoomable=true %}
+        {% include figure.liquid path=rpath class="img-fluid rounded research-block__figure" width="1600" height="1034" sizes="(min-width: 1120px) 984px, calc(100vw - 80px)" alt=page.research.alt zoomable=true %}
         <div class="row">
           {% for g in page.research.groups %}
             <div class="col-md-6">
@@ -86,34 +89,36 @@ layout: default
       </section>
     {% endif %}
 
-    <!-- Recent News -->
-    {% if page.news and site.announcements.enabled %}
-      <section class="home-section">
-        <h6>
-          <a href="{{ '/news/' | relative_url }}">Recent News</a>
-        </h6>
-        {% include news.liquid limit=true %}
-      </section>
-    {% endif %}
-
-    <!-- Selected Publications -->
     {% if page.selected_papers %}
-      <section class="home-section">
-        <h6>
+      <section class="home-section selected-publications" data-reveal>
+        <h2 class="home-section__title">
           <a href="{{ '/publications/' | relative_url }}">Selected Publications</a>
-        </h6>
+        </h2>
         {% include selected_papers.liquid %}
         <p class="home-more">
           <a href="{{ '/publications/' | relative_url }}">All publications →</a>
         </p>
       </section>
     {% endif %}
+
+    {% if page.news and site.announcements.enabled %}
+      <section class="home-section recent-news" data-reveal>
+        <h2 class="home-section__title">
+          <a href="{{ '/news/' | relative_url }}">Recent News</a>
+        </h2>
+        {% include news.liquid limit=true %}
+      </section>
+    {% endif %}
   </article>
 
-  <!-- Visitor heatmap ornament (muted, low emphasis) -->
-  <div class="footer__ornament" aria-hidden="true">
-    <div style="transform: scale(0.7); transform-origin: top center;">
-      <script type='text/javascript' id='clustrmaps' src='//clustrmaps.com/map_v2.js?d=iWTm2HbayeimtnXDADURqs5_Im3_wek8M_WS3lq5qLI&cl=ffffff&w=a'></script>
+  <div class="footer__ornament">
+    <div class="footer__ornament-map">
+      <script
+        async
+        type="text/javascript"
+        id="clustrmaps"
+        src="//clustrmaps.com/map_v2.js?d=iWTm2HbayeimtnXDADURqs5_Im3_wek8M_WS3lq5qLI&cl=ffffff&w=a"
+      ></script>
     </div>
   </div>
 </div>

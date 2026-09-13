@@ -47,13 +47,13 @@ rss_icon: false
 # -----------------------------------------------------------------------------
 
 navbar_fixed: true
-footer_fixed: true
+footer_fixed: false
 search_enabled: true
 socials_in_search: true
 bib_search: true
 
 # Dimensions
-max_width: 960px
+max_width: 1120px
 
 # TODO: add layout settings (single page vs. multi-page)
 
@@ -170,11 +170,11 @@ disqus_shortname: al-folio # put your disqus shortname
 # you can display them in your blog by adding a link to the RSS feed.
 #external_sources:
 #  - name: medium.com
- #   rss_url: https://medium.com/@al-folio/feed
+#   rss_url: https://medium.com/@al-folio/feed
 #  - name: Google Blog
-  #  posts:
-   #   - url: https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/
-    #    published_date: 2024-05-14
+#  posts:
+#   - url: https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/
+#    published_date: 2024-05-14
 
 # -----------------------------------------------------------------------------
 # Newsletter
@@ -490,9 +490,6 @@ third_party_libraries:
         library: "https://cdn.jsdelivr.net/npm/echarts@{{version}}/dist/echarts.min.js"
         dark_theme: "https://cdn.jsdelivr.net/npm/echarts@{{version}}/theme/dark-fresh-cut.js"
     version: "5.5.0"
-  google_fonts:
-    url:
-      fonts: "https://fonts.googleapis.com/css?family=Source+Serif+4:400,500,600,700|Inter:400,500,600,700|JetBrains+Mono:400,500|Material+Icons&display=swap"
   highlightjs:
     integrity:
       css:

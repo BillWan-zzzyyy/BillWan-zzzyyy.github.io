@@ -14,17 +14,21 @@
       {% endif %}
       {% if entry.preview %}
         {% if entry.preview contains '://' %}
-          <img class="preview rounded" src="{{ entry.preview }}">
+          <img class="preview rounded" src="{{ entry.preview }}" loading="lazy" decoding="async" alt="{{ entry.title | strip_html | escape }}">
         {% else %}
           {% assign entry_path = entry.preview | prepend: '/assets/img/publication_preview/' %}
+          {% assign still_path = entry.preview | prepend: '/assets/img/publication_preview/still/' %}
+          {% capture has_still %}{% file_exists {{ still_path }} %}{% endcapture %}
+          {% unless has_still == 'true' %}{% assign still_path = null %}{% endunless %}
           {%
             include figure.liquid
-            loading="eager"
+            loading="lazy"
             path=entry_path
+            reduced_motion_path=still_path
             sizes = "280px"
             class="preview rounded"
             zoomable=true
-            alt=entry.preview
+            alt=entry.title
           %}
         {% endif %}
       {% endif %}
@@ -104,24 +108,16 @@
         {%- endfor -%}
         {%- assign more_authors_show = more_authors_show | regex_replace: '([*∗†‡§¶‖&^]+)', '<sup>\1</sup>' -%}
         , and
-        <span
+        <button
+          type="button"
           class="more-authors"
-          title="click to view {{ more_authors_hide }}"
-          onclick="
-              var element = $(this);
-              element.attr('title', '');
-              var more_authors_text = element.text() == '{{ more_authors_hide }}' ? '{{ more_authors_show }}' : '{{ more_authors_hide }}';
-              var cursorPosition = 0;
-              var textAdder = setInterval(function(){
-                element.html(more_authors_text.substring(0, cursorPosition + 1));
-                if (++cursorPosition == more_authors_text.length){
-                  clearInterval(textAdder);
-                }
-            }, '{{ site.more_authors_animation_delay }}');
-          "
+          title="Show {{ more_authors_hide }}"
+          aria-expanded="false"
+          data-collapsed-text="{{ more_authors_hide | escape }}"
+          data-expanded-text="{{ more_authors_show | strip_html | escape }}"
         >
           {{- more_authors_hide -}}
-        </span>
+        </button>
       {% endif %}
       {% if entry.annotation %}
         <i
@@ -175,12 +171,12 @@
     <!-- Links (plain text, middot-separated; see .pub-links in _base.scss) -->
     <div class="pub-links">
       {% if entry.award %}
-        <a class="award">
+        <button type="button" class="award" aria-expanded="false">
           {%- if entry.award_name %}{{ entry.award_name }}{% else %}Awarded{% endif -%}
-        </a>
+        </button>
       {% endif %}
       {% if entry.abstract %}
-        <a class="abstract">Abs</a>
+        <button type="button" class="abstract" aria-expanded="false">Abs</button>
       {% endif %}
       {% if entry.doi %}
         <a href="https://doi.org/{{ entry.doi }}">DOI</a>
@@ -334,6 +330,8 @@
               <img
                 src="https://img.shields.io/badge/inspire-{% inspirehep_citations entry.inspirehep_id %}-001628?logo=inspire&logoColor=001628&labelColor=beige"
                 alt="{% inspirehep_citations entry.inspirehep_id %} InspireHEP citations"
+                loading="lazy"
+                decoding="async"
               >
             </a>
           {% endif %}

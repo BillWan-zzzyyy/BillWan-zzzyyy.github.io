@@ -59,8 +59,10 @@ module.exports = {
       "home-more",
       "pub-links",
       "pub-stats",
+      "reveal-pending",
+      "reveal-visible",
     ],
     deep: [/^cv-/, /^news-/, /^badge-pill/, /^project-/, /^about-hero/, /^research-block/, /^ti-/, /^ai-/, /^fa-/],
-    greedy: [/^tabler/, /^font-awesome/],
+    greedy: [/^tabler/, /^font-awesome/, /:focus-visible/],
   },
 };

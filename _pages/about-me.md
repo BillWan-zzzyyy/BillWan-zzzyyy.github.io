@@ -2,7 +2,7 @@
 layout: page
 permalink: /about-me/
 title: About me
-description: <i>A few things beyond the papers.</i>
+description: Education, honors, talks, and academic service.
 nav: true
 nav_order: 5
 

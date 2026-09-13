@@ -1,20 +1,79 @@
 {% if site.wechat_qr %}
-  <!-- WeChat Modal -->
-
   <script>
-    var wechatModal = document.getElementById('WeChatMod');
-    var wechatBtn = document.querySelectorAll('[id="WeChatBtn"]');
+    (() => {
+      if (window.__wechatModalSetupPending) return;
+      window.__wechatModalSetupPending = true;
 
-    for (var i = 0; i < wechatBtn.length; i++) {
-      wechatBtn[i].onclick = function () {
-        wechatModal.style.display = 'block';
+      const setupWechatModals = () => {
+        const focusableSelector = 'button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])';
+
+        document.querySelectorAll('[data-wechat-trigger]').forEach((trigger) => {
+          if (trigger.dataset.wechatBound === 'true') return;
+
+          const modal = trigger.nextElementSibling;
+          if (!modal || !modal.matches('[data-wechat-modal]')) return;
+
+          const closeButton = modal.querySelector('[data-wechat-close]');
+          let returnFocus = null;
+
+          const openModal = (event) => {
+            event.preventDefault();
+            returnFocus = document.activeElement;
+            modal.hidden = false;
+            modal.style.display = 'block';
+            modal.setAttribute('aria-hidden', 'false');
+            trigger.setAttribute('aria-expanded', 'true');
+            if (closeButton) closeButton.focus();
+          };
+
+          const closeModal = () => {
+            modal.hidden = true;
+            modal.style.removeProperty('display');
+            modal.setAttribute('aria-hidden', 'true');
+            trigger.setAttribute('aria-expanded', 'false');
+            if (returnFocus) returnFocus.focus();
+          };
+
+          trigger.addEventListener('click', openModal);
+          if (closeButton) closeButton.addEventListener('click', closeModal);
+          modal.addEventListener('click', (event) => {
+            if (event.target === modal) closeModal();
+          });
+          modal.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+              event.preventDefault();
+              closeModal();
+              return;
+            }
+
+            if (event.key !== 'Tab') return;
+            const focusable = Array.from(modal.querySelectorAll(focusableSelector));
+            if (focusable.length === 0) {
+              event.preventDefault();
+              modal.focus();
+              return;
+            }
+
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (event.shiftKey && document.activeElement === first) {
+              event.preventDefault();
+              last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+              event.preventDefault();
+              first.focus();
+            }
+          });
+
+          trigger.dataset.wechatBound = 'true';
+        });
       };
-    }
 
-    window.onclick = function (event) {
-      if (event.target == wechatModal) {
-        wechatModal.style.display = 'none';
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupWechatModals, { once: true });
+      } else {
+        setupWechatModals();
       }
-    };
+    })();
   </script>
 {% endif %}

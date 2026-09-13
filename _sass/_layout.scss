@@ -7,13 +7,18 @@ body {
   color: var(--global-text-color);
   background-color: var(--global-bg-color);
 
-  h1, h2, h3, h4, h5, h6 {
-    scroll-margin-top: 66px;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    scroll-margin-top: 88px;
   }
 }
 
 body.fixed-top-nav {
-  padding-top: 56px;
+  padding-top: 64px;
 }
 
 body.sticky-bottom-footer {
@@ -28,44 +33,119 @@ body.sticky-bottom-footer {
  * Homepage hero & profile card
  ******************************************************************************/
 
-// Two-column hero: text measure on the left, portrait on the right.
-// Replaces the old float-right profile card (which left ragged paragraph widths).
-.about-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 68ch) 220px;
-  column-gap: $sp-8;
-  align-items: start;
+// Identity and portrait share the first row; the introduction follows below.
+.site-content {
+  margin-top: clamp(40px, 6vw, 80px);
+  min-height: 65vh;
+  padding-inline: 20px;
 }
 
-.about-hero__text {
+.about-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  grid-template-areas: "header media" "bio bio";
+  column-gap: clamp(32px, 6vw, 96px);
+  row-gap: $sp-7;
+  align-items: center;
+}
+
+.about-home .about-hero__header {
+  grid-area: header;
   min-width: 0;
+  margin: 0;
+
+  .about-title {
+    font-size: clamp(40px, 5.2vw, 72px);
+    font-weight: $fw-semibold;
+    letter-spacing: -0.045em;
+    line-height: 1.06;
+    margin-bottom: $sp-4;
+
+    span {
+      font-weight: inherit !important;
+    }
+  }
+}
+
+.about-subtitle {
+  font-size: $fs-base;
+  color: var(--global-text-color-light);
+  max-width: 42ch;
+}
+
+.about-positioning {
+  font-size: clamp(21px, 2.4vw, 28px);
+  font-weight: $fw-medium;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+  max-width: 34ch;
+  margin: $sp-5 0;
+}
+
+.about-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $sp-3;
+
+  .about-action {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 10px 22px;
+    border-radius: $r-pill;
+    font-size: $fs-base;
+    text-decoration: none;
+    color: var(--global-theme-color);
+    background: var(--global-bg-subtle);
+    transition:
+      background-color $dur-base $ease-out,
+      color $dur-base $ease-out;
+
+    &:first-child {
+      background: var(--global-theme-color);
+      color: var(--global-bg-color);
+    }
+
+    &:hover {
+      background: var(--global-hover-color);
+      color: var(--global-bg-color);
+    }
+  }
+}
+
+.about-home .about-social {
+  margin-top: $sp-4;
+
+  .contact-icons {
+    gap: $sp-2;
+    margin-bottom: 0;
+  }
+  .contact-note:empty {
+    display: none;
+  }
+}
+
+.about-hero__bio {
+  grid-area: bio;
+  font-size: $fs-base;
+  p:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .about-hero__media {
-  width: 100%;
-
-  // Overrides the legacy `@media (min-width: 576px) { .profile { width: 30% } }`
-  // in _base.scss — the grid column now owns the portrait's width.
+  grid-area: media;
+  width: 280px;
   .profile {
     width: 100%;
-  }
-}
-
-@media (max-width: 767px) {
-  .about-hero {
-    grid-template-columns: 1fr;
-  }
-
-  .about-hero__media {
-    width: 160px;
-    margin: $sp-4 0 0;
   }
 }
 
 .profile {
   img {
     width: 100%;
-    border-radius: $r-lg;
+    height: auto;
+    border-radius: $r-lg !important;
     box-shadow: none;
   }
 }
@@ -73,17 +153,34 @@ body.sticky-bottom-footer {
 .profile__card {
   padding: 0;
   background: transparent;
+  figure {
+    margin: 0;
+  }
 
   .more-info {
     margin-top: $sp-3;
     font-family: $ff-sans;
-    font-size: $fs-xs;
+    font-size: $fs-sm;
     color: var(--mono-meta-color);
-    text-align: left;
-
+    text-align: center;
     p {
       margin: 0;
+      color: inherit;
     }
+  }
+}
+
+@media (max-width: 767px) {
+  .about-hero {
+    grid-template-columns: 1fr;
+    grid-template-areas: "header" "media" "bio";
+    row-gap: $sp-6;
+  }
+  .about-hero__media {
+    width: 180px;
+  }
+  .about-home .about-hero__header .about-title {
+    font-size: clamp(40px, 9vw, 56px);
   }
 }
 
@@ -114,10 +211,10 @@ body.sticky-bottom-footer {
   }
 
   a {
-    color: var(--global-text-color);
+    color: var(--global-theme-color);
 
     &:hover {
-      color: var(--global-theme-color);
+      color: var(--global-hover-color);
     }
   }
 }
@@ -147,7 +244,7 @@ body.sticky-bottom-footer {
     margin: 0;
 
     &:not(:last-child)::after {
-      content: '·';
+      content: "·";
       margin-left: $sp-4;
       opacity: 0.6;
     }
@@ -155,13 +252,13 @@ body.sticky-bottom-footer {
 }
 
 .home-section {
-  margin-top: $sp-7;
+  margin-top: $sp-9;
 
-  > h6 {
+  > .home-section__title {
     font-family: $ff-serif;
-    font-size: $fs-lg;
-    font-weight: $fw-medium;
-    letter-spacing: -0.005em;
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: $fw-semibold;
+    letter-spacing: -0.03em;
     text-transform: none;
     color: var(--global-text-color);
     display: block;
@@ -193,11 +290,21 @@ body.sticky-bottom-footer {
 // --------------------------------------------------------------------------
 
 .research-block {
+  padding: clamp(20px, 4vw, 48px);
+  background: var(--global-bg-subtle);
+  border-radius: $r-lg;
+
+  > figure {
+    margin: 0 0 $sp-6;
+  }
+
   .research-block__figure {
     margin: 0 0 $sp-5;
-    border: 1px solid var(--hairline);
-    border-radius: $r-lg;
-    max-width: none;
+    border: 0;
+    background: #fff;
+    border-radius: $r-md !important;
+    max-width: 100%;
+    height: auto;
     overflow: hidden;
 
     img {
@@ -257,8 +364,9 @@ body.sticky-bottom-footer {
   }
 
   .mono-meta {
-    margin-left: $sp-2;
-    white-space: nowrap;
+    display: block;
+    margin: $sp-1 0 0;
+    white-space: normal;
   }
 
   .home-list__sub {
@@ -268,24 +376,68 @@ body.sticky-bottom-footer {
   }
 }
 
-// Footer ornament (hosts ClusterMaps widget at low emphasis)
+// Keep the third-party visitor map secondary and reserve its footprint.
 .footer__ornament {
-  margin-top: $sp-6;
-  padding-top: $sp-4;
-  opacity: 0.4;
-  transition: opacity $dur-slow $ease-out;
+  margin-top: $sp-9;
   text-align: center;
+}
 
-  &:hover {
-    opacity: 0.75;
+.footer__ornament-map {
+  width: min(100%, 320px);
+  min-height: 180px;
+  margin-inline: auto;
+  overflow: hidden;
+  img,
+  iframe {
+    max-width: 100%;
   }
 }
 
 .mono-meta {
-  font-family: $ff-mono;
-  font-size: $fs-xs;
+  font-family: $ff-sans;
+  font-size: $fs-sm;
   color: var(--mono-meta-color);
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
+}
+
+[data-reveal].reveal-pending {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+[data-reveal].reveal-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 450ms $ease-out,
+    transform 450ms $ease-out;
+}
+
+.content-page > article > p,
+.content-page > article > ul,
+.content-page > article > ol {
+  max-width: 68ch;
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 20px;
+  z-index: 1100;
+  padding: 12px 20px;
+  background: var(--global-bg-color);
+  border-radius: $r-sm;
+  transform: translateY(-150%);
+  &:focus {
+    transform: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-section,
+  .footer__ornament {
+    margin-top: 56px;
+  }
 }
 
 /******************************************************************************
@@ -309,17 +461,11 @@ body.sticky-bottom-footer {
     font-size: $fs-lg;
     font-weight: $fw-medium;
     color: var(--global-text-color);
-    margin: $sp-6 0 $sp-4;
+    margin: $sp-7 0 $sp-5;
     padding-bottom: $sp-2;
 
     &::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 48px;
-      height: 3px;
-      background: var(--global-theme-color);
+      content: none;
     }
   }
 
@@ -344,7 +490,7 @@ body.sticky-bottom-footer {
   }
 
   .memory-date {
-    font-family: $ff-mono;
+    font-family: $ff-sans;
     font-size: $fs-xs;
     color: var(--mono-meta-color);
     margin-left: $sp-1;

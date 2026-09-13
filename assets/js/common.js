@@ -1,19 +1,37 @@
 $(document).ready(function () {
   // add toggle functionality to abstract, award and bibtex buttons
-  $("a.abstract").click(function () {
-    $(this).parent().parent().find(".abstract.hidden").toggleClass("open");
-    $(this).parent().parent().find(".award.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".bibtex.hidden.open").toggleClass("open");
+  function togglePublicationPanel(control, panelClass) {
+    const publication = control.parent().parent();
+    const panel = publication.find(`.${panelClass}.hidden`);
+    const willOpen = !panel.hasClass("open");
+
+    publication.find(".abstract.hidden.open, .award.hidden.open, .bibtex.hidden.open").removeClass("open");
+    publication.find("a.abstract, button.abstract, a.award, button.award, a.bibtex, button.bibtex").attr("aria-expanded", "false");
+
+    if (willOpen) {
+      panel.addClass("open");
+      control.attr("aria-expanded", "true");
+    }
+  }
+
+  $("a.abstract, button.abstract").click(function () {
+    togglePublicationPanel($(this), "abstract");
   });
-  $("a.award").click(function () {
-    $(this).parent().parent().find(".abstract.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".award.hidden").toggleClass("open");
-    $(this).parent().parent().find(".bibtex.hidden.open").toggleClass("open");
+  $("a.award, button.award").click(function () {
+    togglePublicationPanel($(this), "award");
   });
-  $("a.bibtex").click(function () {
-    $(this).parent().parent().find(".abstract.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".award.hidden.open").toggleClass("open");
-    $(this).parent().parent().find(".bibtex.hidden").toggleClass("open");
+  $("a.bibtex, button.bibtex").click(function () {
+    togglePublicationPanel($(this), "bibtex");
+  });
+
+  $("button.more-authors").click(function () {
+    const control = $(this);
+    const expanded = control.attr("aria-expanded") === "true";
+    const collapsedText = control.attr("data-collapsed-text");
+    const expandedText = control.attr("data-expanded-text");
+    control.text(expanded ? collapsedText : expandedText);
+    control.attr("aria-expanded", expanded ? "false" : "true");
+    control.attr("title", expanded ? `Show ${collapsedText}` : `Hide ${collapsedText}`);
   });
   $("a").removeClass("waves-effect waves-light");
 
