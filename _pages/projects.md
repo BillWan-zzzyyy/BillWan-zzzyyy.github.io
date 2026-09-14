@@ -3,7 +3,7 @@ layout: page
 title: Projects
 gradient_title: true
 permalink: /projects/
-description: Research in autonomous driving, simulation, and human–AI collaboration.
+description: <i>The mind is the final frontier.</i>
 nav: true
 nav_order: 3
 display_categories: [UW-Madison, Tongji University]

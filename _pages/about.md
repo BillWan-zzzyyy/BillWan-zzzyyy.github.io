@@ -3,7 +3,6 @@ layout: about
 title: Home
 permalink: /
 subtitle: <span class="highlight-text"> Ph.D. student </span>at The University of Wisconsin-Madison CEE
-positioning: I study autonomous driving and human-centered intelligent transportation through simulation, real-vehicle testing, and human-AI collaboration.
 
 profile:
   align: right
@@ -33,4 +32,4 @@ research:
 
 I am a **Ph.D. student** in the Department of Civil and Environmental Engineering at the <img src="../assets/img/uwmadison.png" class="inline-logo" alt="UW–Madison"/>[University of Wisconsin–Madison](https://www.wisc.edu/). I joined <img src="../assets/img/skylab.png" class="inline-logo" alt="Sky-Lab"/>[Sky-Lab](https://sky-lab-uw.github.io/) in Fall 2025 under the guidance of Dr. [Sikai (Sky) Chen](https://sky-lab-uw.github.io/people/).
 
-I also validate autonomous-driving methods through real-vehicle testing and contribute to <img src="../assets/img/Sky-Drive.png" class="inline-logo" alt="SkyDrive"/>[SkyDrive](https://github.com/BillWan-zzzyyy/Sky-Drive), Sky-Lab’s open-source multi-agent platform for future transportation systems and autonomous driving.
+My research focuses on autonomous driving and human-centered intelligent transportation through simulation, real-vehicle testing, and human-AI collaboration. I contribute to <img src="../assets/img/Sky-Drive.png" class="inline-logo" alt="SkyDrive"/>[SkyDrive](https://github.com/BillWan-zzzyyy/Sky-Drive), Sky-Lab’s open-source multi-agent platform for future transportation systems and autonomous driving.

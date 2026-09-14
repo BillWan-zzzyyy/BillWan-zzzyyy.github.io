@@ -4,7 +4,8 @@
   {% if site.enable_publication_thumbnails %}
     <div class="pub-media abbr">
       {%- if entry.abbr -%}
-        <abbr class="rounded">
+        {% assign venue_data = site.data.venues[entry.abbr] %}
+        <abbr class="rounded{% if venue_data.emphasis == 'strong' %} venue--strong{% endif %}">
           {% if site.data.venues[entry.abbr].url %}
             <a href="{{ site.data.venues[entry.abbr].url }}">{{ entry.abbr }}</a>
           {% else %}
@@ -42,9 +43,6 @@
       {% if entry.selected %}<span class="selected-dot" aria-label="Selected"></span>{% endif %}
       {{ entry.title }}
     </div>
-    {% if entry.summary %}
-      <p class="pub-summary">{{ entry.summary }}</p>
-    {% endif %}
     <!-- Author -->
     <div class="author">
       {% assign author_array_size = entry.author_array | size %}
@@ -133,6 +131,9 @@
         </i>
       {% endif %}
     </div>
+    {% if entry.summary %}
+      <p class="pub-summary">{{ entry.summary }}</p>
+    {% endif %}
 
     <!-- Journal/Book title and date -->
     {% assign proceedings = 'inproceedings,incollection' | split: ',' %}
@@ -171,175 +172,177 @@
       {{ entry.note | strip }}
     </div>
 
-    <!-- Links (plain text, middot-separated; see .pub-links in _base.scss) -->
-    <div class="pub-links">
-      {% if entry.award %}
-        <button type="button" class="award" aria-expanded="false">
-          {%- if entry.award_name %}{{ entry.award_name }}{% else %}Awarded{% endif -%}
-        </button>
-      {% endif %}
-      {% if entry.doi %}
-        <a href="https://doi.org/{{ entry.doi }}">DOI</a>
-      {% endif %}
-      {% if entry.html %}
-        {% if entry.html contains '://' %}
-          <a href="{{ entry.html }}">Paper</a>
-        {% else %}
-          <a href="{{ entry.html | prepend: '/assets/html/' | relative_url }}">Paper</a>
+    <!-- Links and publication metrics share one wrapping action region. -->
+    <div class="pub-actions">
+      <div class="pub-links">
+        {% if entry.award %}
+          <button type="button" class="award" aria-expanded="false">
+            {%- if entry.award_name %}{{ entry.award_name }}{% else %}Awarded{% endif -%}
+          </button>
         {% endif %}
-      {% elsif entry.arxiv %}
-        <a href="https://arxiv.org/abs/{{ entry.arxiv }}">Paper</a>
-      {% endif %}
-      {% if entry.pdf %}
-        {% if entry.pdf contains '://' %}
-          <a href="{{ entry.pdf }}">PDF</a>
-        {% else %}
-          <a href="{{ entry.pdf | prepend: '/assets/pdf/' | relative_url }}">PDF</a>
+        {% if entry.doi %}
+          <a href="https://doi.org/{{ entry.doi }}">DOI</a>
         {% endif %}
-      {% endif %}
-      {% if entry.supp %}
-        {% if entry.supp contains '://' %}
-          <a href="{{ entry.supp }}">Supp</a>
-        {% else %}
-          <a href="{{ entry.supp | prepend: '/assets/pdf/' | relative_url }}">Supp</a>
+        {% if entry.html %}
+          {% if entry.html contains '://' %}
+            <a href="{{ entry.html }}">Paper</a>
+          {% else %}
+            <a href="{{ entry.html | prepend: '/assets/html/' | relative_url }}">Paper</a>
+          {% endif %}
+        {% elsif entry.arxiv %}
+          <a href="https://arxiv.org/abs/{{ entry.arxiv }}">Paper</a>
         {% endif %}
-      {% endif %}
-      {% if entry.blog %}
-        <a href="{{ entry.blog }}">Blog</a>
-      {% endif %}
-      {% if entry.code %}
-        <a href="{{ entry.code }}">Code</a>
-      {% endif %}
-      {% if entry.poster %}
-        {% if entry.poster contains '://' %}
-          <a href="{{ entry.poster }}">Poster</a>
-        {% else %}
-          <a href="{{ entry.poster | prepend: '/assets/pdf/' | relative_url }}">Poster</a>
+        {% if entry.pdf %}
+          {% if entry.pdf contains '://' %}
+            <a href="{{ entry.pdf }}">PDF</a>
+          {% else %}
+            <a href="{{ entry.pdf | prepend: '/assets/pdf/' | relative_url }}">PDF</a>
+          {% endif %}
         {% endif %}
-      {% endif %}
-      {% if entry.slides %}
-        {% if entry.slides contains '://' %}
-          <a href="{{ entry.slides }}">Slides</a>
-        {% else %}
-          <a href="{{ entry.slides | prepend: '/assets/pdf/' | relative_url }}">Slides</a>
+        {% if entry.supp %}
+          {% if entry.supp contains '://' %}
+            <a href="{{ entry.supp }}">Supp</a>
+          {% else %}
+            <a href="{{ entry.supp | prepend: '/assets/pdf/' | relative_url }}">Supp</a>
+          {% endif %}
         {% endif %}
-      {% endif %}
-      {% if entry.website %}
-        <a href="{{ entry.website }}">Website</a>
+        {% if entry.blog %}
+          <a href="{{ entry.blog }}">Blog</a>
+        {% endif %}
+        {% if entry.code %}
+          <a href="{{ entry.code }}">Code</a>
+        {% endif %}
+        {% if entry.poster %}
+          {% if entry.poster contains '://' %}
+            <a href="{{ entry.poster }}">Poster</a>
+          {% else %}
+            <a href="{{ entry.poster | prepend: '/assets/pdf/' | relative_url }}">Poster</a>
+          {% endif %}
+        {% endif %}
+        {% if entry.slides %}
+          {% if entry.slides contains '://' %}
+            <a href="{{ entry.slides }}">Slides</a>
+          {% else %}
+            <a href="{{ entry.slides | prepend: '/assets/pdf/' | relative_url }}">Slides</a>
+          {% endif %}
+        {% endif %}
+        {% if entry.website %}
+          <a href="{{ entry.website }}">Website</a>
+        {% endif %}
+      </div>
+      {% if site.enable_publication_badges %}
+        {% assign entry_has_altmetric_badge = false %}
+        {% if entry.altmetric and entry.altmetric != 'false' %}
+          {% assign entry_has_altmetric_badge = true %}
+        {% endif %}
+
+        {% assign entry_has_dimensions_badge = false %}
+        {% if entry.dimensions and entry.dimensions != 'false' %}
+          {% assign entry_has_dimensions_badge = true %}
+        {% endif %}
+
+        {% assign entry_has_google_scholar_badge = false %}
+        {% if entry.google_scholar_id %}
+          {% assign entry_has_google_scholar_badge = true %}
+        {% endif %}
+
+        {% assign entry_has_github_stars_badge = false %}
+        {% if entry.github_repo %}
+          {% assign entry_has_github_stars_badge = true %}
+        {% endif %}
+
+        {% assign entry_has_inspirehep_badge = false %}
+        {% if entry.inspirehep_id %}
+          {% assign entry_has_inspirehep_badge = true %}
+        {% endif %}
+        {% if entry_has_altmetric_badge
+          or entry_has_dimensions_badge
+          or entry_has_google_scholar_badge
+          or entry_has_github_stars_badge
+          or entry_has_inspirehep_badge
+        %}
+          <div class="badges">
+            {% if site.enable_publication_badges.altmetric and entry_has_altmetric_badge %}
+              <span
+                class="altmetric-embed"
+                data-badge-type="2"
+                data-badge-popover="right"
+                {% if entry.altmetric != blank and entry.altmetric != 'true' %}
+                  data-altmetric-id="{{ entry.altmetric }}"
+                {% elsif entry.arxiv %}
+                  data-arxiv-id="{{ entry.arxiv }}"
+                {% elsif entry.eprint %}
+                  data-arxiv-id="{{ entry.eprint }}"
+                {% elsif entry.doi %}
+                  data-doi="{{ entry.doi }}"
+                {% elsif entry.pmid %}
+                  data-pmid="{{ entry.pmid }}"
+                {% elsif entry.isbn %}
+                  data-isbn="{{ entry.isbn }}"
+                {% endif %}
+              ></span>
+            {% endif %}
+            {% if site.enable_publication_badges.dimensions and entry_has_dimensions_badge %}
+              <span
+                class="__dimensions_badge_embed__"
+                {% if entry.dimensions != blank and entry.dimensions != 'true' %}
+                  data-id="{{ entry.dimensions }}"
+                {% elsif entry.doi %}
+                  data-doi="{{ entry.doi }}"
+                {% else %}
+                  data-pmid="{{ entry.pmid }}"
+                {% endif %}
+                data-style="small_rectangle"
+                data-legend="hover-right"
+                style="margin-bottom: 3px;"
+              ></span>
+            {% endif %}
+            {% if site.enable_publication_badges.google_scholar and entry_has_google_scholar_badge %}
+              {% assign gs_count = site.data.scholar_citations.articles[entry.google_scholar_id] %}
+              {% if gs_count != null %}
+                <a
+                  class="badge-pill"
+                  href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user={{ site.scholar_userid }}&citation_for_view={{ site.scholar_userid }}:{{ entry.google_scholar_id }}"
+                  aria-label="Google Scholar citations"
+                  role="button"
+                >
+                  <span class="badge-pill__label"> <i class="ai ai-google-scholar"></i> Scholar </span>
+                  <span class="badge-pill__value">{{ gs_count }}</span>
+                </a>
+              {% endif %}
+            {% endif %}
+            {% if site.enable_publication_badges.github_stars and entry_has_github_stars_badge %}
+              {% assign star_count = site.data.github_stars.repos[entry.github_repo] %}
+              {% if star_count != null %}
+                <a
+                  class="badge-pill"
+                  href="https://github.com/{{ entry.github_repo }}"
+                  aria-label="GitHub repository stars"
+                  role="button"
+                >
+                  <span class="badge-pill__label"> <i class="fa-brands fa-github"></i> GitHub </span>
+                  <span class="badge-pill__value">{{ star_count }} ★</span>
+                </a>
+              {% endif %}
+            {% endif %}
+            {% if site.enable_publication_badges.inspirehep and entry_has_inspirehep_badge %}
+              <a
+                href="https://inspirehep.net/literature/{{ entry.inspirehep_id }}"
+                aria-label="Inspirehep link"
+                role="button"
+              >
+                <img
+                  src="https://img.shields.io/badge/inspire-{% inspirehep_citations entry.inspirehep_id %}-001628?logo=inspire&logoColor=001628&labelColor=beige"
+                  alt="{% inspirehep_citations entry.inspirehep_id %} InspireHEP citations"
+                  loading="lazy"
+                  decoding="async"
+                >
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
       {% endif %}
     </div>
-    {% if site.enable_publication_badges %}
-      {% assign entry_has_altmetric_badge = false %}
-      {% if entry.altmetric and entry.altmetric != 'false' %}
-        {% assign entry_has_altmetric_badge = true %}
-      {% endif %}
-
-      {% assign entry_has_dimensions_badge = false %}
-      {% if entry.dimensions and entry.dimensions != 'false' %}
-        {% assign entry_has_dimensions_badge = true %}
-      {% endif %}
-
-      {% assign entry_has_google_scholar_badge = false %}
-      {% if entry.google_scholar_id %}
-        {% assign entry_has_google_scholar_badge = true %}
-      {% endif %}
-
-      {% assign entry_has_github_stars_badge = false %}
-      {% if entry.github_repo %}
-        {% assign entry_has_github_stars_badge = true %}
-      {% endif %}
-
-      {% assign entry_has_inspirehep_badge = false %}
-      {% if entry.inspirehep_id %}
-        {% assign entry_has_inspirehep_badge = true %}
-      {% endif %}
-      {% if entry_has_altmetric_badge
-        or entry_has_dimensions_badge
-        or entry_has_google_scholar_badge
-        or entry_has_github_stars_badge
-        or entry_has_inspirehep_badge
-      %}
-        <div class="badges">
-          {% if site.enable_publication_badges.altmetric and entry_has_altmetric_badge %}
-            <span
-              class="altmetric-embed"
-              data-badge-type="2"
-              data-badge-popover="right"
-              {% if entry.altmetric != blank and entry.altmetric != 'true' %}
-                data-altmetric-id="{{ entry.altmetric }}"
-              {% elsif entry.arxiv %}
-                data-arxiv-id="{{ entry.arxiv }}"
-              {% elsif entry.eprint %}
-                data-arxiv-id="{{ entry.eprint }}"
-              {% elsif entry.doi %}
-                data-doi="{{ entry.doi }}"
-              {% elsif entry.pmid %}
-                data-pmid="{{ entry.pmid }}"
-              {% elsif entry.isbn %}
-                data-isbn="{{ entry.isbn }}"
-              {% endif %}
-            ></span>
-          {% endif %}
-          {% if site.enable_publication_badges.dimensions and entry_has_dimensions_badge %}
-            <span
-              class="__dimensions_badge_embed__"
-              {% if entry.dimensions != blank and entry.dimensions != 'true' %}
-                data-id="{{ entry.dimensions }}"
-              {% elsif entry.doi %}
-                data-doi="{{ entry.doi }}"
-              {% else %}
-                data-pmid="{{ entry.pmid }}"
-              {% endif %}
-              data-style="small_rectangle"
-              data-legend="hover-right"
-              style="margin-bottom: 3px;"
-            ></span>
-          {% endif %}
-          {% if site.enable_publication_badges.google_scholar and entry_has_google_scholar_badge %}
-            {% assign gs_count = site.data.scholar_citations.articles[entry.google_scholar_id] %}
-            {% if gs_count != null %}
-              <a
-                class="badge-pill"
-                href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user={{ site.scholar_userid }}&citation_for_view={{ site.scholar_userid }}:{{ entry.google_scholar_id }}"
-                aria-label="Google Scholar citations"
-                role="button"
-              >
-                <span class="badge-pill__label"> <i class="ai ai-google-scholar"></i> Scholar </span>
-                <span class="badge-pill__value">{{ gs_count }}</span>
-              </a>
-            {% endif %}
-          {% endif %}
-          {% if site.enable_publication_badges.github_stars and entry_has_github_stars_badge %}
-            {% assign star_count = site.data.github_stars.repos[entry.github_repo] %}
-            {% if star_count != null %}
-              <a
-                class="badge-pill"
-                href="https://github.com/{{ entry.github_repo }}"
-                aria-label="GitHub repository stars"
-                role="button"
-              >
-                <span class="badge-pill__label"> <i class="fa-brands fa-github"></i> GitHub </span>
-                <span class="badge-pill__value">{{ star_count }} ★</span>
-              </a>
-            {% endif %}
-          {% endif %}
-          {% if site.enable_publication_badges.inspirehep and entry_has_inspirehep_badge %}
-            <a
-              href="https://inspirehep.net/literature/{{ entry.inspirehep_id }}"
-              aria-label="Inspirehep link"
-              role="button"
-            >
-              <img
-                src="https://img.shields.io/badge/inspire-{% inspirehep_citations entry.inspirehep_id %}-001628?logo=inspire&logoColor=001628&labelColor=beige"
-                alt="{% inspirehep_citations entry.inspirehep_id %} InspireHEP citations"
-                loading="lazy"
-                decoding="async"
-              >
-            </a>
-          {% endif %}
-        </div>
-      {% endif %}
-    {% endif %}
 
     {% if entry.award %}
       <!-- Hidden Award block -->

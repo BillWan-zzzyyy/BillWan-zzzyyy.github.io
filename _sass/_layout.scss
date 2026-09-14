@@ -25,6 +25,22 @@ body.sticky-bottom-footer {
   padding-bottom: 0;
 }
 
+:root {
+  --venue-gradient-start: #52606f;
+  --venue-gradient-middle: #1769aa;
+  --venue-gradient-end: #08747c;
+  --venue-strong-gradient-start: #075fa8;
+  --venue-strong-gradient-end: #006a73;
+}
+
+html[data-theme="dark"] {
+  --venue-gradient-start: #aeb8c4;
+  --venue-gradient-middle: #6db5f5;
+  --venue-gradient-end: #64cbc8;
+  --venue-strong-gradient-start: #78bdff;
+  --venue-strong-gradient-end: #61d6d0;
+}
+
 .container {
   max-width: $max-content-width;
 }
@@ -74,52 +90,41 @@ body.sticky-bottom-footer {
   max-width: 42ch;
 }
 
-.about-positioning {
-  font-size: clamp(21px, 2.4vw, 28px);
-  font-weight: $fw-medium;
-  letter-spacing: -0.02em;
-  line-height: 1.4;
-  max-width: 34ch;
-  margin: $sp-5 0;
-}
-
-.about-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: $sp-3;
-
-  .about-action {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    padding: 10px 22px;
-    border-radius: $r-pill;
-    font-size: $fs-base;
-    text-decoration: none;
-    color: var(--global-theme-color);
-    background: var(--global-bg-subtle);
-    transition:
-      background-color $dur-base $ease-out,
-      color $dur-base $ease-out;
-
-    &:first-child {
-      background: var(--global-theme-color);
-      color: var(--global-bg-color);
-    }
-
-    &:hover {
-      background: var(--global-hover-color);
-      color: var(--global-bg-color);
-    }
-  }
-}
-
 .about-home .about-social {
   margin-top: $sp-4;
 
   .contact-icons {
+    font-size: 26px;
     gap: $sp-2;
     margin-bottom: 0;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: $r-md;
+      color: var(--mono-meta-color);
+      transition:
+        color $dur-base $ease-out,
+        background-color $dur-base $ease-out;
+
+      &:hover,
+      &:focus-visible {
+        color: var(--global-text-color);
+        background-color: var(--global-bg-subtle);
+        outline: none;
+
+        i::before {
+          color: inherit;
+        }
+      }
+
+      &:focus-visible {
+        box-shadow: 0 0 0 2px var(--global-theme-color);
+      }
+    }
   }
   .contact-note:empty {
     display: none;
@@ -159,6 +164,20 @@ body.sticky-bottom-footer {
     span {
       color: inherit;
     }
+  }
+
+  .publications .abbr abbr a,
+  .publications .abbr abbr div {
+    color: transparent !important;
+    background: linear-gradient(105deg, var(--venue-gradient-start) 4%, var(--venue-gradient-middle) 54%, var(--venue-gradient-end) 96%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .publications .abbr abbr.venue--strong a,
+  .publications .abbr abbr.venue--strong div {
+    background-image: linear-gradient(105deg, var(--venue-strong-gradient-start) 4%, var(--venue-strong-gradient-end) 96%);
   }
 }
 
@@ -206,6 +225,16 @@ body.sticky-bottom-footer {
     background: none;
     -webkit-text-fill-color: CanvasText;
   }
+
+  html .publications ol.bibliography > li .abbr abbr,
+  html .publications ol.bibliography > li .abbr abbr.venue--strong,
+  html .publications ol.bibliography > li .abbr abbr a,
+  html .publications ol.bibliography > li .abbr abbr div {
+    color: CanvasText !important;
+    background: none !important;
+    border-color: CanvasText;
+    -webkit-text-fill-color: CanvasText;
+  }
 }
 
 @media print {
@@ -213,6 +242,16 @@ body.sticky-bottom-footer {
   .post-header .post-title.gradient-title span {
     color: #1d1d1f !important;
     background: none !important;
+    -webkit-text-fill-color: #1d1d1f !important;
+  }
+
+  html .publications ol.bibliography > li .abbr abbr,
+  html .publications ol.bibliography > li .abbr abbr.venue--strong,
+  html .publications ol.bibliography > li .abbr abbr a,
+  html .publications ol.bibliography > li .abbr abbr div {
+    color: #1d1d1f !important;
+    background: none !important;
+    border-color: #6e6e73 !important;
     -webkit-text-fill-color: #1d1d1f !important;
   }
 

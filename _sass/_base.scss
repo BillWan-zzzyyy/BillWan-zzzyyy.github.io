@@ -42,7 +42,7 @@ h6 {
 h1 {
   font-family: $ff-serif;
   font-size: $fs-2xl;
-  font-weight: $fw-medium;
+  font-weight: $fw-semibold;
   line-height: $lh-tight;
   letter-spacing: -0.01em;
 }
@@ -50,14 +50,14 @@ h1 {
 h2 {
   font-family: $ff-serif;
   font-size: $fs-xl;
-  font-weight: $fw-medium;
+  font-weight: $fw-semibold;
   line-height: $lh-snug;
 }
 
 h3 {
   font-family: $ff-serif;
   font-size: $fs-lg;
-  font-weight: $fw-medium;
+  font-weight: $fw-semibold;
   line-height: $lh-heading;
 }
 
@@ -765,7 +765,7 @@ footer.sticky-bottom {
   .post-title {
     font-family: $ff-serif;
     font-size: 40px;
-    font-weight: $fw-medium;
+    font-weight: $fw-semibold;
     line-height: $lh-tight;
     margin: 0 0 $sp-2;
     letter-spacing: -0.01em;
@@ -1181,8 +1181,7 @@ footer.sticky-bottom {
         box-shadow: none;
       }
 
-      // Venue tag — grey, uppercase, no theme color. The !important overrides
-      // the inline `background-color` jekyll-scholar/bib.liquid may still emit.
+      // Venue tags use gradient text; selected venues may add a pale surface.
       .abbr {
         margin-bottom: $sp-2;
 
@@ -1192,11 +1191,12 @@ footer.sticky-bottom {
           margin-bottom: $sp-2;
           padding: 2px $sp-2;
           color: var(--global-text-color-light) !important;
-          background: var(--global-bg-subtle) !important;
+          background: transparent !important;
+          border: 1px solid transparent;
           border-radius: $r-md;
           font-family: $ff-sans;
           font-size: $fs-xs;
-          font-weight: $fw-medium;
+          font-weight: $fw-semibold;
           letter-spacing: 0.04em;
           text-transform: uppercase;
 
@@ -1209,6 +1209,11 @@ footer.sticky-bottom {
               color: var(--global-theme-color) !important;
               text-decoration: none;
             }
+          }
+
+          &.venue--strong {
+            background: linear-gradient(105deg, rgba(20, 121, 201, 0.09), rgba(0, 139, 149, 0.1)) !important;
+            border-color: rgba(20, 121, 201, 0.28);
           }
         }
       }
@@ -1226,15 +1231,17 @@ footer.sticky-bottom {
       .title {
         font-family: $ff-serif;
         font-size: 22px;
-        font-weight: $fw-medium;
+        font-weight: $fw-semibold;
         line-height: $lh-heading;
         color: var(--global-text-color);
-        margin-bottom: $sp-1;
+        margin-bottom: $sp-2;
       }
 
       .pub-summary {
         max-width: 760px;
-        margin: 0 0 $sp-3;
+        margin: 14px 0 $sp-3;
+        padding-left: 14px;
+        border-left: 1px solid var(--hairline);
         font-family: $ff-sans;
         font-size: 17px;
         line-height: 1.55;
@@ -1246,6 +1253,7 @@ footer.sticky-bottom {
         font-size: $fs-base;
         color: var(--global-text-color);
         line-height: $lh-snug;
+        margin-bottom: 0;
 
         a {
           color: var(--global-text-color);
@@ -1313,42 +1321,52 @@ footer.sticky-bottom {
         margin-right: 0.15em;
       }
 
-      .pub-links {
+      .pub-actions {
         display: flex;
         flex-wrap: wrap;
-        gap: 0 $sp-4;
-        margin-top: $sp-2;
+        align-items: center;
+        gap: $sp-2;
+        margin-top: 14px;
+      }
 
+      .pub-links,
+      .badges {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: $sp-2;
+        margin: 0;
+        padding: 0;
+      }
+
+      .pub-links {
         a,
         button {
           display: inline-flex;
           align-items: center;
-          min-height: 44px;
-          padding: 0;
-          border: 0;
+          min-height: 36px;
+          padding: 6px $sp-3;
+          border: 1px solid var(--hairline);
+          border-radius: $r-md;
           background: transparent;
           font-family: $ff-sans;
-          font-size: $fs-sm;
-          color: var(--global-theme-color);
+          font-size: 14px;
+          font-weight: $fw-semibold;
+          color: var(--global-text-color);
           text-decoration: none;
           cursor: pointer;
           transition: color $dur-base $ease-out;
 
           &:hover {
-            color: var(--global-hover-color);
-            text-decoration: underline;
+            color: var(--global-text-color);
+            background: var(--global-bg-subtle);
+            border-color: var(--global-text-color-light);
+            text-decoration: none;
           }
         }
       }
 
       .badges {
-        margin-top: $sp-3;
-        padding-bottom: 0;
-        display: flex;
-        flex-wrap: wrap;
-        gap: $sp-2;
-        align-items: center;
-
         > span {
           display: inline-flex;
           align-items: center;
@@ -1362,25 +1380,29 @@ footer.sticky-bottom {
         }
       }
 
-      // Inline count tag (Scholar, GitHub) — same quiet grey chip as the venue.
+      // Citation and repository metrics share the action treatment.
       .badge-pill {
         display: inline-flex;
         align-items: center;
         gap: $sp-1;
-        padding: 2px $sp-2;
+        min-height: 36px;
+        padding: 6px $sp-3;
+        border: 1px solid var(--hairline);
         border-radius: $r-md;
         font-family: $ff-sans;
-        font-size: $fs-xs;
-        font-weight: $fw-medium;
-        letter-spacing: 0.04em;
-        line-height: 1.5;
-        color: var(--global-text-color-light);
-        background: var(--global-bg-subtle);
+        font-size: 14px;
+        font-weight: $fw-semibold;
+        letter-spacing: 0;
+        line-height: 1.4;
+        color: var(--global-text-color);
+        background: transparent;
         text-decoration: none;
         transition: color $dur-base $ease-out;
 
         &:hover {
-          color: var(--global-theme-color);
+          color: var(--global-text-color);
+          background: var(--global-bg-subtle);
+          border-color: var(--global-text-color-light);
           text-decoration: none;
         }
 

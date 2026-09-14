@@ -3,7 +3,7 @@ layout: page
 permalink: /publications/
 title: Publications
 gradient_title: true
-description: Publications in autonomous driving and intelligent transportation.
+description: <i>To boldly go where no man has gone before.</i>
 nav: true
 nav_order: 2
 ---
