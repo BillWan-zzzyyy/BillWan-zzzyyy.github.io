@@ -24,7 +24,9 @@ jobs:
         id: fetch
         continue-on-error: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Listing stargazer timestamps of another repo (Sky-Drive) needs a user token;
+          # the built-in GITHUB_TOKEN gets HTTP 403 there. Falls back if the secret is unset.
+          GITHUB_TOKEN: ${{ secrets.STARS_TOKEN || secrets.GITHUB_TOKEN }}
         run: python _scripts/fetch_github_stars.py
 
       - name: Check for changes
