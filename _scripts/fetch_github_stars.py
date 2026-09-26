@@ -139,7 +139,8 @@ def fetch_star_dates(repo: str) -> list[str] | None:
             with urllib.request.urlopen(req, timeout=15) as resp:
                 items = json.loads(resp.read().decode())
         except urllib.error.HTTPError as e:
-            print(f"  HTTP {e.code} for {repo} stargazers: {e.reason}", file=sys.stderr)
+            detail = e.read().decode(errors="replace")[:300]
+            print(f"  HTTP {e.code} for {repo} stargazers: {e.reason} {detail}", file=sys.stderr)
             return None
         except Exception as e:
             print(f"  Error fetching {repo} stargazers: {e}", file=sys.stderr)
