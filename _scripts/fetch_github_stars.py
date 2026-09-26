@@ -140,7 +140,8 @@ def fetch_star_dates(repo: str) -> list[str] | None:
                 items = json.loads(resp.read().decode())
         except urllib.error.HTTPError as e:
             detail = e.read().decode(errors="replace")[:300]
-            print(f"  HTTP {e.code} for {repo} stargazers: {e.reason} {detail}", file=sys.stderr)
+            needed = e.headers.get("X-Accepted-GitHub-Permissions", "n/a")
+            print(f"  HTTP {e.code} for {repo} stargazers: {e.reason} {detail} (accepted permissions: {needed})", file=sys.stderr)
             return None
         except Exception as e:
             print(f"  Error fetching {repo} stargazers: {e}", file=sys.stderr)
