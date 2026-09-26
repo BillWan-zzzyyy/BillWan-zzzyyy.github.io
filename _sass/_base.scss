@@ -1283,32 +1283,6 @@ $ai-gradient-fallback: linear-gradient(90deg, #0894ff 0%, #c959dd 34%, #ff2e54 6
               text-decoration: none;
             }
           }
-
-          // Apple Intelligence gradient letters; inline-block so the gradient
-          // spans the text, not the whole media column.
-          @supports (-webkit-background-clip: text) {
-            a,
-            div {
-              display: inline-block;
-              background: var(--ai-gradient, $ai-gradient-fallback);
-              -webkit-background-clip: text;
-              background-clip: text;
-              color: transparent !important;
-              -webkit-text-fill-color: transparent;
-
-              &:hover {
-                color: transparent !important;
-              }
-            }
-
-            a {
-              transition: opacity $dur-base $ease-out;
-
-              &:hover {
-                opacity: 0.72;
-              }
-            }
-          }
         }
       }
 
