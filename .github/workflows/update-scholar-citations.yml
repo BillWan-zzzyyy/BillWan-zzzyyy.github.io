@@ -27,6 +27,8 @@ jobs:
       - name: Fetch citation data
         id: fetch
         continue-on-error: true
+        env:
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
         run: python _scripts/fetch_scholar_citations.py
 
       - name: Check for changes
