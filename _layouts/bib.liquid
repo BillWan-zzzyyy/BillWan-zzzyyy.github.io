@@ -1,6 +1,6 @@
 ---
 ---
-<div class="row publication-row{% if site.enable_publication_thumbnails %} publication-row--with-media{% endif %}">
+<div class="row publication-row{% if site.enable_publication_thumbnails %} publication-row--with-media{% endif %}" data-reveal>
   {% if site.enable_publication_thumbnails %}
     <div class="pub-media abbr">
       {%- if entry.abbr -%}
@@ -38,10 +38,34 @@
 
   <!-- Entry bib key -->
   <div id="{{ entry.key }}" class="pub-content">
-    <!-- Title -->
+    {% if entry.selected == 'true' %}
+      <div class="pub-featured">Featured</div>
+    {% endif %}
+    <!-- Title links to the paper, same priority as the Paper button (html → arXiv → PDF → DOI). -->
+    {% assign title_url = null %}
+    {% if entry.html %}
+      {% if entry.html contains '://' %}
+        {% assign title_url = entry.html %}
+      {% else %}
+        {% assign title_url = entry.html | prepend: '/assets/html/' | relative_url %}
+      {% endif %}
+    {% elsif entry.arxiv %}
+      {% assign title_url = entry.arxiv | prepend: 'https://arxiv.org/abs/' %}
+    {% elsif entry.pdf %}
+      {% if entry.pdf contains '://' %}
+        {% assign title_url = entry.pdf %}
+      {% else %}
+        {% assign title_url = entry.pdf | prepend: '/assets/pdf/' | relative_url %}
+      {% endif %}
+    {% elsif entry.doi %}
+      {% assign title_url = entry.doi | prepend: 'https://doi.org/' %}
+    {% endif %}
     <div class="title">
-      {% if entry.selected %}<span class="selected-dot" aria-label="Selected"></span>{% endif %}
-      {{ entry.title }}
+      {% if title_url %}
+        <a class="pub-title-link" href="{{ title_url }}">{{ entry.title }}</a>
+      {% else %}
+        {{ entry.title }}
+      {% endif %}
     </div>
     <!-- Author -->
     <div class="author">

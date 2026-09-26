@@ -11,6 +11,7 @@ import re
 import sys
 import urllib.request
 import urllib.error
+from collections import Counter
 from datetime import datetime, timezone
 
 # ---------------------------------------------------------------------------
@@ -22,6 +23,7 @@ BIB_PATH = os.path.join(REPO_ROOT, "_bibliography", "papers.bib")
 OUTPUT_PATH = os.path.join(REPO_ROOT, "_data", "github_stars.json")
 
 GITHUB_API = "https://api.github.com/repos/{}"
+STARGAZERS_API = "https://api.github.com/repos/{}/stargazers?per_page=100&page={}"
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
 
 # ---------------------------------------------------------------------------
@@ -62,6 +64,48 @@ def fetch_stars(repo: str) -> int | None:
     return None
 
 
+def fetch_star_dates(repo: str) -> list[str] | None:
+    """Fetch the starred_at date (YYYY-MM-DD, UTC) of every stargazer of a repo."""
+    headers = {
+        "Accept": "application/vnd.github.star+json",
+        "User-Agent": "github-stars-fetcher",
+    }
+    if TOKEN:
+        headers["Authorization"] = f"Bearer {TOKEN}"
+
+    dates = []
+    page = 1
+    while True:
+        req = urllib.request.Request(STARGAZERS_API.format(repo, page), headers=headers)
+        try:
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                items = json.loads(resp.read().decode())
+        except urllib.error.HTTPError as e:
+            print(f"  HTTP {e.code} for {repo} stargazers: {e.reason}", file=sys.stderr)
+            return None
+        except Exception as e:
+            print(f"  Error fetching {repo} stargazers: {e}", file=sys.stderr)
+            return None
+        if not items:
+            break
+        for item in items:
+            starred_at = item.get("starred_at")
+            if starred_at:
+                dates.append(starred_at[:10])
+        page += 1
+    return dates
+
+
+def build_history(dates: list[str]) -> list[dict]:
+    """Cumulative star total after each calendar day on which stars were added."""
+    history = []
+    running = 0
+    for day, count in sorted(Counter(dates).items()):
+        running += count
+        history.append({"date": day, "stars": running})
+    return history
+
+
 def load_existing() -> dict:
     if os.path.exists(OUTPUT_PATH):
         try:
@@ -96,6 +140,7 @@ def main():
             "total_stars": 0,
             "last_updated": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
             "repos": {},
+            "history": [],
         })
         return
 
@@ -104,6 +149,8 @@ def main():
     existing_repos = existing.get("repos", {})
 
     result_repos: dict[str, int] = {}
+    star_dates: list[str] = []
+    history_failure = False
     any_failure = False
 
     for repo in repos:
@@ -118,18 +165,34 @@ def main():
             result_repos[repo] = fallback
             print(f"    -> fetch failed, using cached value: {fallback}")
 
+        print(f"  Fetching star history for {repo}...")
+        dates = fetch_star_dates(repo)
+        if dates is not None:
+            star_dates.extend(dates)
+            print(f"    -> {len(dates)} timestamped stars")
+        else:
+            history_failure = True
+            any_failure = True
+            print("    -> fetch failed, will keep cached history")
+
+    if history_failure:
+        history = existing.get("history", [])
+    else:
+        history = build_history(star_dates)
+
     total = sum(result_repos.values())
     data = {
         "total_stars": total,
         "last_updated": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         "repos": result_repos,
+        "history": history,
     }
 
     print(f"Total stars: {total}")
     save_output(data)
 
     if any_failure:
-        print("WARNING: Some repos failed to fetch. Cached values used.", file=sys.stderr)
+        print("WARNING: Some repos failed to fetch. Cached values/history used.", file=sys.stderr)
         sys.exit(1)
 
 

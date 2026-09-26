@@ -15,7 +15,7 @@
       {% endif %}
       <ol class="news-list">
         {% for item in news limit: news_limit %}
-          <li class="news-row">
+          <li class="news-row" data-reveal>
             <time class="news-date" datetime="{{ item.date | date_to_xmlschema }}">
               {{- item.date | date: '%b %d, %Y' -}}
             </time>

@@ -1,11 +1,15 @@
 {
-  "total_citations": 23,
-  "last_updated": "2026-08-31",
+  "total_citations": 25,
+  "last_updated": "2026-09-26",
   "articles": {
-    "9yKSN-GCB0IC": 20,
-    "Y0pCki6q_DkC": 3,
+    "9yKSN-GCB0IC": 21,
+    "Y0pCki6q_DkC": 4,
     "W7OEmFMy1HYC": 0,
     "zYLM7Y9cAGgC": 0,
     "2osOgNQ5qMEC": 0
+  },
+  "cites_per_year": {
+    "2025": 5,
+    "2026": 19
   }
 }

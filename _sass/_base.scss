@@ -371,6 +371,25 @@ ul.task-list input[type="checkbox"] {
     text-decoration: none;
   }
 
+  // Name in the top-left: same blue identity gradient as the homepage
+  // .gradient-title (_layout.scss); solid text color stays the fallback.
+  @supports (-webkit-background-clip: text) {
+    .navbar-brand.title {
+      width: fit-content;
+      padding-bottom: calc(0.3125rem + 0.08em); // keep "g"/"y" descenders inside the clip
+      color: transparent;
+      background: linear-gradient(105deg, var(--title-gradient-start) 5%, var(--title-gradient-middle) 52%, var(--title-gradient-end) 95%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      span {
+        color: inherit;
+        -webkit-text-fill-color: inherit;
+      }
+    }
+  }
+
   .navbar-nav .nav-item {
     position: relative;
 
@@ -632,14 +651,14 @@ footer.sticky-bottom {
 
   .news-row {
     display: grid;
-    grid-template-columns: minmax(10ch, 12ch) 1fr;
+    grid-template-columns: minmax(12ch, 13ch) 1fr; // fits "May 28, 2026" at 16px
     gap: $sp-5;
     padding: $sp-3 0;
     align-items: baseline;
 
     .news-date {
       font-family: $ff-sans;
-      font-size: $fs-sm;
+      font-size: 16px;
       font-weight: $fw-medium;
       letter-spacing: 0.02em;
       color: var(--global-text-color);
@@ -1067,6 +1086,10 @@ footer.sticky-bottom {
 // pill buttons (filled primary "Paper"), counts as neutral metric pills.
 // ----------------------------------------------------------------------------
 
+// Used only if the --ai-gradient theme variable is missing, so gradient text
+// can never render as fully transparent.
+$ai-gradient-fallback: linear-gradient(90deg, #0894ff 0%, #c959dd 34%, #ff2e54 68%, #ff9004 100%);
+
 .publications {
   margin-top: $sp-4;
 
@@ -1079,38 +1102,91 @@ footer.sticky-bottom {
     margin: $sp-6 0 $sp-4;
   }
 
-  // Scholar / GitHub totals — prominent large figures above search.
-  .pub-stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $sp-6;
-    font-family: $ff-sans;
-    color: var(--global-text-color-light);
+  // Scholar / GitHub growth cards (Apple Store style). The outer .growth-card
+  // carries [data-reveal]'s transform, so the hover scale lives on the inner link.
+  // Curves are drawn by assets/js/growth-charts.js.
+  .growth-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $sp-5;
     margin: 0 0 $sp-7;
 
-    a {
-      display: grid;
-      gap: $sp-1;
-      min-width: 144px;
+    @media (max-width: 575.98px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .growth-card {
+    min-width: 0;
+  }
+
+  .growth-card__inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: $sp-5;
+    border-radius: 18px;
+    background: var(--global-card-bg-color);
+    box-shadow: var(--card-shadow);
+    font-family: $ff-sans;
+    color: var(--global-text-color);
+    text-decoration: none;
+    transition:
+      transform 300ms cubic-bezier(0, 0, 0.5, 1),
+      box-shadow 300ms cubic-bezier(0, 0, 0.5, 1);
+
+    &:hover,
+    &:focus-visible {
       color: var(--global-text-color);
       text-decoration: none;
+      transform: scale(1.01);
+      box-shadow: var(--card-shadow-hover);
+    }
 
-      strong {
-        font-size: 40px;
-        font-weight: $fw-semibold;
-        line-height: 1;
-        letter-spacing: -0.035em;
-      }
-
-      span {
-        font-size: 14px;
-        color: var(--global-text-color-light);
-      }
-
-      &:hover {
-        color: var(--global-theme-color);
+    @media (prefers-reduced-motion: reduce) {
+      &:hover,
+      &:focus-visible {
+        transform: none;
       }
     }
+  }
+
+  .growth-card__label {
+    font-size: $fs-sm;
+    font-weight: $fw-medium;
+    color: var(--global-text-color-light);
+  }
+
+  .growth-card__value {
+    margin-top: $sp-2;
+    font-size: 40px;
+    font-weight: $fw-semibold;
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+
+  .growth-card__chart {
+    display: block;
+    width: 100%;
+    height: 110px;
+    margin-top: $sp-5;
+    overflow: visible; // round caps at the edges stay unclipped
+  }
+
+  .growth-card__axis {
+    display: flex;
+    justify-content: space-between;
+    gap: $sp-3;
+    min-height: 1.4em; // reserve the row before the script fills the labels
+    margin-top: $sp-2;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--global-text-color-light);
+  }
+
+  .growth-card--no-chart .growth-card__chart,
+  .growth-card--no-chart .growth-card__axis {
+    display: none;
   }
 
   // Year group header (jekyll-scholar emits <h2 class="bibliography">YEAR</h2>).
@@ -1207,26 +1283,74 @@ footer.sticky-bottom {
               text-decoration: none;
             }
           }
+
+          // Apple Intelligence gradient letters; inline-block so the gradient
+          // spans the text, not the whole media column.
+          @supports (-webkit-background-clip: text) {
+            a,
+            div {
+              display: inline-block;
+              background: var(--ai-gradient, $ai-gradient-fallback);
+              -webkit-background-clip: text;
+              background-clip: text;
+              color: transparent !important;
+              -webkit-text-fill-color: transparent;
+
+              &:hover {
+                color: transparent !important;
+              }
+            }
+
+            a {
+              transition: opacity $dur-base $ease-out;
+
+              &:hover {
+                opacity: 0.72;
+              }
+            }
+          }
         }
       }
 
-      .selected-dot {
-        display: inline-block;
-        width: 6px;
-        height: 6px;
-        margin-right: $sp-2;
-        border-radius: 50%;
-        background: var(--global-theme-color);
-        vertical-align: 0.2em;
+      // "New"-style eyebrow above featured paper titles (hidden on the
+      // homepage, where every listed paper is selected).
+      .pub-featured {
+        width: fit-content;
+        margin-bottom: $sp-1;
+        font-family: $ff-sans;
+        font-size: $fs-sm;
+        font-weight: $fw-semibold;
+        line-height: $lh-snug;
+        color: var(--global-theme-color);
+
+        @supports (-webkit-background-clip: text) {
+          background: var(--ai-gradient, $ai-gradient-fallback);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          -webkit-text-fill-color: transparent;
+        }
       }
 
       .title {
         font-family: $ff-serif;
-        font-size: 22px;
+        font-size: 24px;
         font-weight: $fw-semibold;
         line-height: $lh-heading;
+        letter-spacing: -0.015em;
         color: var(--global-text-color);
         margin-bottom: $sp-2;
+      }
+
+      .pub-title-link {
+        color: inherit;
+        text-decoration: none;
+        transition: color $dur-base $ease-out;
+
+        &:hover {
+          color: var(--global-theme-color);
+          text-decoration: none;
+        }
       }
 
       .pub-summary {
@@ -1489,6 +1613,31 @@ footer.sticky-bottom {
   }
 }
 
+.selected-publications .pub-featured {
+  display: none;
+}
+
+// Gradient-text fallbacks (the venue tags have theirs in _layout.scss).
+@media (forced-colors: active) {
+  .navbar.navbar-light .navbar-brand.title,
+  .navbar.navbar-light .navbar-brand.title span,
+  .publications ol.bibliography > li .pub-featured {
+    color: CanvasText;
+    background: none;
+    -webkit-text-fill-color: CanvasText;
+  }
+}
+
+@media print {
+  .navbar.navbar-light .navbar-brand.title,
+  .navbar.navbar-light .navbar-brand.title span,
+  .publications ol.bibliography > li .pub-featured {
+    color: #1d1d1f;
+    background: none;
+    -webkit-text-fill-color: #1d1d1f;
+  }
+}
+
 @media (max-width: 767px) {
   body {
     font-size: 16px;
@@ -1511,7 +1660,7 @@ footer.sticky-bottom {
     }
 
     .title {
-      font-size: 20px;
+      font-size: 21px;
     }
 
     .pub-summary,

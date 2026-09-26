@@ -69,9 +69,15 @@ body.sticky-bottom-footer {
   }
 }
 
+// One ink for the whole line. The global `span` color rule in _base.scss would
+// otherwise repaint the nested role / university spans darker than the parent.
 .about-subtitle {
   font-size: $fs-base;
-  color: var(--global-text-color-light);
+  color: var(--global-text-color);
+
+  span {
+    color: inherit;
+  }
 }
 
 .about-home .about-social {
@@ -91,14 +97,11 @@ body.sticky-bottom-footer {
       height: 40px;
       border-radius: $r-md;
       color: var(--mono-meta-color);
-      transition:
-        color $dur-base $ease-out,
-        background-color $dur-base $ease-out;
+      transition: color $dur-base $ease-out;
 
       &:hover,
       &:focus-visible {
         color: var(--global-text-color);
-        background-color: var(--global-bg-subtle);
         outline: none;
 
         i::before {
@@ -108,6 +111,18 @@ body.sticky-bottom-footer {
 
       &:focus-visible {
         box-shadow: 0 0 0 2px var(--global-theme-color);
+      }
+
+      // The glyph itself fills with the Apple Intelligence spectrum.
+      @supports (-webkit-background-clip: text) {
+        &:hover i::before,
+        &:focus-visible i::before {
+          color: transparent;
+          background: var(--ai-gradient);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
       }
     }
   }
@@ -137,10 +152,15 @@ body.sticky-bottom-footer {
 
 // Reserve the metallic gradient for identity and primary index-page titles.
 // Unsupported browsers keep the normal solid heading color declared in base.
+// background-clip: text only paints glyphs inside the element's box, so tight
+// headings pad their bottom for descenders ("g", "y") and take the same amount
+// back from the margin below — the visual rhythm is unchanged.
 @supports (-webkit-background-clip: text) {
   .post-header .post-title.gradient-title {
     width: fit-content;
     max-width: 100%;
+    padding-bottom: 0.12em;
+    margin-bottom: calc(#{$sp-2} - 0.12em);
     color: transparent;
     background: linear-gradient(105deg, var(--title-gradient-start) 5%, var(--title-gradient-middle) 52%, var(--title-gradient-end) 95%);
     background-clip: text;
@@ -150,6 +170,28 @@ body.sticky-bottom-footer {
     span {
       color: inherit;
     }
+  }
+
+  .about-home .about-hero__header .about-title.gradient-title {
+    margin-bottom: calc(#{$sp-4} - 0.12em);
+  }
+
+  // Homepage subtitle and section titles: "colorful black" ink gradient.
+  // `h2.` outranks the base .home-section__title rule declared further down.
+  .about-subtitle,
+  .home-section > h2.home-section__title {
+    width: fit-content;
+    max-width: 100%;
+    color: transparent;
+    background: var(--ink-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .home-section > h2.home-section__title {
+    padding-bottom: 0.1em;
+    margin-bottom: calc(#{$sp-5} - 0.1em);
   }
 }
 
@@ -196,10 +238,21 @@ body.sticky-bottom-footer {
 
 @media (forced-colors: active) {
   .post-header .post-title.gradient-title,
-  .post-header .post-title.gradient-title span {
+  .post-header .post-title.gradient-title span,
+  .about-subtitle,
+  .about-subtitle span,
+  .home-section > h2.home-section__title {
     color: CanvasText;
     background: none;
     -webkit-text-fill-color: CanvasText;
+  }
+
+  html .home-section > .home-section__title a,
+  .about-home .about-social .contact-icons a:hover i::before,
+  .about-home .about-social .contact-icons a:focus-visible i::before {
+    color: LinkText;
+    background: none;
+    -webkit-text-fill-color: LinkText;
   }
 
   html .publications ol.bibliography > li .abbr abbr,
@@ -215,7 +268,11 @@ body.sticky-bottom-footer {
 
 @media print {
   .post-header .post-title.gradient-title,
-  .post-header .post-title.gradient-title span {
+  .post-header .post-title.gradient-title span,
+  .about-subtitle,
+  .about-subtitle span,
+  .home-section > .home-section__title,
+  .home-section > .home-section__title a {
     color: #1d1d1f !important;
     background: none !important;
     -webkit-text-fill-color: #1d1d1f !important;
@@ -431,8 +488,20 @@ body.sticky-bottom-footer {
     gap: $sp-5;
     margin-top: $sp-6;
 
+    // Store-style product card: the figure is the card, the caption its title.
+    // Hover motion lives here, not on the [data-reveal] wrapper, so it never
+    // competes with the reveal transform.
     figure {
+      height: 100%;
       margin: 0;
+      overflow: hidden;
+      isolation: isolate; // keeps Safari clipping the image to the radius while scaling
+      background: var(--global-card-bg-color);
+      border-radius: 18px;
+      box-shadow: var(--card-shadow);
+      transition:
+        transform 300ms cubic-bezier(0, 0, 0.5, 1),
+        box-shadow 300ms cubic-bezier(0, 0, 0.5, 1);
     }
 
     img {
@@ -441,16 +510,18 @@ body.sticky-bottom-footer {
       height: auto;
       aspect-ratio: 16 / 10;
       object-fit: cover;
-      border-radius: $r-md !important;
+      border-radius: 0 !important;
     }
 
     // Override the global centered `.caption` from _base.scss.
     .caption {
-      margin-top: $sp-2;
-      margin-bottom: 0;
+      margin: 0;
+      padding: $sp-4 20px 18px;
       font-family: $ff-sans;
-      font-size: $fs-sm;
-      color: var(--mono-meta-color);
+      font-size: $fs-base;
+      font-weight: $fw-semibold;
+      line-height: $lh-heading;
+      color: var(--global-text-color);
       text-align: left;
     }
   }
@@ -468,6 +539,24 @@ body.sticky-bottom-footer {
     li {
       margin-bottom: $sp-1;
     }
+  }
+}
+
+@media (hover: hover) {
+  .research-block .research-card figure:hover {
+    box-shadow: var(--card-shadow-hover);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .research-block .research-card figure:hover {
+    transform: scale(1.01);
+  }
+
+  // medium-zoom hides the original while its clone is open (and the overlay
+  // steals :hover); hold the pose so the clone returns to where it started.
+  .research-block .research-card figure:has(.medium-zoom-image--hidden) {
+    transform: scale(1.01);
   }
 }
 
@@ -548,17 +637,20 @@ body.sticky-bottom-footer {
   letter-spacing: 0;
 }
 
+// Keep `transition`, `transform` and `opacity` off [data-reveal] elements
+// themselves; put hover motion on an inner element (see .research-card).
 [data-reveal].reveal-pending {
   opacity: 0;
-  transform: translateY(8px);
+  transform: translateY(32px);
 }
 
 [data-reveal].reveal-visible {
   opacity: 1;
   transform: none;
   transition:
-    opacity 750ms $ease-out,
-    transform 750ms $ease-out;
+    opacity 1000ms $ease-out,
+    transform 1000ms $ease-out;
+  transition-delay: var(--reveal-delay, 0ms);
 }
 
 .content-page > article > p,

@@ -65,9 +65,9 @@ layout: default
 
   <article class="about-home__content">
     {% if page.research %}
-      <section class="home-section research-block" data-reveal>
-        <h2 class="home-section__title">{{ page.research.title | default: 'Research' }}</h2>
-        <div class="row">
+      <section class="home-section research-block">
+        <h2 class="home-section__title" data-reveal>{{ page.research.title | default: 'Research' }}</h2>
+        <div class="row" data-reveal>
           {% for g in page.research.groups %}
             <div class="col-md-6">
               <p class="research-block__group">{{ g.title }}</p>
@@ -83,7 +83,9 @@ layout: default
           <div class="research-figures">
             {% for f in page.research.figures %}
               {% assign fpath = f.image | prepend: 'assets/img/' %}
-              {% include figure.liquid path=fpath class="img-fluid rounded" width="1600" height="1000" sizes="(min-width: 1180px) 546px, (min-width: 576px) 50vw, calc(100vw - 40px)" alt=f.alt caption=f.caption zoomable=true %}
+              <div class="research-card" data-reveal style="--reveal-delay: {{ forloop.index0 | modulo: 2 | times: 90 }}ms">
+                {% include figure.liquid path=fpath class="img-fluid rounded" width="1600" height="1000" sizes="(min-width: 1180px) 546px, (min-width: 576px) 50vw, calc(100vw - 40px)" alt=f.alt caption=f.caption zoomable=true %}
+              </div>
             {% endfor %}
           </div>
         {% endif %}
@@ -91,20 +93,20 @@ layout: default
     {% endif %}
 
     {% if page.selected_papers %}
-      <section class="home-section selected-publications" data-reveal>
-        <h2 class="home-section__title">
+      <section class="home-section selected-publications">
+        <h2 class="home-section__title" data-reveal>
           <a href="{{ '/publications/' | relative_url }}">Selected Publications</a>
         </h2>
         {% include selected_papers.liquid %}
-        <p class="home-more">
+        <p class="home-more" data-reveal>
           <a href="{{ '/publications/' | relative_url }}">All publications<span aria-hidden="true">&nbsp;›</span></a>
         </p>
       </section>
     {% endif %}
 
     {% if page.news and site.announcements.enabled %}
-      <section class="home-section recent-news" data-reveal>
-        <h2 class="home-section__title">
+      <section class="home-section recent-news">
+        <h2 class="home-section__title" data-reveal>
           <a href="{{ '/news/' | relative_url }}">Recent News</a>
         </h2>
         {% include news.liquid limit=true %}

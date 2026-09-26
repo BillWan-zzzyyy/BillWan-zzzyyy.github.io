@@ -41,7 +41,7 @@ def fetch_author(scholar_id: str):
     try:
         print(f"Fetching Google Scholar profile for user: {scholar_id} (direct)...")
         author = scholarly.search_author_id(scholar_id)
-        author = scholarly.fill(author, sections=["basics", "publications"])
+        author = scholarly.fill(author, sections=["basics", "counts", "publications"])
         return author
     except Exception as e:
         print(f"Direct fetch failed: {e}", file=sys.stderr)
@@ -53,7 +53,7 @@ def fetch_author(scholar_id: str):
         pg.FreeProxies()
         scholarly.use_proxy(pg)
         author = scholarly.search_author_id(scholar_id)
-        author = scholarly.fill(author, sections=["basics", "publications"])
+        author = scholarly.fill(author, sections=["basics", "counts", "publications"])
         return author
     except Exception as e:
         print(f"Proxy fetch also failed: {e}", file=sys.stderr)
@@ -72,10 +72,18 @@ def build_output(author: dict, scholar_id: str) -> dict:
             citations = pub.get("num_citations", 0)
             articles[article_id] = citations
 
+    # Per-year (non-cumulative) citation counts for the whole profile,
+    # from the "counts" section: {int_year: int} -> {"YYYY": int}, sorted.
+    cites_per_year = {
+        str(year): int(count)
+        for year, count in sorted((author.get("cites_per_year") or {}).items())
+    }
+
     return {
         "total_citations": total,
         "last_updated": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         "articles": articles,
+        "cites_per_year": cites_per_year,
     }
 
 
