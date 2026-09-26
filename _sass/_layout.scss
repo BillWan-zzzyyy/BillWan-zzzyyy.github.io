@@ -176,12 +176,15 @@ body.sticky-bottom-footer {
     margin-bottom: calc(#{$sp-4} - 0.12em);
   }
 
-  // Homepage subtitle, section titles and About me headings: "colorful black"
-  // ink gradient. `h2.` outranks the base .home-section__title rule declared
-  // further down; the base .about-me h4 rule sets none of these properties.
+  // Homepage subtitle, section titles, About me headings and the /publications/
+  // stat numbers: "colorful black" ink gradient. `h2.` outranks the base
+  // .home-section__title rule declared further down; the base .about-me h4 and
+  // .growth-card__value rules set none of these properties, and the card link's
+  // hover color stops at the <strong>, which keeps its own (transparent) color.
   .about-subtitle,
   .home-section > h2.home-section__title,
-  .about-me h4 {
+  .about-me h4,
+  .growth-cards .growth-card__value {
     width: fit-content;
     max-width: 100%;
     color: transparent;
@@ -251,6 +254,7 @@ body.sticky-bottom-footer {
   }
 
   html .home-section > .home-section__title a,
+  .growth-cards .growth-card__value,
   .about-home .about-social .contact-icons a:hover i::before,
   .about-home .about-social .contact-icons a:focus-visible i::before {
     color: LinkText;
@@ -276,7 +280,8 @@ body.sticky-bottom-footer {
   .about-subtitle span,
   .home-section > .home-section__title,
   .home-section > .home-section__title a,
-  .about-me h4 {
+  .about-me h4,
+  .growth-cards .growth-card__value {
     color: #1d1d1f !important;
     background: none !important;
     -webkit-text-fill-color: #1d1d1f !important;
@@ -738,49 +743,147 @@ body.sticky-bottom-footer {
     margin: $sp-4 0 $sp-2;
   }
 
-  .memories-list {
-    padding-left: 1.2em;
-    margin: 0 0 $sp-4;
+  // "Beyond Research": one horizontally scrolling shelf of photo cards per
+  // group (Apple Store style); gallery.js drives the arrow buttons.
+  .gallery {
+    margin-top: $sp-6;
+  }
 
-    li {
-      margin-bottom: $sp-2;
+  // The section title's bottom margin already spaces the first shelf.
+  h4 + .gallery {
+    margin-top: 0;
+  }
+
+  // Out-specifies the generic .about-me h5 rule above.
+  .gallery__title {
+    font-family: $ff-sans;
+    font-size: 21px;
+    font-weight: $fw-semibold;
+    line-height: $lh-snug;
+    color: var(--global-text-color);
+    margin: 0 0 $sp-3;
+  }
+
+  .gallery__track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: clamp(240px, 30%, 340px);
+    gap: 20px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scroll-padding-inline: 0;
+    padding-bottom: $sp-1;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    // A small radius: the scroll container clips its content to it.
+    &:focus-visible {
+      outline: 2px solid var(--global-theme-color);
+      outline-offset: $sp-1;
+      border-radius: $sp-1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      scroll-behavior: auto;
     }
   }
 
-  .memory-date {
-    font-family: $ff-sans;
-    font-size: $fs-xs;
-    color: var(--mono-meta-color);
-    margin-left: $sp-1;
-    white-space: nowrap;
-  }
-
-  .photo-row {
-    margin-top: 0;
-    max-width: none;
+  .gallery__card {
+    min-width: 0;
+    scroll-snap-align: start;
+    text-align: left;
 
     figure {
       margin: 0;
     }
-
-    img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-    }
   }
 
-  .photo-caption {
-    text-align: center;
+  // !important beats the site-wide media radius in _base.scss.
+  .gallery__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 18px !important;
+  }
+
+  .gallery__card-title,
+  .gallery__card-caption {
     font-family: $ff-sans;
-    font-size: $fs-xs;
+    line-height: $lh-heading;
+  }
+
+  .gallery__card-title {
+    margin-top: $sp-3;
+    font-size: $fs-base;
+    font-weight: $fw-semibold;
+    color: var(--global-text-color);
+  }
+
+  .gallery__card-caption {
+    margin-top: 2px;
+    font-size: 15px;
     color: var(--mono-meta-color);
-    margin: $sp-3 0 $sp-5;
+  }
+
+  .gallery__controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: $sp-3;
+    margin-top: $sp-4;
+  }
+
+  .gallery--static .gallery__controls {
+    display: none;
+  }
+
+  .gallery__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    font-size: $fs-sm;
+    color: var(--global-text-color);
+    background: var(--pub-metric-bg);
+    cursor: pointer;
+    transition: background-color $dur-base $ease-out;
+
+    &:hover:not([disabled]) {
+      background: var(--pub-metric-hover);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--global-theme-color);
+      outline-offset: 2px;
+    }
+
+    &[disabled] {
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    i {
+      color: inherit;
+    }
   }
 }
 
 @media (max-width: 575px) {
   .about-me .entry__title {
     font-size: $fs-base;
+  }
+
+  .about-me .gallery__track {
+    grid-auto-columns: 78%;
   }
 }

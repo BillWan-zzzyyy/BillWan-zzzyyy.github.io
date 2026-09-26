@@ -42,6 +42,10 @@ service:
       - Transportation Research Board (TRB) Annual Meeting
 
 awards:
+  - year: Dec 2025
+    title: "Outstanding Master's Thesis (Top 5%)"
+    institution: Tongji University
+    detail: "Study of the curve passing performance of the Virtual Track Train based on driving simulation platform"
   - year: Oct 2024
     title: CRRC Zhuzhou Fellowship
     institution: Tongji University
@@ -56,6 +60,50 @@ talks:
   - title: "Sky-Drive: A Distributed Multi-Agent Simulation Platform for Socially-Aware and Human-AI Collaborative Future Transportation"
     venue: 2025 Safe Mobility Conference (Poster), Madison, WI
     year: Apr 2025
+
+beyond:
+  - title: Football
+    items:
+      - image: research/placeholder.svg
+        title: Placeholder
+        caption: One line about this photo.
+      - image: research/placeholder.svg
+        title: Placeholder
+        caption: One line about this photo.
+      - image: research/placeholder.svg
+        title: Placeholder
+        caption: One line about this photo.
+      - image: research/placeholder.svg
+        title: Placeholder
+        caption: One line about this photo.
+  - title: Photography
+    items:
+      - image: research/placeholder.svg
+        title: Placeholder
+        caption: One line about this photo.
+      - image: research/placeholder.svg
+        title: Placeholder
+        caption: One line about this photo.
+      - image: research/placeholder.svg
+        title: Placeholder
+        caption: One line about this photo.
+      - image: research/placeholder.svg
+        title: Placeholder
+        caption: One line about this photo.
+  - title: Travel
+    items:
+      - image: research/placeholder.svg
+        title: Placeholder
+        caption: One line about this photo.
+      - image: research/placeholder.svg
+        title: Placeholder
+        caption: One line about this photo.
+      - image: research/placeholder.svg
+        title: Placeholder
+        caption: One line about this photo.
+      - image: research/placeholder.svg
+        title: Placeholder
+        caption: One line about this photo.
 ---
 
 <div class="about-me">
@@ -86,6 +134,9 @@ talks:
     {% for a in page.awards %}
       <div class="entry">
         <div class="entry__title">{{ a.title }}</div>
+        {% if a.detail %}
+          <div class="entry__sub">“{{ a.detail }}”</div>
+        {% endif %}
         <div class="entry__meta">{{ a.institution }} · {{ a.year }}</div>
       </div>
     {% endfor %}
@@ -113,46 +164,31 @@ talks:
     {% endfor %}
   </div>
 
-  <!-- =====================================================================
-       Uncomment this block and replace the placeholder text/photos to publish it.
+  <h4>Beyond Research</h4>
+  {% for g in page.beyond %}
+    <section class="gallery" data-reveal>
+      <h5 class="gallery__title">{{ g.title }}</h5>
+      <div class="gallery__track" tabindex="0" role="region" aria-label="{{ g.title }} photos">
+        {% for item in g.items %}
+          {% assign ipath = item.image | prepend: 'assets/img/' %}
+          {% assign ialt = item.alt | default: item.title %}
+          <div class="gallery__card">
+            {% include figure.liquid path=ipath class="gallery__img" alt=ialt zoomable=true loading="lazy" sizes="(min-width: 768px) 340px, 78vw" %}
+            <div class="gallery__card-title">{{ item.title }}</div>
+            <div class="gallery__card-caption">{{ item.caption }}</div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="gallery__controls">
+        <button type="button" class="gallery__btn" data-dir="-1" aria-label="Previous {{ g.title }} photos">
+          <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="gallery__btn" data-dir="1" aria-label="Next {{ g.title }} photos">
+          <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+        </button>
+      </div>
+    </section>
+  {% endfor %}
 
-  <h4>Hobbies</h4>
-
-  <p>Placeholder — one or two sentences about your hobbies.</p>
-
-  <div class="row photo-row">
-    <div class="col-md-4 mt-3">
-      {% include figure.liquid path="assets/img/1.jpg" class="img-fluid rounded z-depth-1" alt="Placeholder photo" %}
-    </div>
-    <div class="col-md-4 mt-3">
-      {% include figure.liquid path="assets/img/2.jpg" class="img-fluid rounded z-depth-1" alt="Placeholder photo" %}
-    </div>
-    <div class="col-md-4 mt-3">
-      {% include figure.liquid path="assets/img/3.jpg" class="img-fluid rounded z-depth-1" alt="Placeholder photo" %}
-    </div>
-  </div>
-  <p class="photo-caption">Placeholder caption — replace or delete this line.</p>
-
-  <h4>Travel</h4>
-
-  <ul class="memories-list">
-    <li>Placeholder trip or city <span class="memory-date">(2025.09–2025.12)</span></li>
-    <li>Placeholder trip or city <span class="memory-date">(2024.06)</span></li>
-    <li>Placeholder trip or city</li>
-  </ul>
-
-  <div class="row photo-row">
-    <div class="col-md-4 mt-3">
-      {% include figure.liquid path="assets/img/4.jpg" class="img-fluid rounded z-depth-1" alt="Placeholder photo" %}
-    </div>
-    <div class="col-md-4 mt-3">
-      {% include figure.liquid path="assets/img/5.jpg" class="img-fluid rounded z-depth-1" alt="Placeholder photo" %}
-    </div>
-    <div class="col-md-4 mt-3">
-      {% include figure.liquid path="assets/img/6.jpg" class="img-fluid rounded z-depth-1" alt="Placeholder photo" %}
-    </div>
-  </div>
-  <p class="photo-caption">Placeholder caption — replace or delete this line.</p>
-
-  ===================================================================== -->
+  <script defer src="{{ '/assets/js/gallery.js' | relative_url | bust_file_cache }}"></script>
 </div>
