@@ -26,7 +26,7 @@
             loading="lazy"
             path=entry_path
             reduced_motion_path=still_path
-            sizes = "280px"
+            sizes="320px"
             class="preview rounded"
             zoomable=true
             alt=entry.title
@@ -185,18 +185,22 @@
         {% endif %}
         {% if entry.html %}
           {% if entry.html contains '://' %}
-            <a href="{{ entry.html }}">Paper</a>
+            <a class="pub-link--primary" href="{{ entry.html }}"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Paper</a>
           {% else %}
-            <a href="{{ entry.html | prepend: '/assets/html/' | relative_url }}">Paper</a>
+            <a class="pub-link--primary" href="{{ entry.html | prepend: '/assets/html/' | relative_url }}"
+              ><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Paper</a
+            >
           {% endif %}
         {% elsif entry.arxiv %}
-          <a href="https://arxiv.org/abs/{{ entry.arxiv }}">Paper</a>
+          <a class="pub-link--primary" href="https://arxiv.org/abs/{{ entry.arxiv }}"
+            ><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Paper</a
+          >
         {% endif %}
         {% if entry.pdf %}
           {% if entry.pdf contains '://' %}
-            <a href="{{ entry.pdf }}">PDF</a>
+            <a href="{{ entry.pdf }}"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i> PDF</a>
           {% else %}
-            <a href="{{ entry.pdf | prepend: '/assets/pdf/' | relative_url }}">PDF</a>
+            <a href="{{ entry.pdf | prepend: '/assets/pdf/' | relative_url }}"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i> PDF</a>
           {% endif %}
         {% endif %}
         {% if entry.supp %}
@@ -210,7 +214,7 @@
           <a href="{{ entry.blog }}">Blog</a>
         {% endif %}
         {% if entry.code %}
-          <a href="{{ entry.code }}">Code</a>
+          <a href="{{ entry.code }}"><i class="fa-solid fa-code" aria-hidden="true"></i> Code</a>
         {% endif %}
         {% if entry.poster %}
           {% if entry.poster contains '://' %}
@@ -227,7 +231,7 @@
           {% endif %}
         {% endif %}
         {% if entry.website %}
-          <a href="{{ entry.website }}">Website</a>
+          <a href="{{ entry.website }}"><i class="fa-solid fa-globe" aria-hidden="true"></i> Website</a>
         {% endif %}
       </div>
       {% if site.enable_publication_badges %}
@@ -307,7 +311,9 @@
                   role="button"
                 >
                   <span class="badge-pill__label"> <i class="ai ai-google-scholar"></i> Scholar </span>
-                  <span class="badge-pill__value">{{ gs_count }}</span>
+                  {% if gs_count > 0 -%}
+                    <span class="badge-pill__value">{{ gs_count }}</span>
+                  {%- endif %}
                 </a>
               {% endif %}
             {% endif %}
@@ -321,7 +327,9 @@
                   role="button"
                 >
                   <span class="badge-pill__label"> <i class="fa-brands fa-github"></i> GitHub </span>
-                  <span class="badge-pill__value">{{ star_count }} ★</span>
+                  {% if star_count > 0 -%}
+                    <span class="badge-pill__value">{{ star_count }} ★</span>
+                  {%- endif %}
                 </a>
               {% endif %}
             {% endif %}

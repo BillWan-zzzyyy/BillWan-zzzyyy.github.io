@@ -27,6 +27,12 @@
   --title-gradient-middle: #1479c9;
   --title-gradient-end: #008b95;
 
+  // Publication actions — filled primary pill and neutral metric pills
+  --pub-primary-bg: #0071e3;
+  --pub-primary-hover: #0077ed;
+  --pub-metric-bg: #e8e8ed;
+  --pub-metric-hover: #dcdce1;
+
   // Footer
   --global-footer-bg-color: #{$n-900};
   --global-footer-text-color: #{$n-300};
@@ -115,6 +121,12 @@ html[data-theme="dark"] {
   --title-gradient-start: #d7dde5;
   --title-gradient-middle: #63adff;
   --title-gradient-end: #4ddbd3;
+
+  // Publication actions — filled primary pill and neutral metric pills
+  --pub-primary-bg: #0071e3;
+  --pub-primary-hover: #0077ed;
+  --pub-metric-bg: #3a3a3c;
+  --pub-metric-hover: #48484a;
 
   // Footer
   --global-footer-bg-color: #{$warm-dark-card};

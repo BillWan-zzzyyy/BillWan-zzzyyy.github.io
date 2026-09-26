@@ -25,22 +25,6 @@ body.sticky-bottom-footer {
   padding-bottom: 0;
 }
 
-:root {
-  --venue-gradient-start: #52606f;
-  --venue-gradient-middle: #1769aa;
-  --venue-gradient-end: #08747c;
-  --venue-strong-gradient-start: #075fa8;
-  --venue-strong-gradient-end: #006a73;
-}
-
-html[data-theme="dark"] {
-  --venue-gradient-start: #aeb8c4;
-  --venue-gradient-middle: #6db5f5;
-  --venue-gradient-end: #64cbc8;
-  --venue-strong-gradient-start: #78bdff;
-  --venue-strong-gradient-end: #61d6d0;
-}
-
 .container {
   max-width: $max-content-width;
 }
@@ -49,7 +33,7 @@ html[data-theme="dark"] {
  * Homepage hero & profile card
  ******************************************************************************/
 
-// Identity and portrait share the first row; the introduction follows below.
+// Identity and introduction stack in the left column; the portrait spans both rows.
 .site-content {
   margin-top: clamp(40px, 6vw, 80px);
   min-height: 65vh;
@@ -59,10 +43,11 @@ html[data-theme="dark"] {
 .about-hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 300px;
-  grid-template-areas: "header media";
+  grid-template-rows: auto 1fr;
+  grid-template-areas: "header media" "bio media";
   column-gap: clamp(32px, 6vw, 96px);
-  row-gap: $sp-7;
-  align-items: center;
+  row-gap: $sp-5;
+  align-items: start;
 }
 
 .about-home .about-hero__header {
@@ -87,23 +72,23 @@ html[data-theme="dark"] {
 .about-subtitle {
   font-size: $fs-base;
   color: var(--global-text-color-light);
-  max-width: 42ch;
 }
 
 .about-home .about-social {
-  margin-top: $sp-4;
+  margin-top: $sp-3;
 
   .contact-icons {
     font-size: 26px;
-    gap: $sp-2;
+    gap: 0;
     margin-bottom: 0;
+    margin-left: -7px;
 
     a {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       border-radius: $r-md;
       color: var(--mono-meta-color);
       transition:
@@ -132,9 +117,10 @@ html[data-theme="dark"] {
 }
 
 .bio.about-hero__bio {
-  width: min(100%, 760px);
+  grid-area: bio;
+  min-width: 0;
   max-width: 760px;
-  margin-top: $sp-7;
+  margin-top: 0;
   font-size: 17px;
   p:last-child {
     margin-bottom: 0;
@@ -165,29 +151,17 @@ html[data-theme="dark"] {
       color: inherit;
     }
   }
-
-  .publications .abbr abbr a,
-  .publications .abbr abbr div {
-    color: transparent !important;
-    background: linear-gradient(105deg, var(--venue-gradient-start) 4%, var(--venue-gradient-middle) 54%, var(--venue-gradient-end) 96%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .publications .abbr abbr.venue--strong a,
-  .publications .abbr abbr.venue--strong div {
-    background-image: linear-gradient(105deg, var(--venue-strong-gradient-start) 4%, var(--venue-strong-gradient-end) 96%);
-  }
 }
 
 .home-hero-prepared .about-home .about-hero__header,
+.home-hero-prepared .about-home .about-hero__bio,
 .home-hero-prepared .about-home .about-hero__media {
   opacity: 0;
   transform: translateY(8px);
 }
 
-.home-hero-started .about-home .about-hero__header {
+.home-hero-started .about-home .about-hero__header,
+.home-hero-started .about-home .about-hero__bio {
   animation: home-hero-enter 1100ms $ease-out both;
 }
 
@@ -209,8 +183,10 @@ html[data-theme="dark"] {
 
 @media (prefers-reduced-motion: reduce) {
   .home-hero-prepared .about-home .about-hero__header,
+  .home-hero-prepared .about-home .about-hero__bio,
   .home-hero-prepared .about-home .about-hero__media,
   .about-home .about-hero__header,
+  .about-home .about-hero__bio,
   .about-home .about-hero__media {
     animation: none;
     opacity: 1;
@@ -256,8 +232,10 @@ html[data-theme="dark"] {
   }
 
   .about-home .about-hero__header,
+  .about-home .about-hero__bio,
   .about-home .about-hero__media,
   .home-hero-prepared .about-home .about-hero__header,
+  .home-hero-prepared .about-home .about-hero__bio,
   .home-hero-prepared .about-home .about-hero__media {
     animation: none !important;
     opacity: 1 !important;
@@ -297,7 +275,8 @@ html[data-theme="dark"] {
 @media (min-width: 768px) and (max-width: 991px) {
   .about-hero {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "header" "media";
+    grid-template-rows: auto;
+    grid-template-areas: "header" "media" "bio";
     row-gap: $sp-6;
   }
 }
@@ -309,7 +288,8 @@ html[data-theme="dark"] {
 
   .about-hero {
     grid-template-columns: 1fr;
-    grid-template-areas: "header" "media";
+    grid-template-rows: auto;
+    grid-template-areas: "header" "media" "bio";
     row-gap: $sp-6;
   }
   .about-hero__media {
@@ -319,8 +299,7 @@ html[data-theme="dark"] {
     font-size: 44px;
   }
 
-  .about-hero__bio {
-    margin-top: $sp-6;
+  .bio.about-hero__bio {
     font-size: 16px;
   }
 }
@@ -399,7 +378,7 @@ html[data-theme="dark"] {
 }
 
 .home-section {
-  margin-top: $sp-9;
+  margin-top: $sp-7;
 
   > .home-section__title {
     font-family: $ff-serif;
@@ -432,8 +411,13 @@ html[data-theme="dark"] {
   }
 }
 
+// The section title already provides the top rhythm for the first paper.
+.selected-publications .publications ol.bibliography > li:first-child {
+  padding-top: 0;
+}
+
 // --------------------------------------------------------------------------
-// Homepage Research block — overview figure + two columns of interests.
+// Homepage Research block — two columns of interests + a 2×2 figure grid.
 // --------------------------------------------------------------------------
 
 .research-block {
@@ -441,23 +425,33 @@ html[data-theme="dark"] {
   background: transparent;
   border-radius: 0;
 
-  > figure {
-    margin: $sp-6 0 0;
-  }
+  .research-figures {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $sp-5;
+    margin-top: $sp-6;
 
-  .research-block__figure {
-    margin: 0;
-    border: 0;
-    background: #fff;
-    border-radius: $r-md !important;
-    max-width: 100%;
-    height: auto;
-    overflow: hidden;
+    figure {
+      margin: 0;
+    }
 
     img {
       display: block;
       width: 100%;
       height: auto;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border-radius: $r-md !important;
+    }
+
+    // Override the global centered `.caption` from _base.scss.
+    .caption {
+      margin-top: $sp-2;
+      margin-bottom: 0;
+      font-family: $ff-sans;
+      font-size: $fs-sm;
+      color: var(--mono-meta-color);
+      text-align: left;
     }
   }
 
@@ -477,20 +471,27 @@ html[data-theme="dark"] {
   }
 }
 
-// "All publications →" — quiet grey text link under the selected list.
+@media (max-width: 575px) {
+  .research-block .research-figures {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+// "All publications ›" — accent text link under the selected list.
 .home-more {
   margin: $sp-5 0 0;
 
   a {
     font-family: $ff-sans;
-    font-size: $fs-sm;
-    color: var(--global-text-color-light);
+    font-size: 21px;
+    font-weight: $fw-medium;
+    color: var(--global-theme-color);
     text-decoration: none;
     transition: color $dur-base $ease-out;
 
     &:hover {
-      color: var(--global-theme-color);
-      text-decoration: none;
+      color: var(--global-hover-color);
+      text-decoration: underline;
     }
   }
 }
@@ -581,7 +582,10 @@ html[data-theme="dark"] {
 }
 
 @media (max-width: 767px) {
-  .home-section,
+  .home-section {
+    margin-top: 40px;
+  }
+
   .footer__ornament {
     margin-top: 64px;
   }

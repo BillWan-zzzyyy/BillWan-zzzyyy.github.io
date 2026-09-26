@@ -1063,8 +1063,8 @@ footer.sticky-bottom {
 //
 // Layout: year headers act as sticky gutter labels on desktop (≥992px) and
 // inline headers on mobile. Each paper is a hairline row — no boxed card.
-// Venue reads as a small grey tag, links as grey text separated by middots,
-// counts as one grey line.
+// Venue reads as small accent-colored letters above the thumbnail, links as
+// pill buttons (filled primary "Paper"), counts as neutral metric pills.
 // ----------------------------------------------------------------------------
 
 .publications {
@@ -1152,7 +1152,7 @@ footer.sticky-bottom {
       }
 
       .publication-row--with-media {
-        grid-template-columns: 220px minmax(0, 1fr);
+        grid-template-columns: 320px minmax(0, 1fr);
       }
 
       .pub-media,
@@ -1160,13 +1160,14 @@ footer.sticky-bottom {
         min-width: 0;
       }
 
+      // Thumbnails keep their natural aspect ratio — no frame, no matte.
+      .pub-media figure {
+        margin: 0;
+      }
+
       .preview {
         width: 100%;
         height: auto;
-        aspect-ratio: 4 / 3;
-        object-fit: contain;
-        background: #fff;
-        border: 1px solid var(--hairline);
         border-radius: $r-md;
         box-shadow: none;
       }
@@ -1174,14 +1175,11 @@ footer.sticky-bottom {
       .preview img {
         width: 100%;
         height: auto;
-        aspect-ratio: 4 / 3;
-        object-fit: contain;
-        background: #fff;
         border-radius: $r-md;
         box-shadow: none;
       }
 
-      // Venue tags use gradient text; selected venues may add a pale surface.
+      // Venue tags read as accent-colored letters only — no box, no fill.
       .abbr {
         margin-bottom: $sp-2;
 
@@ -1189,11 +1187,10 @@ footer.sticky-bottom {
           display: inline-block;
           width: auto;
           margin-bottom: $sp-2;
-          padding: 2px $sp-2;
-          color: var(--global-text-color-light) !important;
+          padding: 0;
+          color: var(--global-theme-color) !important;
           background: transparent !important;
-          border: 1px solid transparent;
-          border-radius: $r-md;
+          border: 0;
           font-family: $ff-sans;
           font-size: $fs-xs;
           font-weight: $fw-semibold;
@@ -1206,14 +1203,9 @@ footer.sticky-bottom {
             text-decoration: none;
 
             &:hover {
-              color: var(--global-theme-color) !important;
+              color: var(--global-hover-color) !important;
               text-decoration: none;
             }
-          }
-
-          &.venue--strong {
-            background: linear-gradient(105deg, rgba(20, 121, 201, 0.09), rgba(0, 139, 149, 0.1)) !important;
-            border-color: rgba(20, 121, 201, 0.28);
           }
         }
       }
@@ -1302,21 +1294,21 @@ footer.sticky-bottom {
         }
       }
 
-      // Periodical = venue + middot + month/year. One grey sans line,
-      // venue italic inside it, nothing boxed.
+      // Periodical = venue + middot + month/year. One sans line at body size:
+      // venue upright and semibold in body color, the year stays grey.
       .periodical {
         font-family: $ff-sans;
-        font-size: $fs-sm;
+        font-size: $fs-base;
         color: var(--mono-meta-color);
         margin-top: $sp-2;
       }
 
       .venue {
         font-family: $ff-sans;
-        font-size: $fs-sm;
-        font-style: italic;
-        font-weight: $fw-regular;
-        color: var(--global-text-color-light);
+        font-size: inherit;
+        font-style: normal;
+        font-weight: $fw-semibold;
+        color: var(--global-text-color);
         letter-spacing: normal;
         margin-right: 0.15em;
       }
@@ -1339,29 +1331,60 @@ footer.sticky-bottom {
         padding: 0;
       }
 
+      // Links are accent-outlined pills that fill on hover; "Paper" is the
+      // filled primary action.
       .pub-links {
         a,
         button {
           display: inline-flex;
           align-items: center;
+          gap: 6px;
           min-height: 36px;
-          padding: 6px $sp-3;
-          border: 1px solid var(--hairline);
-          border-radius: $r-md;
+          padding: 0 $sp-4;
+          border: 1px solid var(--global-theme-color);
+          border-radius: 980px;
           background: transparent;
           font-family: $ff-sans;
-          font-size: 14px;
+          font-size: 15px;
           font-weight: $fw-semibold;
-          color: var(--global-text-color);
+          line-height: 1;
+          color: var(--global-theme-color);
           text-decoration: none;
           cursor: pointer;
-          transition: color $dur-base $ease-out;
+          transition:
+            color $dur-base $ease-out,
+            background-color $dur-base $ease-out,
+            border-color $dur-base $ease-out;
 
-          &:hover {
-            color: var(--global-text-color);
-            background: var(--global-bg-subtle);
-            border-color: var(--global-text-color-light);
+          i {
+            color: inherit;
+            font-size: 0.95em;
+          }
+
+          &:hover,
+          &:focus-visible {
+            color: #fff;
+            background: var(--pub-primary-bg);
+            border-color: var(--pub-primary-bg);
             text-decoration: none;
+          }
+
+          &:focus-visible {
+            outline: 2px solid var(--global-theme-color);
+            outline-offset: 2px;
+          }
+        }
+
+        a.pub-link--primary {
+          color: #fff;
+          background: var(--pub-primary-bg);
+          border-color: var(--pub-primary-bg);
+
+          &:hover,
+          &:focus-visible {
+            color: #fff;
+            background: var(--pub-primary-hover);
+            border-color: var(--pub-primary-hover);
           }
         }
       }
@@ -1380,29 +1403,31 @@ footer.sticky-bottom {
         }
       }
 
-      // Citation and repository metrics share the action treatment.
+      // Citation and repository metrics: neutral filled pills, same geometry
+      // as the link pills.
       .badge-pill {
         display: inline-flex;
         align-items: center;
-        gap: $sp-1;
+        gap: 6px;
         min-height: 36px;
-        padding: 6px $sp-3;
-        border: 1px solid var(--hairline);
-        border-radius: $r-md;
+        padding: 0 $sp-4;
+        border: 1px solid transparent;
+        border-radius: 980px;
         font-family: $ff-sans;
-        font-size: 14px;
+        font-size: 15px;
         font-weight: $fw-semibold;
         letter-spacing: 0;
-        line-height: 1.4;
+        line-height: 1;
         color: var(--global-text-color);
-        background: transparent;
+        background: var(--pub-metric-bg);
         text-decoration: none;
-        transition: color $dur-base $ease-out;
+        transition:
+          color $dur-base $ease-out,
+          background-color $dur-base $ease-out;
 
         &:hover {
           color: var(--global-text-color);
-          background: var(--global-bg-subtle);
-          border-color: var(--global-text-color-light);
+          background: var(--pub-metric-hover);
           text-decoration: none;
         }
 
@@ -1482,8 +1507,7 @@ footer.sticky-bottom {
     }
 
     .pub-media {
-      width: 220px;
-      max-width: 100%;
+      width: min(100%, 320px);
     }
 
     .title {

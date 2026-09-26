@@ -59,14 +59,14 @@ layout: default
         </div>
       </div>
     {% endif %}
-  </div>
 
-  <div class="bio about-hero__bio">{{ content }}</div>
+    <div class="bio about-hero__bio">{{ content }}</div>
+  </div>
 
   <article class="about-home__content">
     {% if page.research %}
       <section class="home-section research-block" data-reveal>
-        <h2 class="home-section__title">Research</h2>
+        <h2 class="home-section__title">{{ page.research.title | default: 'Research' }}</h2>
         <div class="row">
           {% for g in page.research.groups %}
             <div class="col-md-6">
@@ -79,8 +79,14 @@ layout: default
             </div>
           {% endfor %}
         </div>
-        {% assign rpath = page.research.image | prepend: 'assets/img/' %}
-        {% include figure.liquid path=rpath class="img-fluid rounded research-block__figure" width="1600" height="1034" sizes="(min-width: 1180px) 1116px, calc(100vw - 40px)" alt=page.research.alt zoomable=true %}
+        {% if page.research.figures %}
+          <div class="research-figures">
+            {% for f in page.research.figures %}
+              {% assign fpath = f.image | prepend: 'assets/img/' %}
+              {% include figure.liquid path=fpath class="img-fluid rounded" width="1600" height="1000" sizes="(min-width: 1180px) 546px, (min-width: 576px) 50vw, calc(100vw - 40px)" alt=f.alt caption=f.caption zoomable=true %}
+            {% endfor %}
+          </div>
+        {% endif %}
       </section>
     {% endif %}
 
@@ -91,7 +97,7 @@ layout: default
         </h2>
         {% include selected_papers.liquid %}
         <p class="home-more">
-          <a href="{{ '/publications/' | relative_url }}">All publications →</a>
+          <a href="{{ '/publications/' | relative_url }}">All publications<span aria-hidden="true">&nbsp;›</span></a>
         </p>
       </section>
     {% endif %}
