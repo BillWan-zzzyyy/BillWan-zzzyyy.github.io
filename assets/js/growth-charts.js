@@ -3,7 +3,6 @@
 (() => {
   const SVG_NS = "http://www.w3.org/2000/svg";
   const NO_CHART_CLASS = "growth-card--no-chart";
-  const DAY_MS = 86400000;
   const VIEW_W = 100;
   const VIEW_H = 40;
   const PAD_TOP = 3;
@@ -72,21 +71,17 @@
     return { points: series, start: String(first), end: String(new Date(end.t).getUTCFullYear()) };
   };
 
-  // Dated cumulative star totals -> curve starting at 0 the day before the
-  // first record and ending today at the reported total.
+  // Dated snapshots of the star total -> curve from the first snapshot, extended
+  // to today at the reported total. Needs two distinct days to draw.
   const starSeries = (history, total, today) => {
     if (!Array.isArray(history)) return null;
-    const rows = normalize(history.map((row) => ({ t: parseDay(row && row.date), v: toNumber(row && row.stars) })));
-    if (!rows.length) return null;
-    const lastRow = rows[rows.length - 1];
+    const points = normalize(history.map((row) => ({ t: parseDay(row && row.date), v: toNumber(row && row.stars) })));
+    if (!points.length) return null;
+    const lastRow = points[points.length - 1];
     const reported = toNumber(total);
-    const points = normalize([
-      { t: rows[0].t - DAY_MS, v: 0 },
-      ...rows,
-      { t: Math.max(today, lastRow.t), v: Number.isFinite(reported) ? reported : lastRow.v },
-    ]);
-    if (points.length < 2) return null;
-    return { points, start: monthLabel(rows[0].t), end: monthLabel(points[points.length - 1].t) };
+    if (lastRow.t < today) points.push({ t: today, v: Number.isFinite(reported) ? reported : lastRow.v });
+    if (points.length < 2 || points[points.length - 1].t <= points[0].t) return null;
+    return { points, start: monthLabel(points[0].t), end: monthLabel(points[points.length - 1].t) };
   };
 
   // Map {t, v} into the 100x40 viewBox; y runs from 0 (bottom) to the max value.

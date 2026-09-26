@@ -6,11 +6,17 @@ _data/github_stars.json:
 
   total_stars   sum over the counted repos
   repos         {full_name: stars} for owned repos with >= 1 star and all papers.bib repos
-  history       cumulative star total per day, from stargazer timestamps
+  history       dated snapshots [{"date", "stars"}] of total_stars, sorted by date
+  history_mode  "snapshot"; a previous history without it (old stargazer-timestamp
+                format) is discarded
 
-If the owned-repo listing fails, papers.bib repos are fetched as before and the
-other repos keep their cached counts, so a transient failure never shrinks the total.
-Failed fetches fall back to cached values/history and the script exits 1.
+GitHub limits stargazer timestamps to repo admins, so the history is recorded by this
+script itself: each run overwrites today's snapshot, or appends one when the history is
+empty, the total changed, or the last snapshot is >= 7 days old (so flat weeks still plot).
+
+If the owned-repo listing fails, papers.bib repos are fetched as before, the other
+repos keep their cached counts (so a transient failure never shrinks the total), and
+no snapshot is recorded. Failed fetches fall back to cached values and the script exits 1.
 
 Usage: python _scripts/fetch_github_stars.py
 """
@@ -21,8 +27,7 @@ import re
 import sys
 import urllib.request
 import urllib.error
-from collections import Counter
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 
 # ---------------------------------------------------------------------------
 # Config
@@ -34,9 +39,10 @@ CONFIG_PATH = os.path.join(REPO_ROOT, "_config.yml")
 OUTPUT_PATH = os.path.join(REPO_ROOT, "_data", "github_stars.json")
 
 GITHUB_API = "https://api.github.com/repos/{}"
-STARGAZERS_API = "https://api.github.com/repos/{}/stargazers?per_page=100&page={}"
 USER_REPOS_API = "https://api.github.com/users/{}/repos?type=owner&per_page=100&page={}"
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
+HISTORY_MODE = "snapshot"
+SNAPSHOT_MAX_AGE_DAYS = 7
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -122,48 +128,33 @@ def fetch_stars(repo: str) -> int | None:
     return None
 
 
-def fetch_star_dates(repo: str) -> list[str] | None:
-    """Fetch the starred_at date (YYYY-MM-DD, UTC) of every stargazer of a repo."""
-    headers = {
-        "Accept": "application/vnd.github.star+json",
-        "User-Agent": "github-stars-fetcher",
-    }
-    if TOKEN:
-        headers["Authorization"] = f"Bearer {TOKEN}"
-
-    dates = []
-    page = 1
-    while True:
-        req = urllib.request.Request(STARGAZERS_API.format(repo, page), headers=headers)
-        try:
-            with urllib.request.urlopen(req, timeout=15) as resp:
-                items = json.loads(resp.read().decode())
-        except urllib.error.HTTPError as e:
-            detail = e.read().decode(errors="replace")[:300]
-            needed = e.headers.get("X-Accepted-GitHub-Permissions", "n/a")
-            print(f"  HTTP {e.code} for {repo} stargazers: {e.reason} {detail} (accepted permissions: {needed})", file=sys.stderr)
-            return None
-        except Exception as e:
-            print(f"  Error fetching {repo} stargazers: {e}", file=sys.stderr)
-            return None
-        if not items:
-            break
-        for item in items:
-            starred_at = item.get("starred_at")
-            if starred_at:
-                dates.append(starred_at[:10])
-        page += 1
-    return dates
-
-
-def build_history(dates: list[str]) -> list[dict]:
-    """Cumulative star total after each calendar day on which stars were added."""
+def load_snapshots(existing: dict, today: str) -> list[dict]:
+    """Previous snapshots, kept only if the file was already written in snapshot mode."""
+    if existing.get("history_mode") != HISTORY_MODE:
+        return []
     history = []
-    running = 0
-    for day, count in sorted(Counter(dates).items()):
-        running += count
-        history.append({"date": day, "stars": running})
-    return history
+    for row in existing.get("history") or []:
+        try:
+            day = date.fromisoformat(row["date"]).isoformat()
+            stars = int(row["stars"])
+        except (TypeError, KeyError, ValueError):
+            continue
+        if day <= today:
+            history.append({"date": day, "stars": stars})
+    return sorted(history, key=lambda row: row["date"])
+
+
+def add_snapshot(history: list[dict], total: int, today: str):
+    """Overwrite today's snapshot, or append one if the total changed or the last is stale."""
+    last = history[-1] if history else None
+    if last and last["date"] == today:
+        last["stars"] = total
+    elif (
+        last is None
+        or last["stars"] != total
+        or date.fromisoformat(today) - date.fromisoformat(last["date"]) >= timedelta(days=SNAPSHOT_MAX_AGE_DAYS)
+    ):
+        history.append({"date": today, "stars": total})
 
 
 def load_existing() -> dict:
@@ -217,8 +208,6 @@ def main():
     existing_repos = existing.get("repos", {})
 
     result_repos: dict[str, int] = {}
-    star_dates: list[str] = []
-    history_failure = False
 
     # papers.bib repos first (keyed by their bib spelling so the site's
     # repos[entry.github_repo] lookup resolves); owned ones reuse the listing count.
@@ -250,29 +239,19 @@ def main():
             result_repos[name] = owned[name]
             print(f"  {name}: {owned[name]} stars")
 
-    for repo, count in result_repos.items():
-        if count < 1:
-            continue
-        print(f"  Fetching star history for {repo}...")
-        dates = fetch_star_dates(repo)
-        if dates is not None:
-            star_dates.extend(dates)
-            print(f"    -> {len(dates)} timestamped stars")
-        else:
-            history_failure = True
-            any_failure = True
-            print("    -> fetch failed, will keep cached history")
-
-    if history_failure:
-        history = existing.get("history", [])
-    else:
-        history = build_history(star_dates)
-
     total = sum(result_repos.values())
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    history = load_snapshots(existing, today)
+    if listing_failed:
+        print("  Not recording a star snapshot (repo listing failed)")
+    else:
+        add_snapshot(history, total, today)
+
     data = {
         "total_stars": total,
-        "last_updated": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        "last_updated": today,
         "repos": result_repos,
+        "history_mode": HISTORY_MODE,
         "history": history,
     }
 
@@ -280,7 +259,7 @@ def main():
     save_output(data)
 
     if any_failure:
-        print("WARNING: Some repos failed to fetch. Cached values/history used.", file=sys.stderr)
+        print("WARNING: Some repos failed to fetch. Cached values used.", file=sys.stderr)
         sys.exit(1)
 
 
