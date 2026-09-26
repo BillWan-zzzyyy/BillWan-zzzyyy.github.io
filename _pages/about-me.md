@@ -34,7 +34,12 @@ education:
     logo: tongji.png
 
 service:
-  - Reviewer, Transportation Research Board (TRB) Annual Meeting
+  - role: Journal Reviewer
+    venues:
+      - IEEE Transactions on Intelligent Transportation Systems (T-ITS)
+  - role: Conference Reviewer
+    venues:
+      - Transportation Research Board (TRB) Annual Meeting
 
 awards:
   - year: Oct 2024
@@ -102,7 +107,8 @@ talks:
   <div class="entry-list">
     {% for item in page.service %}
       <div class="entry">
-        <div class="entry__title">{{ item }}</div>
+        <div class="entry__title">{{ item.role }}</div>
+        <div class="entry__sub">{{ item.venues | join: '; ' }}</div>
       </div>
     {% endfor %}
   </div>
