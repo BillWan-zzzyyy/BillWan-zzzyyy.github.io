@@ -58,44 +58,54 @@ talks:
 
   <h4>Education</h4>
 
-  <ul class="home-list">
+  <div class="entry-list">
     {% for edu in page.education %}
-      <li>
-        {% if edu.logo %}
-          <img src="{{ edu.logo | prepend: 'assets/img/' | relative_url }}" class="inline-logo" alt="{{ edu.institution }}">
-        {% endif %}
-        <strong>{{ edu.degree }}</strong>, {% if edu.college %}{% if edu.college_url %}<a href="{{ edu.college_url }}">{{ edu.college }}</a>{% else %}{{ edu.college }}{% endif %}, {% endif %}{{ edu.institution }}
-        <span class="mono-meta">{{ edu.period }}</span>
-        {% if edu.advisor %}
-          <div class="mono-meta home-list__sub">Advisor: {% if edu.advisor_url %}<a href="{{ edu.advisor_url }}">{{ edu.advisor }}</a>{% else %}{{ edu.advisor }}{% endif %}</div>
-        {% endif %}
-      </li>
+      <div class="entry">
+        <div class="entry__title">{{ edu.degree }}</div>
+        <div class="entry__sub">
+          {% if edu.logo %}
+            <img src="{{ edu.logo | prepend: 'assets/img/' | relative_url }}" class="inline-logo" alt="{{ edu.institution }}">
+          {% endif %}
+          {% if edu.college %}{% if edu.college_url %}<a href="{{ edu.college_url }}">{{ edu.college }}</a>{% else %}{{ edu.college }}{% endif %}, {% endif %}{{ edu.institution }}
+        </div>
+        <div class="entry__meta">
+          {{ edu.period }}{% if edu.advisor %} · Advisor: {% if edu.advisor_url %}<a href="{{ edu.advisor_url }}">{{ edu.advisor }}</a>{% else %}{{ edu.advisor }}{% endif %}{% endif %}
+        </div>
+      </div>
     {% endfor %}
-  </ul>
+  </div>
 
   <h4>Honors & Awards</h4>
 
-  <ul class="home-list">
+  <div class="entry-list">
     {% for a in page.awards %}
-      <li><span class="mono-meta">{{ a.year }}</span> {{ a.title }}, {{ a.institution }}</li>
+      <div class="entry">
+        <div class="entry__title">{{ a.title }}</div>
+        <div class="entry__meta">{{ a.institution }} · {{ a.year }}</div>
+      </div>
     {% endfor %}
-  </ul>
+  </div>
 
   <h4>Talks</h4>
 
-  <ul class="home-list">
+  <div class="entry-list">
     {% for t in page.talks %}
-      <li>{{ t.title }} <span class="mono-meta">{{ t.year }}</span><div class="mono-meta home-list__sub">{{ t.venue }}</div></li>
+      <div class="entry">
+        <div class="entry__title">{{ t.title }}</div>
+        <div class="entry__meta">{{ t.venue }} · {{ t.year }}</div>
+      </div>
     {% endfor %}
-  </ul>
+  </div>
 
   <h4>Service</h4>
 
-  <ul class="home-list">
+  <div class="entry-list">
     {% for item in page.service %}
-      <li>{{ item }}</li>
+      <div class="entry">
+        <div class="entry__title">{{ item }}</div>
+      </div>
     {% endfor %}
-  </ul>
+  </div>
 
   <!-- =====================================================================
        Uncomment this block and replace the placeholder text/photos to publish it.

@@ -127,3 +127,91 @@ test("preparation fails open when the deferred lifecycle does not run", () => {
   env.timers[0].callback();
   assert.equal(env.classes.has("home-hero-prepared"), false);
 });
+
+function revealEnvironment(rects) {
+  const env = environment();
+  const observers = [];
+  const elements = rects.map((rect) => {
+    const classes = new Set();
+    return {
+      classes,
+      classList: {
+        add: (...names) => names.forEach((name) => classes.add(name)),
+        contains: (name) => classes.has(name),
+        remove: (...names) => names.forEach((name) => classes.delete(name)),
+        toggle: (name, force) => (force ? classes.add(name) : classes.delete(name), force),
+      },
+      getBoundingClientRect: () => rect,
+    };
+  });
+  class IntersectionObserver {
+    constructor(callback) {
+      this.callback = callback;
+      this.targets = new Set();
+      observers.push(this);
+    }
+    observe(target) {
+      this.targets.add(target);
+    }
+    unobserve(target) {
+      this.targets.delete(target);
+    }
+    disconnect() {
+      this.targets.clear();
+    }
+  }
+  env.document.querySelectorAll = () => elements;
+  env.window.IntersectionObserver = IntersectionObserver;
+  env.context.IntersectionObserver = IntersectionObserver;
+  vm.runInContext(revealSource, env.context);
+  const observer = observers[0];
+  const report = (target, isIntersecting, boundingClientRect) => observer.callback([{ target, isIntersecting, boundingClientRect }]);
+  return { elements, observer, report };
+}
+
+const inView = { top: 300, bottom: 500 };
+const belowFold = { top: 900, bottom: 1100 };
+const aboveFold = { top: -300, bottom: -100 };
+
+test("a revealed element replays after leaving the viewport entirely", () => {
+  const { elements, observer, report } = revealEnvironment([inView, belowFold]);
+  const [first, second] = elements;
+  assert.equal(first.classes.has("reveal-visible"), true);
+  assert.equal(observer.targets.has(first), true);
+  assert.equal(second.classes.has("reveal-pending"), true);
+
+  report(second, true, inView);
+  assert.equal(second.classes.has("reveal-visible"), true);
+  assert.equal(second.classes.has("reveal-pending"), false);
+
+  report(second, false, belowFold);
+  assert.equal(second.classes.has("reveal-visible"), false);
+  assert.equal(second.classes.has("reveal-pending"), true);
+  assert.equal(second.classes.has("reveal-above"), false);
+  assert.equal(observer.targets.has(second), true);
+
+  report(second, true, inView);
+  assert.equal(second.classes.has("reveal-visible"), true);
+  assert.equal(second.classes.has("reveal-pending"), false);
+});
+
+test("an element that leaves through the top waits above the viewport", () => {
+  const { elements, report } = revealEnvironment([inView]);
+  const [element] = elements;
+  report(element, false, aboveFold);
+  assert.equal(element.classes.has("reveal-pending"), true);
+  assert.equal(element.classes.has("reveal-above"), true);
+
+  report(element, true, inView);
+  assert.equal(element.classes.has("reveal-visible"), true);
+  assert.equal(element.classes.has("reveal-pending"), false);
+  assert.equal(element.classes.has("reveal-above"), false);
+});
+
+test("an element in the trimmed bottom band stays revealed", () => {
+  const { elements, report } = revealEnvironment([inView]);
+  const [element] = elements;
+  report(element, false, { top: 760, bottom: 960 });
+  assert.equal(element.classes.has("reveal-visible"), true);
+  assert.equal(element.classes.has("reveal-pending"), false);
+});
