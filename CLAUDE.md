@@ -21,14 +21,8 @@ Personal academic website for Zhengyang Wan (UW–Madison Ph.D. student), built 
 Standard al-folio Jekyll layout — most "pages" are data, not code:
 
 - `_config.yml` — site-wide config (identity, socials, plugin options, navbar, search). Editing it triggers a Jekyll restart in the docker entrypoint. CI patches `giscus.repo` automatically before building.
-- `_pages/` — top-level routes (`about.md`, `publications.md`, `cv.md`, `news.md`, `projects.md`, `repositories.md`, `teaching.md`, etc.). Each page's behavior is mostly driven by front matter + a `_layouts/*.liquid` template.
-- `_layouts/` + `_includes/` — Liquid templates. `default.liquid` wraps everything; `about.liquid` renders the homepage; `bib.liquid` renders the publications list; `distill.liquid` for long-form posts. Reusable fragments (header, footer, social icons, news, selected papers, figure/audio/video shortcodes) live in `_includes/`.
-- `_bibliography/papers.bib` + `_data/` — the source of truth for publications, CV, coauthors, venues, and dynamically-fetched GitHub stars / Scholar citations. `jekyll-scholar` renders `papers.bib` via `bib.liquid`; `_data/cv.yml` drives the CV page; `_data/repositories.yml` drives the repo grid.
-- `_news/`, `_projects/`, `_posts/` — collections; each markdown file is one item with front matter (`date`, `title`, `inline`, etc.).
 - `_plugins/` — custom Ruby Jekyll plugins (cache-busting, BibTeX hide/expand, external posts, file-existence guard, accent stripping, Inspire-HEP citations, third-party download caching). When publication / bibliography behavior is unexpected, look here before blaming `jekyll-scholar`.
-- `assets/` — static assets, Sass entry points, JS, fonts, PDFs, the rendered bibliography, plotly/jupyter exports. Sass partials live in `_sass/`.
 - `_scripts/` + `.github/workflows/` — Python jobs that refresh `_data/*.json` weekly; their workflows trigger the `Deploy site` workflow on success via `workflow_run`, so the site always reflects the latest fetched data.
-- `bin/entry_point.sh` — Docker dev entrypoint; manages `Gemfile.lock` (preserves it if tracked, removes it otherwise) and restarts Jekyll on `_config.yml` changes.
 
 ## Editing notes
 
