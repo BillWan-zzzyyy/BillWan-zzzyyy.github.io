@@ -120,6 +120,20 @@ beyond:
       - image: research/placeholder.svg
         title: Placeholder
         caption: One line about this photo.
+  - title: Foodie
+    items:
+      - image: research/placeholder.svg
+        title: Placeholder
+        caption: One line about this photo.
+      - image: research/placeholder.svg
+        title: Placeholder
+        caption: One line about this photo.
+      - image: research/placeholder.svg
+        title: Placeholder
+        caption: One line about this photo.
+      - image: research/placeholder.svg
+        title: Placeholder
+        caption: One line about this photo.
 ---
 
 <div class="about-me">
