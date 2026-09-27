@@ -65,45 +65,32 @@ beyond:
   - title: Football
     items:
       - image: beyond/football/01.jpg
-        title: ""
-        caption: ""
+        title: "With my brothers on the pitch, 2025"
       - image: beyond/football/02.jpg
-        title: ""
-        caption: ""
+        title: "With my brothers on the pitch, 2024"
       - image: beyond/football/03.jpg
-        title: ""
-        caption: ""
+        title: "Into the final!"
       - image: beyond/football/04.jpg
-        title: ""
-        caption: ""
+        title: "The final, May 17, 2024"
       - image: beyond/football/05.jpg
-        title: ""
-        caption: ""
+        title: "Thighs of steel :)"
       - image: beyond/football/06.jpg
-        title: ""
-        caption: ""
+        title: "We are the champions!"
       - image: beyond/football/07.jpg
-        title: ""
-        caption: ""
+        title: "We are the champions, take two!"
       - image: beyond/football/08.jpg
-        title: ""
-        caption: ""
+        title: "We are the champions, take three!"
       - image: beyond/football/09.jpg
-        title: ""
-        caption: ""
+        title: "Five-a-side, wellness edition"
       - image: beyond/football/10.jpg
-        title: ""
-        caption: ""
+        title: "My boots, vol. 1"
       - image: beyond/football/11.jpg
-        title: ""
-        caption: ""
+        title: "My boots, vol. 2"
       - image: beyond/football/12.jpg
-        title: ""
-        caption: ""
+        title: "Arsenal are champions!"
         crop: top
       - image: beyond/football/13.jpg
-        title: ""
-        caption: ""
+        title: "This shirt, a gift from my girlfriend ❤️"
         crop: top
   - title: Photography
     items:
