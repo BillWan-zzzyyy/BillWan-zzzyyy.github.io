@@ -28,8 +28,9 @@ $(document).ready(function () {
     const control = $(this);
     const expanded = control.attr("aria-expanded") === "true";
     const collapsedText = control.attr("data-collapsed-text");
-    const expandedText = control.attr("data-expanded-text");
-    control.text(expanded ? collapsedText : expandedText);
+    // The expanded list is pre-rendered HTML (bib.liquid) so the self name stays bold.
+    if (expanded) control.text(collapsedText);
+    else control.html(control.attr("data-expanded-html"));
     control.attr("aria-expanded", expanded ? "false" : "true");
     control.attr("title", expanded ? `Show ${collapsedText}` : `Hide ${collapsedText}`);
   });

@@ -124,14 +124,21 @@
         {%- if more_authors > 1 -%}
           {% assign more_authors_hide = more_authors_hide | append: 's' %}
         {%- endif -%}
+        {%- comment -%} Hidden authors as HTML, so the self name stays bold once expanded. {%- endcomment -%}
         {% assign more_authors_show = '' %}
         {%- for author in entry.author_array offset: author_array_limit -%}
-          {% assign more_authors_show = more_authors_show | append: author.first | append: ' ' | append: author.last %}
+          {%- assign hidden_last_name = author.last | regex_replace: '[*∗†‡§¶‖&^]', '' -%}
+          {%- capture hidden_name -%}
+            {{- author.first }} {{ author.last | regex_replace: '([*∗†‡§¶‖&^]+)', '<sup>\1</sup>' -}}
+          {%- endcapture -%}
+          {%- if site.scholar.last_name contains hidden_last_name and site.scholar.first_name contains author.first -%}
+            {%- capture hidden_name -%}<strong class="author-self">{{ hidden_name }}</strong>{%- endcapture -%}
+          {%- endif -%}
+          {% assign more_authors_show = more_authors_show | append: hidden_name %}
           {% unless forloop.last %}
             {% assign more_authors_show = more_authors_show | append: ', ' %}
           {% endunless %}
         {%- endfor -%}
-        {%- assign more_authors_show = more_authors_show | regex_replace: '([*∗†‡§¶‖&^]+)', '<sup>\1</sup>' -%}
         , and
         <button
           type="button"
@@ -139,7 +146,7 @@
           title="Show {{ more_authors_hide }}"
           aria-expanded="false"
           data-collapsed-text="{{ more_authors_hide | escape }}"
-          data-expanded-text="{{ more_authors_show | strip_html | escape }}"
+          data-expanded-html="{{ more_authors_show | escape }}"
         >
           {{- more_authors_hide -}}
         </button>
