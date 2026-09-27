@@ -64,18 +64,47 @@ talks:
 beyond:
   - title: Football
     items:
-      - image: research/placeholder.svg
-        title: Placeholder
-        caption: One line about this photo.
-      - image: research/placeholder.svg
-        title: Placeholder
-        caption: One line about this photo.
-      - image: research/placeholder.svg
-        title: Placeholder
-        caption: One line about this photo.
-      - image: research/placeholder.svg
-        title: Placeholder
-        caption: One line about this photo.
+      - image: beyond/football/01.jpg
+        title: ""
+        caption: ""
+      - image: beyond/football/02.jpg
+        title: ""
+        caption: ""
+      - image: beyond/football/03.jpg
+        title: ""
+        caption: ""
+      - image: beyond/football/04.jpg
+        title: ""
+        caption: ""
+      - image: beyond/football/05.jpg
+        title: ""
+        caption: ""
+      - image: beyond/football/06.jpg
+        title: ""
+        caption: ""
+      - image: beyond/football/07.jpg
+        title: ""
+        caption: ""
+      - image: beyond/football/08.jpg
+        title: ""
+        caption: ""
+      - image: beyond/football/09.jpg
+        title: ""
+        caption: ""
+      - image: beyond/football/10.jpg
+        title: ""
+        caption: ""
+      - image: beyond/football/11.jpg
+        title: ""
+        caption: ""
+      - image: beyond/football/12.jpg
+        title: ""
+        caption: ""
+        crop: top
+      - image: beyond/football/13.jpg
+        title: ""
+        caption: ""
+        crop: top
   - title: Photography
     items:
       - image: research/placeholder.svg
@@ -171,11 +200,14 @@ beyond:
       <div class="gallery__track" tabindex="0" role="region" aria-label="{{ g.title }} photos">
         {% for item in g.items %}
           {% assign ipath = item.image | prepend: 'assets/img/' %}
-          {% assign ialt = item.alt | default: item.title %}
+          {% capture ialt_fallback %}{{ g.title }} photo {{ forloop.index }}{% endcapture %}
+          {% assign ialt = item.alt | default: item.title | default: ialt_fallback %}
+          {% assign iclass = 'gallery__img' %}
+          {% if item.crop == 'top' %}{% assign iclass = 'gallery__img gallery__img--top' %}{% endif %}
           <div class="gallery__card">
-            {% include figure.liquid path=ipath class="gallery__img" alt=ialt zoomable=true loading="lazy" sizes="(min-width: 768px) 340px, 78vw" %}
-            <div class="gallery__card-title">{{ item.title }}</div>
-            <div class="gallery__card-caption">{{ item.caption }}</div>
+            {% include figure.liquid path=ipath class=iclass alt=ialt zoomable=true loading="lazy" sizes="(min-width: 768px) 340px, 78vw" %}
+            {% if item.title and item.title != '' %}<div class="gallery__card-title">{{ item.title }}</div>{% endif %}
+            {% if item.caption and item.caption != '' %}<div class="gallery__card-caption">{{ item.caption }}</div>{% endif %}
           </div>
         {% endfor %}
       </div>
