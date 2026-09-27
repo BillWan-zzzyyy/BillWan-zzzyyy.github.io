@@ -94,18 +94,21 @@ beyond:
         crop: top
   - title: Travel
     items:
-      - image: research/placeholder.svg
-        title: Placeholder
-        caption: One line about this photo.
-      - image: research/placeholder.svg
-        title: Placeholder
-        caption: One line about this photo.
-      - image: research/placeholder.svg
-        title: Placeholder
-        caption: One line about this photo.
-      - image: research/placeholder.svg
-        title: Placeholder
-        caption: One line about this photo.
+      - image: beyond/travel/01.jpg
+        title: ""
+      - image: beyond/travel/02.jpg
+        title: ""
+      - image: beyond/travel/03.jpg
+        title: ""
+      - image: beyond/travel/04.jpg
+        title: ""
+        crop: bottom
+      - image: beyond/travel/05.jpg
+        title: ""
+      - image: beyond/travel/06.jpg
+        title: ""
+      - image: beyond/travel/07.jpg
+        title: ""
   - title: Foodie
     items:
       - image: research/placeholder.svg
@@ -190,7 +193,7 @@ beyond:
           {% capture ialt_fallback %}{{ g.title }} photo {{ forloop.index }}{% endcapture %}
           {% assign ialt = item.alt | default: item.title | default: ialt_fallback %}
           {% assign iclass = 'gallery__img' %}
-          {% if item.crop == 'top' %}{% assign iclass = 'gallery__img gallery__img--top' %}{% endif %}
+          {% if item.crop %}{% assign iclass = 'gallery__img gallery__img--' | append: item.crop %}{% endif %}
           <div class="gallery__card">
             {% include figure.liquid path=ipath class=iclass alt=ialt zoomable=true loading="lazy" sizes="(min-width: 768px) 340px, 78vw" %}
             {% if item.title and item.title != '' %}<div class="gallery__card-title">{{ item.title }}</div>{% endif %}

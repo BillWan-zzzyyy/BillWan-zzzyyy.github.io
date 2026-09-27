@@ -812,9 +812,13 @@ body.sticky-bottom-footer {
     object-fit: cover;
     border-radius: 18px !important;
 
-    // Portrait photos (crop: top in about-me.md) keep their top in the 4:3 frame.
+    // Portrait photos (crop: top | bottom in about-me.md) keep that edge in the 4:3 frame.
     &--top {
       object-position: top;
+    }
+
+    &--bottom {
+      object-position: bottom;
     }
   }
 
