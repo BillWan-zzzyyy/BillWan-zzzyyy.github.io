@@ -109,6 +109,30 @@ beyond:
         title: ""
       - image: beyond/travel/07.jpg
         title: ""
+      - image: beyond/travel/08.jpg
+        title: ""
+      - image: beyond/travel/09.jpg
+        title: ""
+      - image: beyond/travel/10.jpg
+        title: ""
+        crop: bottom
+      - image: beyond/travel/11.jpg
+        title: ""
+      - image: beyond/travel/12.jpg
+        title: ""
+      - image: beyond/travel/13.jpg
+        title: ""
+      - image: beyond/travel/14.jpg
+        title: ""
+      - image: beyond/travel/15.jpg
+        title: ""
+        crop: bottom
+      - image: beyond/travel/16.jpg
+        title: ""
+        crop: bottom
+      - image: beyond/travel/17.jpg
+        title: ""
+        crop: bottom
   - title: Foodie
     items:
       - image: research/placeholder.svg
