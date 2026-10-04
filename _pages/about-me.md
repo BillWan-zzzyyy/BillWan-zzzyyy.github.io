@@ -154,6 +154,141 @@ travel_map:
     years: "2023"
     lat: 45.8038
     lng: 126.535
+  - name: "London"
+    country: "GB"
+    years: "2015"
+    lat: 51.5074
+    lng: -0.1278
+  - name: "Manchester"
+    country: "GB"
+    years: "2015"
+    lat: 53.4808
+    lng: -2.2426
+  - name: "Edinburgh"
+    country: "GB"
+    years: "2015"
+    lat: 55.9533
+    lng: -3.1883
+  - name: "Siem Reap"
+    country: "KH"
+    years: "2013"
+    lat: 13.3633
+    lng: 103.8564
+  - name: "Fukuoka"
+    country: "JP"
+    years: "2020"
+    lat: 33.5904
+    lng: 130.4017
+  - name: "Kagoshima"
+    country: "JP"
+    years: "2020"
+    lat: 31.5966
+    lng: 130.5571
+  - name: "Kumamoto"
+    country: "JP"
+    years: "2020"
+    lat: 32.8032
+    lng: 130.7079
+  - name: "Sapporo"
+    country: "JP"
+    years: "2018"
+    lat: 43.0618
+    lng: 141.3545
+  - name: "Abu Dhabi"
+    country: "AE"
+    years: "2024"
+    lat: 24.4539
+    lng: 54.3773
+  - name: "Los Angeles"
+    country: "US"
+    years: "2017"
+    lat: 34.0522
+    lng: -118.2437
+  - name: "Houston"
+    country: "US"
+    years: "2010"
+    lat: 29.7604
+    lng: -95.3698
+  - name: "Las Vegas"
+    country: "US"
+    years: "2010"
+    lat: 36.1699
+    lng: -115.1398
+  - name: "New York"
+    country: "US"
+    years: "2010"
+    lat: 40.7128
+    lng: -74.006
+  - name: "Washington, D.C."
+    country: "US"
+    years: "2010"
+    lat: 38.9072
+    lng: -77.0369
+  - name: "Philadelphia"
+    country: "US"
+    years: "2010"
+    lat: 39.9526
+    lng: -75.1652
+  - name: "Boston"
+    country: "US"
+    years: "2010"
+    lat: 42.3601
+    lng: -71.0589
+  - name: "Detroit"
+    country: "US"
+    years: "2010"
+    lat: 42.3314
+    lng: -83.0458
+  - name: "Hong Kong"
+    country: "CN"
+    years: "2020"
+    lat: 22.3193
+    lng: 114.1694
+  - name: "Taipei"
+    country: "TW"
+    years: "2011"
+    lat: 25.033
+    lng: 121.5654
+  - name: "Guangzhou"
+    country: "CN"
+    lat: 23.1291
+    lng: 113.2644
+  - name: "Beijing"
+    country: "CN"
+    lat: 39.9042
+    lng: 116.4074
+  - name: "Suzhou"
+    country: "CN"
+    lat: 31.2989
+    lng: 120.5853
+  - name: "Nanjing"
+    country: "CN"
+    lat: 32.0603
+    lng: 118.7969
+  - name: "Kunming"
+    country: "CN"
+    lat: 25.0389
+    lng: 102.7183
+  - name: "Lanzhou"
+    country: "CN"
+    lat: 36.0611
+    lng: 103.8343
+  - name: "Turpan"
+    country: "CN"
+    lat: 42.9513
+    lng: 89.1895
+  - name: "Ili"
+    country: "CN"
+    lat: 43.9168
+    lng: 81.3242
+  - name: "Shenzhen"
+    country: "CN"
+    lat: 22.5431
+    lng: 114.0579
+  - name: "Lijiang"
+    country: "CN"
+    lat: 26.8721
+    lng: 100.2299
 
 beyond:
   - title: Football

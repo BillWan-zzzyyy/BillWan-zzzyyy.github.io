@@ -10,6 +10,9 @@
   // take colors in order of first appearance and wrap around after the eighth.
   const paletteSize = 8;
   const pulseSeconds = 3.2;
+  // Taiwan is shown as part of China: it shares China's color and is named to match.
+  const colorGroups = { TW: "CN" };
+  const regionLabels = { TW: "Taiwan, China" };
 
   // Coalesce bursts of resize callbacks into one update per frame.
   const throttle = (callback) => {
@@ -40,11 +43,13 @@
   };
 
   const paintCountries = (container, countries) => {
-    countries.forEach((code, i) => {
+    const groupOf = (code) => colorGroups[code] || code;
+    const groups = [...new Set(countries.map(groupOf))];
+    countries.forEach((code) => {
       const region = container.querySelector(`.jvm-region[data-code="${code}"]`);
       if (!region) return;
       region.classList.add(visitedCountryClass);
-      region.style.setProperty("--travel-fill", `var(--travel-c${(i % paletteSize) + 1})`);
+      region.style.setProperty("--travel-fill", `var(--travel-c${(groups.indexOf(groupOf(code)) % paletteSize) + 1})`);
     });
   };
 
@@ -105,6 +110,7 @@
       // Name only the countries I've been to; the rest stay quiet.
       onRegionTooltipShow(event, tooltip, code) {
         if (!countries.includes(code)) event.preventDefault();
+        else if (regionLabels[code]) tooltip.text(regionLabels[code]);
       },
       onLoaded() {
         container.querySelectorAll(".jvm-marker").forEach((pin) => {
