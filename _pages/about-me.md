@@ -129,7 +129,7 @@ beyond:
         crop: bottom
       - image: beyond/travel/16.jpg
         title: "Dali, 2023"
-        crop: bottom
+        crop: 92%
       - image: beyond/travel/17.jpg
         title: "Harbin, 2023"
         crop: 68%
