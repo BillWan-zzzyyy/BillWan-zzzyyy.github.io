@@ -115,7 +115,7 @@ beyond:
         title: "Barcelona, 2024"
       - image: beyond/travel/10.jpg
         title: "Berlin, 2024"
-        crop: bottom
+        crop: 85%
       - image: beyond/travel/11.jpg
         title: "Berlin, 2024"
       - image: beyond/travel/12.jpg
