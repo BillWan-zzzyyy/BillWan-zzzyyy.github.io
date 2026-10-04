@@ -94,6 +94,13 @@ beyond:
         crop: top
   - title: Travel
     items:
+      - image: beyond/travel/18.jpg
+        title: "Helen, 2026"
+        crop: 75%
+      - image: beyond/travel/19.jpg
+        title: "Atlanta, 2026"
+      - image: beyond/travel/20.jpg
+        title: "Door County, 2026"
       - image: beyond/travel/01.jpg
         title: "Chicago, 2026"
       - image: beyond/travel/02.jpg
