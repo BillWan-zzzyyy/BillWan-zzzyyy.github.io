@@ -102,7 +102,7 @@ beyond:
         title: "Dells, 2026"
       - image: beyond/travel/04.jpg
         title: "Milwaukee"
-        crop: bottom
+        crop: 78%
       - image: beyond/travel/05.jpg
         title: "Lake Monona"
       - image: beyond/travel/06.jpg
@@ -132,7 +132,7 @@ beyond:
         crop: bottom
       - image: beyond/travel/17.jpg
         title: "Harbin, 2023"
-        crop: bottom
+        crop: 68%
   - title: Foodie
     items:
       - image: research/placeholder.svg
@@ -217,8 +217,13 @@ beyond:
           {% capture ialt_fallback %}{{ g.title }} photo {{ forloop.index }}{% endcapture %}
           {% assign ialt = item.alt | default: item.title | default: ialt_fallback %}
           {% assign iclass = 'gallery__img' %}
-          {% if item.crop %}{% assign iclass = 'gallery__img gallery__img--' | append: item.crop %}{% endif %}
-          <div class="gallery__card">
+          {% assign istyle = '' %}
+          {% if item.crop contains '%' %}
+            {% assign istyle = '--crop-y: ' | append: item.crop %}
+          {% elsif item.crop %}
+            {% assign iclass = 'gallery__img gallery__img--' | append: item.crop %}
+          {% endif %}
+          <div class="gallery__card"{% if istyle != '' %} style="{{ istyle }}"{% endif %}>
             {% include figure.liquid path=ipath class=iclass alt=ialt zoomable=true loading="lazy" sizes="(min-width: 768px) 340px, 78vw" %}
             {% if item.title and item.title != '' %}<div class="gallery__card-title">{{ item.title }}</div>{% endif %}
             {% if item.caption and item.caption != '' %}<div class="gallery__card-caption">{{ item.caption }}</div>{% endif %}
