@@ -22,7 +22,14 @@ jobs:
           cache: "pip"
 
       - name: Install dependencies
-        run: pip install -r _scripts/requirements.txt
+        # A PyPI timeout makes pip backtrack into ancient sdists that fail to build; retry instead.
+        run: |
+          for i in 1 2 3; do
+            pip install --retries 10 --timeout 60 -r _scripts/requirements.txt && exit 0
+            echo "pip install failed (attempt $i), retrying in 30s..."
+            sleep 30
+          done
+          exit 1
 
       - name: Fetch citation data
         id: fetch
