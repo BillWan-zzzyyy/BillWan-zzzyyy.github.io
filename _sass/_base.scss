@@ -2055,6 +2055,13 @@ img[data-zoomable] {
   overflow: hidden;
 }
 
+// Popups follow the site theme instead of Leaflet's fixed white card.
+.map .leaflet-popup-content-wrapper,
+.map .leaflet-popup-tip {
+  background: var(--global-card-bg-color);
+  color: var(--global-text-color);
+}
+
 // Dark mode: invert the OSM tiles so the map doesn't glare.
 html[data-theme="dark"] .map .leaflet-tile-pane {
   filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9);

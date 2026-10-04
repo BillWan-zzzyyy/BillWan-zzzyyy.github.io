@@ -63,6 +63,6 @@ module.exports = {
       "reveal-visible",
     ],
     deep: [/^cv-/, /^news-/, /^badge-pill/, /^project-/, /^about-hero/, /^research-block/, /^ti-/, /^ai-/, /^fa-/],
-    greedy: [/^tabler/, /^font-awesome/, /:focus-visible/],
+    greedy: [/^tabler/, /^font-awesome/, /:focus-visible/, /^leaflet-/],
   },
 };
