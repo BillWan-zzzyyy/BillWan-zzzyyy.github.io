@@ -65,9 +65,9 @@ beyond:
   - title: Football
     items:
       - image: beyond/football/01.jpg
-        title: "With my brothers on the pitch, 2025"
+        title: "With my brothers, 2025"
       - image: beyond/football/02.jpg
-        title: "With my brothers on the pitch, 2024"
+        title: "With my brothers, 2024"
       - image: beyond/football/03.jpg
         title: "Into the final!"
       - image: beyond/football/04.jpg
@@ -81,7 +81,7 @@ beyond:
       - image: beyond/football/08.jpg
         title: "We are the champions, take three!"
       - image: beyond/football/09.jpg
-        title: "Five-a-side, wellness edition"
+        title: "Wellness edition"
       - image: beyond/football/10.jpg
         title: "My boots, vol. 1"
       - image: beyond/football/11.jpg
@@ -90,48 +90,48 @@ beyond:
         title: "Arsenal are champions!"
         crop: top
       - image: beyond/football/13.jpg
-        title: "This shirt, a gift from my girlfriend ❤️"
+        title: "A gift from my girlfriend ❤️"
         crop: top
   - title: Travel
     items:
       - image: beyond/travel/01.jpg
-        title: ""
+        title: "Chicago, 2026"
       - image: beyond/travel/02.jpg
-        title: ""
+        title: "Verona, 2026"
       - image: beyond/travel/03.jpg
-        title: ""
+        title: "Dells, 2026"
       - image: beyond/travel/04.jpg
-        title: ""
+        title: "Milwaukee"
         crop: bottom
       - image: beyond/travel/05.jpg
-        title: ""
+        title: "Lake Monona"
       - image: beyond/travel/06.jpg
-        title: ""
+        title: "Athen, 2026"
       - image: beyond/travel/07.jpg
-        title: ""
+        title: "Chicago, 2026"
       - image: beyond/travel/08.jpg
-        title: ""
+        title: "Lake Mendota, 2025"
       - image: beyond/travel/09.jpg
-        title: ""
+        title: "Barcelona, 2024"
       - image: beyond/travel/10.jpg
-        title: ""
+        title: "Berlin, 2024"
         crop: bottom
       - image: beyond/travel/11.jpg
-        title: ""
+        title: "Berlin, 2024"
       - image: beyond/travel/12.jpg
-        title: ""
+        title: "Songyang, 2023"
       - image: beyond/travel/13.jpg
-        title: ""
+        title: "Kyoto, 2023"
       - image: beyond/travel/14.jpg
-        title: ""
+        title: "Tokyo, 2023"
       - image: beyond/travel/15.jpg
-        title: ""
+        title: "Xinjiang, 2023"
         crop: bottom
       - image: beyond/travel/16.jpg
-        title: ""
+        title: "Dali, 2023"
         crop: bottom
       - image: beyond/travel/17.jpg
-        title: ""
+        title: "Harbin, 2023"
         crop: bottom
   - title: Foodie
     items:
