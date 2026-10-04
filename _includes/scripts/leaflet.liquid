@@ -17,29 +17,13 @@
           mapElement.classList.add('map');
           backup.after(mapElement);
 
-          var map = L.map(mapElement, { scrollWheelZoom: false });
+          var map = L.map(mapElement);
           L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
           }).addTo(map);
-          let geoJSON = L.geoJSON(JSON.parse(jsonData), {
-            /* Points render as themed circle markers; `lived: true` gets the accent class */
-            pointToLayer: (feature, latlng) =>
-              L.circleMarker(latlng, {
-                radius: 6,
-                className: feature.properties && feature.properties.lived ? 'map-pin map-pin--lived' : 'map-pin',
-              }),
-            /* Popup "name · years", built with textContent so no HTML is injected */
-            onEachFeature: (feature, layer) => {
-              const props = feature.properties;
-              if (props && props.name) {
-                const popup = document.createElement('span');
-                popup.textContent = props.years ? `${props.name} · ${props.years}` : String(props.name);
-                layer.bindPopup(popup);
-              }
-            },
-          }).addTo(map);
-          map.fitBounds(geoJSON.getBounds(), { padding: [20, 20] });
+          let geoJSON = L.geoJSON(JSON.parse(jsonData)).addTo(map);
+          map.fitBounds(geoJSON.getBounds());
         });
       }
     });

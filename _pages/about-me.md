@@ -6,7 +6,6 @@ gradient_title: true
 description: <i>A few things beyond the papers.</i>
 nav: true
 nav_order: 5
-map: true
 
 education:
   - degree: Ph.D. in Civil and Environmental Engineering
@@ -324,10 +323,31 @@ beyond:
       </div>
     </section>
     {% if g.title == 'Travel' %}
-      <pre><code class="language-geojson">{"type":"FeatureCollection","features":[{% for p in page.travel_map %}{"type":"Feature","geometry":{"type":"Point","coordinates":[{{ p.lng }},{{ p.lat }}]},"properties":{"name":{{ p.name | jsonify }},"years":{{ p.years | jsonify }},"lived":{% if p.lived %}true{% else %}false{% endif %}}}{% unless forloop.last %},{% endunless %}{% endfor %}]}</code></pre>
+      <div class="travel-map" id="travel-map" role="img" aria-label="Map of places I've lived and visited"></div>
+      <script type="application/json" id="travel-map-data">{{ page.travel_map | jsonify }}</script>
       <p class="map-legend"><span class="map-dot map-dot--lived"></span> Lived <span class="map-dot"></span> Visited</p>
     {% endif %}
   {% endfor %}
 
   <script defer src="{{ '/assets/js/gallery.js' | relative_url | bust_file_cache }}"></script>
+
+  <link
+    rel="stylesheet"
+    href="{{ site.third_party_libraries.jsvectormap.url.css }}"
+    integrity="{{ site.third_party_libraries.jsvectormap.integrity.css }}"
+    crossorigin="anonymous"
+  >
+  <script
+    defer
+    src="{{ site.third_party_libraries.jsvectormap.url.js }}"
+    integrity="{{ site.third_party_libraries.jsvectormap.integrity.js }}"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    defer
+    src="{{ site.third_party_libraries.jsvectormap.url.world }}"
+    integrity="{{ site.third_party_libraries.jsvectormap.integrity.world }}"
+    crossorigin="anonymous"
+  ></script>
+  <script defer src="{{ '/assets/js/travel-map.js' | relative_url | bust_file_cache }}"></script>
 </div>

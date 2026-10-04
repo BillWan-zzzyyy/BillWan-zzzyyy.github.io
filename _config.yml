@@ -523,6 +523,16 @@ third_party_libraries:
     url:
       js: "https://cdn.jsdelivr.net/npm/jquery@{{version}}/dist/jquery.min.js"
     version: "3.6.0"
+  jsvectormap:
+    integrity:
+      css: "sha256-Zshqz6X+Rs2Rf5sPtiSba+rwLBL1ZTyLBppbYOstR9M="
+      js: "sha256-yjoBT8ZtgknE2gcA8yvWExzw8LsIAfj6/r/XAw889Qw="
+      world: "sha256-3jwsIc9jvdlaTPxHelZqSxiVedrrJhV+jssQEAAiTt0="
+    url:
+      css: "https://cdn.jsdelivr.net/npm/jsvectormap@{{version}}/dist/jsvectormap.min.css"
+      js: "https://cdn.jsdelivr.net/npm/jsvectormap@{{version}}/dist/jsvectormap.min.js"
+      world: "https://cdn.jsdelivr.net/npm/jsvectormap@{{version}}/dist/maps/world.js"
+    version: "1.7.0"
   leaflet:
     integrity:
       css: "sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="

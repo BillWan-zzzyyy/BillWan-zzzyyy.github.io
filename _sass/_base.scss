@@ -2010,17 +2010,71 @@ img[data-zoomable] {
   width: 100%;
 }
 
-// Travel map pins (leaflet.liquid renders GeoJSON points as SVG circle markers);
-// these rules override Leaflet's inline fill/stroke presentation attributes.
-.map-pin {
-  stroke: #fff;
-  stroke-width: 1.5;
-  fill: var(--global-text-color-light);
-  fill-opacity: 0.9;
+// Travel map on /about-me/ (jsVectorMap, drawn by assets/js/travel-map.js).
+// jsVectorMap writes colors as SVG presentation attributes, which these rules
+// override, so land and pins follow the light/dark toggle through the theme vars.
+// `.about-me` outranks the library's `.jvm-container { height: 100% }`.
+.about-me .travel-map {
+  width: 100%;
+  height: 400px;
+  margin-top: $sp-4;
+  --jvm-zoom-btn-bg-color: var(--global-card-bg-color);
+  --jvm-zoom-btn-color: var(--global-text-color);
+  --jvm-zoom-btn-size: 24px;
+  --jvm-zoom-btn-radius: 8px;
+
+  .jvm-region {
+    fill: var(--global-divider-color);
+    fill-opacity: 1;
+    stroke: var(--global-bg-color);
+    stroke-width: 0.5px;
+    vector-effect: non-scaling-stroke;
+    cursor: default;
+  }
+
+  .jvm-marker {
+    fill: var(--global-text-color-light);
+    fill-opacity: 0.9;
+    stroke: #fff;
+    stroke-width: 1.5px;
+    stroke-opacity: 1;
+    cursor: default;
+
+    &:hover {
+      fill-opacity: 1;
+      stroke-width: 2px;
+    }
+  }
+
+  .jvm-marker.travel-map__pin--lived {
+    fill: var(--global-theme-color);
+  }
+
+  .jvm-zoom-btn {
+    border: 1px solid var(--global-divider-color);
+    box-shadow: var(--card-shadow);
+    font-size: 1rem;
+    line-height: calc(var(--jvm-zoom-btn-size) - 2px);
+  }
 }
 
-.map-pin--lived {
-  fill: var(--global-theme-color);
+@media (max-width: 576px) {
+  .about-me .travel-map {
+    height: 220px;
+  }
+}
+
+// The tooltip is appended to <body>, outside the map container.
+.jvm-tooltip {
+  --jvm-tooltip-bg-color: var(--global-card-bg-color);
+  --jvm-tooltip-color: var(--global-text-color);
+  --jvm-tooltip-font-size: 0.8rem;
+  --jvm-tooltip-padding: 4px 8px;
+  --jvm-tooltip-radius: 8px;
+  --jvm-tooltip-shadow: var(--card-shadow);
+  border: 1px solid var(--global-divider-color);
+  pointer-events: none;
+  z-index: 1000;
 }
 
 // Legend under the map: "● Lived ● Visited".
@@ -2046,25 +2100,6 @@ img[data-zoomable] {
 
 .map-dot--lived {
   background-color: var(--global-theme-color);
-}
-
-// Match the 18px radius of the gallery cards.
-.about-me .map {
-  margin-top: $sp-4;
-  border-radius: 18px;
-  overflow: hidden;
-}
-
-// Popups follow the site theme instead of Leaflet's fixed white card.
-.map .leaflet-popup-content-wrapper,
-.map .leaflet-popup-tip {
-  background: var(--global-card-bg-color);
-  color: var(--global-text-color);
-}
-
-// Dark mode: invert the OSM tiles so the map doesn't glare.
-html[data-theme="dark"] .map .leaflet-tile-pane {
-  filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9);
 }
 
 swiper-container {
