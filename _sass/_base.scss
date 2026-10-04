@@ -2012,42 +2012,90 @@ img[data-zoomable] {
 
 // Travel map on /about-me/ (jsVectorMap, drawn by assets/js/travel-map.js).
 // jsVectorMap writes colors as SVG presentation attributes, which these rules
-// override, so land and pins follow the light/dark toggle through the theme vars.
+// override, so ocean, land and pins follow the light/dark toggle.
 // `.about-me` outranks the library's `.jvm-container { height: 100% }`.
 .about-me .travel-map {
-  width: 100%;
-  height: 400px;
-  margin-top: $sp-4;
+  // Visited countries take --travel-c1 … --travel-c8 in order of first
+  // appearance in the front matter (travel-map.js sets --travel-fill).
+  --travel-c1: #ff7a59; // coral
+  --travel-c2: #ffb627; // amber
+  --travel-c3: #ff5d8f; // pink
+  --travel-c4: #9b5de5; // purple
+  --travel-c5: #2ec4b6; // teal
+  --travel-c6: #7bc950; // leaf
+  --travel-c7: #5c7cfa; // periwinkle
+  --travel-c8: #f3722c; // tangerine
+  --travel-ocean: #d9eaf6;
+  --travel-ocean-deep: #c4ddef;
+  --travel-land: #f4f1ea;
+  --travel-border: #ffffff;
+  --travel-pin: var(--global-text-color);
+  --travel-pin-stroke: #ffffff;
+  --travel-halo: #ffffff;
+  --travel-halo-strength: 0.6;
   --jvm-zoom-btn-bg-color: var(--global-card-bg-color);
   --jvm-zoom-btn-color: var(--global-text-color);
   --jvm-zoom-btn-size: 24px;
   --jvm-zoom-btn-radius: 8px;
+  width: 100%;
+  height: 400px;
+  margin-top: $sp-4;
+  border-radius: 18px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 35%, var(--travel-ocean) 40%, var(--travel-ocean-deep));
+  // An outline paints above the SVG, so the hairline survives land at the edge.
+  outline: 1px solid var(--global-divider-color);
+  outline-offset: -1px;
 
   .jvm-region {
-    fill: var(--global-divider-color);
+    fill: var(--travel-land);
     fill-opacity: 1;
-    stroke: var(--global-bg-color);
-    stroke-width: 0.5px;
+    stroke: var(--travel-border);
+    stroke-width: 0.6px;
     vector-effect: non-scaling-stroke;
     cursor: default;
   }
 
+  .jvm-region.travel-map__country--visited {
+    fill: var(--travel-fill);
+    transition: fill 0.2s ease;
+
+    &:hover {
+      fill: color-mix(in srgb, var(--travel-fill) 80%, #ffffff);
+    }
+  }
+
   .jvm-marker {
-    fill: var(--global-text-color-light);
-    fill-opacity: 0.9;
-    stroke: #fff;
+    fill: var(--travel-pin);
+    fill-opacity: 1;
+    stroke: var(--travel-pin-stroke);
     stroke-width: 1.5px;
     stroke-opacity: 1;
     cursor: default;
 
     &:hover {
-      fill-opacity: 1;
-      stroke-width: 2px;
+      stroke-width: 2.5px;
     }
   }
 
   .jvm-marker.travel-map__pin--lived {
     fill: var(--global-theme-color);
+  }
+
+  // Pulsing glow beneath each pin; scaled rather than grown so it stays on the GPU.
+  .travel-map__halo {
+    fill: var(--travel-halo);
+    fill-opacity: var(--travel-halo-strength);
+    opacity: 0;
+    pointer-events: none;
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: travel-map-pulse 3.2s ease-out infinite;
+  }
+
+  .travel-map__halo--lived {
+    fill: var(--global-theme-color);
+    fill-opacity: 0.4;
   }
 
   .jvm-zoom-btn {
@@ -2058,9 +2106,61 @@ img[data-zoomable] {
   }
 }
 
+html[data-theme="dark"] .about-me .travel-map {
+  --travel-c1: #e8694c;
+  --travel-c2: #e3a21f;
+  --travel-c3: #e0517f;
+  --travel-c4: #8c55d6;
+  --travel-c5: #25ad9f;
+  --travel-c6: #69b043;
+  --travel-c7: #5a72e6;
+  --travel-c8: #dc6427;
+  --travel-ocean: #14243a;
+  --travel-ocean-deep: #0c1626;
+  --travel-land: #2e3542;
+  --travel-border: #0f1b2c;
+  --travel-pin-stroke: #0f1b2c;
+  --travel-halo: var(--travel-pin);
+  --travel-halo-strength: 0.3;
+}
+
+@keyframes travel-map-pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(3.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-me .travel-map .travel-map__halo {
+    animation: none;
+  }
+}
+
 @media (max-width: 576px) {
   .about-me .travel-map {
     height: 220px;
+    border-radius: 14px;
+
+    // Smaller pins so the little countries still show beneath them.
+    .jvm-marker,
+    .travel-map__halo {
+      r: 3.5px;
+    }
+
+    .jvm-marker {
+      stroke-width: 1px;
+    }
+
+    .jvm-marker.travel-map__pin--lived,
+    .travel-map__halo--lived {
+      r: 4.5px;
+    }
   }
 }
 
@@ -2077,7 +2177,7 @@ img[data-zoomable] {
   z-index: 1000;
 }
 
-// Legend under the map: "● Lived ● Visited".
+// Legend under the map: "● Lived ● Visited", matching the pin colors.
 .map-legend {
   margin-top: $sp-2;
   font-size: 0.85rem;
@@ -2090,7 +2190,7 @@ img[data-zoomable] {
   height: 0.6rem;
   margin-right: $sp-1;
   border-radius: 50%;
-  background-color: var(--global-text-color-light);
+  background-color: var(--global-text-color);
   vertical-align: middle;
 
   & ~ & {

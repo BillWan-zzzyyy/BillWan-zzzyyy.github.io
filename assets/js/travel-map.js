@@ -1,7 +1,15 @@
 (() => {
   const selector = "#travel-map";
   const dataSelector = "#travel-map-data";
+  const svgNS = "http://www.w3.org/2000/svg";
   const livedClass = "travel-map__pin--lived";
+  const haloClass = "travel-map__halo";
+  const livedHaloClass = "travel-map__halo--lived";
+  const visitedCountryClass = "travel-map__country--visited";
+  // Matches the --travel-c1 … --travel-c8 palette in _sass/_base.scss; countries
+  // take colors in order of first appearance and wrap around after the eighth.
+  const paletteSize = 8;
+  const pulseSeconds = 3.2;
 
   // Coalesce bursts of resize callbacks into one update per frame.
   const throttle = (callback) => {
@@ -25,14 +33,63 @@
     return Array.isArray(places) ? places.filter((p) => Number.isFinite(p.lat) && Number.isFinite(p.lng)) : [];
   };
 
+  // ISO-2 codes of visited countries, in front-matter order (which fixes their colors).
+  const visitedCountries = (places) => {
+    const codes = places.map((p) => String(p.country || "").toUpperCase()).filter((code) => /^[A-Z]{2}$/.test(code));
+    return [...new Set(codes)];
+  };
+
+  const paintCountries = (container, countries) => {
+    countries.forEach((code, i) => {
+      const region = container.querySelector(`.jvm-region[data-code="${code}"]`);
+      if (!region) return;
+      region.classList.add(visitedCountryClass);
+      region.style.setProperty("--travel-fill", `var(--travel-c${(i % paletteSize) + 1})`);
+    });
+  };
+
+  // A pulsing halo under each pin. jsVectorMap moves pins by rewriting their
+  // cx/cy on every zoom/pan frame, so an observer mirrors those onto the halos.
+  const addHalos = (container) => {
+    const pins = [...container.querySelectorAll(".jvm-marker")];
+    if (!pins.length) return;
+    const group = pins[0].parentNode;
+    const halos = new Map();
+    const sync = (pin) => {
+      const halo = halos.get(pin);
+      if (!halo) return;
+      ["cx", "cy", "r"].forEach((attr) => halo.setAttribute(attr, pin.getAttribute(attr)));
+    };
+    pins.forEach((pin, i) => {
+      const halo = document.createElementNS(svgNS, "circle");
+      halo.setAttribute("class", pin.classList.contains(livedClass) ? `${haloClass} ${livedHaloClass}` : haloClass);
+      halo.setAttribute("aria-hidden", "true");
+      // Spread the pulses over the cycle so they never beat in unison.
+      halo.style.animationDelay = `${-((i * 0.618 * pulseSeconds) % pulseSeconds).toFixed(2)}s`;
+      halos.set(pin, halo);
+      sync(pin);
+    });
+    // All halos sit beneath all pins.
+    group.prepend(...halos.values());
+    if (window.MutationObserver) {
+      new MutationObserver((records) => records.forEach((record) => sync(record.target))).observe(group, {
+        attributes: true,
+        attributeFilter: ["cx", "cy", "r"],
+        subtree: true,
+      });
+    }
+  };
+
   const init = () => {
     const container = document.querySelector(selector);
     if (!container || typeof window.jsVectorMap !== "function") return;
+    const allPlaces = readPlaces();
+    const countries = visitedCountries(allPlaces);
     // Visited first, so the lived pins paint on top where pins overlap.
-    const places = readPlaces().sort((a, b) => Number(Boolean(a.lived)) - Number(Boolean(b.lived)));
+    const places = allPlaces.slice().sort((a, b) => Number(Boolean(a.lived)) - Number(Boolean(b.lived)));
     if (!places.length) return;
 
-    // Colors come from CSS (theme variables), so pins and land follow the
+    // Colors come from CSS (theme variables), so land, pins and halos follow the
     // light/dark toggle; jsVectorMap only sets SVG presentation attributes,
     // which any stylesheet rule overrides.
     const map = new window.jsVectorMap({
@@ -43,17 +100,19 @@
       markers: places.map((p) => ({
         name: p.years ? `${p.name} · ${p.years}` : p.name,
         coords: [p.lat, p.lng],
-        style: { initial: { r: p.lived ? 6 : 5 } },
+        style: { initial: { r: p.lived ? 6 : 4.5 } },
       })),
-      // Tooltips only for pins; country names would be noise here.
-      onRegionTooltipShow(event) {
-        event.preventDefault();
+      // Name only the countries I've been to; the rest stay quiet.
+      onRegionTooltipShow(event, tooltip, code) {
+        if (!countries.includes(code)) event.preventDefault();
       },
       onLoaded() {
         container.querySelectorAll(".jvm-marker").forEach((pin) => {
           const place = places[Number(pin.getAttribute("data-index"))];
           if (place && place.lived) pin.classList.add(livedClass);
         });
+        paintCountries(container, countries);
+        addHalos(container);
       },
     });
 

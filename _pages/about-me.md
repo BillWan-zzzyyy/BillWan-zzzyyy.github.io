@@ -63,76 +63,94 @@ talks:
 
 travel_map:
   - name: "Madison"
+    country: "US"
     years: "2025 – present"
     lat: 43.0731
     lng: -89.4012
     lived: true
   - name: "Shanghai"
+    country: "CN"
     years: "2018 – 2025"
     lat: 31.2304
     lng: 121.4737
     lived: true
   - name: "Helen, GA"
+    country: "US"
     years: "2026"
     lat: 34.7015
     lng: -83.731
   - name: "Atlanta"
+    country: "US"
     years: "2026"
     lat: 33.749
     lng: -84.388
   - name: "Athens, GA"
+    country: "US"
     years: "2026"
     lat: 33.9519
     lng: -83.3576
   - name: "Door County"
+    country: "US"
     years: "2026"
     lat: 44.8342
     lng: -87.377
   - name: "Chicago"
+    country: "US"
     years: "2026"
     lat: 41.8781
     lng: -87.6298
   - name: "Verona, WI"
+    country: "US"
     years: "2026"
     lat: 42.9908
     lng: -89.5332
   - name: "Wisconsin Dells"
+    country: "US"
     years: "2026"
     lat: 43.6275
     lng: -89.771
   - name: "Milwaukee"
+    country: "US"
     years: "2026"
     lat: 43.0389
     lng: -87.9065
   - name: "Barcelona"
+    country: "ES"
     years: "2024"
     lat: 41.3874
     lng: 2.1686
   - name: "Berlin"
+    country: "DE"
     years: "2024"
     lat: 52.52
     lng: 13.405
   - name: "Songyang"
+    country: "CN"
     years: "2023"
     lat: 28.4494
     lng: 119.4817
   - name: "Kyoto"
+    country: "JP"
     years: "2023"
     lat: 35.0116
     lng: 135.7681
   - name: "Tokyo"
+    country: "JP"
     years: "2023"
     lat: 35.6762
     lng: 139.6503
   - name: "Urumqi"
+    country: "CN"
     years: "2023"
     lat: 43.8256
     lng: 87.6168
   - name: "Dali"
+    country: "CN"
     years: "2023"
     lat: 25.6065
     lng: 100.2676
   - name: "Harbin"
+    country: "CN"
     years: "2023"
     lat: 45.8038
     lng: 126.535
