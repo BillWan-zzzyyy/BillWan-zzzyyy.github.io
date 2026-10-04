@@ -2010,6 +2010,56 @@ img[data-zoomable] {
   width: 100%;
 }
 
+// Travel map pins (leaflet.liquid renders GeoJSON points as SVG circle markers);
+// these rules override Leaflet's inline fill/stroke presentation attributes.
+.map-pin {
+  stroke: #fff;
+  stroke-width: 1.5;
+  fill: var(--global-text-color-light);
+  fill-opacity: 0.9;
+}
+
+.map-pin--lived {
+  fill: var(--global-theme-color);
+}
+
+// Legend under the map: "● Lived ● Visited".
+.map-legend {
+  margin-top: $sp-2;
+  font-size: 0.85rem;
+  color: var(--global-text-color-light);
+}
+
+.map-dot {
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-right: $sp-1;
+  border-radius: 50%;
+  background-color: var(--global-text-color-light);
+  vertical-align: middle;
+
+  & ~ & {
+    margin-left: $sp-3;
+  }
+}
+
+.map-dot--lived {
+  background-color: var(--global-theme-color);
+}
+
+// Match the 18px radius of the gallery cards.
+.about-me .map {
+  margin-top: $sp-4;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+// Dark mode: invert the OSM tiles so the map doesn't glare.
+html[data-theme="dark"] .map .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9);
+}
+
 swiper-container {
   --swiper-navigation-color: var(--global-theme-color);
   --swiper-pagination-color: var(--global-theme-color);

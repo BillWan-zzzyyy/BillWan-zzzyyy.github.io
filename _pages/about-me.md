@@ -6,6 +6,7 @@ gradient_title: true
 description: <i>A few things beyond the papers.</i>
 nav: true
 nav_order: 5
+map: true
 
 education:
   - degree: Ph.D. in Civil and Environmental Engineering
@@ -61,6 +62,82 @@ talks:
     venue: 2025 Safe Mobility Conference (Poster), Madison, WI
     year: Apr 2025
 
+travel_map:
+  - name: "Madison"
+    years: "2025 – present"
+    lat: 43.0731
+    lng: -89.4012
+    lived: true
+  - name: "Shanghai"
+    years: "2018 – 2025"
+    lat: 31.2304
+    lng: 121.4737
+    lived: true
+  - name: "Helen, GA"
+    years: "2026"
+    lat: 34.7015
+    lng: -83.731
+  - name: "Atlanta"
+    years: "2026"
+    lat: 33.749
+    lng: -84.388
+  - name: "Athens, GA"
+    years: "2026"
+    lat: 33.9519
+    lng: -83.3576
+  - name: "Door County"
+    years: "2026"
+    lat: 44.8342
+    lng: -87.377
+  - name: "Chicago"
+    years: "2026"
+    lat: 41.8781
+    lng: -87.6298
+  - name: "Verona, WI"
+    years: "2026"
+    lat: 42.9908
+    lng: -89.5332
+  - name: "Wisconsin Dells"
+    years: "2026"
+    lat: 43.6275
+    lng: -89.771
+  - name: "Milwaukee"
+    years: "2026"
+    lat: 43.0389
+    lng: -87.9065
+  - name: "Barcelona"
+    years: "2024"
+    lat: 41.3874
+    lng: 2.1686
+  - name: "Berlin"
+    years: "2024"
+    lat: 52.52
+    lng: 13.405
+  - name: "Songyang"
+    years: "2023"
+    lat: 28.4494
+    lng: 119.4817
+  - name: "Kyoto"
+    years: "2023"
+    lat: 35.0116
+    lng: 135.7681
+  - name: "Tokyo"
+    years: "2023"
+    lat: 35.6762
+    lng: 139.6503
+  - name: "Urumqi"
+    years: "2023"
+    lat: 43.8256
+    lng: 87.6168
+  - name: "Dali"
+    years: "2023"
+    lat: 25.6065
+    lng: 100.2676
+  - name: "Harbin"
+    years: "2023"
+    lat: 45.8038
+    lng: 126.535
+
 beyond:
   - title: Football
     items:
@@ -113,7 +190,7 @@ beyond:
       - image: beyond/travel/05.jpg
         title: "Lake Monona, 2026"
       - image: beyond/travel/06.jpg
-        title: "Athen, 2026"
+        title: "Athens, 2026"
       - image: beyond/travel/07.jpg
         title: "Chicago, 2026"
       - image: beyond/travel/08.jpg
@@ -246,6 +323,10 @@ beyond:
         </button>
       </div>
     </section>
+    {% if g.title == 'Travel' %}
+      <pre><code class="language-geojson">{"type":"FeatureCollection","features":[{% for p in page.travel_map %}{"type":"Feature","geometry":{"type":"Point","coordinates":[{{ p.lng }},{{ p.lat }}]},"properties":{"name":{{ p.name | jsonify }},"years":{{ p.years | jsonify }},"lived":{% if p.lived %}true{% else %}false{% endif %}}}{% unless forloop.last %},{% endunless %}{% endfor %}]}</code></pre>
+      <p class="map-legend"><span class="map-dot map-dot--lived"></span> Lived <span class="map-dot"></span> Visited</p>
+    {% endif %}
   {% endfor %}
 
   <script defer src="{{ '/assets/js/gallery.js' | relative_url | bust_file_cache }}"></script>
