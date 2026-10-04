@@ -3,13 +3,7 @@
   <head>
     {% include head.liquid %}
     {% if site.enable_medium_zoom %}
-      <!-- Medium Zoom JS -->
-      <script
-        defer
-        src="{{ site.third_party_libraries.medium_zoom.url.js }}"
-        integrity="{{ site.third_party_libraries.medium_zoom.integrity.js }}"
-        crossorigin="anonymous"
-      ></script>
+      <!-- Image zoom lightbox -->
       <script defer src="{{ '/assets/js/zoom.js' | relative_url | bust_file_cache }}"></script>
     {% endif %}
     {% include scripts/jquery.liquid %}

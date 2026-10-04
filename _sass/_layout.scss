@@ -561,12 +561,6 @@ body.sticky-bottom-footer {
   .research-block .research-card figure:hover {
     transform: scale(1.01);
   }
-
-  // medium-zoom hides the original while its clone is open (and the overlay
-  // steals :hover); hold the pose so the clone returns to where it started.
-  .research-block .research-card figure:has(.medium-zoom-image--hidden) {
-    transform: scale(1.01);
-  }
 }
 
 @media (max-width: 575px) {

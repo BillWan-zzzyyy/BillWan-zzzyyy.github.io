@@ -1952,9 +1952,48 @@ nav[data-toggle="toc"] {
   display: none !important;
 }
 
-.medium-zoom-overlay,
-.medium-zoom-image--opened {
-  z-index: 999;
+// Click-to-enlarge lightbox (assets/js/zoom.js), above the fixed navbar.
+img[data-zoomable] {
+  cursor: zoom-in;
+}
+
+.zoom-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--global-bg-color);
+  background: color-mix(in srgb, var(--global-bg-color) 94%, transparent);
+  cursor: zoom-out;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+
+  &--open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.zoom-lightbox__img {
+  flex: none;
+  max-width: none;
+  object-fit: contain;
+  border-radius: $r-md;
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zoom-lightbox,
+  .zoom-lightbox__img {
+    transition: none;
+  }
 }
 
 #toc-sidebar {
