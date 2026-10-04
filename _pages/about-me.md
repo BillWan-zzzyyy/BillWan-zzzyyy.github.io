@@ -101,10 +101,10 @@ beyond:
       - image: beyond/travel/03.jpg
         title: "Dells, 2026"
       - image: beyond/travel/04.jpg
-        title: "Milwaukee"
+        title: "Milwaukee, 2026"
         crop: 78%
       - image: beyond/travel/05.jpg
-        title: "Lake Monona"
+        title: "Lake Monona, 2026"
       - image: beyond/travel/06.jpg
         title: "Athen, 2026"
       - image: beyond/travel/07.jpg
