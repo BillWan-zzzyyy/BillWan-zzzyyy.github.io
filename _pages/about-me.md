@@ -299,6 +299,66 @@ travel_map:
     country: "CN"
     lat: 26.8721
     lng: 100.2299
+  - name: "Dalian"
+    country: "CN"
+    years: "2023"
+    lat: 38.914
+    lng: 121.6147
+  - name: "Weihai"
+    country: "CN"
+    years: "2023"
+    lat: 37.5131
+    lng: 122.1204
+  - name: "Chengdu"
+    country: "CN"
+    years: "2018, 2022"
+    lat: 30.5728
+    lng: 104.0668
+  - name: "Chongqing"
+    country: "CN"
+    years: "2022"
+    lat: 29.563
+    lng: 106.5516
+  - name: "Changsha"
+    country: "CN"
+    years: "2021"
+    lat: 28.2282
+    lng: 112.9388
+  - name: "Zhuzhou"
+    country: "CN"
+    years: "2021"
+    lat: 27.8274
+    lng: 113.134
+  - name: "Guiyang"
+    country: "CN"
+    years: "2017"
+    lat: 26.647
+    lng: 106.6302
+  - name: "Wuhan"
+    country: "CN"
+    years: "2019"
+    lat: 30.5928
+    lng: 114.3055
+  - name: "Nanning"
+    country: "CN"
+    years: "2020"
+    lat: 22.817
+    lng: 108.3665
+  - name: "Beihai"
+    country: "CN"
+    years: "2020"
+    lat: 21.4733
+    lng: 109.1201
+  - name: "Sanya"
+    country: "CN"
+    years: "2014"
+    lat: 18.2528
+    lng: 109.5119
+  - name: "Xi'an"
+    country: "CN"
+    years: "2014"
+    lat: 34.3416
+    lng: 108.9398
 
 beyond:
   - title: Football
