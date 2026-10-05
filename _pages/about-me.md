@@ -119,6 +119,16 @@ travel_map:
     years: "2024"
     lat: 41.3874
     lng: 2.1686
+  - name: "Madrid"
+    country: "ES"
+    years: "2024"
+    lat: 40.4168
+    lng: -3.7038
+  - name: "Mallorca"
+    country: "ES"
+    years: "2024"
+    lat: 39.5696
+    lng: 2.6502
   - name: "Berlin"
     country: "DE"
     years: "2024"
@@ -201,17 +211,17 @@ travel_map:
     lng: 54.3773
   - name: "Los Angeles"
     country: "US"
-    years: "2017"
+    years: "2017, 2026"
     lat: 34.0522
     lng: -118.2437
   - name: "Houston"
     country: "US"
-    years: "2010"
+    years: "2017"
     lat: 29.7604
     lng: -95.3698
   - name: "Las Vegas"
     country: "US"
-    years: "2010"
+    years: "2026"
     lat: 36.1699
     lng: -115.1398
   - name: "New York"
