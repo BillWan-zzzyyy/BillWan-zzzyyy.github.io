@@ -149,6 +149,16 @@ travel_map:
     years: "2023"
     lat: 35.6762
     lng: 139.6503
+  - name: "Osaka"
+    country: "JP"
+    years: "2023"
+    lat: 34.6937
+    lng: 135.5023
+  - name: "Kobe"
+    country: "JP"
+    years: "2023"
+    lat: 34.6901
+    lng: 135.1955
   - name: "Urumqi"
     country: "CN"
     years: "2023"
