@@ -25,12 +25,12 @@ research:
     - image: research/vlm-driving.png
       caption: Vision-language models for driving
       alt: "DriveVLM-RL: VLM-as-control and VLM-as-reward paradigms and the dual-pathway DriveVLM-RL framework"
-    - image: research/human-in-the-loop.jpg
-      caption: Human-in-the-loop, human-AI collaborative driving
-      alt: Sky-Drive experimental site with a VR pedestrian and two human drivers in the loop
-    - image: research/av-vru-interaction.jpg
+    - image: research/human-ai-collab.png
+      caption: Human-AI collaborative driving
+      alt: "Sky-Drive LLMs for personalized driving: a human agent and an LLM-based driving agent exchange dialogue, perception and route plans in the simulator"
+    - image: research/multi-agent-lab.jpg
       caption: Socially-aware multi-agent interaction
-      alt: "VR-based AV–pedestrian interaction in Sky-Drive: simulated truck blind-spot scenario with driver and pedestrian views"
+      alt: Sky-Drive experimental site with a VR pedestrian and two human drivers interacting in one shared simulation
   groups:
     - title: Autonomous driving
       items:
