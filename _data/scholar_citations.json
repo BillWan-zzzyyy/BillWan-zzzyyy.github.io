@@ -1,16 +1,17 @@
 {
-  "total_citations": 26,
-  "last_updated": "2026-10-04",
+  "total_citations": 32,
+  "last_updated": "2026-10-19",
   "articles": {
-    "9yKSN-GCB0IC": 22,
-    "Y0pCki6q_DkC": 4,
+    "9yKSN-GCB0IC": 25,
+    "Y0pCki6q_DkC": 6,
+    "W7OEmFMy1HYC": 1,
+    "eQOLeE2rZwMC": 0,
     "YsMSGLbcyi4C": 0,
-    "W7OEmFMy1HYC": 0,
     "zYLM7Y9cAGgC": 0,
     "2osOgNQ5qMEC": 0
   },
   "cites_per_year": {
     "2025": 5,
-    "2026": 20
+    "2026": 26
   }
 }
