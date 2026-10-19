@@ -1,6 +1,22 @@
 ---
 ---
 
+@article{sheng2026wistmp,
+  title={Large Language Model-Assisted Preparation of Transportation Management Plans: A Case Study with WisDOT WisTMP System},
+  author={Sheng, Zihao and Li, Pei and Huang, Zilin and Chen, Yen-Jung and Luo, Yuhao and Wan, Zhengyang and Parker, Steven T. and Noyce, David A. and Chen✉, Sikai},
+  journal={arXiv preprint arXiv:2610.10650},
+  year={2026},
+  bibtex_show={true},
+  abbr={arXiv},
+  arxiv={2610.10650},
+  priority={0},
+  google_scholar_id={eQOLeE2rZwMC},
+  preview={wistmp.png},
+  summary={This work fine-tunes open-source LLMs at several model scales and deploys them locally to draft work-zone Transportation Management Plans for the WisDOT WisTMP system, training on question-answer pairs built from historical WisTMP documents. Fine-tuning clearly improves generation metrics, but the models over-generate strategies, struggle with project-specific justifications and cost estimates, and gain little from scaling 7B/8B to 14B.},
+  abstract={Work zones are critical yet hazardous components of transportation infrastructure, requiring carefully designed Transportation Management Plans (TMPs) to ensure safety and mobility. However, TMP preparation remains labor-intensive and heavily dependent on practitioner expertise. This paper proposes a Large Language Model (LLM)-assisted framework to automate TMP content generation, leveraging the WisDOT WisTMP system as the application context. The framework fine-tunes multiple open-source LLMs across different model scales and deploys them locally to ensure data security. To support model training, we construct a domain-specific dataset from historical WisTMP documents by converting PDF files into structured question-answer pairs in JSON format. Experimental results show that fine-tuning significantly improves performance across standard text generation metrics. Further section-wise and strategy-level analyses reveal that, while LLMs achieve strong overall performance, they tend to over-generate strategies and struggle to produce project-specific justifications and accurate cost estimates. In addition, scaling from 7B/8B to 14B yields limited gains. These findings demonstrate the potential of LLMs to improve TMP preparation efficiency while highlighting remaining challenges in LLM-assisted TMP development.},
+  annotation={✉ Corresponding Author}
+}
+
 @article{yang2026beyond,
   title={Beyond the Leaderboard: Counterfactual Diagnosis of End-to-End and VLA Driving Policies Under Domain Shift},
   author={Yang, Ruolin and Huang, Zilin and Wang, Boyue and Wan, Zhengyang and Luo, Yuhao and Sheng, Zihao and Chen✉, Sikai},
@@ -52,6 +68,26 @@ policies to full-scale vehicles without any real-world RL training data.},
   abstract={Ensuring safe decision-making in autonomous vehicles remains a fundamental challenge despite rapid advances in end-to-end learning approaches. Traditional reinforcement learning (RL) methods rely on manually engineered rewards or sparse collision signals, which fail to capture the rich contextual understanding required for safe driving and make unsafe exploration unavoidable in real-world settings. Recent vision-language models (VLMs) offer promising semantic understanding capabilities; however, their high inference latency and susceptibility to hallucination hinder direct application to real-time vehicle control. To address these limitations, this paper proposes DriveVLM-RL, a neuroscience-inspired framework that integrates VLMs into RL through a dual-pathway architecture for safe and deployable autonomous driving. The framework decomposes semantic reward learning into a Static Pathway for continuous spatial safety assessment using CLIP-based contrasting language goals, and a Dynamic Pathway for attention-gated multi-frame semantic risk reasoning using a lightweight detector and a large VLM. A hierarchical reward synthesis mechanism fuses semantic signals with vehicle states, while an asynchronous training pipeline decouples expensive VLM inference from environment interaction. All VLM components are used only during offline training and are removed at deployment, ensuring real-time feasibility. Experiments in the CARLA simulator show significant improvements in collision avoidance, task success, and generalization across diverse traffic scenarios, including strong robustness under settings without explicit collision penalties. These results demonstrate that DriveVLM-RL provides a practical paradigm for integrating foundation models into autonomous driving without compromising real-time feasibility.},
   annotation={* Equal Contribution<br>✉ Corresponding Author},
   selected={true}
+}
+
+
+@article{huang2025vru,
+  title={Using Connected Intelligent Transportation to Enhance Vulnerable Road User Safety},
+  author={Huang, Zilin and Wan, Zhengyang and Sheng, Zihao and Ahn, Soyoung and Noyce, David A. and Chen✉, Sikai},
+  journal={CCAT Report, Center for Connected and Automated Transportation, University of Wisconsin–Madison},
+  year={2025},
+  month={dec},
+  bibtex_show={true},
+  abbr={Report},
+  priority={1},
+  html={https://rosap.ntl.bts.gov/view/dot/89376},
+  url={https://rosap.ntl.bts.gov/view/dot/89376},
+  pdf={https://rosap.ntl.bts.gov/view/dot/89376/dot_89376_DS1.pdf},
+  google_scholar_id={zYLM7Y9cAGgC},
+  preview={vru_report.jpg},
+  summary={This CCAT project applies connected intelligent transportation to protect vulnerable road users, combining Sky-Drive for human-in-the-loop AV–VRU interaction testing with a C-V2X cooperative localization framework that keeps lane-level accuracy in GNSS-denied areas. A kinematics-aware multigraph attention network further forecasts the trajectories of heterogeneous traffic agents.},
+  abstract={This project leverages connected intelligent transportation technologies to enhance the safety of vulnerable road users (VRUs) within evolving urban road systems. This project targets three fundamental barriers: the lack of high-fidelity experimental platforms, localization failures in GNSS-denied areas, and insufficient trajectory prediction for heterogeneous agents. Our goal is to develop an integrated cooperative system that combines virtual reality, wireless communication, and physics-informed learning. To achieve this, we develop Sky-Drive, a distributed multi-agent simulation platform that enables human-in-the-loop interaction testing. Furthermore, the project implements a cellular Vehicle-to-Everything (C-V2X)-based cooperative localization framework to ensure lane-level accuracy and a kinematics-aware multigraph attention network for precise motion forecasting. The output of this project provides a comprehensive technological foundation for enabling the safe and equitable coexistence of autonomous vehicles (AVs) and VRUs in mixed traffic environments.},
+  annotation={✉ Corresponding Author}
 }
 
 

@@ -19,27 +19,27 @@ social: true # includes social icons at the bottom of the page
 research:
   title: "My research focuses on:"
   figures:
-    - image: research/placeholder.svg
-      caption: "Closed-loop simulation & sim-to-real"
-      alt: Placeholder — closed-loop simulation and sim-to-real transfer
-    - image: research/placeholder.svg
-      caption: Vision-Language-Action models
-      alt: Placeholder — Vision-Language-Action models for driving
-    - image: research/placeholder.svg
-      caption: Human-AI collaborative driving
-      alt: Placeholder — human-AI collaborative driving
-    - image: research/placeholder.svg
-      caption: Socially-aware multi-agent systems
-      alt: Placeholder — socially-aware multi-agent systems
+    - image: research/sim2real.jpg
+      caption: Sim-to-real transfer on a full-scale vehicle
+      alt: "Sim2Real-AD real-vehicle platform: lab-developed Ford E-Transit autonomous van with lidars, cameras, radar and the camera configuration"
+    - image: research/vlm-driving.png
+      caption: Vision-language models for driving
+      alt: "DriveVLM-RL: VLM-as-control and VLM-as-reward paradigms and the dual-pathway DriveVLM-RL framework"
+    - image: research/human-in-the-loop.jpg
+      caption: Human-in-the-loop, human-AI collaborative driving
+      alt: Sky-Drive experimental site with a VR pedestrian and two human drivers in the loop
+    - image: research/av-vru-interaction.jpg
+      caption: Socially-aware multi-agent interaction
+      alt: "VR-based AV–pedestrian interaction in Sky-Drive: simulated truck blind-spot scenario with driver and pedestrian views"
   groups:
     - title: Autonomous driving
       items:
         - Closed-loop simulation and sim-to-real transfer
-        - Vision-Language-Action (VLA) models for driving
+        - Vision-language models and VLA policies for driving
     - title: Human-centric intelligent transportation
       items:
         - Human-AI collaborative driving and interaction
-        - Socially-aware multi-agent systems
+        - Socially-aware multi-agent interaction and VRU safety
 ---
 
 Hi! I am a **Ph.D. student** in the Department of Civil and Environmental Engineering at the <img src="../assets/img/uwmadison.png" class="inline-logo" alt="UW–Madison"/>[University of Wisconsin–Madison](https://www.wisc.edu/). I joined <img src="../assets/img/skylab.png" class="inline-logo" alt="Sky-Lab"/>[Sky-Lab](https://sky-lab-uw.github.io/) in Fall 2025 under the guidance of Dr. [Sikai (Sky) Chen](https://sky-lab-uw.github.io/people/). Before that, I obtained my B.S. and M.S. from <img src="../assets/img/tongji.png" class="inline-logo" alt="Tongji University"/>[Tongji University](https://en.tongji.edu.cn/).

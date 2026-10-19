@@ -106,8 +106,8 @@
     - title: Autonomous driving
       items:
         - Closed-loop simulation and sim-to-real transfer
-        - Vision-Language-Action (VLA) models for driving
+        - Vision-language models and VLA policies for driving
     - title: Human-centric intelligent transportation
       items:
         - Human-AI collaborative driving and interaction
-        - Socially-aware multi-agent systems
+        - Socially-aware multi-agent interaction and VRU safety
