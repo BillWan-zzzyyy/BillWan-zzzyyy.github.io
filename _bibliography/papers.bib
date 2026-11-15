@@ -1,6 +1,23 @@
 ---
 ---
 
+@article{sheng2026nwm,
+  title={Breaking Survivorship Bias in Driving World Models},
+  author={Sheng, Zihao and Huang, Zilin and Luo, Yuhao and Wan, Zhengyang and Wang, Boyue and Ahn, Soyoung and Noyce, David A. and Chen✉, Sikai},
+  journal={arXiv preprint arXiv:2611.11516},
+  year={2026},
+  bibtex_show={true},
+  abbr={arXiv},
+  arxiv={2611.11516},
+  priority={0},
+  html={https://zihaosheng.github.io/NWM/},
+  google_scholar_id={WF5omc3nYNoC},
+  preview={nwm.png},
+  summary={Driving world models are trained on futures that almost always end safely, so they imagine benign outcomes even when a collision is imminent. This work trains a neutral world model (NWM) on routine driving plus real accident videos with a bounding-box-guided objective, then uses it as an imagination engine to score candidate ego trajectories on NAVSIM and in zero-shot pedestrian-dummy tests with a research vehicle.},
+  abstract={World models allow autonomous vehicles to imagine the consequences of candidate actions before execution, but their reliability depends on the futures represented in their training data. We identify a survivorship bias in driving world models: because the futures recorded in prevailing driving datasets almost always end safely, existing models often imagine benign outcomes even when a collision is imminent. We introduce a neutral world model (NWM) that learns both routine and safety-critical futures from a mixture of routine driving and real accident videos with a bounding-box-guided objective. The NWM more faithfully anticipates imminent collisions, while maintaining a low false collision rate and competitive generation quality in routine driving. We further use the model as an imagination engine for decision-making. Given multiple ego trajectories, the NWM predicts the future associated with each candidate, and a reward function evaluates these imagined outcomes before selecting an action. On challenging NAVSIM scenarios, this procedure selects the better trajectory more reliably than the baseline world model. Zero-shot experiments with real-world pedestrian dummy crossing data collected using an autonomous research vehicle further demonstrate transfer to unseen sensor observations. These results show that correcting survivorship bias enables world models to more faithfully reason about futures and support safety-critical decision-making in autonomous driving.},
+  annotation={✉ Corresponding Author}
+}
+
 @article{sheng2026wistmp,
   title={Large Language Model-Assisted Preparation of Transportation Management Plans: A Case Study with WisDOT WisTMP System},
   author={Sheng, Zihao and Li, Pei and Huang, Zilin and Chen, Yen-Jung and Luo, Yuhao and Wan, Zhengyang and Parker, Steven T. and Noyce, David A. and Chen✉, Sikai},
