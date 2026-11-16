@@ -8,19 +8,19 @@ nav_order: 1
 ---
 
 <div class="research-page">
-  <p class="research-intro">I want driving policies that are learned in simulation to hold up on a real vehicle. That takes three things, and my work follows them in order: a simulator that includes people, a way to teach policies what is unsafe, and a way to carry them onto the road.</p>
+  <p class="research-intro">I want driving policies that are learned in simulation to hold up on a real vehicle. My work covers the three pieces that takes: getting policies onto the road, teaching them what is unsafe, and building a simulator that includes people. Most recent first.</p>
   <ol class="research-timeline">
-    <li class="research-step" id="human-ai">
-      <div class="research-step__year">2025</div>
+    <li class="research-step" id="sim-to-real">
+      <div class="research-step__year">2026</div>
       <div class="research-step__content">
         <div class="research-step__media">
-          {% include figure.liquid path="assets/img/research/human-ai-collab.png" class="img-fluid" sizes="(min-width: 768px) 200px, 100vw" alt="Sky-Drive LLMs for personalized driving: a human agent and an LLM-based driving agent exchange dialogue, perception and route plans in the simulator" zoomable=true %}
+          {% include figure.liquid path="assets/img/research/sim2real.jpg" class="img-fluid" sizes="(min-width: 768px) 200px, 100vw" alt="Sim2Real-AD real-vehicle platform: lab-developed Ford E-Transit autonomous van with lidars, cameras, radar and the camera configuration" zoomable=true %}
         </div>
         <div class="research-step__body">
-          <p class="research-step__kicker">Simulate with people in the loop</p>
-          <h2 class="research-step__title">Human-AI interaction</h2>
-          <p>Sky-Drive is Sky-Lab's open-source multi-agent simulator, where human drivers, pedestrians and AI agents share one digital twin. We use it to study how autonomous vehicles interact with vulnerable road users.</p>
-          <p class="research-step__links"><a href="https://www.sciopen.com/article/10.26599/JICV.2026.9210070">Sky-Drive</a>&nbsp;<span class="research-step__sep" aria-hidden="true">•</span> <a href="https://rosap.ntl.bts.gov/view/dot/89376">VRU safety report</a>&nbsp;<span class="research-step__sep" aria-hidden="true">•</span> <a href="https://github.com/BillWan-zzzyyy/Sky-Drive">Code</a></p>
+          <p class="research-step__kicker">Run policies on a real vehicle</p>
+          <h2 class="research-step__title">Sim-to-real driving</h2>
+          <p>Sim2Real-AD runs CARLA-trained, VLM-guided reinforcement-learning policies on a full-scale van, with no real-world RL training data.</p>
+          <p class="research-step__links"><a href="https://arxiv.org/abs/2604.03497">Sim2Real-AD</a>&nbsp;<span class="research-step__sep" aria-hidden="true">•</span> <a href="https://zilin-huang.github.io/Sim2Real-AD-website/">Project page</a></p>
         </div>
       </div>
     </li>
@@ -38,17 +38,17 @@ nav_order: 1
         </div>
       </div>
     </li>
-    <li class="research-step" id="sim-to-real">
-      <div class="research-step__year">2026</div>
+    <li class="research-step" id="human-ai">
+      <div class="research-step__year">2025</div>
       <div class="research-step__content">
         <div class="research-step__media">
-          {% include figure.liquid path="assets/img/research/sim2real.jpg" class="img-fluid" sizes="(min-width: 768px) 200px, 100vw" alt="Sim2Real-AD real-vehicle platform: lab-developed Ford E-Transit autonomous van with lidars, cameras, radar and the camera configuration" zoomable=true %}
+          {% include figure.liquid path="assets/img/research/human-ai-collab.png" class="img-fluid" sizes="(min-width: 768px) 200px, 100vw" alt="Sky-Drive LLMs for personalized driving: a human agent and an LLM-based driving agent exchange dialogue, perception and route plans in the simulator" zoomable=true %}
         </div>
         <div class="research-step__body">
-          <p class="research-step__kicker">Carry them onto the road</p>
-          <h2 class="research-step__title">Sim-to-real driving</h2>
-          <p>Sim2Real-AD runs CARLA-trained, VLM-guided reinforcement-learning policies on a full-scale van, with no real-world RL training data.</p>
-          <p class="research-step__links"><a href="https://arxiv.org/abs/2604.03497">Sim2Real-AD</a>&nbsp;<span class="research-step__sep" aria-hidden="true">•</span> <a href="https://zilin-huang.github.io/Sim2Real-AD-website/">Project page</a></p>
+          <p class="research-step__kicker">Simulate with people in the loop</p>
+          <h2 class="research-step__title">Human-AI interaction</h2>
+          <p>Sky-Drive is Sky-Lab's open-source multi-agent simulator, where human drivers, pedestrians and AI agents share one digital twin. We use it to study how autonomous vehicles interact with vulnerable road users.</p>
+          <p class="research-step__links"><a href="https://www.sciopen.com/article/10.26599/JICV.2026.9210070">Sky-Drive</a>&nbsp;<span class="research-step__sep" aria-hidden="true">•</span> <a href="https://rosap.ntl.bts.gov/view/dot/89376">VRU safety report</a>&nbsp;<span class="research-step__sep" aria-hidden="true">•</span> <a href="https://github.com/BillWan-zzzyyy/Sky-Drive">Code</a></p>
         </div>
       </div>
     </li>
