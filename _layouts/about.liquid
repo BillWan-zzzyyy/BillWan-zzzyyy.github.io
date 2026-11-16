@@ -46,51 +46,56 @@ layout: default
 
     {% assign hero = page.hero %}
     {% if hero.image != blank or hero.video != blank %}
-      <div class="home-v2-media">
-        {% if hero.video != blank %}
-          {% assign hero_poster = hero.poster | default: hero.image %}
-          {% assign hero_video_ext = hero.video | split: '.' | last | downcase %}
-          <video
-            class="home-v2-media__video"
-            width="960"
-            height="960"
-            muted
-            loop
-            playsinline
-            autoplay
-            preload="metadata"
-            {% if hero_poster != blank %}
-              poster="{{ hero_poster | relative_url }}"
-            {% endif %}
-            {% if hero.alt %}
-              aria-label="{{ hero.alt | escape }}"
-            {% endif %}
-          >
-            <source src="{{ hero.video | relative_url }}" type="video/{% if hero_video_ext == 'webm' %}webm{% else %}mp4{% endif %}">
-          </video>
-          <script>
-            (() => {
-              const video = document.currentScript.previousElementSibling;
-              const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-              if (!video || !reduce) return;
-              video.removeAttribute('autoplay');
-              video.autoplay = false;
-              video.pause();
-              video.controls = true;
-            })();
-          </script>
-        {% else %}
-          {%
-            include figure.liquid
-            path=hero.image
-            class="home-v2-media__img"
-            width="960"
-            height="960"
-            sizes="(min-width: 768px) 220px, 160px"
-            alt=hero.alt
-            loading="eager"
-            fetchpriority="high"
-          %}
+      <div class="home-v2-photo">
+        <div class="home-v2-media">
+          {% if hero.video != blank %}
+            {% assign hero_poster = hero.poster | default: hero.image %}
+            {% assign hero_video_ext = hero.video | split: '.' | last | downcase %}
+            <video
+              class="home-v2-media__video"
+              width="960"
+              height="960"
+              muted
+              loop
+              playsinline
+              autoplay
+              preload="metadata"
+              {% if hero_poster != blank %}
+                poster="{{ hero_poster | relative_url }}"
+              {% endif %}
+              {% if hero.alt %}
+                aria-label="{{ hero.alt | escape }}"
+              {% endif %}
+            >
+              <source src="{{ hero.video | relative_url }}" type="video/{% if hero_video_ext == 'webm' %}webm{% else %}mp4{% endif %}">
+            </video>
+            <script>
+              (() => {
+                const video = document.currentScript.previousElementSibling;
+                const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                if (!video || !reduce) return;
+                video.removeAttribute('autoplay');
+                video.autoplay = false;
+                video.pause();
+                video.controls = true;
+              })();
+            </script>
+          {% else %}
+            {%
+              include figure.liquid
+              path=hero.image
+              class="home-v2-media__img"
+              width="960"
+              height="960"
+              sizes="(min-width: 768px) 220px, 160px"
+              alt=hero.alt
+              loading="eager"
+              fetchpriority="high"
+            %}
+          {% endif %}
+        </div>
+        {% if hero.caption %}
+          <p class="home-v2-photo__caption">{{ hero.caption }}</p>
         {% endif %}
       </div>
     {% endif %}
