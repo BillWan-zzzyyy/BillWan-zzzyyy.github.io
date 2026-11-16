@@ -50,47 +50,17 @@
 }
 
 // ---------------------------------------------------------------------------
-// Research page: plain document, like the home page (no rules between
-// sections, accent links without underline, unbulleted paper lists).
+// Research page: a short intro, then a vertical timeline (year | rail | entry).
+// All content is visible without JS; the inline script in _pages/research.md
+// only sets --research-progress (red rail length, px) and .is-reached on dots.
 // ---------------------------------------------------------------------------
+$rt-year-w: 76px; // fits "2018–2025" at 14px
+$rt-col-gap: 48px;
+$rt-rail-x: 100px; // year column + half the gap
+$rt-dot: 9px;
+$rt-rail-x-sm: 4px;
+
 .research-page {
-  p,
-  ul {
-    line-height: 1.65;
-    max-width: 760px;
-  }
-
-  .research-section {
-    margin-top: $sp-7;
-    padding: 0;
-    border-top: 0;
-
-    &:first-child {
-      margin-top: 0;
-    }
-
-    // Anchored from the homepage; the navbar is not fixed, so only a little air.
-    scroll-margin-top: $sp-4;
-  }
-
-  // Same as .home-v2-section__title.
-  h2 {
-    margin: 0 0 $sp-3;
-    font-family: var(--font-display);
-    font-size: $fs-xl;
-    font-weight: $fw-semibold;
-    line-height: $lh-snug;
-    letter-spacing: normal;
-    text-transform: none;
-    color: var(--heading-color);
-  }
-
-  h3 {
-    font-size: $fs-md;
-    line-height: 1.3;
-    margin: $sp-5 0 $sp-2;
-  }
-
   // Inline links are marked by the accent colour alone; the underline only
   // appears on hover (same recipe as .home-v2-bio a). Out-specifies the
   // underlined body-link rule in _base.scss.
@@ -107,70 +77,249 @@
     }
   }
 
-  figure {
-    margin: 20px 0;
+  .research-intro {
+    max-width: 680px;
+    margin: 0 0 36px;
+    line-height: 1.65;
   }
 
-  // Large figure with hairline border and modest radius.
-  figure img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border: 1px solid var(--global-divider-color);
-    border-radius: $r-md;
-    box-shadow: none;
-  }
+  .research-timeline {
+    // Centre of each dot, measured from the top of its entry: the kicker line
+    // (20px + 2px) plus half the title's 26px line box.
+    --dot-y: 35px;
 
-  .research-related-title {
-    font-family: $ff-sans;
-    font-size: $fs-sm;
-    font-weight: $fw-semibold;
-    letter-spacing: 0.01em;
-    color: var(--global-text-color-light);
-    margin: $sp-4 0 $sp-2;
-  }
-
-  .research-related {
+    position: relative;
+    isolation: isolate;
+    margin: 0;
+    padding: 0;
     list-style: none;
-    padding-left: 0;
-    margin: 0;
-    font-size: 15px;
 
-    li + li {
-      margin-top: 6px;
+    // Red progress layer over the grey rail, from the first dot down.
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      top: var(--dot-y);
+      left: $rt-rail-x;
+      width: 1px;
+      height: var(--research-progress, 0px);
+      background: var(--global-theme-color);
+      pointer-events: none;
     }
   }
 
-  .research-related__year {
+  .research-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: $rt-year-w minmax(0, 1fr);
+    column-gap: $rt-col-gap;
+    padding-bottom: 36px;
+    scroll-margin-top: $sp-4;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+
+    // Grey rail segment; the entries' bottom padding keeps it continuous.
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: $rt-rail-x;
+      width: 1px;
+      background: var(--global-divider-color);
+    }
+
+    &:first-child::before {
+      top: var(--dot-y);
+    }
+
+    &:last-child::before {
+      bottom: auto;
+      height: var(--dot-y);
+    }
+
+    // Marker dot on the title line.
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      top: var(--dot-y);
+      left: $rt-rail-x - 4px;
+      box-sizing: border-box;
+      width: $rt-dot;
+      height: $rt-dot;
+      border: 2px solid var(--global-text-color-light);
+      border-radius: 50%;
+      background: var(--global-bg-color);
+      transform: translateY(-50%);
+      transition:
+        border-color 180ms $ease-out,
+        background-color 180ms $ease-out;
+    }
+
+    &.is-reached::after {
+      border-color: var(--global-theme-color);
+      background: var(--global-theme-color);
+    }
+  }
+
+  // No kicker: the title is the first line.
+  .research-step--note {
+    --dot-y: 13px;
+  }
+
+  .research-step__year {
+    padding-top: 22px;
+    font-family: $ff-sans;
+    font-size: 14px;
+    line-height: 26px;
+    color: var(--global-text-color-light);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .research-step--note .research-step__year {
+    padding-top: 0;
+  }
+
+  .research-step__content {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    column-gap: 20px;
+    align-items: start;
+  }
+
+  .research-step--note .research-step__content {
+    display: block;
+    max-width: 640px;
+  }
+
+  .research-step__media {
+    figure {
+      margin: 0;
+    }
+
+    picture {
+      display: block;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      object-position: center;
+      border: 1px solid var(--global-divider-color);
+      border-radius: $r-md;
+      box-shadow: none;
+      cursor: zoom-in;
+    }
+  }
+
+  .research-step__body {
+    min-width: 0;
+
+    p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+  }
+
+  .research-step__body .research-step__kicker {
+    margin: 0 0 2px;
+    font-family: $ff-sans;
+    font-size: 13px;
+    line-height: 20px;
     color: var(--global-text-color-light);
   }
 
-  .research-projects {
-    margin-top: $sp-5;
+  .research-step__title {
+    margin: 0 0 4px;
+    font-size: $fs-lg;
+    line-height: 26px;
+    transition: color 150ms $ease-out;
   }
 
-  .research-project {
-    padding-top: 0;
-    border-top: 0;
+  .research-step__body .research-step__links {
+    margin-top: 6px;
+    font-family: $ff-sans;
 
-    & + .research-project {
-      margin-top: $sp-5;
-    }
-
-    h3 {
-      margin-top: 0;
-      font-size: $fs-md;
-      font-weight: $fw-semibold;
-      color: var(--heading-color);
-    }
-
-    .inline-logo {
-      margin-right: $sp-2;
+    a {
+      white-space: nowrap;
     }
   }
 
-  .research-more {
-    margin: 0;
+  .research-step__sep {
+    padding: 0 0.3em;
+    color: var(--global-text-color-light);
+  }
+}
+
+@media (hover: hover) and (min-width: 768px) {
+  .research-page .research-step:hover .research-step__title {
+    color: var(--global-theme-color);
+  }
+}
+
+// Phones: rail at the far left, year above the entry, thumbnail above the text.
+@media (max-width: 767.98px) {
+  .research-page {
+    .research-timeline,
+    .research-step--note {
+      // Centre of the year line (20px line box).
+      --dot-y: 10px;
+    }
+
+    .research-timeline::after {
+      left: $rt-rail-x-sm;
+    }
+
+    .research-step {
+      display: block;
+      padding-bottom: 32px;
+      padding-left: 20px;
+
+      &::before {
+        left: $rt-rail-x-sm;
+      }
+
+      &::after {
+        left: 0;
+      }
+    }
+
+    .research-step__year,
+    .research-step--note .research-step__year {
+      margin: 0 0 6px;
+      padding-top: 0;
+      font-size: 13px;
+      line-height: 20px;
+      text-align: left;
+    }
+
+    .research-step__content {
+      display: block;
+    }
+
+    .research-step__media {
+      margin-bottom: 12px;
+
+      img {
+        aspect-ratio: 16 / 9;
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .research-page .research-step::after,
+  .research-page .research-step__title {
+    transition: none;
   }
 }
 
