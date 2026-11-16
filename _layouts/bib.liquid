@@ -1,9 +1,12 @@
 ---
 ---
 {%- comment -%}
-  One publication entry (jekyll-scholar bibliography_template).
-  Thumbnail (left) + venue tag + serif title + authors + summary + venue/year
-  line + a quiet row of text links. Styles live in _sass/_publications.scss.
+  One publication entry (jekyll-scholar bibliography_template), four lines
+  beside a thumbnail: title (links to the project page, else the paper),
+  authors, "<full venue>, <year>", and a row of text links preceded by an
+  optional bold `highlight` phrase (e.g. highlight={Best Paper Award}).
+  Fields such as summary, abbr, abstract and bibtex_show stay in papers.bib
+  but are not rendered. Styles live in _sass/_publications.scss.
 {%- endcomment -%}
 {% assign has_media = false %}
 {% if site.enable_publication_thumbnails and entry.preview %}
@@ -24,7 +27,7 @@
           loading="lazy"
           path=entry_path
           reduced_motion_path=still_path
-          sizes="320px"
+          sizes="(min-width: 768px) 240px, 360px"
           class="pub-entry__thumb"
           zoomable=true
           alt=entry.title
@@ -34,18 +37,7 @@
   {% endif %}
 
   <div id="{{ entry.key }}" class="pub-entry__body">
-    {%- if entry.abbr -%}
-      {% assign venue_data = site.data.venues[entry.abbr] %}
-      <span class="pub-entry__venue{% if venue_data.emphasis == 'strong' %} pub-entry__venue--strong{% endif %}">
-        {%- if venue_data.url -%}
-          <a href="{{ venue_data.url }}">{{ entry.abbr }}</a>
-        {%- else -%}
-          {{ entry.abbr }}
-        {%- endif -%}
-      </span>
-    {%- endif %}
-
-    {%- comment -%} Title and "Paper" link share one target: html → arXiv → PDF → DOI. {%- endcomment -%}
+    {%- comment -%} "Paper" target: html → arXiv → PDF → DOI. {%- endcomment -%}
     {% assign paper_url = null %}
     {% if entry.html %}
       {% if entry.html contains '://' %}
@@ -64,9 +56,13 @@
     {% elsif entry.doi %}
       {% assign paper_url = entry.doi | prepend: 'https://doi.org/' %}
     {% endif %}
+    {% assign title_url = paper_url %}
+    {% if entry.website %}
+      {% assign title_url = entry.website %}
+    {% endif %}
     <h3 class="pub-entry__title">
-      {% if paper_url %}
-        <a href="{{ paper_url }}">{{ entry.title }}</a>
+      {% if title_url %}
+        <a href="{{ title_url }}">{{ entry.title }}</a>
       {% else %}
         {{ entry.title }}
       {% endif %}
@@ -190,56 +186,43 @@
       {% endif %}
     </div>
 
-    {% if entry.summary %}
-      <p class="pub-entry__summary">{{ entry.summary }}</p>
-    {% endif %}
-
-    <!-- Journal/Book title and date -->
+    <!-- Full venue name, year -->
     {% assign proceedings = 'inproceedings,incollection' | split: ',' %}
     {% assign thesis = 'thesis,mastersthesis,phdthesis' | split: ',' %}
+    {% assign entrytype = '' %}
     {% if entry.type == 'article' %}
-      {% capture entrytype %}<span class="pub-entry__journal">{{ entry.journal }}</span>{% endcapture %}
+      {% assign entrytype = entry.journal %}
     {% elsif proceedings contains entry.type %}
-      {% capture entrytype %}<span class="pub-entry__journal">In {{ entry.booktitle }}</span>{% endcapture %}
+      {% assign entrytype = entry.booktitle %}
     {% elsif thesis contains entry.type %}
-      {% capture entrytype %}<span class="pub-entry__journal">{{ entry.school }}</span>{% endcapture %}
-    {% else %}
-      {% capture entrytype %}{% endcapture %}
-    {% endif %}
-    {% if entry.month %}
-      {% capture entrymonth %}{{ " " }}{{ entry.month | capitalize }}{% endcapture %}
-    {% endif %}
-    {% if entry.year %}
-      {% capture entryyear %}{{ " " }}{{ entry.year }}{% endcapture %}
-    {% endif %}
-    {% if entry.location %}
-      {% capture entrytype %}{{ entrytype }}{{ " · " }}{{ entry.location }}{% endcapture %}
-    {% endif -%}
-    {% if entry.additional_info %}
-      {% capture entrytype %}{{ entrytype }}{{ entry.additional_info | markdownify | remove: '<p>' | remove: '</p>' }}{% endcapture %}
+      {% assign entrytype = entry.school %}
     {% endif %}
     {% capture hook_exists %}{% file_exists _includes/hook/bib.liquid %}{% endcapture %}
     {% if hook_exists == 'true' %}
       {% include hook/bib.liquid %}
     {% endif %}
     {% assign entrytype_text = entrytype | strip_html | strip %}
-    {% capture periodical %}{{ entrytype }}{% if entrytype_text != "" and entryyear != "" %} · {% endif %}{{ entrymonth }}{{ entryyear }}{% endcapture %}
-    <div class="pub-entry__meta">
-      {{ periodical | strip }}
-    </div>
-    {% if entry.note %}
-      <div class="pub-entry__meta">
-        {{ entry.note | strip }}
+    {% assign entryyear = entry.year | strip %}
+    {% if entrytype_text != '' or entryyear != '' %}
+      <div class="pub-entry__venue">
+        {{- entrytype_text -}}
+        {%- if entrytype_text != '' and entryyear != '' %}, {% endif -%}
+        {{- entryyear -}}
       </div>
     {% endif %}
 
     {%- comment -%}
-      Text links joined by " · ", only for fields that exist: Paper, Project,
-      Code, Video, then any other al-folio fields, then BibTeX. Toggle buttons
-      (.award / .abstract / .bibtex) must stay direct children of this row:
-      assets/js/common.js looks for their panels in control.parent().parent().
+      Optional bold `highlight` phrase, then text links joined by a spaced
+      bullet, only for fields that exist: Paper, Project, Code, Video, PDF
+      (when distinct from Paper), then Slides, Poster, Supp, Blog. The video
+      toggle button (enable_video_embedding) must stay a direct child of this
+      row: assets/js/common.js looks for its panel in control.parent().parent().
     {%- endcomment -%}
     {% assign pub_links = '' | split: '' %}
+    {% if entry.highlight %}
+      {% capture pub_link %}<strong class="pub-entry__highlight">{{ entry.highlight }}</strong>{% endcapture %}
+      {% assign pub_links = pub_links | push: pub_link %}
+    {% endif %}
     {% if paper_url %}
       {% capture pub_link %}<a href="{{ paper_url }}">Paper</a>{% endcapture %}
       {% assign pub_links = pub_links | push: pub_link %}
@@ -302,104 +285,14 @@
       {% capture pub_link %}<a href="{{ entry.blog }}">Blog</a>{% endcapture %}
       {% assign pub_links = pub_links | push: pub_link %}
     {% endif %}
-    {% if entry.award %}
-      {% capture pub_link %}<button type="button" class="award" aria-expanded="false">
-          {%- if entry.award_name %}{{ entry.award_name }}{% else %}Award{% endif -%}
-        </button>{% endcapture %}
-      {% assign pub_links = pub_links | push: pub_link %}
-    {% endif %}
-    {% if entry.bibtex_show %}
-      {% capture pub_link %}<button type="button" class="bibtex" aria-expanded="false">BibTeX</button>{% endcapture %}
-      {% assign pub_links = pub_links | push: pub_link %}
-    {% endif %}
+
+    {%- comment -%}
+      The bullet is glued to the item before it (&nbsp;) and followed by a normal space, so a
+      long row wraps after a bullet, never before one.
+    {%- endcomment -%}
     {% if pub_links.size > 0 %}
       <div class="pub-entry__links">
-        {{- pub_links | join: '<span class="pub-entry__sep" aria-hidden="true">·</span>' -}}
-      </div>
-    {% endif %}
-
-    {% if site.enable_publication_badges %}
-      {% assign entry_has_altmetric_badge = false %}
-      {% if entry.altmetric and entry.altmetric != 'false' %}
-        {% assign entry_has_altmetric_badge = true %}
-      {% endif %}
-
-      {% assign entry_has_dimensions_badge = false %}
-      {% if entry.dimensions and entry.dimensions != 'false' %}
-        {% assign entry_has_dimensions_badge = true %}
-      {% endif %}
-
-      {% assign entry_has_inspirehep_badge = false %}
-      {% if entry.inspirehep_id %}
-        {% assign entry_has_inspirehep_badge = true %}
-      {% endif %}
-      {%- comment -%}
-        Per-paper Google Scholar and GitHub-star pills were removed in the redesign; the
-        site-wide citation total is shown once on the Publications page instead.
-      {%- endcomment -%}
-      {% if entry_has_altmetric_badge or entry_has_dimensions_badge or entry_has_inspirehep_badge %}
-        <div class="pub-entry__badges">
-          {% if site.enable_publication_badges.altmetric and entry_has_altmetric_badge %}
-            <span
-              class="altmetric-embed"
-              data-badge-type="2"
-              data-badge-popover="right"
-              {% if entry.altmetric != blank and entry.altmetric != 'true' %}
-                data-altmetric-id="{{ entry.altmetric }}"
-              {% elsif entry.arxiv %}
-                data-arxiv-id="{{ entry.arxiv }}"
-              {% elsif entry.eprint %}
-                data-arxiv-id="{{ entry.eprint }}"
-              {% elsif entry.doi %}
-                data-doi="{{ entry.doi }}"
-              {% elsif entry.pmid %}
-                data-pmid="{{ entry.pmid }}"
-              {% elsif entry.isbn %}
-                data-isbn="{{ entry.isbn }}"
-              {% endif %}
-            ></span>
-          {% endif %}
-          {% if site.enable_publication_badges.dimensions and entry_has_dimensions_badge %}
-            <span
-              class="__dimensions_badge_embed__"
-              {% if entry.dimensions != blank and entry.dimensions != 'true' %}
-                data-id="{{ entry.dimensions }}"
-              {% elsif entry.doi %}
-                data-doi="{{ entry.doi }}"
-              {% else %}
-                data-pmid="{{ entry.pmid }}"
-              {% endif %}
-              data-style="small_rectangle"
-              data-legend="hover-right"
-            ></span>
-          {% endif %}
-          {% if site.enable_publication_badges.inspirehep and entry_has_inspirehep_badge %}
-            <a href="https://inspirehep.net/literature/{{ entry.inspirehep_id }}" aria-label="Inspirehep link">
-              <img
-                src="https://img.shields.io/badge/inspire-{% inspirehep_citations entry.inspirehep_id %}-001628?logo=inspire&logoColor=001628&labelColor=beige"
-                alt="{% inspirehep_citations entry.inspirehep_id %} InspireHEP citations"
-                loading="lazy"
-                decoding="async"
-              >
-            </a>
-          {% endif %}
-        </div>
-      {% endif %}
-    {% endif %}
-
-    {% if entry.award %}
-      <!-- Award panel, opened by the "Award" button above. -->
-      <div class="pub-entry__panel award hidden d-print-inline">
-        {{ entry.award | markdownify }}
-      </div>
-    {% endif %}
-
-    {% if entry.bibtex_show %}
-      <!-- BibTeX panel, opened by the "BibTeX" button above. -->
-      <div class="pub-entry__panel bibtex hidden">
-        {% highlight bibtex %}
-        {{- entry.bibtex | hideCustomBibtex -}}
-        {% endhighlight %}
+        {{- pub_links | join: '&nbsp;<span class="pub-entry__sep" aria-hidden="true">•</span> ' -}}
       </div>
     {% endif %}
 

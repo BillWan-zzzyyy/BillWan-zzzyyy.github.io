@@ -6,6 +6,7 @@ layout: default
     eyebrow   list of { text, url } shown above the name
     hero      { image, alt, video, poster } — site-root paths
     research  { title, lead, cards: [{ title, text, url }] } — lead is the one-sentence research summary
+    social    true → one row of icon + label links (CV, Scholar, GitHub, LinkedIn, Email, ORCID, WeChat)
   The Markdown body of about.md is the short bio.
 {% endcomment %}
 <div class="home-v2">
@@ -39,12 +40,18 @@ layout: default
       <div class="home-v2-bio">{{ content }}</div>
 
       {% if page.social %}
+        {%- comment -%}
+          One row, one structure: every item is an icon + label link with the same class, so a
+          single flex gap spaces them evenly. The WeChat link keeps its QR modal right after it.
+        {%- endcomment -%}
         <div class="home-v2-links">
-          {% include social.liquid keys='cv' labels=true link_class='link-btn-primary' %}
-          {% include social.liquid keys='scholar,github,linkedin,email' labels=true link_class='home-v2-link' %}
-          <div class="home-v2-links__icons">
-            {% include social.liquid exclude='cv,scholar,github,linkedin,email' link_class='home-v2-icon' %}
-          </div>
+          {%
+            include social.liquid
+            keys='cv,scholar,github,linkedin,email,orcid,wechat'
+            labels=true
+            link_class='home-v2-link'
+            cv_icon='fa-solid fa-file-lines'
+          %}
         </div>
       {% endif %}
 

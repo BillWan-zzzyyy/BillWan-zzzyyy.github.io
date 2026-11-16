@@ -360,6 +360,7 @@ filtered_bibtex_keywords:
     code,
     github_repo,
     google_scholar_id,
+    highlight,
     html,
     inspirehep_id,
     pdf,

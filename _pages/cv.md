@@ -63,7 +63,9 @@ talks:
 
 <div class="about-me cv-page">
   <p class="cv-download">
-    <a class="link-btn-primary" href="{{ site.cv_pdf | prepend: 'assets/pdf/' | relative_url }}" target="_blank" rel="noopener noreferrer">Download CV (PDF)</a>
+    <a class="cv-download__link" href="{{ site.cv_pdf | prepend: 'assets/pdf/' | relative_url }}" target="_blank" rel="noopener noreferrer"
+      ><i class="fa-solid fa-download" aria-hidden="true"></i>Download CV (PDF)</a
+    >
   </p>
 
   <h4>Education</h4>

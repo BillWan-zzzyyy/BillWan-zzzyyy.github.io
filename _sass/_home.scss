@@ -49,11 +49,11 @@
   margin: 0 0 $sp-5;
   font-family: var(--font-display);
   // No "+" inside clamp(): the production CSS minifier strips the spaces around it and invalidates the value.
-  font-size: clamp(2.25rem, 4.4vw, 3.5rem);
+  font-size: clamp(2.125rem, 4vw, 3rem);
   font-weight: $fw-semibold;
   line-height: 1.1;
-  letter-spacing: -0.01em;
-  color: var(--global-text-color);
+  letter-spacing: -0.025em;
+  color: var(--heading-color);
 }
 
 // One-sentence research summary that opens the Research section.
@@ -61,11 +61,11 @@
   max-width: 28ch;
   margin: 0 0 $sp-6;
   font-family: var(--font-display);
-  font-size: clamp(1.625rem, 3vw, 2.375rem);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
   font-weight: $fw-medium;
-  line-height: 1.18;
-  letter-spacing: -0.01em;
-  color: var(--global-text-color);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--heading-color);
   text-wrap: balance;
 }
 
@@ -100,30 +100,23 @@
   }
 }
 
-// Link row: CV pill, labeled secondary links, then small icon links.
+// Link row: CV, Scholar, GitHub, LinkedIn, Email, ORCID, WeChat. Every item is
+// the same `.home-v2-link` (icon + label, no fill), spaced by one flex gap.
+// The WeChat QR modal and its <script> sit between items but are display:none,
+// so they take no part in the layout or the gap.
 .home-v2-links {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: $sp-3 $sp-5;
+  gap: $sp-2 $sp-5;
   margin-top: $sp-6;
-
-  .link-btn-primary {
-    min-height: 38px;
-    padding: 0 20px;
-
-    // The academicons CV glyph is itself the letters "CV"; the label says it already.
-    .ai-cv {
-      display: none;
-    }
-  }
 }
 
 .home-v2-link {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  min-height: 38px;
+  gap: 7px;
+  min-height: 32px;
   font-family: $ff-sans;
   font-size: 15px;
   font-weight: $fw-medium;
@@ -131,6 +124,15 @@
   white-space: nowrap;
   color: var(--global-text-color);
   text-decoration: none;
+
+  // Identical icon box for every glyph so the labels line up.
+  i {
+    flex: none;
+    width: 18px;
+    font-size: 16px;
+    line-height: 1;
+    text-align: center;
+  }
 
   i,
   i::before {
@@ -146,39 +148,6 @@
     i,
     i::before {
       color: inherit;
-    }
-  }
-}
-
-.home-v2-links__icons {
-  display: inline-flex;
-  align-items: center;
-  gap: $sp-1;
-}
-
-.home-v2-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: $r-sm;
-  font-size: 18px;
-  text-decoration: none;
-
-  i,
-  i::before {
-    color: var(--global-text-color-light);
-    transition: color $dur-base $ease-out;
-  }
-
-  &:hover,
-  &:focus-visible {
-    text-decoration: none;
-
-    i,
-    i::before {
-      color: var(--global-theme-color);
     }
   }
 }
@@ -209,7 +178,7 @@
     height: 100%;
     object-fit: cover;
     border: 1px solid var(--global-divider-color);
-    border-radius: $r-lg;
+    border-radius: $r-sm;
     background: var(--global-bg-subtle);
   }
 }
@@ -236,12 +205,12 @@
 .home-v2-section__title {
   margin: 0 0 $sp-5;
   font-family: var(--font-display);
-  font-size: 1.75rem;
+  font-size: 1.625rem;
   font-weight: $fw-semibold;
   line-height: $lh-snug;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.015em;
   text-transform: none;
-  color: var(--global-text-color);
+  color: var(--heading-color);
 
   a {
     color: inherit;
@@ -322,10 +291,11 @@
   gap: $sp-3;
   margin: 0 0 $sp-2;
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: $fw-semibold;
   line-height: $lh-snug;
-  color: var(--global-text-color);
+  letter-spacing: -0.01em;
+  color: var(--heading-color);
   transition: color $dur-base $ease-out;
 }
 

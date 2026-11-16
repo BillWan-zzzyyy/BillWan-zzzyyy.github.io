@@ -1,7 +1,7 @@
 // Research, CV and Beyond page styles (owned by the pages redesign package).
 
 // ---------------------------------------------------------------------------
-// Pages: serif sentence-case section headings
+// Pages: sans sentence-case section headings in heading ink
 // ---------------------------------------------------------------------------
 .research-page,
 .about-me.cv-page,
@@ -10,19 +10,44 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 500;
-    letter-spacing: -0.01em;
+    font-weight: $fw-semibold;
+    letter-spacing: -0.015em;
     text-transform: none;
+    color: var(--heading-color);
   }
 }
 
 .about-me.cv-page > h4,
 .about-me.beyond-page > h4 {
-  font-size: 1.75rem;
+  font-size: 1.625rem;
 }
 
 .about-me .cv-download {
   margin: 0 0 $sp-6;
+}
+
+// Plain accent text link with a small download icon (no fill).
+.about-me a.cv-download__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: $ff-sans;
+  font-size: 15px;
+  font-weight: $fw-medium;
+  color: var(--global-theme-color);
+  text-decoration: none;
+
+  i {
+    font-size: 0.875em;
+    color: inherit;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--global-hover-color);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
 }
 
 // ---------------------------------------------------------------------------

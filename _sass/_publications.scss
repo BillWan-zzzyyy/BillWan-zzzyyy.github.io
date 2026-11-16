@@ -5,8 +5,9 @@
 // `.pub-page-meta` line. Used on /publications/ and the homepage's
 // "Selected Publications" block (both wrap the list in `.publications`).
 //
-// Editorial look: serif titles, sans body, one accent (links only), 1px
-// hairlines, no shadows, no fills, no motion. Colors come from CSS variables
+// Restrained look modelled on a plain academic list: sans throughout, ink-navy
+// titles, one red accent for the link row, whitespace between entries, no
+// cards, chips, badges, shadows, fills or motion. Colors come from CSS variables
 // so dark mode follows _themes.scss. This partial is imported after `base`,
 // so equal-specificity rules here win over the legacy publication rules there.
 
@@ -41,23 +42,24 @@
 
 .publications {
   // Year group header (jekyll-scholar emits <h2 class="bibliography">YEAR</h2>):
-  // serif year over a hairline rule. Not sticky.
+  // a small muted sans label over a thin rule. Not sticky.
   h2.bibliography {
     position: static;
-    margin: $sp-7 0 0;
+    margin: $sp-6 0 0;
     padding: 0 0 $sp-2;
     border: 0;
     border-bottom: 1px solid var(--global-divider-color);
     background: transparent;
-    font-family: var(--font-display);
-    font-size: $fs-lg;
+    font-family: $ff-sans;
+    font-size: $fs-sm;
     font-weight: $fw-semibold;
     line-height: $lh-snug;
-    letter-spacing: 0;
-    color: var(--global-text-color);
+    letter-spacing: 0.02em;
+    color: var(--global-text-color-light);
     text-align: left;
   }
 
+  // Entries are separated by whitespace only: no hairlines, no cards.
   ol.bibliography {
     list-style: none;
     margin: 0;
@@ -65,30 +67,28 @@
 
     > li {
       padding: $sp-5 0;
-    }
-
-    > li + li {
-      border-top: 1px solid var(--global-divider-color);
+      border: 0;
     }
 
     > li:first-child {
-      padding-top: $sp-4;
+      padding-top: $sp-5;
     }
   }
 }
 
 // ---------------------------------------------------------------------------
-// One entry
+// One entry: thumbnail left, then title / authors / venue, year / links.
 // ---------------------------------------------------------------------------
 .pub-entry {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: $sp-5;
+  align-items: start;
   margin: 0;
 }
 
 .pub-entry--with-media {
-  grid-template-columns: 220px minmax(0, 1fr);
+  grid-template-columns: 240px minmax(0, 1fr);
 }
 
 .pub-entry__media,
@@ -96,8 +96,8 @@
   min-width: 0;
 }
 
-// Thumbnail: fixed 16:10 frame, whole figure visible (contain), hairline
-// border, no shadow. The <picture> keeps the reduced-motion still source.
+// Thumbnail: natural aspect ratio, capped height, no border or frame. The
+// <picture> keeps the reduced-motion still source.
 .pub-entry__media {
   figure {
     margin: 0;
@@ -112,12 +112,13 @@
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 10;
+  max-height: 200px;
   object-fit: contain;
-  padding: $sp-1;
-  background: var(--global-card-bg-color);
-  border: 1px solid var(--global-divider-color);
-  border-radius: $r-sm;
+  object-position: left top;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 4px;
   box-shadow: none;
 }
 
@@ -125,46 +126,14 @@
   cursor: zoom-in;
 }
 
-// Venue tag: small hairline label above the title. Venues marked
-// `emphasis: strong` in _data/venues.yml get ink text and a darker rule.
-.pub-entry__venue {
-  display: inline-block;
-  margin: 0 0 $sp-2;
-  padding: 1px 7px;
-  border: 1px solid var(--global-divider-color);
-  border-radius: 4px;
-  font-family: $ff-sans;
-  font-size: 0.75rem;
-  font-weight: $fw-semibold;
-  line-height: 1.5;
-  letter-spacing: 0.02em;
-  color: var(--global-text-color-light);
-
-  a {
-    color: inherit;
-    text-decoration: none;
-
-    &:hover,
-    &:focus-visible {
-      color: var(--global-theme-color);
-      text-decoration: none;
-    }
-  }
-}
-
-.pub-entry__venue--strong {
-  border-color: var(--global-text-color-light);
-  color: var(--global-text-color);
-}
-
 .pub-entry__title {
-  margin: 0 0 $sp-2;
-  font-family: var(--font-display);
-  font-size: 1.3125rem; // 21px
+  margin: 0 0 $sp-1;
+  font-family: $ff-sans;
+  font-size: $fs-md;
   font-weight: $fw-semibold;
   line-height: $lh-heading;
   letter-spacing: -0.005em;
-  color: var(--global-text-color);
+  color: var(--heading-color);
 
   a {
     color: inherit;
@@ -181,6 +150,7 @@
 .pub-entry__authors {
   font-family: $ff-sans;
   font-size: 1rem;
+  font-weight: $fw-regular;
   line-height: 1.5;
   color: var(--global-text-color);
 
@@ -224,55 +194,32 @@
   }
 }
 
+// Small muted icon whose popover explains the * / ✉ marks.
 .pub-entry__annotation {
   margin-left: $sp-1;
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   color: var(--global-text-color-light);
   cursor: help;
 }
 
-.pub-entry__summary {
-  max-width: 720px;
-  margin: $sp-2 0 0;
+// "<full venue name>, <year>" in plain muted text.
+.pub-entry__venue {
+  margin-top: 2px;
   font-family: $ff-sans;
-  font-size: 1rem;
-  line-height: 1.55;
-  color: var(--global-text-color-light);
-}
-
-// Venue · month year
-.pub-entry__meta {
-  margin-top: $sp-2;
-  font-family: $ff-sans;
-  font-size: $fs-sm;
+  font-size: 0.9375rem;
+  font-style: normal;
   line-height: 1.5;
   color: var(--global-text-color-light);
-
-  span,
-  em {
-    font-style: normal;
-    color: inherit;
-  }
-
-  .pub-entry__journal {
-    font-style: italic;
-  }
-
-  a {
-    color: inherit;
-  }
 }
 
-// Quiet row of text links: Paper · Project · Code · Video · BibTeX
+// Optional highlight phrase, then text links separated by spaced bullets:
+// Best Paper Award  •  Paper  •  Project  •  Code  •  Video
 .pub-entry__links {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  margin-top: $sp-3;
+  margin-top: $sp-1;
   font-family: $ff-sans;
-  font-size: $fs-sm;
-  font-weight: $fw-semibold;
-  line-height: 1.5;
+  font-size: 0.9375rem;
+  font-weight: $fw-regular;
+  line-height: 1.6;
 
   a,
   button {
@@ -282,6 +229,7 @@
     font: inherit;
     color: var(--global-theme-color);
     text-decoration: none;
+    white-space: nowrap;
     cursor: pointer;
 
     &:hover,
@@ -304,23 +252,23 @@
   }
 }
 
+.pub-entry__highlight {
+  font-weight: $fw-bold;
+  white-space: nowrap;
+  color: var(--global-theme-color);
+}
+
+// The template puts a no-break space before the bullet and a normal space after
+// it (so the row wraps after a bullet);
+// the padding widens that to roughly 0.6em per side.
 .pub-entry__sep {
-  padding: 0 0.5em;
-  font-weight: $fw-regular;
+  padding: 0 0.3em;
   color: var(--global-text-color-light);
 }
 
-.pub-entry__badges {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: $sp-2;
-  margin-top: $sp-2;
-}
-
-// Collapsible panels (BibTeX / award / video), toggled by assets/js/common.js
-// adding `.open`. Selectors outrank the legacy `.publications … li .hidden`
-// rules in _base.scss.
+// Collapsible video panel (only with enable_video_embedding), toggled by
+// assets/js/common.js adding `.open`. Selectors outrank the legacy
+// `.publications … li .hidden` rules in _base.scss.
 .publications .pub-entry .pub-entry__panel.hidden {
   display: none;
   max-height: none;
@@ -335,40 +283,6 @@
   display: block;
   max-height: none;
   margin-top: $sp-3;
-  border: 1px solid var(--global-divider-color);
-  border-radius: $r-sm;
-}
-
-.publications .pub-entry .pub-entry__panel.hidden {
-  figure.highlight {
-    margin: 0;
-  }
-
-  pre {
-    margin: 0;
-    padding: $sp-3;
-    max-height: 22em;
-    overflow: auto;
-    border-radius: $r-sm;
-    background: var(--global-code-bg-color);
-    font-family: $ff-mono;
-    font-size: 0.8125rem;
-    line-height: 1.5;
-    white-space: pre;
-    color: var(--global-text-color);
-
-    code {
-      padding: 0;
-      background: none;
-      font: inherit;
-      color: inherit;
-    }
-  }
-
-  p {
-    margin: $sp-3;
-    line-height: 1.5;
-  }
 }
 
 // ---------------------------------------------------------------------------
@@ -381,7 +295,7 @@
   }
 
   .publications h2.bibliography {
-    margin-top: $sp-6;
+    margin-top: $sp-5;
   }
 
   .pub-entry--with-media {
@@ -390,11 +304,12 @@
   }
 
   .pub-entry__media {
-    width: min(100%, 280px);
+    width: 100%;
+    max-width: 360px;
   }
 
-  .pub-entry__title {
-    font-size: 1.1875rem; // 19px
+  .pub-entry__thumb {
+    max-height: 220px;
   }
 }
 

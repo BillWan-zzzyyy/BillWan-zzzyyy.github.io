@@ -1,12 +1,16 @@
 /*******************************************************************************
  * Themes — consume tokens from _tokens.scss, expose via CSS variables.
  *
- * Neutral light and dark palettes with a single platform-blue accent.
+ * Neutral light and dark palettes: ink-navy headings and a single deep-red
+ * accent. No fills, gradients or tinted highlight backgrounds.
  *
  * Shared primitives (use these names; do not add duplicates):
- *   --font-display            serif stack for h1–h3, page titles, site name
+ *   --font-display            heading stack (h1–h3, page titles, site name);
+ *                             now the same system sans as the body
  *   --font-body               system sans stack for body text
- *   --global-theme-color      the accent (links, primary buttons only)
+ *   --heading-color           ink for h1–h3, page titles, site name, paper titles
+ *   --global-theme-color      the accent (call-to-action links, link rows,
+ *                             active nav underline, highlight phrases)
  *   --global-hover-color      accent hover state
  *   --global-hover-text-color text drawn on an accent fill
  *   --global-divider-color    1px hairline borders / dividers (alias: --hairline)
@@ -26,16 +30,19 @@
   --global-code-bg-color: #{$cream-subtle};
   --global-bg-subtle: #{$cream-subtle};
 
-  // Text (Claude near-black + warm meta grey)
+  // Text (near-black body + neutral meta grey)
   --global-text-color: #{$claude-ink};
   --global-text-color-light: #{$claude-ink-light};
 
-  // Accent — platform blue
-  --global-theme-color: #0066cc;
-  --global-hover-color: #004f9e;
+  // Headings — deep ink navy
+  --heading-color: #16233f;
+
+  // Accent — deep red (6.8:1 on white; white text on it 6.8:1)
+  --global-theme-color: #b4161b;
+  --global-hover-color: #8f1115;
   --global-hover-text-color: #{$cream-bg};
-  --global-highlight-color: #0066cc;
-  --global-quote-left: #0066cc;
+  --global-highlight-color: #b4161b;
+  --global-quote-left: #b4161b;
 
   // Publication actions — filled primary pill uses the single accent; metric
   // pills stay neutral.
@@ -67,7 +74,7 @@
   --global-newsletter-bg-color: #{$cream-bg};
   --global-newsletter-text-color: #{$claude-ink};
 
-  --global-quoto-block-bg: #fffacd;
+  --global-quoto-block-bg: #{$cream-subtle};
 
   --global-tip-block: #42b983;
   --global-tip-block-bg: #e2f5ec;
@@ -123,12 +130,16 @@ html[data-theme="dark"] {
   --global-text-color: #{$warm-dark-text};
   --global-text-color-light: #{$warm-dark-meta};
 
-  // Accent — brighter platform blue for dark surfaces.
-  --global-theme-color: #2997ff;
-  --global-hover-color: #66b5ff;
+  // Headings — pale ink
+  --heading-color: #e6ebf5;
+
+  // Accent — light coral red for dark surfaces (7.5:1 on the dark background).
+  --global-theme-color: #ff7b72;
+  --global-hover-color: #ffa198;
   --global-hover-text-color: #{$warm-dark-bg};
-  --global-highlight-color: #2997ff;
-  --global-quote-left: #2997ff;
+  --global-highlight-color: #ff7b72;
+  --global-quote-left: #ff7b72;
+  --global-quoto-block-bg: #{$warm-dark-subtle};
 
   // Publication actions — filled primary pill uses the single accent; metric
   // pills stay neutral.

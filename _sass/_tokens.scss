@@ -2,7 +2,7 @@
  * Design tokens — editorial academic look
  *
  * Sass-side source for neutrals, type, spacing, radius, shadow and motion.
- * The accent (platform blue) and every themed color are defined as CSS
+ * The accent (deep red) and every themed color are defined as CSS
  * variables in _themes.scss; component Sass should read colors through those
  * CSS variables (never these Sass tokens directly) so dark mode keeps working.
  ******************************************************************************/
@@ -49,13 +49,13 @@ $ink-800: #dde0e6 !default;
 $ink-900: #e8eaed !default;
 
 // ------------ Typography families ----------------------------------------
-// Body: system sans. Display (h1–h3, page titles, site name): system serif,
-// no web fonts. Exposed at runtime as `--font-display` (see _themes.scss).
+// One family: body and display (h1–h3, page titles, site name) share the
+// system sans stack, no web fonts. $ff-display / `--font-display` (see
+// _themes.scss) are kept as names so heading rules keep working.
 $ff-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
-$ff-display: "New York", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+$ff-display: $ff-sans;
 // Legacy alias: older partials (notably _cv.scss) use $ff-serif for body-size
-// text, so it stays on the sans stack. Use $ff-display / var(--font-display)
-// for serif headings.
+// text, so it stays on the sans stack too.
 $ff-serif: $ff-sans;
 $ff-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 
@@ -96,8 +96,8 @@ $sp-9: 96px;
 
 // ------------ Radius -----------------------------------------------------
 $r-sm: 8px; // inputs and compact controls
-$r-md: 12px; // cards (hairline cards use this)
-$r-lg: 16px; // media
+$r-md: 8px; // cards (hairline cards use this) — kept small for a quiet look
+$r-lg: 10px; // media
 $r-pill: 999px;
 
 // ------------ Shadow -----------------------------------------------------

@@ -6,6 +6,7 @@
     exclude     comma-separated networks to skip
     labels      true → print a short text label after the icon
     link_class  class added to every <a>
+    cv_icon     icon classes for the CV link (default: the academicons "CV" glyph)
 
   With no parameters it renders one icon link per configured network (navbar usage).
 {% endcomment %}
@@ -38,7 +39,7 @@
         {% assign s_href = site.cv_pdf | prepend: 'assets/pdf/' | relative_url %}
         {% assign s_title = 'CV' %}
         {% assign s_label = 'CV' %}
-        {% assign s_icon = 'ai ai-cv' %}
+        {% assign s_icon = include.cv_icon | default: 'ai ai-cv' %}
         {% assign s_attrs = 'target="_blank" rel="noopener noreferrer"' %}
       {% endif %}
     {% when 'telegram' %}
