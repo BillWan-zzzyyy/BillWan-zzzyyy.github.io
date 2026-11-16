@@ -17,7 +17,6 @@
   }
 }
 
-.about-me.cv-page > h4,
 .about-me.beyond-page > h4 {
   font-size: $fs-xl;
 }
@@ -51,7 +50,8 @@
 }
 
 // ---------------------------------------------------------------------------
-// Research page
+// Research page: plain document, like the home page (no rules between
+// sections, accent links without underline, unbulleted paper lists).
 // ---------------------------------------------------------------------------
 .research-page {
   p,
@@ -61,22 +61,28 @@
   }
 
   .research-section {
-    padding: $sp-6 0;
-    border-top: 1px solid var(--global-divider-color);
+    margin-top: $sp-7;
+    padding: 0;
+    border-top: 0;
 
     &:first-child {
-      padding-top: 0;
-      border-top: 0;
+      margin-top: 0;
     }
 
     // Anchored from the homepage; the navbar is not fixed, so only a little air.
     scroll-margin-top: $sp-4;
   }
 
+  // Same as .home-v2-section__title.
   h2 {
     margin: 0 0 $sp-3;
+    font-family: var(--font-display);
     font-size: $fs-xl;
+    font-weight: $fw-semibold;
     line-height: $lh-snug;
+    letter-spacing: normal;
+    text-transform: none;
+    color: var(--heading-color);
   }
 
   h3 {
@@ -85,8 +91,24 @@
     margin: $sp-5 0 $sp-2;
   }
 
+  // Inline links are marked by the accent colour alone; the underline only
+  // appears on hover (same recipe as .home-v2-bio a). Out-specifies the
+  // underlined body-link rule in _base.scss.
+  a {
+    color: var(--global-theme-color);
+    text-decoration: none;
+    border-bottom: 0;
+    background-image: none;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--global-hover-color);
+      text-decoration: underline;
+    }
+  }
+
   figure {
-    margin: $sp-5 0;
+    margin: 20px 0;
   }
 
   // Large figure with hairline border and modest radius.
@@ -109,12 +131,18 @@
   }
 
   .research-related {
-    padding-left: 1.1rem;
+    list-style: none;
+    padding-left: 0;
     margin: 0;
+    font-size: 15px;
 
     li + li {
-      margin-top: $sp-2;
+      margin-top: 6px;
     }
+  }
+
+  .research-related__year {
+    color: var(--global-text-color-light);
   }
 
   .research-projects {
@@ -122,15 +150,18 @@
   }
 
   .research-project {
-    padding-top: $sp-4;
+    padding-top: 0;
+    border-top: 0;
 
     & + .research-project {
       margin-top: $sp-5;
-      border-top: 1px solid var(--global-divider-color);
     }
 
     h3 {
       margin-top: 0;
+      font-size: $fs-md;
+      font-weight: $fw-semibold;
+      color: var(--heading-color);
     }
 
     .inline-logo {
@@ -143,9 +174,110 @@
   }
 }
 
+// ---------------------------------------------------------------------------
+// CV page: two-column rows (date | entry) under plain section titles.
+// ---------------------------------------------------------------------------
+.about-me.cv-page {
+  .cv-block {
+    margin-top: $sp-7;
+  }
+
+  // The download paragraph's bottom margin collapses into this one: 32px gap.
+  .cv-download + .cv-block {
+    margin-top: $sp-6;
+  }
+
+  // Same as .home-v2-section__title, with a little more air below.
+  .cv-block__title {
+    margin: 0 0 $sp-4;
+    font-family: var(--font-display);
+    font-size: $fs-xl;
+    font-weight: $fw-semibold;
+    line-height: $lh-snug;
+    letter-spacing: normal;
+    text-transform: none;
+    color: var(--heading-color);
+  }
+
+  .cv-row {
+    display: grid;
+    grid-template-columns: 132px minmax(0, 1fr);
+    column-gap: $sp-5;
+    max-width: none;
+  }
+
+  .cv-row + .cv-row {
+    margin-top: 20px;
+  }
+
+  // Same 24px line box as the title (16px x 1.5); the 1px nudge lands the
+  // smaller text on the title's baseline.
+  .cv-row__date {
+    padding-top: 1px;
+    font-family: $ff-sans;
+    font-size: 14px;
+    line-height: 24px;
+    color: var(--global-text-color-light);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .cv-row__title {
+    font-family: $ff-sans;
+    font-size: $fs-base;
+    font-weight: $fw-semibold;
+    line-height: 1.5;
+    color: var(--global-text-color);
+  }
+
+  .cv-row__org {
+    font-weight: $fw-regular;
+  }
+
+  .cv-row__sub {
+    margin-top: 2px;
+    font-family: $ff-sans;
+    font-size: 15px;
+    font-weight: $fw-regular;
+    line-height: 1.5;
+    color: var(--global-text-color);
+
+    .inline-logo {
+      margin-left: 0;
+    }
+  }
+
+  // A body that opens with the sub line (Service) aligns it with the date.
+  .cv-row__body > .cv-row__sub:first-child {
+    margin-top: 0;
+    line-height: 24px;
+  }
+
+  .cv-row__note {
+    margin-top: 2px;
+    font-family: $ff-sans;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--global-text-color-light);
+  }
+}
+
 @media (max-width: 575px) {
-  .research-page .research-section {
-    padding: $sp-5 0;
+  .about-me.cv-page {
+    .cv-row {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cv-row + .cv-row {
+      margin-top: 18px;
+    }
+
+    .cv-row__date {
+      padding-top: 0;
+      font-size: 13px;
+      line-height: 1.5;
+      white-space: normal;
+    }
   }
 }
 

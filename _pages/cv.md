@@ -34,9 +34,11 @@ education:
 
 service:
   - role: Journal Reviewer
+    label: Journal
     venues:
       - IEEE Transactions on Intelligent Transportation Systems (T-ITS)
   - role: Conference Reviewer
+    label: Conference
     venues:
       - Transportation Research Board (TRB) Annual Meeting
 
@@ -68,58 +70,65 @@ talks:
     >
   </p>
 
-  <h4>Education</h4>
-
-  <div class="entry-list">
+  <section class="cv-block">
+    <h2 class="cv-block__title">Education</h2>
     {% for edu in page.education %}
-      <div class="entry">
-        <div class="entry__title">{{ edu.degree }}</div>
-        <div class="entry__sub">
-          {% if edu.logo %}
-            <img src="{{ edu.logo | prepend: 'assets/img/' | relative_url }}" class="inline-logo" alt="{{ edu.institution }}">
+      <div class="cv-row">
+        <div class="cv-row__date">{{ edu.period }}</div>
+        <div class="cv-row__body">
+          <div class="cv-row__title">{{ edu.degree }}</div>
+          <div class="cv-row__sub">
+            {% if edu.logo %}<img src="{{ edu.logo | prepend: 'assets/img/' | relative_url }}" class="inline-logo" alt=""> {% endif %}{{ edu.institution }}{% if edu.college %}, {% if edu.college_url %}<a href="{{ edu.college_url }}">{{ edu.college }}</a>{% else %}{{ edu.college }}{% endif %}{% endif %}
+          </div>
+          {% if edu.advisor %}
+            <div class="cv-row__note">
+              Advisor: {% if edu.advisor_url %}<a href="{{ edu.advisor_url }}">{{ edu.advisor }}</a>{% else %}{{ edu.advisor }}{% endif %}
+            </div>
           {% endif %}
-          {% if edu.college %}{% if edu.college_url %}<a href="{{ edu.college_url }}">{{ edu.college }}</a>{% else %}{{ edu.college }}{% endif %}, {% endif %}{{ edu.institution }}
-        </div>
-        <div class="entry__meta">
-          {{ edu.period }}{% if edu.advisor %} · Advisor: {% if edu.advisor_url %}<a href="{{ edu.advisor_url }}">{{ edu.advisor }}</a>{% else %}{{ edu.advisor }}{% endif %}{% endif %}
         </div>
       </div>
     {% endfor %}
-  </div>
+  </section>
 
-  <h4>Honors and awards</h4>
-
-  <div class="entry-list">
+  <section class="cv-block">
+    <h2 class="cv-block__title">Honors and awards</h2>
     {% for a in page.awards %}
-      <div class="entry">
-        <div class="entry__title">{{ a.title }}</div>
-        {% if a.detail %}
-          <div class="entry__sub">“{{ a.detail }}”</div>
-        {% endif %}
-        <div class="entry__meta">{{ a.institution }} · {{ a.year }}</div>
+      <div class="cv-row">
+        <div class="cv-row__date">{{ a.year }}</div>
+        <div class="cv-row__body">
+          <div class="cv-row__title">
+            {{ a.title }}{% if a.institution %}<span class="cv-row__org">, {{ a.institution }}</span>{% endif %}
+          </div>
+          {% if a.detail %}
+            <div class="cv-row__note">“{{ a.detail }}”</div>
+          {% endif %}
+        </div>
       </div>
     {% endfor %}
-  </div>
+  </section>
 
-  <h4>Talks</h4>
-
-  <div class="entry-list">
+  <section class="cv-block">
+    <h2 class="cv-block__title">Talks</h2>
     {% for t in page.talks %}
-      <div class="entry">
-        <div class="entry__title">{{ t.title }}</div>
-        <div class="entry__meta">{{ t.venue }} · {{ t.year }}</div>
+      <div class="cv-row">
+        <div class="cv-row__date">{{ t.year }}</div>
+        <div class="cv-row__body">
+          <div class="cv-row__title">{{ t.title }}</div>
+          <div class="cv-row__note">{{ t.venue }}</div>
+        </div>
       </div>
     {% endfor %}
-  </div>
+  </section>
 
-  <h4>Service</h4>
-
-  <div class="entry-list">
+  <section class="cv-block">
+    <h2 class="cv-block__title">Service</h2>
     {% for item in page.service %}
-      <div class="entry">
-        <div class="entry__title">{{ item.role }}</div>
-        <div class="entry__sub">{{ item.venues | join: '; ' }}</div>
+      <div class="cv-row">
+        <div class="cv-row__date" aria-hidden="true">{{ item.label | default: item.role }}</div>
+        <div class="cv-row__body">
+          <div class="cv-row__sub"><span class="sr-only">{{ item.role }}: </span>{{ item.venues | join: '; ' }}</div>
+        </div>
       </div>
     {% endfor %}
-  </div>
+  </section>
 </div>
