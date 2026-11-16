@@ -137,3 +137,15 @@
 .about-me.cv-page {
   overflow-wrap: anywhere;
 }
+
+// Page-level link rules (.post a, .about-me a) outrank the shared button
+// primitive, so restate the on-accent text colour for buttons inside page content.
+.post a.link-btn-primary,
+.about-me a.link-btn-primary {
+  color: var(--global-hover-text-color);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--global-hover-text-color);
+  }
+}

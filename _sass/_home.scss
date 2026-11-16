@@ -59,7 +59,8 @@
   max-width: 20ch;
   margin: 0 0 $sp-5;
   font-family: var(--font-display);
-  font-size: clamp(2rem, 1.25rem + 2.4vw, 3.25rem);
+  // No "+" inside clamp(): the production CSS minifier strips the spaces around it and invalidates the value.
+  font-size: clamp(2rem, 4.2vw, 3.25rem);
   font-weight: $fw-medium;
   line-height: 1.12;
   letter-spacing: -0.015em;
