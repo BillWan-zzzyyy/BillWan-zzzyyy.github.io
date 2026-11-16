@@ -4,9 +4,8 @@ layout: default
 {% comment %}
   Homepage. Content lives in _pages/about.md front matter:
     eyebrow   list of { text, url } shown above the name
-    tagline   one-sentence positioning statement (the visual headline)
-    hero      { image, alt, video, poster, avatar, avatar_alt } — site-root paths
-    research  { title, cards: [{ title, text, url }] }
+    hero      { image, alt, video, poster } — site-root paths
+    research  { title, lead, cards: [{ title, text, url }] } — lead is the one-sentence research summary
   The Markdown body of about.md is the short bio.
 {% endcomment %}
 <div class="home-v2">
@@ -36,10 +35,6 @@ layout: default
           {{ site.title }}
         {%- endif -%}
       </h1>
-
-      {% if page.tagline %}
-        <p class="home-v2-tagline">{{ page.tagline }}</p>
-      {% endif %}
 
       <div class="home-v2-bio">{{ content }}</div>
 
@@ -106,21 +101,6 @@ layout: default
             fetchpriority="high"
           %}
         {% endif %}
-
-        {% if hero.avatar != blank %}
-          <div class="home-v2-avatar">
-            {%
-              include figure.liquid
-              path=hero.avatar
-              width="96"
-              height="96"
-              sizes="96px"
-              alt=hero.avatar_alt
-              loading="eager"
-              cache_bust=true
-            %}
-          </div>
-        {% endif %}
       </div>
     {% endif %}
   </section>
@@ -130,6 +110,9 @@ layout: default
       <h2 class="home-v2-section__title" id="home-v2-research-title">
         <a href="{{ '/research/' | relative_url }}">{{ page.research.title | default: 'Research' }}</a>
       </h2>
+      {% if page.research.lead %}
+        <p class="home-v2-lead">{{ page.research.lead }}</p>
+      {% endif %}
       <ul class="home-v2-cards">
         {% for card in page.research.cards %}
           <li>

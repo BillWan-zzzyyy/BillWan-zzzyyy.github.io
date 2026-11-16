@@ -44,32 +44,38 @@
   }
 }
 
-// The name stays the page's <h1>, but sits a step below the statement.
+// The name is the hero headline.
 .home-v2-name {
-  margin: 0 0 $sp-4;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: $fw-semibold;
-  line-height: $lh-snug;
-  letter-spacing: 0;
-  color: var(--global-text-color);
-}
-
-.home-v2-tagline {
-  max-width: 20ch;
   margin: 0 0 $sp-5;
   font-family: var(--font-display);
   // No "+" inside clamp(): the production CSS minifier strips the spaces around it and invalidates the value.
-  font-size: clamp(2rem, 4.2vw, 3.25rem);
+  font-size: clamp(2.25rem, 4.4vw, 3.5rem);
+  font-weight: $fw-semibold;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--global-text-color);
+}
+
+// One-sentence research summary that opens the Research section.
+.home-v2-lead {
+  max-width: 28ch;
+  margin: 0 0 $sp-6;
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 3vw, 2.375rem);
   font-weight: $fw-medium;
-  line-height: 1.12;
-  letter-spacing: -0.015em;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
   color: var(--global-text-color);
   text-wrap: balance;
 }
 
 .home-v2-bio {
   max-width: 62ch;
+
+  .inline-logo {
+    margin: 0 0.3em 0 0.1em;
+  }
+
   font-size: $fs-base;
   line-height: $lh-body;
   color: var(--global-text-color);
@@ -177,7 +183,7 @@
   }
 }
 
-// Media: fixed square frame (no layout shift) + portrait avatar at bottom-right.
+// Media: fixed square frame (no layout shift).
 .home-v2-media {
   position: relative;
   min-width: 0;
@@ -205,31 +211,6 @@
     border: 1px solid var(--global-divider-color);
     border-radius: $r-lg;
     background: var(--global-bg-subtle);
-  }
-}
-
-.home-v2-avatar {
-  position: absolute;
-  right: $sp-4;
-  bottom: $sp-4;
-  width: clamp(64px, 20%, 96px);
-  aspect-ratio: 1 / 1;
-
-  figure,
-  picture {
-    display: block;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-  }
-
-  img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border: 3px solid var(--global-bg-color);
-    border-radius: 50% !important; // beats the global `figure > img` radius
   }
 }
 
@@ -398,10 +379,6 @@
 
   .home-v2-section__title {
     font-size: 1.5rem;
-  }
-
-  .home-v2-name {
-    font-size: 1.25rem;
   }
 
   .home-v2-links {

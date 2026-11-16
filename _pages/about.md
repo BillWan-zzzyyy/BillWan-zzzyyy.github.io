@@ -11,23 +11,19 @@ eyebrow:
   - text: Sky-Lab
     url: https://sky-lab-uw.github.io/
 
-# One-sentence positioning statement — the large serif headline of the homepage.
-tagline: "I take driving policies from simulation onto a real, full-scale vehicle."
-
-# Hero media (paths are relative to the site root). When `video` is set it replaces
-# the image (muted, looping; paused for visitors who prefer reduced motion) and
-# `poster` (default: `image`) is shown until it plays.
+# Hero photo (path relative to the site root). When `video` is set it replaces
+# the image (muted, looping; paused for visitors who prefer reduced motion).
 hero:
-  image: assets/img/home/hero.jpg
-  alt: "Sky-Lab's full-scale autonomous test van with its rear doors open, showing the elevated camera mast and onboard equipment"
+  image: assets/img/profile.jpg
+  alt: Zhengyang Wan in Chicago
   video: ""
   poster: ""
-  avatar: assets/img/profile.jpg
-  avatar_alt: Portrait of Zhengyang Wan
 
 # Three research themes; each card links to a section of the Research page.
 research:
   title: Research
+  # One-sentence research summary shown at the start of the Research section.
+  lead: "I take driving policies from simulation onto a real, full-scale vehicle."
   cards:
     - title: Sim-to-real driving
       text: Deploying driving policies trained in simulation on a full-scale autonomous vehicle.
@@ -44,4 +40,4 @@ selected_papers: true # papers marked selected={true} in _bibliography/papers.bi
 social: true # CV button + contact links in the hero
 ---
 
-I joined [Sky-Lab](https://sky-lab-uw.github.io/) in the Department of Civil and Environmental Engineering at the [University of Wisconsin–Madison](https://www.wisc.edu/) in Fall 2025, advised by Dr. [Sikai (Sky) Chen](https://sky-lab-uw.github.io/people/), after earning my B.E. and M.S. at [Tongji University](https://en.tongji.edu.cn/). I work on autonomous driving and human-centered intelligent transportation through simulation, real-vehicle testing and human-AI collaboration, and I contribute to [SkyDrive](https://github.com/BillWan-zzzyyy/Sky-Drive), Sky-Lab's open-source multi-agent platform for future transportation systems.
+I joined <img src="/assets/img/skylab.png" class="inline-logo" alt=""/>[Sky-Lab](https://sky-lab-uw.github.io/) in the Department of Civil and Environmental Engineering at the <img src="/assets/img/uwmadison.png" class="inline-logo" alt=""/>[University of Wisconsin–Madison](https://www.wisc.edu/) in Fall 2025, advised by Dr. [Sikai (Sky) Chen](https://sky-lab-uw.github.io/people/), after earning my B.E. and M.S. at <img src="/assets/img/tongji.png" class="inline-logo" alt=""/>[Tongji University](https://en.tongji.edu.cn/). I work on autonomous driving and human-centered intelligent transportation through simulation, real-vehicle testing and human-AI collaboration, and I contribute to <img src="/assets/img/Sky-Drive.png" class="inline-logo" alt=""/>[SkyDrive](https://github.com/BillWan-zzzyyy/Sky-Drive), Sky-Lab's open-source multi-agent platform for future transportation systems.
