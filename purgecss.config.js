@@ -8,7 +8,6 @@ module.exports = {
       "open",
       "active",
       "bio",
-      "eyebrow",
       "meta-strip",
       "inline-logo",
       "home-section",

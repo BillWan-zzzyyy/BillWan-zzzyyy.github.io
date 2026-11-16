@@ -45,8 +45,8 @@
   // a small muted sans label over a thin rule. Not sticky.
   h2.bibliography {
     position: static;
-    margin: $sp-6 0 0;
-    padding: 0 0 $sp-2;
+    margin: $sp-5 0 0;
+    padding: 0 0 $sp-1;
     border: 0;
     border-bottom: 1px solid var(--global-divider-color);
     background: transparent;
@@ -65,13 +65,14 @@
     margin: 0;
     padding: 0;
 
+    // 24px between entries.
     > li {
-      padding: $sp-5 0;
+      padding: $sp-3 0;
       border: 0;
     }
 
     > li:first-child {
-      padding-top: $sp-5;
+      padding-top: $sp-4;
     }
   }
 }
@@ -82,13 +83,13 @@
 .pub-entry {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: $sp-5;
+  gap: 20px;
   align-items: start;
   margin: 0;
 }
 
 .pub-entry--with-media {
-  grid-template-columns: 240px minmax(0, 1fr);
+  grid-template-columns: 180px minmax(0, 1fr);
 }
 
 .pub-entry__media,
@@ -112,13 +113,13 @@
   display: block;
   width: 100%;
   height: auto;
-  max-height: 200px;
+  max-height: 150px;
   object-fit: contain;
   object-position: left top;
   padding: 0;
   background: transparent;
   border: 0;
-  border-radius: 4px;
+  border-radius: $r-md;
   box-shadow: none;
 }
 
@@ -132,7 +133,7 @@
   font-size: $fs-md;
   font-weight: $fw-semibold;
   line-height: $lh-heading;
-  letter-spacing: -0.005em;
+  letter-spacing: normal;
   color: var(--heading-color);
 
   a {

@@ -7,6 +7,10 @@
     labels      true → print a short text label after the icon
     link_class  class added to every <a>
     cv_icon     icon classes for the CV link (default: the academicons "CV" glyph)
+    text_only   true → plain text links: the label only, no icon (implies labels)
+    separator   text printed after every link, e.g. '/' → "Email / CV / Scholar".
+                It is glued to the link with a no-break space, so lines wrap after it;
+                hide the trailing one with `.social-sep:last-child { display: none; }`.
 
   With no parameters it renders one icon link per configured network (navbar usage).
 {% endcomment %}
@@ -343,9 +347,14 @@
           aria-haspopup="dialog"
           aria-expanded="false"
           data-wechat-trigger
-          ><i aria-hidden="true" class="fa-brands fa-weixin"></i>
-          {%- if include.labels -%}
+        >
+          {%- if include.text_only -%}
             WeChat
+          {%- else -%}
+            <i aria-hidden="true" class="fa-brands fa-weixin"></i>
+            {%- if include.labels -%}
+              WeChat
+            {%- endif -%}
           {%- endif -%}
         </a>
         <div
@@ -362,6 +371,9 @@
           <img class="wechat-modal__qr" src="{{ wechat_qr_path }}" alt="Scan this QR code to connect on WeChat">
         </div>
         {% include scripts/wechatModal.liquid %}
+        {%- if include.separator -%}
+          <span class="social-sep" aria-hidden="true">&nbsp;{{ include.separator }}</span>
+        {%- endif %}
       {% endif %}
   {% endcase %}
 
@@ -372,12 +384,22 @@
       {% endif %}
       href="{{ s_href }}"
       title="{{ s_title }}"
-      aria-label="{{ s_title }}"
+      {% unless include.text_only %}
+        aria-label="{{ s_title }}"
+      {% endunless %}
       {{ s_attrs }}
-      ><i aria-hidden="true" class="{{ s_icon }}"></i>
-      {%- if include.labels -%}
+    >
+      {%- if include.text_only -%}
         {{ s_label }}
+      {%- else -%}
+        <i aria-hidden="true" class="{{ s_icon }}"></i>
+        {%- if include.labels -%}
+          {{ s_label }}
+        {%- endif -%}
       {%- endif -%}
     </a>
+    {%- if include.separator -%}
+      <span class="social-sep" aria-hidden="true">&nbsp;{{ include.separator }}</span>
+    {%- endif %}
   {% endif %}
 {% endfor %}

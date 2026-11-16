@@ -2,31 +2,15 @@
 layout: default
 ---
 {% comment %}
-  Homepage. Content lives in _pages/about.md front matter:
-    eyebrow   list of { text, url } shown above the name
-    hero      { image, alt, video, poster } — site-root paths
-    research  { title, lead, cards: [{ title, text, url }] } — lead is the one-sentence research summary
-    social    true → one row of icon + label links (CV, Scholar, GitHub, LinkedIn, Email, ORCID, WeChat)
-  The Markdown body of about.md is the short bio.
+  Homepage, laid out as a plain document. Content lives in _pages/about.md:
+    hero      { image, alt, video, poster } — site-root paths; the portrait beside the name
+    social    true → one line of text links (Email / CV / Scholar / …) under the bio
+    selected_papers, news  true → the sections below the intro
+  The Markdown body of about.md is the bio.
 {% endcomment %}
 <div class="home-v2">
-  <section class="home-v2-hero" aria-labelledby="home-v2-name">
-    <div class="home-v2-hero__text">
-      {% if page.eyebrow %}
-        <p class="eyebrow home-v2-eyebrow">
-          {%- for item in page.eyebrow -%}
-            {%- if item.url -%}
-              <a href="{{ item.url }}">{{ item.text }}</a>
-            {%- else -%}
-              {{ item.text }}
-            {%- endif -%}
-            {%- unless forloop.last -%}
-              <span class="home-v2-eyebrow__sep" aria-hidden="true"> · </span>
-            {%- endunless -%}
-          {%- endfor -%}
-        </p>
-      {% endif %}
-
+  <section class="home-v2-intro" aria-labelledby="home-v2-name">
+    <div class="home-v2-intro__text">
       <h1 class="home-v2-name" id="home-v2-name">
         {%- if site.title == 'blank' -%}
           {{ site.first_name }}
@@ -41,16 +25,16 @@ layout: default
 
       {% if page.social %}
         {%- comment -%}
-          One row, one structure: every item is an icon + label link with the same class, so a
-          single flex gap spaces them evenly. The WeChat link keeps its QR modal right after it.
+          Plain text links separated by " / ". The WeChat link keeps its QR modal right after it;
+          the trailing separator is hidden in CSS (.social-sep:last-child).
         {%- endcomment -%}
         <div class="home-v2-links">
           {%
             include social.liquid
-            keys='cv,scholar,github,linkedin,email,orcid,wechat'
-            labels=true
+            keys='email,cv,scholar,github,linkedin,orcid,wechat'
+            text_only=true
+            separator='/'
             link_class='home-v2-link'
-            cv_icon='fa-solid fa-file-lines'
           %}
         </div>
       {% endif %}
@@ -102,7 +86,7 @@ layout: default
             class="home-v2-media__img"
             width="960"
             height="960"
-            sizes="(min-width: 992px) 320px, 280px"
+            sizes="(min-width: 768px) 220px, 160px"
             alt=hero.alt
             loading="eager"
             fetchpriority="high"
@@ -111,30 +95,6 @@ layout: default
       </div>
     {% endif %}
   </section>
-
-  {% if page.research.cards %}
-    <section class="home-v2-section home-v2-research" aria-labelledby="home-v2-research-title">
-      <h2 class="home-v2-section__title" id="home-v2-research-title">
-        <a href="{{ '/research/' | relative_url }}">{{ page.research.title | default: 'Research' }}</a>
-      </h2>
-      {% if page.research.lead %}
-        <p class="home-v2-lead">{{ page.research.lead }}</p>
-      {% endif %}
-      <ul class="home-v2-cards">
-        {% for card in page.research.cards %}
-          <li>
-            <a class="hairline-card home-v2-card" href="{{ card.url | relative_url }}">
-              <h3 class="home-v2-card__title">
-                {{ card.title -}}
-                <span class="home-v2-card__arrow" aria-hidden="true">→</span>
-              </h3>
-              <p class="home-v2-card__text">{{ card.text }}</p>
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-    </section>
-  {% endif %}
 
   {% if page.selected_papers %}
     <section class="home-v2-section selected-publications" aria-labelledby="home-v2-pubs-title">

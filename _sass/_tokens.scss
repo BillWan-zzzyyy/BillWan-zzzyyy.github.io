@@ -11,12 +11,12 @@
 // Light: pure white surfaces, near-black ink. Dark: warm-dark surfaces.
 $cream-bg: #ffffff !default;
 $cream-subtle: #f5f5f7 !default;
-$claude-ink: #1d1d1f !default;
-$claude-ink-light: #6e6e73 !default;
+$claude-ink: #1a1a1a !default;
+$claude-ink-light: #5c5c61 !default; // secondary metadata only (6.6:1 on white)
 $warm-dark-bg: #111113 !default;
 $warm-dark-card: #1d1d1f !default;
 $warm-dark-subtle: #242426 !default;
-$warm-dark-text: #f5f5f7 !default;
+$warm-dark-text: #e6e6e8 !default; // soft near-white body text
 $warm-dark-meta: #a1a1a6 !default;
 // Hairlines: 1px borders/dividers in place of shadows.
 $hairline-cream: rgba(29, 29, 31, 0.12) !default;
@@ -60,20 +60,20 @@ $ff-serif: $ff-sans;
 $ff-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 
 // ------------ Typography scale (rem) -------------------------------------
-$fs-xs: 0.875rem; // eyebrow, small pills
+$fs-xs: 0.875rem; // small pills, footer
 $fs-sm: 0.875rem; // meta, news date, stat pills
-$fs-base: 1.0625rem; // 17px body
-$fs-md: 1.125rem; // publication title
-$fs-lg: 1.375rem; // subsection heading
-$fs-xl: 1.75rem; // h2
-$fs-2xl: 2.25rem; // hero h1
-$fs-3xl: 3.25rem; // display (reserved)
+$fs-base: 1rem; // 16px body
+$fs-md: 1.0625rem; // 17px publication title
+$fs-lg: 1.125rem; // 18px subsection heading (h3)
+$fs-xl: 1.25rem; // 20px section title (h2)
+$fs-2xl: 1.75rem; // 28px page title (h1)
+$fs-3xl: 2rem; // 32px homepage name (reserved)
 
 $lh-tight: 1.1;
 $lh-snug: 1.25;
 $lh-heading: 1.35;
-$lh-body: 1.65;
-$lh-relaxed: 1.7;
+$lh-body: 1.55;
+$lh-relaxed: 1.6;
 
 $fw-regular: 400;
 $fw-medium: 500;
@@ -84,6 +84,7 @@ $tracking-wide: 0.08em; // uppercase labels
 $tracking-normal: 0;
 
 // ------------ Spacing scale (px) -----------------------------------------
+// Document rhythm: 32px ($sp-6) between sections, 24px ($sp-5) or less inside.
 $sp-1: 4px;
 $sp-2: 8px;
 $sp-3: 12px;
@@ -94,10 +95,15 @@ $sp-7: 48px;
 $sp-8: 64px;
 $sp-9: 96px;
 
+// Side gutter of the page column (navbar and main content share it).
+$page-gutter: 24px;
+$page-gutter-sm: 16px; // below 768px
+
 // ------------ Radius -----------------------------------------------------
-$r-sm: 8px; // inputs and compact controls
-$r-md: 8px; // cards (hairline cards use this) — kept small for a quiet look
-$r-lg: 10px; // media
+// One small radius for images, boxes and controls.
+$r-sm: 4px; // inputs and compact controls
+$r-md: 4px; // boxes and images
+$r-lg: 4px; // media
 $r-pill: 999px;
 
 // ------------ Shadow -----------------------------------------------------

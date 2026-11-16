@@ -8,6 +8,7 @@
 body {
   font-family: $ff-sans;
   font-size: $fs-base;
+  font-weight: $fw-regular;
   line-height: $lh-body;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -46,12 +47,13 @@ h3 {
   color: var(--heading-color);
 }
 
+// Page titles 28px, section titles 20px, subsections 18px; normal tracking.
 h1 {
   font-family: var(--font-display);
   font-size: $fs-2xl;
   font-weight: $fw-semibold;
-  line-height: $lh-tight;
-  letter-spacing: -0.02em;
+  line-height: $lh-snug;
+  letter-spacing: normal;
 }
 
 h2 {
@@ -59,7 +61,7 @@ h2 {
   font-size: $fs-xl;
   font-weight: $fw-semibold;
   line-height: $lh-snug;
-  letter-spacing: -0.015em;
+  letter-spacing: normal;
 }
 
 h3 {
@@ -67,7 +69,7 @@ h3 {
   font-size: $fs-lg;
   font-weight: $fw-semibold;
   line-height: $lh-heading;
-  letter-spacing: -0.01em;
+  letter-spacing: normal;
 }
 
 h4 {
@@ -103,30 +105,6 @@ h6 {
 //   var(--global-hover-text-color) text on an accent fill
 //   var(--global-divider-color)    1px hairline (alias var(--hairline))
 // ============================================================================
-
-// Small muted label line above a heading. Sentence case — write the text the
-// way it should read; no text-transform.
-.eyebrow {
-  display: block;
-  margin: 0 0 $sp-2;
-  font-family: $ff-sans;
-  font-size: $fs-sm;
-  font-weight: $fw-medium;
-  line-height: $lh-snug;
-  letter-spacing: 0.01em;
-  color: var(--global-text-color-light);
-}
-
-// Bordered card: 1px hairline, modest radius, no shadow, no hover motion.
-.hairline-card {
-  display: block;
-  padding: $sp-5;
-  background: var(--global-card-bg-color);
-  border: 1px solid var(--global-divider-color);
-  border-radius: $r-md;
-  box-shadow: none;
-  color: var(--global-text-color);
-}
 
 // Small link buttons: .link-btn-primary (filled accent) and .link-btn-outline
 // (accent outline that fills on hover). Work on <a> and <button>.
@@ -424,17 +402,22 @@ ul.task-list input[type="checkbox"] {
 
 // Navbar customization
 
+// Plain top line: scrolls with the page, hairline underneath, no blur.
 .navbar {
   box-shadow: none;
   background-color: var(--global-bg-color);
   border-bottom: 1px solid var(--global-divider-color);
-  min-height: 48px;
+  min-height: 0;
+  padding-top: $sp-1;
+  padding-bottom: $sp-1;
+  padding-left: 0;
+  padding-right: 0;
+}
 
-  @supports ((-webkit-backdrop-filter: blur(18px)) or (backdrop-filter: blur(18px))) {
-    background-color: color-mix(in srgb, var(--global-bg-color) 82%, transparent);
-    -webkit-backdrop-filter: saturate(180%) blur(18px);
-    backdrop-filter: saturate(180%) blur(18px);
-  }
+// Same side gutter as the page content, so the site name lines up with the text.
+#navbar > .container {
+  padding-left: $page-gutter;
+  padding-right: $page-gutter;
 }
 
 .navbar .dropdown-menu {
@@ -478,9 +461,9 @@ ul.task-list input[type="checkbox"] {
   .navbar-brand {
     color: var(--heading-color);
     font-family: var(--font-display);
-    font-size: 1.1875rem;
+    font-size: 1.0625rem;
     font-weight: $fw-semibold;
-    letter-spacing: -0.015em;
+    letter-spacing: normal;
     text-decoration: none;
 
     span {
@@ -498,9 +481,9 @@ ul.task-list input[type="checkbox"] {
     .nav-link {
       color: var(--global-text-color);
       font-family: $ff-sans;
-      font-size: $fs-sm;
-      font-weight: $fw-medium;
-      min-height: 44px;
+      font-size: 0.9375rem;
+      font-weight: $fw-regular;
+      min-height: 40px;
       display: inline-flex;
       align-items: center;
       white-space: nowrap;
@@ -511,20 +494,13 @@ ul.task-list input[type="checkbox"] {
       }
     }
 
+    // Current page: heading ink with a thin underline — no accent bar.
     &.active > .nav-link {
       background-color: inherit;
       color: var(--heading-color);
-      font-weight: $fw-semibold;
-
-      &::after {
-        content: "";
-        position: absolute;
-        left: $sp-3;
-        right: $sp-3;
-        bottom: -1px;
-        height: 2px;
-        background: var(--global-theme-color);
-      }
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 5px;
 
       &:hover {
         color: var(--global-theme-color);
@@ -600,8 +576,8 @@ ul.task-list input[type="checkbox"] {
 
 #light-toggle,
 #search-toggle {
-  min-width: 44px;
-  min-height: 44px;
+  min-width: 40px;
+  min-height: 40px;
   padding: 0;
   border: 0;
   background-color: inherit;
@@ -720,8 +696,8 @@ footer.fixed-bottom {
 }
 
 footer.sticky-bottom {
-  padding-top: $sp-5;
-  padding-bottom: $sp-5;
+  padding-top: $sp-4;
+  padding-bottom: $sp-4;
   border-top: 1px solid var(--global-divider-color);
   font-family: $ff-sans;
   font-size: $fs-xs;
@@ -755,19 +731,18 @@ footer.sticky-bottom {
 
   .news-row {
     display: grid;
-    grid-template-columns: minmax(12ch, 13ch) 1fr; // fits "May 28, 2026" at 16px
-    gap: $sp-5;
-    padding: $sp-3 0;
+    grid-template-columns: minmax(12ch, 13ch) 1fr; // fits "May 28, 2026" at 15px
+    gap: $sp-4;
+    padding: $sp-2 0;
     align-items: baseline;
 
     .news-date {
       font-family: $ff-sans;
-      font-size: 16px;
-      font-weight: $fw-medium;
-      letter-spacing: 0.02em;
-      color: var(--global-text-color);
+      font-size: 0.9375rem;
+      font-weight: $fw-regular;
+      letter-spacing: normal;
+      color: var(--global-text-color-light);
       white-space: nowrap;
-      padding-top: 0.15em;
     }
 
     .news-body {
@@ -806,7 +781,7 @@ footer.sticky-bottom {
   color: var(--mono-meta-color);
   border: 0;
   padding-top: 0;
-  margin: $sp-6 0 $sp-3;
+  margin: $sp-5 0 $sp-2;
 }
 
 @media (max-width: 576px) {
@@ -822,7 +797,7 @@ footer.sticky-bottom {
 // ----------------------------------------------------------------------------
 
 .cv {
-  margin-bottom: $sp-7;
+  margin-bottom: $sp-6;
 }
 
 .table-cv-map {
@@ -853,9 +828,9 @@ footer.sticky-bottom {
   h1 {
     color: var(--heading-color);
     font-family: var(--font-display);
-    font-size: $fs-3xl;
+    font-size: $fs-2xl;
     font-weight: $fw-semibold;
-    letter-spacing: -0.02em;
+    letter-spacing: normal;
   }
 }
 
@@ -881,17 +856,17 @@ footer.sticky-bottom {
 
 // Page header (used by publications, CV, projects, news page layouts).
 .post-header {
-  margin-bottom: $sp-6;
+  margin-bottom: $sp-5;
   padding-bottom: 0;
   position: relative;
 
   .post-title {
     font-family: var(--font-display);
-    font-size: 40px;
+    font-size: $fs-2xl;
     font-weight: $fw-semibold;
-    line-height: $lh-tight;
-    margin: 0 0 $sp-2;
-    letter-spacing: -0.02em;
+    line-height: $lh-snug;
+    margin: 0 0 $sp-1;
+    letter-spacing: normal;
     color: var(--heading-color);
   }
 
@@ -1125,7 +1100,7 @@ footer.sticky-bottom {
 
   h2.category {
     font-size: $fs-lg;
-    margin: $sp-7 0 $sp-5;
+    margin: $sp-6 0 $sp-4;
     color: var(--global-text-color-light);
   }
 }
@@ -1196,16 +1171,13 @@ footer.sticky-bottom {
     margin: $sp-6 0 $sp-4;
   }
 
-  // Scholar / GitHub stat cards: hairline-bordered, big number + key facts.
+  // Scholar / GitHub stat boxes: small factual boxes with a hairline border.
+  // Side by side at every width that fits two 150px boxes; stacked below that.
   .growth-cards {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: $sp-5;
-    margin: 0 0 $sp-7;
-
-    @media (max-width: 575.98px) {
-      grid-template-columns: minmax(0, 1fr);
-    }
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: $sp-3;
+    margin: 0 0 $sp-5;
   }
 
   .growth-card {
@@ -1216,7 +1188,7 @@ footer.sticky-bottom {
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: $sp-5;
+    padding: $sp-3 $sp-4;
     border-radius: $r-md;
     background: var(--global-card-bg-color);
     border: 1px solid var(--global-divider-color);
@@ -1237,33 +1209,33 @@ footer.sticky-bottom {
   .growth-card__label {
     display: inline-flex;
     align-items: center;
-    gap: $sp-2;
+    gap: 6px;
     font-size: $fs-sm;
-    font-weight: $fw-medium;
+    font-weight: $fw-regular;
     color: var(--global-text-color-light);
 
     i {
-      font-size: 18px;
+      font-size: 15px;
       line-height: 1;
       color: inherit;
     }
   }
 
   .growth-card__value {
-    margin-top: $sp-2;
-    font-size: 40px;
+    margin-top: $sp-1;
+    font-size: 1.375rem;
     font-weight: $fw-semibold;
-    line-height: 1;
-    letter-spacing: -0.035em;
+    line-height: 1.2;
+    letter-spacing: normal;
   }
 
   .growth-card__facts {
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    margin-top: $sp-3;
+    gap: 0;
+    margin-top: $sp-1;
     font-size: $fs-sm;
-    line-height: 1.5;
+    line-height: 1.45;
     color: var(--global-text-color-light);
   }
 
@@ -1283,7 +1255,7 @@ footer.sticky-bottom {
   @media (min-width: 992px) {
     h2.bibliography {
       position: sticky;
-      top: 64px; // navbar height (body.fixed-top-nav padding-top in _layout.scss)
+      top: 0; // overridden to static in _publications.scss
       background: var(--global-bg-color);
       z-index: 2;
     }
@@ -1667,7 +1639,7 @@ footer.sticky-bottom {
   }
 
   .post-header .post-title {
-    font-size: 30px;
+    font-size: 1.625rem;
   }
 
   .publications ol.bibliography > li {
@@ -1701,7 +1673,7 @@ figure.highlight {
 pre {
   color: var(--global-text-color);
   background-color: var(--global-code-bg-color);
-  border-radius: 6px;
+  border-radius: $r-sm;
   padding: 6px 12px;
 
   pre,
@@ -1746,6 +1718,11 @@ iframe {
 }
 
 @media (max-width: 767.98px) {
+  #navbar > .container {
+    padding-left: $page-gutter-sm;
+    padding-right: $page-gutter-sm;
+  }
+
   .navbar-collapse {
     padding: $sp-2 0 $sp-3;
   }
@@ -1757,18 +1734,11 @@ iframe {
     font-size: $fs-base;
   }
 
-  // Collapsed menu: the active item is marked by color and weight only; the
-  // desktop underline would span the whole row here.
-  .navbar.navbar-light .navbar-nav .nav-item.active > .nav-link::after {
-    content: none;
-  }
-
   .navbar .dropdown-menu {
     box-shadow: none;
   }
 }
 
-// Desktop: match the active underline inset to the link's side padding.
 @media (min-width: 768px) {
   .navbar.navbar-light .navbar-nav .nav-item .nav-link {
     padding-inline: $sp-3;
@@ -2089,11 +2059,11 @@ img[data-zoomable] {
   --jvm-zoom-btn-bg-color: var(--global-card-bg-color);
   --jvm-zoom-btn-color: var(--global-text-color);
   --jvm-zoom-btn-size: 24px;
-  --jvm-zoom-btn-radius: 8px;
+  --jvm-zoom-btn-radius: #{$r-sm};
   width: 100%;
-  height: 400px;
+  height: 360px;
   margin-top: $sp-4;
-  border-radius: 18px;
+  border-radius: $r-md;
   overflow: hidden;
   background: var(--travel-ocean);
   // An outline paints above the SVG, so the hairline survives land at the edge.
@@ -2198,7 +2168,7 @@ html[data-theme="dark"] .about-me .travel-map {
 @media (max-width: 576px) {
   .about-me .travel-map {
     height: 220px;
-    border-radius: 14px;
+    border-radius: $r-md;
 
     // Smaller pins so the little countries still show beneath them.
     .jvm-marker,
@@ -2223,7 +2193,7 @@ html[data-theme="dark"] .about-me .travel-map {
   --jvm-tooltip-color: var(--global-text-color);
   --jvm-tooltip-font-size: 0.8rem;
   --jvm-tooltip-padding: 4px 8px;
-  --jvm-tooltip-radius: 8px;
+  --jvm-tooltip-radius: #{$r-sm};
   --jvm-tooltip-shadow: none;
   border: 1px solid var(--global-divider-color);
   pointer-events: none;
@@ -2313,8 +2283,8 @@ ninja-keys::part(ninja-input-wrapper) {
   max-width: 350px;
   min-width: 100px;
   box-sizing: border-box;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px;
-  border-radius: 6px;
+  box-shadow: none;
+  border-radius: $r-sm;
   padding: 8px 12px;
 }
 
@@ -2333,8 +2303,8 @@ ninja-keys::part(ninja-input-wrapper) {
   align-items: center;
   flex-direction: row;
   padding: 9px 17px;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px;
-  border-radius: 6px;
+  box-shadow: none;
+  border-radius: $r-sm;
   text-align: center;
   font-style: normal;
   font-weight: 500;
@@ -2354,8 +2324,8 @@ ninja-keys::part(ninja-input-wrapper) {
   align-items: center;
   flex-direction: row;
   padding: 9px 17px;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px;
-  border-radius: 6px;
+  box-shadow: none;
+  border-radius: $r-sm;
   text-align: center;
   font-style: normal;
   font-weight: 500;
