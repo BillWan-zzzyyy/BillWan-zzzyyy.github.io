@@ -5,5 +5,5 @@ inline: true
 related_posts: false
 ---
 
-My poster "Sky-Drive. A Distributed Multi-Agent Simulation Platform for Socially-Aware and Human-AI Collaborative Future Transportation" was presented at the [2025 Safety Mobility Conference](https://aaafoundation.org/smc/). Thanks to all the co-authors!
+My poster "Sky-Drive. A Distributed Multi-Agent Simulation Platform for Socially-Aware and Human-AI Collaborative Future Transportation" was presented at the [2025 Safe Mobility Conference](https://aaafoundation.org/smc/). Thanks to all the co-authors!
 

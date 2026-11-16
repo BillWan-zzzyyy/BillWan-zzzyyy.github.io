@@ -1,116 +1,167 @@
 ---
 layout: default
 ---
-<div class="post about-home">
-  <div class="about-hero">
-    <header class="post-header about-header about-hero__header">
-      <h1 class="post-title about-title gradient-title">
-        {% if site.title == 'blank' %}
-          <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
-          {{ site.last_name }}
-        {% else %}
+{% comment %}
+  Homepage. Content lives in _pages/about.md front matter:
+    eyebrow   list of { text, url } shown above the name
+    tagline   one-sentence positioning statement (the visual headline)
+    hero      { image, alt, video, poster, avatar, avatar_alt } — site-root paths
+    research  { title, cards: [{ title, text, url }] }
+  The Markdown body of about.md is the short bio.
+{% endcomment %}
+<div class="home-v2">
+  <section class="home-v2-hero" aria-labelledby="home-v2-name">
+    <div class="home-v2-hero__text">
+      {% if page.eyebrow %}
+        <p class="eyebrow home-v2-eyebrow">
+          {%- for item in page.eyebrow -%}
+            {%- if item.url -%}
+              <a href="{{ item.url }}">{{ item.text }}</a>
+            {%- else -%}
+              {{ item.text }}
+            {%- endif -%}
+            {%- unless forloop.last -%}
+              <span class="home-v2-eyebrow__sep" aria-hidden="true"> · </span>
+            {%- endunless -%}
+          {%- endfor -%}
+        </p>
+      {% endif %}
+
+      <h1 class="home-v2-name" id="home-v2-name">
+        {%- if site.title == 'blank' -%}
+          {{ site.first_name }}
+          {% if site.middle_name %}{{ site.middle_name }} {% endif %}
+          {{- site.last_name -}}
+        {%- else -%}
           {{ site.title }}
-        {% endif %}
+        {%- endif -%}
       </h1>
 
-      <div class="desc about-subtitle">{{ page.subtitle }}</div>
+      {% if page.tagline %}
+        <p class="home-v2-tagline">{{ page.tagline }}</p>
+      {% endif %}
+
+      <div class="home-v2-bio">{{ content }}</div>
 
       {% if page.social %}
-        <div class="social about-social">
-          <div class="contact-icons">{% include social.liquid %}</div>
-          <div class="contact-note">{{ site.contact_note }}</div>
+        <div class="home-v2-links">
+          {% include social.liquid keys='cv' labels=true link_class='link-btn-primary' %}
+          {% include social.liquid keys='scholar,github,linkedin,email' labels=true link_class='home-v2-link' %}
+          <div class="home-v2-links__icons">
+            {% include social.liquid exclude='cv,scholar,github,linkedin,email' link_class='home-v2-icon' %}
+          </div>
         </div>
       {% endif %}
 
       {% if site.newsletter.enabled and site.footer_fixed %}
-        {% include scripts/newsletter.liquid center=true %}
+        {% include scripts/newsletter.liquid %}
       {% endif %}
-    </header>
+    </div>
 
-    {% if page.profile %}
-      <div class="about-hero__media">
-        <div class="profile">
-          <div class="profile__card">
-            {% if page.profile.image %}
-              {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-              {% if page.profile.image_circular %}
-                {% assign profile_image_class = 'img-fluid rounded-circle' %}
-              {% else %}
-                {% assign profile_image_class = 'img-fluid rounded' %}
-              {% endif %}
-              {% capture sizes %}(min-width: 768px) 280px, 180px{% endcapture %}
-              {%
-                include figure.liquid
-                loading="eager"
-                fetchpriority="high"
-                width="1000"
-                height="1000"
-                path=profile_image_path
-                class=profile_image_class
-                sizes=sizes
-                alt=page.profile.alt
-                cache_bust=true
-              %}
+    {% assign hero = page.hero %}
+    {% if hero.image != blank or hero.video != blank %}
+      <div class="home-v2-media">
+        {% if hero.video != blank %}
+          {% assign hero_poster = hero.poster | default: hero.image %}
+          {% assign hero_video_ext = hero.video | split: '.' | last | downcase %}
+          <video
+            class="home-v2-media__video"
+            width="960"
+            height="960"
+            muted
+            loop
+            playsinline
+            autoplay
+            preload="metadata"
+            {% if hero_poster != blank %}
+              poster="{{ hero_poster | relative_url }}"
             {% endif %}
-            {% if page.profile.more_info %}
-              <div class="more-info">{{ page.profile.more_info }}</div>
+            {% if hero.alt %}
+              aria-label="{{ hero.alt | escape }}"
             {% endif %}
-          </div>
-        </div>
-      </div>
-    {% endif %}
+          >
+            <source src="{{ hero.video | relative_url }}" type="video/{% if hero_video_ext == 'webm' %}webm{% else %}mp4{% endif %}">
+          </video>
+          <script>
+            (() => {
+              const video = document.currentScript.previousElementSibling;
+              const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+              if (!video || !reduce) return;
+              video.removeAttribute('autoplay');
+              video.autoplay = false;
+              video.pause();
+              video.controls = true;
+            })();
+          </script>
+        {% else %}
+          {%
+            include figure.liquid
+            path=hero.image
+            class="home-v2-media__img"
+            width="960"
+            height="960"
+            sizes="(min-width: 1200px) 490px, (min-width: 992px) 42vw, (min-width: 600px) 560px, calc(100vw - 40px)"
+            alt=hero.alt
+            loading="eager"
+            fetchpriority="high"
+          %}
+        {% endif %}
 
-    <div class="bio about-hero__bio">{{ content }}</div>
-  </div>
-
-  <article class="about-home__content">
-    {% if page.research %}
-      <section class="home-section research-block">
-        <h2 class="home-section__title" data-reveal>{{ page.research.title | default: 'Research' }}</h2>
-        <div class="row" data-reveal>
-          {% for g in page.research.groups %}
-            <div class="col-md-6">
-              <p class="research-block__group">{{ g.title }}</p>
-              <ul>
-                {% for item in g.items %}
-                  <li>{{ item }}</li>
-                {% endfor %}
-              </ul>
-            </div>
-          {% endfor %}
-        </div>
-        {% if page.research.figures %}
-          <div class="research-figures">
-            {% for f in page.research.figures %}
-              {% assign fpath = f.image | prepend: 'assets/img/' %}
-              <div class="research-card" data-reveal style="--reveal-delay: {{ forloop.index0 | modulo: 2 | times: 90 }}ms">
-                {% include figure.liquid path=fpath class="img-fluid rounded" width="1600" height="1000" sizes="(min-width: 1180px) 546px, (min-width: 576px) 50vw, calc(100vw - 40px)" alt=f.alt caption=f.caption zoomable=true %}
-              </div>
-            {% endfor %}
+        {% if hero.avatar != blank %}
+          <div class="home-v2-avatar">
+            {%
+              include figure.liquid
+              path=hero.avatar
+              width="96"
+              height="96"
+              sizes="96px"
+              alt=hero.avatar_alt
+              loading="eager"
+              cache_bust=true
+            %}
           </div>
         {% endif %}
-      </section>
+      </div>
     {% endif %}
+  </section>
 
-    {% if page.selected_papers %}
-      <section class="home-section selected-publications">
-        <h2 class="home-section__title" data-reveal>
-          <a href="{{ '/publications/' | relative_url }}">Selected Publications</a>
-        </h2>
-        {% include selected_papers.liquid %}
-        <p class="home-more" data-reveal>
-          <a href="{{ '/publications/' | relative_url }}">All publications<span aria-hidden="true">&nbsp;›</span></a>
-        </p>
-      </section>
-    {% endif %}
+  {% if page.research.cards %}
+    <section class="home-v2-section home-v2-research" aria-labelledby="home-v2-research-title">
+      <h2 class="home-v2-section__title" id="home-v2-research-title">
+        <a href="{{ '/research/' | relative_url }}">{{ page.research.title | default: 'Research' }}</a>
+      </h2>
+      <ul class="home-v2-cards">
+        {% for card in page.research.cards %}
+          <li>
+            <a class="hairline-card home-v2-card" href="{{ card.url | relative_url }}">
+              <h3 class="home-v2-card__title">
+                {{ card.title -}}
+                <span class="home-v2-card__arrow" aria-hidden="true">→</span>
+              </h3>
+              <p class="home-v2-card__text">{{ card.text }}</p>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
 
-    {% if page.news and site.announcements.enabled %}
-      <section class="home-section recent-news">
-        <h2 class="home-section__title" data-reveal>
-          <a href="{{ '/news/' | relative_url }}">Recent News</a>
-        </h2>
-        {% include news.liquid limit=true %}
-      </section>
-    {% endif %}
-  </article>
+  {% if page.selected_papers %}
+    <section class="home-v2-section selected-publications" aria-labelledby="home-v2-pubs-title">
+      <h2 class="home-v2-section__title" id="home-v2-pubs-title">Selected publications</h2>
+      {% include selected_papers.liquid %}
+      <p class="home-v2-more">
+        <a href="{{ '/publications/' | relative_url }}">All publications<span aria-hidden="true">&nbsp;→</span></a>
+      </p>
+    </section>
+  {% endif %}
+
+  {% if page.news and site.announcements.enabled %}
+    <section class="home-v2-section home-v2-news" aria-labelledby="home-v2-news-title">
+      <h2 class="home-v2-section__title" id="home-v2-news-title">
+        <a href="{{ '/news/' | relative_url }}">News</a>
+      </h2>
+      {% include news.liquid limit=3 %}
+    </section>
+  {% endif %}
 </div>

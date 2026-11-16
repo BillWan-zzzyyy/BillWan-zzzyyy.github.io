@@ -5,7 +5,7 @@ description: Conduct driving simulations of Virtual Track Train's hybrid control
 img: assets/img/drivingsimulator.jpg
 importance: 1
 category: Tongji University
-related_publications: true
+related_publications: false
 ---
 
 The virtual Track train (VTT) is a novel urban transportation solution that combines the advantages of trams and buses, operating on rubber wheels. Its core technology lies in a unique human/driverless hybrid driving mode. In the driverless mode, the train performs trajectory tracking by recognizing a virtual rail laid on the road surface, while in special conditions, manual control by a driver is required.

@@ -1,29 +1,14 @@
 /*******************************************************************************
- * Design tokens — quiet, system-native interface
+ * Design tokens — editorial academic look
  *
- * Single source of truth for color, type, spacing, radius, shadow, motion.
- * Consumed by _themes.scss via CSS variables. Do NOT reference tokens directly
- * from component Sass — always go through CSS vars so dark mode works.
+ * Sass-side source for neutrals, type, spacing, radius, shadow and motion.
+ * The accent (platform blue) and every themed color are defined as CSS
+ * variables in _themes.scss; component Sass should read colors through those
+ * CSS variables (never these Sass tokens directly) so dark mode keeps working.
  ******************************************************************************/
 
-// ------------ Color: Claude "Book Rust" scale (accent — current) ---------
-// Light-mode primary = $rust-600 #B3654A (4.31:1 on pure white #FFFFFF).
-// $rust-500 #CC785C is Claude's brand Book Rust, kept for decorative use.
-// Dark-mode variant = $rust-light #E09B7F (7.2:1 AAA on warm dark).
-$rust-50: #fbf1ec !default;
-$rust-100: #f7e0d5 !default;
-$rust-200: #efc3ae !default;
-$rust-300: #e3a185 !default;
-$rust-400: #d18766 !default;
-$rust-500: #cc785c !default;
-$rust-600: #b3654a !default;
-$rust-700: #8c4a32 !default;
-$rust-800: #5e301e !default;
-$rust-900: #351810 !default;
-$rust-light: #e09b7f !default; // dark-mode accent (AAA on warm dark)
-$rust-light-hover: #f0b097 !default; // dark-mode hover
-
-// Light neutrals (pure white surfaces; warm-dark tokens keep the dark theme)
+// ------------ Color: surfaces & ink --------------------------------------
+// Light: pure white surfaces, near-black ink. Dark: warm-dark surfaces.
 $cream-bg: #ffffff !default;
 $cream-subtle: #f5f5f7 !default;
 $claude-ink: #1d1d1f !default;
@@ -33,53 +18,9 @@ $warm-dark-card: #1d1d1f !default;
 $warm-dark-subtle: #242426 !default;
 $warm-dark-text: #f5f5f7 !default;
 $warm-dark-meta: #a1a1a6 !default;
-// Slightly denser than the old 0.10 so it still reads on pure white.
+// Hairlines: 1px borders/dividers in place of shadows.
 $hairline-cream: rgba(29, 29, 31, 0.12) !default;
 $hairline-warm-dark: rgba(245, 245, 247, 0.14) !default;
-
-// ------------ Color: Oxford navy scale (DORMANT — previous accent) --------
-// Light-mode primary = $navy-500 #1E3A5F (Oxford Blue, 10.6:1 AAA on warm off-white).
-// Dark-mode brighter variant = $navy-light #7FA3D1 (7.5:1 AAA on cool-ink).
-$navy-50: #f1f4f9 !default;
-$navy-100: #dce3ee !default;
-$navy-200: #b5c3d9 !default;
-$navy-300: #8ea3c4 !default;
-$navy-400: #6783af !default;
-$navy-500: #1e3a5f !default;
-$navy-600: #15274a !default;
-$navy-700: #0f1c36 !default;
-$navy-800: #091222 !default;
-$navy-900: #05080f !default;
-$navy-light: #7fa3d1 !default; // dark-mode accent
-$navy-light-hover: #9cb8db !default; // dark-mode hover
-
-// ------------ Color: teal scale (DORMANT — prior accent, kept for rollback)
-$teal-50: #e6f0f1 !default;
-$teal-100: #cde1e3 !default;
-$teal-200: #9ec3c7 !default;
-$teal-300: #6fa5ab !default;
-$teal-400: #408790 !default;
-$teal-500: #0f5257 !default;
-$teal-600: #0b3f43 !default;
-$teal-700: #082e31 !default;
-$teal-800: #061f21 !default;
-$teal-900: #031213 !default;
-$teal-light: #4fc3c7 !default; // dark-mode accent
-$teal-light-hover: #6fdce0 !default; // dark-mode hover
-
-// ------------ Color: red scale (DORMANT — kept for legacy references) -----
-// No live rule emits red as of 2026-04-19; scale retained so any stray
-// references (e.g. .btn-outline-red class name) still resolve.
-$red-50: #fff5f5 !default;
-$red-100: #ffe5e5 !default;
-$red-200: #fbc2c2 !default;
-$red-300: #f28e8e !default;
-$red-400: #e25a5a !default;
-$red-500: #c5050c !default;
-$red-600: #a10309 !default;
-$red-700: #7d0207 !default;
-$red-800: #5c0105 !default;
-$red-900: #3d0003 !default;
 
 // ------------ Color: neutrals (light, Tailwind-style) ---------------------
 $n-0: #ffffff !default;
@@ -108,13 +49,19 @@ $ink-800: #dde0e6 !default;
 $ink-900: #e8eaed !default;
 
 // ------------ Typography families ----------------------------------------
+// Body: system sans. Display (h1–h3, page titles, site name): system serif,
+// no web fonts. Exposed at runtime as `--font-display` (see _themes.scss).
 $ff-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
-$ff-serif: $ff-sans; // Compatibility alias for partials that still request display type.
+$ff-display: "New York", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+// Legacy alias: older partials (notably _cv.scss) use $ff-serif for body-size
+// text, so it stays on the sans stack. Use $ff-display / var(--font-display)
+// for serif headings.
+$ff-serif: $ff-sans;
 $ff-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 
 // ------------ Typography scale (rem) -------------------------------------
-$fs-xs: 0.875rem; // mono eyebrow, small pills
-$fs-sm: 0.875rem; // mono meta, news date, stat pills
+$fs-xs: 0.875rem; // eyebrow, small pills
+$fs-sm: 0.875rem; // meta, news date, stat pills
 $fs-base: 1.0625rem; // 17px body
 $fs-md: 1.125rem; // publication title
 $fs-lg: 1.375rem; // subsection heading
@@ -133,7 +80,7 @@ $fw-medium: 500;
 $fw-semibold: 600;
 $fw-bold: 700;
 
-$tracking-wide: 0.08em; // uppercase eyebrow / nav labels
+$tracking-wide: 0.08em; // uppercase labels
 $tracking-normal: 0;
 
 // ------------ Spacing scale (px) -----------------------------------------
@@ -149,11 +96,13 @@ $sp-9: 96px;
 
 // ------------ Radius -----------------------------------------------------
 $r-sm: 8px; // inputs and compact controls
-$r-md: 12px;
-$r-lg: 16px; // cards and media
+$r-md: 12px; // cards (hairline cards use this)
+$r-lg: 16px; // media
 $r-pill: 999px;
 
 // ------------ Shadow -----------------------------------------------------
+// Cards use a 1px hairline border instead of a shadow. $sh-hover is kept for
+// floating menus (navbar dropdown) only.
 $sh-none: none;
 $sh-soft: 0 1px 2px rgba(0, 0, 0, 0.06);
 $sh-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -170,7 +119,7 @@ $ease-out: cubic-bezier(0.2, 0, 0, 1);
 $hairline-light: rgba(0, 0, 0, 0.06);
 $hairline-dark: #1d2028;
 
-// ------------ Warm neutrals (for Scheme 2: charcoal + deep teal) ----------
+// ------------ Warm neutrals ----------------------------------------------
 $warm-bg-light: #fafaf7; // warm off-white
 $warm-subtle: #f0f0ec; // label bg, code bg
 $charcoal: #1f2937; // body text (not pure black)

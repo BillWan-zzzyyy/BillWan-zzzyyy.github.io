@@ -1,61 +1,24 @@
 ---
-layout: page
-title: Projects
-gradient_title: true
+layout: none
 permalink: /projects/
-description: <i>The mind is the final frontier.</i>
-nav: true
-nav_order: 3
-display_categories: [UW-Madison, Tongji University]
-horizontal: false
+title: Redirecting
+nav: false
+sitemap: false
 ---
 
-<!-- pages/projects.md -->
-<div class="projects">
-{% if site.enable_project_categories and page.display_categories %}
-  {% for category in page.display_categories %}
-    <a class="anchor" id="{{ category }}"></a>
-    <h2 class="category">{{ category }}</h2>
-    {% assign categorized_projects = site.projects | where: "category", category %}
-    {% assign sorted_projects = categorized_projects | sort: "importance" %}
-    {% if page.horizontal %}
-      <div class="container">
-        <div class="row row-cols-1 row-cols-md-2">
-          {% for project in sorted_projects %}
-            {% include projects_horizontal.liquid %}
-          {% endfor %}
-        </div>
-      </div>
-    {% else %}
-      <div class="row row-cols-1 row-cols-md-2">
-        {% for project in sorted_projects %}
-          {% include projects.liquid %}
-        {% endfor %}
-      </div>
-    {% endif %}
-  {% endfor %}
-
-{% else %}
-
-  <!-- Display projects without categories -->
-
-{% assign sorted_projects = site.projects | sort: "importance" %}
-{% if page.horizontal %}
-
-<div class="container">
-<div class="row row-cols-1 row-cols-md-2">
-{% for project in sorted_projects %}
-{% include projects_horizontal.liquid %}
-{% endfor %}
-</div>
-</div>
-{% else %}
-<div class="row row-cols-1 row-cols-md-2">
-{% for project in sorted_projects %}
-{% include projects.liquid %}
-{% endfor %}
-</div>
-{% endif %}
-{% endif %}
-
-</div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Redirecting…</title>
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="{{ '/research/' | absolute_url }}">
+    <meta http-equiv="refresh" content="0; url={{ '/research/' | relative_url }}">
+  </head>
+  <body>
+    <p>This page has moved to <a href="{{ '/research/' | relative_url }}">{{ '/research/' | absolute_url }}</a>.</p>
+    <script>
+      window.location.replace("{{ '/research/' | relative_url }}");
+    </script>
+  </body>
+</html>

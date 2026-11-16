@@ -2,46 +2,46 @@
 layout: about
 title: Home
 permalink: /
-subtitle: <span class="highlight-text"> Ph.D. student </span>at The University of <span class="text-nowrap">Wisconsin-Madison CEE</span>
 
-profile:
-  align: right
-  image: profile.jpg
-  alt: Zhengyang Wan in Chicago
-  image_circular: false # crops the image to make it circular
-  more_info: >
-    <p>Chicago, US, 2025</p>
+# Small label line above the name. Items without a url render as plain text.
+eyebrow:
+  - text: Ph.D. student
+  - text: UW–Madison
+    url: https://www.wisc.edu/
+  - text: Sky-Lab
+    url: https://sky-lab-uw.github.io/
 
-news: true # includes a list of news items
-selected_papers: true # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
+# One-sentence positioning statement — the large serif headline of the homepage.
+tagline: "I take driving policies from simulation onto a real, full-scale vehicle."
 
+# Hero media (paths are relative to the site root). When `video` is set it replaces
+# the image (muted, looping; paused for visitors who prefer reduced motion) and
+# `poster` (default: `image`) is shown until it plays.
+hero:
+  image: assets/img/home/hero.jpg
+  alt: "Sky-Lab's full-scale autonomous test van with its rear doors open, showing the elevated camera mast and onboard equipment"
+  video: ""
+  poster: ""
+  avatar: assets/img/profile.jpg
+  avatar_alt: Portrait of Zhengyang Wan
+
+# Three research themes; each card links to a section of the Research page.
 research:
-  title: "My research focuses on:"
-  figures:
-    - image: research/sim2real.jpg
-      caption: Sim-to-real transfer on a full-scale vehicle
-      alt: "Sim2Real-AD real-vehicle platform: lab-developed Ford E-Transit autonomous van with lidars, cameras, radar and the camera configuration"
-    - image: research/vlm-driving.png
-      caption: Vision-language models for driving
-      alt: "DriveVLM-RL: VLM-as-control and VLM-as-reward paradigms and the dual-pathway DriveVLM-RL framework"
-    - image: research/human-ai-collab.png
-      caption: Human-AI collaborative driving
-      alt: "Sky-Drive LLMs for personalized driving: a human agent and an LLM-based driving agent exchange dialogue, perception and route plans in the simulator"
-    - image: research/multi-agent-lab.jpg
-      caption: Socially-aware multi-agent interaction
-      alt: Sky-Drive experimental site with a VR pedestrian and two human drivers interacting in one shared simulation
-  groups:
-    - title: Autonomous driving
-      items:
-        - Closed-loop simulation and sim-to-real transfer
-        - Vision-language models and VLA policies for driving
-    - title: Human-centric intelligent transportation
-      items:
-        - Human-AI collaborative driving and interaction
-        - Socially-aware multi-agent interaction and VRU safety
+  title: Research
+  cards:
+    - title: Sim-to-real driving
+      text: Deploying driving policies trained in simulation on a full-scale autonomous vehicle.
+      url: /research/#sim-to-real
+    - title: VLMs and world models
+      text: Using vision-language models and world models to make safer driving decisions.
+      url: /research/#vlm-world-models
+    - title: Human-AI interaction
+      text: Human-in-the-loop simulation, human-AI collaborative driving and the safety of vulnerable road users.
+      url: /research/#human-ai
+
+news: true # latest 3 news items
+selected_papers: true # papers marked selected={true} in _bibliography/papers.bib
+social: true # CV button + contact links in the hero
 ---
 
-Hi! I am a **Ph.D. student** in the Department of Civil and Environmental Engineering at the <img src="../assets/img/uwmadison.png" class="inline-logo" alt="UW–Madison"/>[University of Wisconsin–Madison](https://www.wisc.edu/). I joined <img src="../assets/img/skylab.png" class="inline-logo" alt="Sky-Lab"/>[Sky-Lab](https://sky-lab-uw.github.io/) in Fall 2025 under the guidance of Dr. [Sikai (Sky) Chen](https://sky-lab-uw.github.io/people/). Before that, I obtained my B.S. and M.S. from <img src="../assets/img/tongji.png" class="inline-logo" alt="Tongji University"/>[Tongji University](https://en.tongji.edu.cn/).
-
-I work on autonomous driving and human-centered intelligent transportation through simulation, real-vehicle testing, and human-AI collaboration. I contribute to <img src="../assets/img/Sky-Drive.png" class="inline-logo" alt="SkyDrive"/>[SkyDrive](https://github.com/BillWan-zzzyyy/Sky-Drive), Sky-Lab’s open-source multi-agent platform for future transportation systems and autonomous driving.
+I joined [Sky-Lab](https://sky-lab-uw.github.io/) in the Department of Civil and Environmental Engineering at the [University of Wisconsin–Madison](https://www.wisc.edu/) in Fall 2025, advised by Dr. [Sikai (Sky) Chen](https://sky-lab-uw.github.io/people/), after earning my B.E. and M.S. at [Tongji University](https://en.tongji.edu.cn/). I work on autonomous driving and human-centered intelligent transportation through simulation, real-vehicle testing and human-AI collaboration, and I contribute to [SkyDrive](https://github.com/BillWan-zzzyyy/Sky-Drive), Sky-Lab's open-source multi-agent platform for future transportation systems.

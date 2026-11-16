@@ -1,0 +1,406 @@
+// Publications page styles (owned by the publications redesign package).
+//
+// Markup: _layouts/bib.liquid renders one `.pub-entry` per paper inside
+// jekyll-scholar's `ol.bibliography > li`; _pages/publications.md adds the
+// `.pub-page-meta` line. Used on /publications/ and the homepage's
+// "Selected Publications" block (both wrap the list in `.publications`).
+//
+// Editorial look: serif titles, sans body, one accent (links only), 1px
+// hairlines, no shadows, no fills, no motion. Colors come from CSS variables
+// so dark mode follows _themes.scss. This partial is imported after `base`,
+// so equal-specificity rules here win over the legacy publication rules there.
+
+// ---------------------------------------------------------------------------
+// Page meta line under the title: "9 papers · 35 citations on Google Scholar"
+// ---------------------------------------------------------------------------
+.pub-page-meta {
+  // Tuck under the page title, where a description line would sit.
+  margin: (-$sp-4) 0 $sp-6;
+  font-family: $ff-sans;
+  font-size: $fs-base;
+  line-height: $lh-snug;
+  color: var(--global-text-color-light);
+
+  span {
+    margin: 0 0.35em;
+    color: inherit;
+  }
+
+  a {
+    color: var(--global-theme-color);
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--global-hover-color);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+}
+
+.publications {
+  // Year group header (jekyll-scholar emits <h2 class="bibliography">YEAR</h2>):
+  // serif year over a hairline rule. Not sticky.
+  h2.bibliography {
+    position: static;
+    margin: $sp-7 0 0;
+    padding: 0 0 $sp-2;
+    border: 0;
+    border-bottom: 1px solid var(--global-divider-color);
+    background: transparent;
+    font-family: var(--font-display);
+    font-size: $fs-lg;
+    font-weight: $fw-semibold;
+    line-height: $lh-snug;
+    letter-spacing: 0;
+    color: var(--global-text-color);
+    text-align: left;
+  }
+
+  ol.bibliography {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      padding: $sp-5 0;
+    }
+
+    > li + li {
+      border-top: 1px solid var(--global-divider-color);
+    }
+
+    > li:first-child {
+      padding-top: $sp-4;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// One entry
+// ---------------------------------------------------------------------------
+.pub-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: $sp-5;
+  margin: 0;
+}
+
+.pub-entry--with-media {
+  grid-template-columns: 220px minmax(0, 1fr);
+}
+
+.pub-entry__media,
+.pub-entry__body {
+  min-width: 0;
+}
+
+// Thumbnail: fixed 16:10 frame, whole figure visible (contain), hairline
+// border, no shadow. The <picture> keeps the reduced-motion still source.
+.pub-entry__media {
+  figure {
+    margin: 0;
+  }
+
+  picture {
+    display: block;
+  }
+}
+
+.pub-entry__thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+  padding: $sp-1;
+  background: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: $r-sm;
+  box-shadow: none;
+}
+
+.pub-entry__thumb[data-zoomable] {
+  cursor: zoom-in;
+}
+
+// Venue tag: small hairline label above the title. Venues marked
+// `emphasis: strong` in _data/venues.yml get ink text and a darker rule.
+.pub-entry__venue {
+  display: inline-block;
+  margin: 0 0 $sp-2;
+  padding: 1px 7px;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 4px;
+  font-family: $ff-sans;
+  font-size: 0.75rem;
+  font-weight: $fw-semibold;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--global-text-color-light);
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--global-theme-color);
+      text-decoration: none;
+    }
+  }
+}
+
+.pub-entry__venue--strong {
+  border-color: var(--global-text-color-light);
+  color: var(--global-text-color);
+}
+
+.pub-entry__title {
+  margin: 0 0 $sp-2;
+  font-family: var(--font-display);
+  font-size: 1.3125rem; // 21px
+  font-weight: $fw-semibold;
+  line-height: $lh-heading;
+  letter-spacing: -0.005em;
+  color: var(--global-text-color);
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--global-theme-color);
+      text-decoration: none;
+    }
+  }
+}
+
+.pub-entry__authors {
+  font-family: $ff-sans;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--global-text-color);
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--global-theme-color);
+    }
+  }
+
+  sup {
+    color: inherit;
+  }
+
+  // Own name: bold ink, never accent.
+  strong.author-self {
+    font-weight: $fw-bold;
+    color: var(--global-text-color);
+  }
+
+  .more-authors {
+    padding: 0;
+    border: 0;
+    border-bottom: 1px dashed currentColor;
+    background: transparent;
+    font: inherit;
+    color: var(--global-text-color-light);
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--global-text-color);
+      border-bottom-style: solid;
+    }
+
+    strong.author-self {
+      color: inherit;
+    }
+  }
+}
+
+.pub-entry__annotation {
+  margin-left: $sp-1;
+  font-size: 0.8125rem;
+  color: var(--global-text-color-light);
+  cursor: help;
+}
+
+.pub-entry__summary {
+  max-width: 720px;
+  margin: $sp-2 0 0;
+  font-family: $ff-sans;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--global-text-color-light);
+}
+
+// Venue · month year
+.pub-entry__meta {
+  margin-top: $sp-2;
+  font-family: $ff-sans;
+  font-size: $fs-sm;
+  line-height: 1.5;
+  color: var(--global-text-color-light);
+
+  span,
+  em {
+    font-style: normal;
+    color: inherit;
+  }
+
+  .pub-entry__journal {
+    font-style: italic;
+  }
+
+  a {
+    color: inherit;
+  }
+}
+
+// Quiet row of text links: Paper · Project · Code · Video · BibTeX
+.pub-entry__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin-top: $sp-3;
+  font-family: $ff-sans;
+  font-size: $fs-sm;
+  font-weight: $fw-semibold;
+  line-height: 1.5;
+
+  a,
+  button {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: var(--global-theme-color);
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--global-hover-color);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--global-theme-color);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+  }
+
+  button[aria-expanded="true"] {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+.pub-entry__sep {
+  padding: 0 0.5em;
+  font-weight: $fw-regular;
+  color: var(--global-text-color-light);
+}
+
+.pub-entry__badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $sp-2;
+  margin-top: $sp-2;
+}
+
+// Collapsible panels (BibTeX / award / video), toggled by assets/js/common.js
+// adding `.open`. Selectors outrank the legacy `.publications … li .hidden`
+// rules in _base.scss.
+.publications .pub-entry .pub-entry__panel.hidden {
+  display: none;
+  max-height: none;
+  overflow: visible;
+  margin: 0;
+  font-size: $fs-sm;
+  text-align: left;
+  transition: none;
+}
+
+.publications .pub-entry .pub-entry__panel.hidden.open {
+  display: block;
+  max-height: none;
+  margin-top: $sp-3;
+  border: 1px solid var(--global-divider-color);
+  border-radius: $r-sm;
+}
+
+.publications .pub-entry .pub-entry__panel.hidden {
+  figure.highlight {
+    margin: 0;
+  }
+
+  pre {
+    margin: 0;
+    padding: $sp-3;
+    max-height: 22em;
+    overflow: auto;
+    border-radius: $r-sm;
+    background: var(--global-code-bg-color);
+    font-family: $ff-mono;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    white-space: pre;
+    color: var(--global-text-color);
+
+    code {
+      padding: 0;
+      background: none;
+      font: inherit;
+      color: inherit;
+    }
+  }
+
+  p {
+    margin: $sp-3;
+    line-height: 1.5;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Narrow screens: stack the thumbnail above the text.
+// ---------------------------------------------------------------------------
+@media (max-width: 767.98px) {
+  .pub-page-meta {
+    margin-top: (-$sp-3);
+    font-size: 1rem;
+  }
+
+  .publications h2.bibliography {
+    margin-top: $sp-6;
+  }
+
+  .pub-entry--with-media {
+    grid-template-columns: minmax(0, 1fr);
+    gap: $sp-3;
+  }
+
+  .pub-entry__media {
+    width: min(100%, 280px);
+  }
+
+  .pub-entry__title {
+    font-size: 1.1875rem; // 19px
+  }
+}
+
+@media print {
+  .pub-entry__links,
+  .pub-entry__annotation {
+    display: none;
+  }
+}

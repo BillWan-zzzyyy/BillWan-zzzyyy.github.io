@@ -1,7 +1,6 @@
 ---
 layout: page
 title: News
-gradient_title: true
 permalink: /news/
 description: Recent updates and milestones.
 ---

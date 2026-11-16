@@ -9,9 +9,7 @@ last_name: WAN
 email: zhengyang.wan@wisc.edu
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
   Personal academic website of Zhengyang Wan, Ph.D. student at UW-Madison
-footer_text: >
-  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
-  Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+footer_text: # not rendered: the footer shows only copyright + last-updated date (_includes/footer.liquid)
 keywords: autonomous driving, intelligent transportation, vision-language model
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: 🧐 # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
@@ -62,9 +60,9 @@ max_width: 1180px
 # -----------------------------------------------------------------------------
 # Display links to the page with a preview object on social media.
 # see https://schema.org/docs/faq.html for more information
-serve_og_meta: false # Include Open Graph meta tags in the HTML head
+serve_og_meta: true # Include Open Graph meta tags in the HTML head
 serve_schema_org: false # Include Schema.org in the HTML head
-og_image: https://www.zhengyangwan.com/assets/img/profile.jpg # The site-wide (default for all links) Open Graph preview image
+og_image: https://www.zhengyangwan.com/assets/img/og-home.jpg # Site-wide Open Graph preview image (assets/img/og-home.jpg); absolute because metadata.liquid prints it verbatim
 
 # -----------------------------------------------------------------------------
 # Social integration
@@ -133,8 +131,8 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: al-folio # blog_name will be displayed in your blog page
-blog_description: a simple whitespace theme for academics
+blog_name: Blog # blog_name will be displayed in your blog page
+blog_description: Notes and updates
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
 

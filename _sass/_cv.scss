@@ -35,7 +35,7 @@
   &:first-child { margin-top: $sp-5; }
 
   .cv-section__title {
-    font-family: $ff-serif;
+    font-family: var(--font-display);
     font-size: $fs-xl;
     font-weight: $fw-semibold;
     color: var(--global-text-color);

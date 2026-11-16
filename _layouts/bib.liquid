@@ -1,74 +1,79 @@
 ---
 ---
-<div class="row publication-row{% if site.enable_publication_thumbnails %} publication-row--with-media{% endif %}" data-reveal>
-  {% if site.enable_publication_thumbnails %}
-    <div class="pub-media abbr">
-      {%- if entry.abbr -%}
-        {% assign venue_data = site.data.venues[entry.abbr] %}
-        <abbr class="rounded{% if venue_data.emphasis == 'strong' %} venue--strong{% endif %}">
-          {% if site.data.venues[entry.abbr].url %}
-            <a href="{{ site.data.venues[entry.abbr].url }}">{{ entry.abbr }}</a>
-          {% else %}
-            <div>{{- entry.abbr -}}</div>
-          {% endif %}
-        </abbr>
-      {% endif %}
-      {% if entry.preview %}
-        {% if entry.preview contains '://' %}
-          <img class="preview rounded" src="{{ entry.preview }}" loading="lazy" decoding="async" alt="{{ entry.title | strip_html | escape }}">
-        {% else %}
-          {% assign entry_path = entry.preview | prepend: '/assets/img/publication_preview/' %}
-          {% assign still_path = entry.preview | prepend: '/assets/img/publication_preview/still/' %}
-          {% capture has_still %}{% file_exists {{ still_path }} %}{% endcapture %}
-          {% unless has_still == 'true' %}{% assign still_path = null %}{% endunless %}
-          {%
-            include figure.liquid
-            loading="lazy"
-            path=entry_path
-            reduced_motion_path=still_path
-            sizes="320px"
-            class="preview rounded"
-            zoomable=true
-            alt=entry.title
-          %}
-        {% endif %}
+{%- comment -%}
+  One publication entry (jekyll-scholar bibliography_template).
+  Thumbnail (left) + venue tag + serif title + authors + summary + venue/year
+  line + a quiet row of text links. Styles live in _sass/_publications.scss.
+{%- endcomment -%}
+{% assign has_media = false %}
+{% if site.enable_publication_thumbnails and entry.preview %}
+  {% assign has_media = true %}
+{% endif %}
+<div class="pub-entry{% if has_media %} pub-entry--with-media{% endif %}">
+  {% if has_media %}
+    <div class="pub-entry__media">
+      {% if entry.preview contains '://' %}
+        <img class="pub-entry__thumb" src="{{ entry.preview }}" loading="lazy" decoding="async" alt="{{ entry.title | strip_html | escape }}">
+      {% else %}
+        {% assign entry_path = entry.preview | prepend: '/assets/img/publication_preview/' %}
+        {% assign still_path = entry.preview | prepend: '/assets/img/publication_preview/still/' %}
+        {% capture has_still %}{% file_exists {{ still_path }} %}{% endcapture %}
+        {% unless has_still == 'true' %}{% assign still_path = null %}{% endunless %}
+        {%
+          include figure.liquid
+          loading="lazy"
+          path=entry_path
+          reduced_motion_path=still_path
+          sizes="320px"
+          class="pub-entry__thumb"
+          zoomable=true
+          alt=entry.title
+        %}
       {% endif %}
     </div>
   {% endif %}
 
-  <!-- Entry bib key -->
-  <div id="{{ entry.key }}" class="pub-content">
-    {% if entry.selected == 'true' %}
-      <div class="pub-featured">Featured</div>
-    {% endif %}
-    <!-- Title links to the paper, same priority as the Paper button (html → arXiv → PDF → DOI). -->
-    {% assign title_url = null %}
+  <div id="{{ entry.key }}" class="pub-entry__body">
+    {%- if entry.abbr -%}
+      {% assign venue_data = site.data.venues[entry.abbr] %}
+      <span class="pub-entry__venue{% if venue_data.emphasis == 'strong' %} pub-entry__venue--strong{% endif %}">
+        {%- if venue_data.url -%}
+          <a href="{{ venue_data.url }}">{{ entry.abbr }}</a>
+        {%- else -%}
+          {{ entry.abbr }}
+        {%- endif -%}
+      </span>
+    {%- endif %}
+
+    {%- comment -%} Title and "Paper" link share one target: html → arXiv → PDF → DOI. {%- endcomment -%}
+    {% assign paper_url = null %}
     {% if entry.html %}
       {% if entry.html contains '://' %}
-        {% assign title_url = entry.html %}
+        {% assign paper_url = entry.html %}
       {% else %}
-        {% assign title_url = entry.html | prepend: '/assets/html/' | relative_url %}
+        {% assign paper_url = entry.html | prepend: '/assets/html/' | relative_url %}
       {% endif %}
     {% elsif entry.arxiv %}
-      {% assign title_url = entry.arxiv | prepend: 'https://arxiv.org/abs/' %}
+      {% assign paper_url = entry.arxiv | prepend: 'https://arxiv.org/abs/' %}
     {% elsif entry.pdf %}
       {% if entry.pdf contains '://' %}
-        {% assign title_url = entry.pdf %}
+        {% assign paper_url = entry.pdf %}
       {% else %}
-        {% assign title_url = entry.pdf | prepend: '/assets/pdf/' | relative_url %}
+        {% assign paper_url = entry.pdf | prepend: '/assets/pdf/' | relative_url %}
       {% endif %}
     {% elsif entry.doi %}
-      {% assign title_url = entry.doi | prepend: 'https://doi.org/' %}
+      {% assign paper_url = entry.doi | prepend: 'https://doi.org/' %}
     {% endif %}
-    <div class="title">
-      {% if title_url %}
-        <a class="pub-title-link" href="{{ title_url }}">{{ entry.title }}</a>
+    <h3 class="pub-entry__title">
+      {% if paper_url %}
+        <a href="{{ paper_url }}">{{ entry.title }}</a>
       {% else %}
         {{ entry.title }}
       {% endif %}
-    </div>
+    </h3>
+
     <!-- Author -->
-    <div class="author">
+    <div class="pub-entry__authors">
       {% assign author_array_size = entry.author_array | size %}
 
       {% assign author_array_limit = author_array_size %}
@@ -175,7 +180,7 @@
       {% endif %}
       {% if entry.annotation %}
         <i
-          class="fa-solid fa-circle-info ml-1"
+          class="fa-solid fa-circle-info pub-entry__annotation"
           data-toggle="popover"
           data-placement="top"
           data-html="true"
@@ -184,19 +189,20 @@
         </i>
       {% endif %}
     </div>
+
     {% if entry.summary %}
-      <p class="pub-summary">{{ entry.summary }}</p>
+      <p class="pub-entry__summary">{{ entry.summary }}</p>
     {% endif %}
 
     <!-- Journal/Book title and date -->
     {% assign proceedings = 'inproceedings,incollection' | split: ',' %}
     {% assign thesis = 'thesis,mastersthesis,phdthesis' | split: ',' %}
     {% if entry.type == 'article' %}
-      {% capture entrytype %}<em class="venue">{{ entry.journal }}</em>{% endcapture %}
+      {% capture entrytype %}<span class="pub-entry__journal">{{ entry.journal }}</span>{% endcapture %}
     {% elsif proceedings contains entry.type %}
-      {% capture entrytype %}<em class="venue">In {{ entry.booktitle }}</em>{% endcapture %}
+      {% capture entrytype %}<span class="pub-entry__journal">In {{ entry.booktitle }}</span>{% endcapture %}
     {% elsif thesis contains entry.type %}
-      {% capture entrytype %}<em class="venue">{{ entry.school }}</em>{% endcapture %}
+      {% capture entrytype %}<span class="pub-entry__journal">{{ entry.school }}</span>{% endcapture %}
     {% else %}
       {% capture entrytype %}{% endcapture %}
     {% endif %}
@@ -218,203 +224,179 @@
     {% endif %}
     {% assign entrytype_text = entrytype | strip_html | strip %}
     {% capture periodical %}{{ entrytype }}{% if entrytype_text != "" and entryyear != "" %} · {% endif %}{{ entrymonth }}{{ entryyear }}{% endcapture %}
-    <div class="periodical">
+    <div class="pub-entry__meta">
       {{ periodical | strip }}
     </div>
-    <div class="periodical">
-      {{ entry.note | strip }}
-    </div>
-
-    <!-- Links and publication metrics share one wrapping action region. -->
-    <div class="pub-actions">
-      <div class="pub-links">
-        {% if entry.award %}
-          <button type="button" class="award" aria-expanded="false">
-            {%- if entry.award_name %}{{ entry.award_name }}{% else %}Awarded{% endif -%}
-          </button>
-        {% endif %}
-        {% if entry.doi %}
-          <a href="https://doi.org/{{ entry.doi }}">DOI</a>
-        {% endif %}
-        {% if entry.html %}
-          {% if entry.html contains '://' %}
-            <a class="pub-link--primary" href="{{ entry.html }}"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Paper</a>
-          {% else %}
-            <a class="pub-link--primary" href="{{ entry.html | prepend: '/assets/html/' | relative_url }}"
-              ><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Paper</a
-            >
-          {% endif %}
-        {% elsif entry.arxiv %}
-          <a class="pub-link--primary" href="https://arxiv.org/abs/{{ entry.arxiv }}"
-            ><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Paper</a
-          >
-        {% endif %}
-        {% if entry.pdf %}
-          {% if entry.pdf contains '://' %}
-            <a href="{{ entry.pdf }}"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i> PDF</a>
-          {% else %}
-            <a href="{{ entry.pdf | prepend: '/assets/pdf/' | relative_url }}"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i> PDF</a>
-          {% endif %}
-        {% endif %}
-        {% if entry.supp %}
-          {% if entry.supp contains '://' %}
-            <a href="{{ entry.supp }}">Supp</a>
-          {% else %}
-            <a href="{{ entry.supp | prepend: '/assets/pdf/' | relative_url }}">Supp</a>
-          {% endif %}
-        {% endif %}
-        {% if entry.blog %}
-          <a href="{{ entry.blog }}">Blog</a>
-        {% endif %}
-        {% if entry.code %}
-          <a href="{{ entry.code }}"><i class="fa-solid fa-code" aria-hidden="true"></i> Code</a>
-        {% endif %}
-        {% if entry.poster %}
-          {% if entry.poster contains '://' %}
-            <a href="{{ entry.poster }}">Poster</a>
-          {% else %}
-            <a href="{{ entry.poster | prepend: '/assets/pdf/' | relative_url }}">Poster</a>
-          {% endif %}
-        {% endif %}
-        {% if entry.slides %}
-          {% if entry.slides contains '://' %}
-            <a href="{{ entry.slides }}">Slides</a>
-          {% else %}
-            <a href="{{ entry.slides | prepend: '/assets/pdf/' | relative_url }}">Slides</a>
-          {% endif %}
-        {% endif %}
-        {% if entry.website %}
-          <a href="{{ entry.website }}"><i class="fa-solid fa-globe" aria-hidden="true"></i> Website</a>
-        {% endif %}
+    {% if entry.note %}
+      <div class="pub-entry__meta">
+        {{ entry.note | strip }}
       </div>
-      {% if site.enable_publication_badges %}
-        {% assign entry_has_altmetric_badge = false %}
-        {% if entry.altmetric and entry.altmetric != 'false' %}
-          {% assign entry_has_altmetric_badge = true %}
-        {% endif %}
+    {% endif %}
 
-        {% assign entry_has_dimensions_badge = false %}
-        {% if entry.dimensions and entry.dimensions != 'false' %}
-          {% assign entry_has_dimensions_badge = true %}
-        {% endif %}
-
-        {% assign entry_has_google_scholar_badge = false %}
-        {% if entry.google_scholar_id %}
-          {% assign entry_has_google_scholar_badge = true %}
-        {% endif %}
-
-        {% assign entry_has_github_stars_badge = false %}
-        {% if entry.github_repo %}
-          {% assign entry_has_github_stars_badge = true %}
-        {% endif %}
-
-        {% assign entry_has_inspirehep_badge = false %}
-        {% if entry.inspirehep_id %}
-          {% assign entry_has_inspirehep_badge = true %}
-        {% endif %}
-        {% if entry_has_altmetric_badge
-          or entry_has_dimensions_badge
-          or entry_has_google_scholar_badge
-          or entry_has_github_stars_badge
-          or entry_has_inspirehep_badge
-        %}
-          <div class="badges">
-            {% if site.enable_publication_badges.altmetric and entry_has_altmetric_badge %}
-              <span
-                class="altmetric-embed"
-                data-badge-type="2"
-                data-badge-popover="right"
-                {% if entry.altmetric != blank and entry.altmetric != 'true' %}
-                  data-altmetric-id="{{ entry.altmetric }}"
-                {% elsif entry.arxiv %}
-                  data-arxiv-id="{{ entry.arxiv }}"
-                {% elsif entry.eprint %}
-                  data-arxiv-id="{{ entry.eprint }}"
-                {% elsif entry.doi %}
-                  data-doi="{{ entry.doi }}"
-                {% elsif entry.pmid %}
-                  data-pmid="{{ entry.pmid }}"
-                {% elsif entry.isbn %}
-                  data-isbn="{{ entry.isbn }}"
-                {% endif %}
-              ></span>
-            {% endif %}
-            {% if site.enable_publication_badges.dimensions and entry_has_dimensions_badge %}
-              <span
-                class="__dimensions_badge_embed__"
-                {% if entry.dimensions != blank and entry.dimensions != 'true' %}
-                  data-id="{{ entry.dimensions }}"
-                {% elsif entry.doi %}
-                  data-doi="{{ entry.doi }}"
-                {% else %}
-                  data-pmid="{{ entry.pmid }}"
-                {% endif %}
-                data-style="small_rectangle"
-                data-legend="hover-right"
-                style="margin-bottom: 3px;"
-              ></span>
-            {% endif %}
-            {% if site.enable_publication_badges.google_scholar and entry_has_google_scholar_badge %}
-              {% assign gs_count = site.data.scholar_citations.articles[entry.google_scholar_id] %}
-              {% if gs_count != null %}
-                <a
-                  class="badge-pill"
-                  href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user={{ site.scholar_userid }}&citation_for_view={{ site.scholar_userid }}:{{ entry.google_scholar_id }}"
-                  aria-label="Google Scholar citations"
-                  role="button"
-                >
-                  <span class="badge-pill__label"> <i class="ai ai-google-scholar"></i> Scholar </span>
-                  {% if gs_count > 0 -%}
-                    <span class="badge-pill__value">{{ gs_count }}</span>
-                  {%- endif %}
-                </a>
-              {% endif %}
-            {% endif %}
-            {% if site.enable_publication_badges.github_stars and entry_has_github_stars_badge %}
-              {% assign star_count = site.data.github_stars.repos[entry.github_repo] %}
-              {% if star_count != null %}
-                <a
-                  class="badge-pill"
-                  href="https://github.com/{{ entry.github_repo }}"
-                  aria-label="GitHub repository stars"
-                  role="button"
-                >
-                  <span class="badge-pill__label"> <i class="fa-brands fa-github"></i> GitHub </span>
-                  {% if star_count > 0 -%}
-                    <span class="badge-pill__value">{{ star_count }} ★</span>
-                  {%- endif %}
-                </a>
-              {% endif %}
-            {% endif %}
-            {% if site.enable_publication_badges.inspirehep and entry_has_inspirehep_badge %}
-              <a
-                href="https://inspirehep.net/literature/{{ entry.inspirehep_id }}"
-                aria-label="Inspirehep link"
-                role="button"
-              >
-                <img
-                  src="https://img.shields.io/badge/inspire-{% inspirehep_citations entry.inspirehep_id %}-001628?logo=inspire&logoColor=001628&labelColor=beige"
-                  alt="{% inspirehep_citations entry.inspirehep_id %} InspireHEP citations"
-                  loading="lazy"
-                  decoding="async"
-                >
-              </a>
-            {% endif %}
-          </div>
-        {% endif %}
+    {%- comment -%}
+      Text links joined by " · ", only for fields that exist: Paper, Project,
+      Code, Video, then any other al-folio fields, then BibTeX. Toggle buttons
+      (.award / .abstract / .bibtex) must stay direct children of this row:
+      assets/js/common.js looks for their panels in control.parent().parent().
+    {%- endcomment -%}
+    {% assign pub_links = '' | split: '' %}
+    {% if paper_url %}
+      {% capture pub_link %}<a href="{{ paper_url }}">Paper</a>{% endcapture %}
+      {% assign pub_links = pub_links | push: pub_link %}
+    {% endif %}
+    {% if entry.website %}
+      {% capture pub_link %}<a href="{{ entry.website }}">Project</a>{% endcapture %}
+      {% assign pub_links = pub_links | push: pub_link %}
+    {% endif %}
+    {% if entry.code %}
+      {% capture pub_link %}<a href="{{ entry.code }}">Code</a>{% endcapture %}
+      {% assign pub_links = pub_links | push: pub_link %}
+    {% elsif entry.github_repo %}
+      {% capture pub_link %}<a href="https://github.com/{{ entry.github_repo }}">Code</a>{% endcapture %}
+      {% assign pub_links = pub_links | push: pub_link %}
+    {% endif %}
+    {% if entry.video %}
+      {% if site.enable_video_embedding %}
+        {% capture pub_link %}<button type="button" class="abstract" aria-expanded="false">Video</button>{% endcapture %}
+      {% else %}
+        {% capture pub_link %}<a href="{{ entry.video }}">Video</a>{% endcapture %}
       {% endif %}
-    </div>
+      {% assign pub_links = pub_links | push: pub_link %}
+    {% endif %}
+    {% if entry.pdf %}
+      {% if entry.pdf contains '://' %}
+        {% assign pdf_url = entry.pdf %}
+      {% else %}
+        {% assign pdf_url = entry.pdf | prepend: '/assets/pdf/' | relative_url %}
+      {% endif %}
+      {% if pdf_url != paper_url %}
+        {% capture pub_link %}<a href="{{ pdf_url }}">PDF</a>{% endcapture %}
+        {% assign pub_links = pub_links | push: pub_link %}
+      {% endif %}
+    {% endif %}
+    {% if entry.slides %}
+      {% if entry.slides contains '://' %}
+        {% capture pub_link %}<a href="{{ entry.slides }}">Slides</a>{% endcapture %}
+      {% else %}
+        {% capture pub_link %}<a href="{{ entry.slides | prepend: '/assets/pdf/' | relative_url }}">Slides</a>{% endcapture %}
+      {% endif %}
+      {% assign pub_links = pub_links | push: pub_link %}
+    {% endif %}
+    {% if entry.poster %}
+      {% if entry.poster contains '://' %}
+        {% capture pub_link %}<a href="{{ entry.poster }}">Poster</a>{% endcapture %}
+      {% else %}
+        {% capture pub_link %}<a href="{{ entry.poster | prepend: '/assets/pdf/' | relative_url }}">Poster</a>{% endcapture %}
+      {% endif %}
+      {% assign pub_links = pub_links | push: pub_link %}
+    {% endif %}
+    {% if entry.supp %}
+      {% if entry.supp contains '://' %}
+        {% capture pub_link %}<a href="{{ entry.supp }}">Supp</a>{% endcapture %}
+      {% else %}
+        {% capture pub_link %}<a href="{{ entry.supp | prepend: '/assets/pdf/' | relative_url }}">Supp</a>{% endcapture %}
+      {% endif %}
+      {% assign pub_links = pub_links | push: pub_link %}
+    {% endif %}
+    {% if entry.blog %}
+      {% capture pub_link %}<a href="{{ entry.blog }}">Blog</a>{% endcapture %}
+      {% assign pub_links = pub_links | push: pub_link %}
+    {% endif %}
+    {% if entry.award %}
+      {% capture pub_link %}<button type="button" class="award" aria-expanded="false">
+          {%- if entry.award_name %}{{ entry.award_name }}{% else %}Award{% endif -%}
+        </button>{% endcapture %}
+      {% assign pub_links = pub_links | push: pub_link %}
+    {% endif %}
+    {% if entry.bibtex_show %}
+      {% capture pub_link %}<button type="button" class="bibtex" aria-expanded="false">BibTeX</button>{% endcapture %}
+      {% assign pub_links = pub_links | push: pub_link %}
+    {% endif %}
+    {% if pub_links.size > 0 %}
+      <div class="pub-entry__links">
+        {{- pub_links | join: '<span class="pub-entry__sep" aria-hidden="true">·</span>' -}}
+      </div>
+    {% endif %}
+
+    {% if site.enable_publication_badges %}
+      {% assign entry_has_altmetric_badge = false %}
+      {% if entry.altmetric and entry.altmetric != 'false' %}
+        {% assign entry_has_altmetric_badge = true %}
+      {% endif %}
+
+      {% assign entry_has_dimensions_badge = false %}
+      {% if entry.dimensions and entry.dimensions != 'false' %}
+        {% assign entry_has_dimensions_badge = true %}
+      {% endif %}
+
+      {% assign entry_has_inspirehep_badge = false %}
+      {% if entry.inspirehep_id %}
+        {% assign entry_has_inspirehep_badge = true %}
+      {% endif %}
+      {%- comment -%}
+        Per-paper Google Scholar and GitHub-star pills were removed in the redesign; the
+        site-wide citation total is shown once on the Publications page instead.
+      {%- endcomment -%}
+      {% if entry_has_altmetric_badge or entry_has_dimensions_badge or entry_has_inspirehep_badge %}
+        <div class="pub-entry__badges">
+          {% if site.enable_publication_badges.altmetric and entry_has_altmetric_badge %}
+            <span
+              class="altmetric-embed"
+              data-badge-type="2"
+              data-badge-popover="right"
+              {% if entry.altmetric != blank and entry.altmetric != 'true' %}
+                data-altmetric-id="{{ entry.altmetric }}"
+              {% elsif entry.arxiv %}
+                data-arxiv-id="{{ entry.arxiv }}"
+              {% elsif entry.eprint %}
+                data-arxiv-id="{{ entry.eprint }}"
+              {% elsif entry.doi %}
+                data-doi="{{ entry.doi }}"
+              {% elsif entry.pmid %}
+                data-pmid="{{ entry.pmid }}"
+              {% elsif entry.isbn %}
+                data-isbn="{{ entry.isbn }}"
+              {% endif %}
+            ></span>
+          {% endif %}
+          {% if site.enable_publication_badges.dimensions and entry_has_dimensions_badge %}
+            <span
+              class="__dimensions_badge_embed__"
+              {% if entry.dimensions != blank and entry.dimensions != 'true' %}
+                data-id="{{ entry.dimensions }}"
+              {% elsif entry.doi %}
+                data-doi="{{ entry.doi }}"
+              {% else %}
+                data-pmid="{{ entry.pmid }}"
+              {% endif %}
+              data-style="small_rectangle"
+              data-legend="hover-right"
+            ></span>
+          {% endif %}
+          {% if site.enable_publication_badges.inspirehep and entry_has_inspirehep_badge %}
+            <a href="https://inspirehep.net/literature/{{ entry.inspirehep_id }}" aria-label="Inspirehep link">
+              <img
+                src="https://img.shields.io/badge/inspire-{% inspirehep_citations entry.inspirehep_id %}-001628?logo=inspire&logoColor=001628&labelColor=beige"
+                alt="{% inspirehep_citations entry.inspirehep_id %} InspireHEP citations"
+                loading="lazy"
+                decoding="async"
+              >
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endif %}
 
     {% if entry.award %}
-      <!-- Hidden Award block -->
-      <div class="award hidden d-print-inline">
-        <p>{{ entry.award | markdownify }}</p>
+      <!-- Award panel, opened by the "Award" button above. -->
+      <div class="pub-entry__panel award hidden d-print-inline">
+        {{ entry.award | markdownify }}
       </div>
     {% endif %}
 
     {% if entry.bibtex_show %}
-      <!-- Hidden bibtex block -->
-      <div class="bibtex hidden">
+      <!-- BibTeX panel, opened by the "BibTeX" button above. -->
+      <div class="pub-entry__panel bibtex hidden">
         {% highlight bibtex %}
         {{- entry.bibtex | hideCustomBibtex -}}
         {% endhighlight %}
@@ -422,9 +404,9 @@
     {% endif %}
 
     {% if entry.video and site.enable_video_embedding %}
-      <!-- Hidden video block -->
-      <div class="abstract hidden">
-        <div style="text-align: center;">{% include video.liquid path=entry.video class="img-fluid rounded z-depth-1" controls=true %}</div>
+      <!-- Video panel, opened by the "Video" button above. -->
+      <div class="pub-entry__panel abstract hidden">
+        {% include video.liquid path=entry.video class="img-fluid rounded" controls=true %}
       </div>
     {% endif %}
   </div>

@@ -1,216 +1,382 @@
-{% if site.email %}
-  <a href="mailto:{{ site.email | encode_email }}" title="email" aria-label="email"><i aria-hidden="true" class="fa-solid fa-envelope"></i></a>
-{% endif %}
-{% if site.cv_pdf %}
-  <a href="{{ site.cv_pdf | prepend: 'assets/pdf/' | relative_url }}" title="CV" aria-label="CV" target="_blank" rel="noopener noreferrer"
-    ><i aria-hidden="true" class="ai ai-cv"></i
-  ></a>
-{% endif %}
-{% if site.telegram_username %}
-  <a href="https://telegram.me/{{ site.telegram_username }}" title="telegram" aria-label="telegram"
-    ><i aria-hidden="true" class="fa-brands fa-telegram"></i
-  ></a>
-{% endif %}
-{% if site.whatsapp_number %}
-  <a href="https://wa.me/{{ site.whatsapp_number }}" title="whatsapp" aria-label="whatsapp"
-    ><i aria-hidden="true" class="fa-brands fa-whatsapp"></i
-  ></a>
-{% endif %}
-{% if site.scholar_userid %}
-  <a href="https://scholar.google.com/citations?user={{ site.scholar_userid }}" title="Google Scholar" aria-label="Google Scholar"
-    ><i aria-hidden="true" class="ai ai-google-scholar"></i
-  ></a>
-{% endif %}
-{% if site.orcid_id %}
-  <a href="https://orcid.org/{{ site.orcid_id }}" title="ORCID" aria-label="ORCID"><i aria-hidden="true" class="ai ai-orcid"></i></a>
-{% endif %}
-{% if site.inspirehep_id %}
-  <a href="https://inspirehep.net/authors/{{ site.inspirehep_id }}" title="Inspire HEP" aria-label="Inspire HEP"
-    ><i aria-hidden="true" class="ai ai-inspire"></i
-  ></a>
-{% endif %}
-{% if site.semanticscholar_id %}
-  <a href="https://www.semanticscholar.org/author/{{ site.semanticscholar_id }}" title="Semantic Scholar" aria-label="Semantic Scholar"
-    ><i aria-hidden="true" class="ai ai-semantic-scholar"></i
-  ></a>
-{% endif %}
-{% if site.publons_id %}
-  <a href="https://publons.com/a/{{ site.publons_id }}/" title="Publons" aria-label="Publons"><i aria-hidden="true" class="ai ai-publons"></i></a>
-{% endif %}
-{% if site.lattes_id %}
-  <a href="http://lattes.cnpq.br/{{ site.lattes_id }}" target="_blank" title="Lattes" aria-label="Lattes"
-    ><i aria-hidden="true" class="ai ai-lattes"></i
-  ></a>
-{% endif %}
-{% if site.osf_id %}
-  <a href="https://osf.io/{{ site.osf_id }}/" title="Open Science Framework" aria-label="Open Science Framework"
-    ><i aria-hidden="true" class="ai ai-osf"></i
-  ></a>
-{% endif %}
-{% if site.research_gate_profile %}
-  <a href="https://www.researchgate.net/profile/{{ site.research_gate_profile }}/" title="ResearchGate" aria-label="ResearchGate"
-    ><i aria-hidden="true" class="ai ai-researchgate"></i
-  ></a>
-{% endif %}
-{% if site.ieee_id %}
-  <a href="https://ieeexplore.ieee.org/author/{{ site.ieee_id }}/" title="IEEE Xplore" aria-label="IEEE Xplore"
-    ><i aria-hidden="true" class="ai ai-ieee"></i
-  ></a>
-{% endif %}
-{% if site.acm_id %}
-  <a href="https://dl.acm.org/profile/{{ site.acm_id }}/" title="ACM DL" aria-label="ACM DL"><i aria-hidden="true" class="ai ai-acm"></i></a>
-{% endif %}
-{% if site.scopus_id %}
-  <a href="https://www.scopus.com/authid/detail.uri?authorId={{ site.scopus_id }}" title="Scopus" aria-label="Scopus"
-    ><i aria-hidden="true" class="ai ai-scopus"></i
-  ></a>
-{% endif %}
-{% if site.github_username %}
-  <a href="https://github.com/{{ site.github_username }}" title="GitHub" aria-label="GitHub"
-    ><i aria-hidden="true" class="fa-brands fa-github"></i
-  ></a>
-{% endif %}
-{% if site.linkedin_username %}
-  <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}" title="LinkedIn" aria-label="LinkedIn"
-    ><i aria-hidden="true" class="fa-brands fa-linkedin"></i
-  ></a>
-{% endif %}
-{% if site.x_username %}
-  <a href="https://twitter.com/{{ site.x_username }}" title="X" aria-label="X"><i aria-hidden="true" class="fa-brands fa-x-twitter"></i></a>
-{% endif %}
-{% if site.mastodon_username %}
-  <a rel="me" href="https://{{ site.mastodon_username  }}" title="Mastodon" aria-label="Mastodon"
-    ><i aria-hidden="true" class="fa-brands fa-mastodon"></i
-  ></a>
-{% endif %}
-{% if site.medium_username %}
-  <a href="https://medium.com/@{{ site.medium_username }}" title="Medium" aria-label="Medium"
-    ><i aria-hidden="true" class="fa-brands fa-medium"></i
-  ></a>
-{% endif %}
-{% if site.quora_username %}
-  <a href="https://www.quora.com/profile/{{ site.quora_username }}" title="Quora" aria-label="Quora"
-    ><i aria-hidden="true" class="fa-brands fa-quora"></i
-  ></a>
-{% endif %}
-{% if site.flickr_id %}
-  <a href="https://www.flickr.com/{{ site.flickr_id }}" title="Flickr" aria-label="Flickr"><i aria-hidden="true" class="fa-brands fa-flickr"></i></a>
-{% endif %}
-{% if site.blogger_url %}
-  <a href="{{ site.blogger_url }}" title="Blogger" aria-label="Blogger"><i aria-hidden="true" class="fa-brands fa-blogger-b"></i></a>
-{% endif %}
-{% if site.work_url %}
-  <a href="{{ site.work_url }}" title="Work" aria-label="Work"><i aria-hidden="true" class="fa-solid fa-briefcase"></i></a>
-{% endif %}
-{% if site.wikidata_id %}
-  <a href="https://www.wikidata.org/wiki/{{ site.wikidata_id }}" title="Wikidata" aria-label="Wikidata"
-    ><i aria-hidden="true" class="fa-solid fa-barcode"></i
-  ></a>
-{% endif %}
-{% if site.wikipedia_id %}
-  <a href="https://wikipedia.org/wiki/User:{{ site.wikipedia_id }}" title="Wikipedia" aria-label="Wikipedia"
-    ><i aria-hidden="true" class="fa-brands fa-wikipedia-w"></i
-  ></a>
-{% endif %}
-{% if site.strava_userid %}
-  <a href="https://www.strava.com/athletes/{{ site.strava_userid }}" title="Strava" aria-label="Strava"
-    ><i aria-hidden="true" class="fa-brands fa-strava"></i
-  ></a>
-{% endif %}
-{% if site.keybase_username %}
-  <a href="https://keybase.io/{{ site.keybase_username }}" title="Keybase" aria-label="Keybase"
-    ><i aria-hidden="true" class="fa-brands fa-keybase"></i
-  ></a>
-{% endif %}
-{% if site.gitlab_username %}
-  <a href="https://gitlab.com/{{ site.gitlab_username }}" title="GitLab" aria-label="GitLab"
-    ><i aria-hidden="true" class="fa-brands fa-gitlab"></i
-  ></a>
-{% endif %}
-{% if site.dblp_url %}
-  <a href="{{ site.dblp_url }}" title="DBLP" aria-label="DBLP"><i aria-hidden="true" class="ai ai-dblp"></i></a>
-{% endif %}
-{% if site.stackoverflow_id %}
-  <a href="https://stackoverflow.com/users/{{ site.stackoverflow_id }}" title="Stackoverflow" aria-label="Stackoverflow"
-    ><i aria-hidden="true" class="fa-brands fa-stack-overflow"></i
-  ></a>
-{% endif %}
-{% if site.kaggle_id %}
-  <a href="https://www.kaggle.com/{{ site.kaggle_id }}" title="Kaggle" aria-label="Kaggle"><i aria-hidden="true" class="fa-brands fa-kaggle"></i></a>
-{% endif %}
-{% if site.lastfm_id %}
-  <a href="https://www.last.fm/user/{{ site.lastfm_id }}" title="Last FM" aria-label="Last FM"
-    ><i aria-hidden="true" class="fa-brands fa-lastfm"></i
-  ></a>
-{% endif %}
-{% if site.spotify_id %}
-  <a href="https://open.spotify.com/user/{{ site.spotify_id }}" title="Spotify" aria-label="Spotify"
-    ><i aria-hidden="true" class="fa-brands fa-spotify"></i
-  ></a>
-{% endif %}
-{% if site.pinterest_id %}
-  <a href="https://www.pinterest.com/{{ site.pinterest_id }}" title="Pinterest" aria-label="Pinterest"
-    ><i aria-hidden="true" class="fa-brands fa-pinterest"></i
-  ></a>
-{% endif %}
-{% if site.unsplash_id %}
-  <a href="https://unsplash.com/@{{ site.unsplash_id }}" title="Unsplash" aria-label="Unsplash"
-    ><i aria-hidden="true" class="fa-brands fa-unsplash"></i
-  ></a>
-{% endif %}
-{% if site.instagram_id %}
-  <a href="https://instagram.com/{{ site.instagram_id }}" title="Instagram" aria-label="Instagram"
-    ><i aria-hidden="true" class="fa-brands fa-instagram"></i
-  ></a>
-{% endif %}
-{% if site.facebook_id %}
-  <a href="https://facebook.com/{{ site.facebook_id }}" title="Facebook" aria-label="Facebook"
-    ><i aria-hidden="true" class="fa-brands fa-facebook"></i
-  ></a>
-{% endif %}
-{% if site.bluesky_url %}
-  <a href="{{ site.bluesky_url }}" title="Bluesky" aria-label="Bluesky"><i aria-hidden="true" class="fa-brands fa-bluesky"></i></a>
-{% endif %}
-{% if site.youtube_id %}
-  <a href="https://youtube.com/@{{ site.youtube_id }}" title="YouTube" aria-label="YouTube"
-    ><i aria-hidden="true" class="fa-brands fa-youtube"></i
-  ></a>
-{% endif %}
-{% if site.discord_id %}
-  <a href="https://discord.com/users/{{ site.discord_id }}" title="Discord" aria-label="Discord"
-    ><i aria-hidden="true" class="fa-brands fa-discord"></i
-  ></a>
-{% endif %}
-{% if site.zotero_username %}
-  <a href="https://www.zotero.org/{{ site.zotero_username }}" title="Zotero" aria-label="Zotero"><i aria-hidden="true" class="ai ai-zotero"></i></a>
-{% endif %}
-{% if site.rss_icon %}
-  <a href="{{ site.baseurl }}/feed.xml" title="RSS Feed" aria-label="RSS Feed"><i aria-hidden="true" class="fa-solid fa-square-rss"></i></a>
-{% endif %}
-{% if site.wechat_qr %}
-  {% assign wechat_qr_path = site.wechat_qr | prepend: 'assets/img/' | relative_url %}
-  <a
-    class="wechat-trigger"
-    href="{{ wechat_qr_path }}"
-    title="WeChat"
-    aria-label="Show WeChat QR code"
-    aria-haspopup="dialog"
-    aria-expanded="false"
-    data-wechat-trigger
-    ><i aria-hidden="true" class="fa-brands fa-weixin"></i
-  ></a>
-  <div
-    class="wechat-modal"
-    role="dialog"
-    aria-modal="true"
-    aria-label="WeChat QR code"
-    aria-hidden="true"
-    tabindex="-1"
-    data-wechat-modal
-    hidden
-  >
-    <button class="wechat-modal__close" type="button" aria-label="Close WeChat QR code" data-wechat-close>&times;</button>
-    <img class="wechat-modal__qr" src="{{ wechat_qr_path }}" alt="Scan this QR code to connect on WeChat">
-  </div>
-  {% include scripts/wechatModal.liquid %}
-{% endif %}
+{% comment %}
+  Social / contact links built from the handles in _config.yml.
+
+  Parameters (all optional):
+    keys        comma-separated networks to render, in that order (default: all, in the order below)
+    exclude     comma-separated networks to skip
+    labels      true → print a short text label after the icon
+    link_class  class added to every <a>
+
+  With no parameters it renders one icon link per configured network (navbar usage).
+{% endcomment %}
+{% assign social_default_keys = 'email,cv,telegram,whatsapp,scholar,orcid,inspirehep,semanticscholar,publons,lattes,osf,researchgate,ieee,acm,scopus,github,linkedin,x,mastodon,medium,quora,flickr,blogger,work,wikidata,wikipedia,strava,keybase,gitlab,dblp,stackoverflow,kaggle,lastfm,spotify,pinterest,unsplash,instagram,facebook,bluesky,youtube,discord,zotero,rss,wechat' %}
+{% assign social_keys = include.keys | default: social_default_keys | split: ',' %}
+{% assign social_exclude = include.exclude | default: '' | split: ',' %}
+{% assign social_class = include.link_class | default: '' %}
+
+{% for social_key in social_keys %}
+  {% if social_exclude contains social_key %}
+    {% continue %}
+  {% endif %}
+
+  {% assign s_href = '' %}
+  {% assign s_title = '' %}
+  {% assign s_label = '' %}
+  {% assign s_icon = '' %}
+  {% assign s_attrs = '' %}
+
+  {% case social_key %}
+    {% when 'email' %}
+      {% if site.email %}
+        {% assign s_href = site.email | encode_email | prepend: 'mailto:' %}
+        {% assign s_title = 'email' %}
+        {% assign s_label = 'Email' %}
+        {% assign s_icon = 'fa-solid fa-envelope' %}
+      {% endif %}
+    {% when 'cv' %}
+      {% if site.cv_pdf %}
+        {% assign s_href = site.cv_pdf | prepend: 'assets/pdf/' | relative_url %}
+        {% assign s_title = 'CV' %}
+        {% assign s_label = 'CV' %}
+        {% assign s_icon = 'ai ai-cv' %}
+        {% assign s_attrs = 'target="_blank" rel="noopener noreferrer"' %}
+      {% endif %}
+    {% when 'telegram' %}
+      {% if site.telegram_username %}
+        {% assign s_href = site.telegram_username | prepend: 'https://telegram.me/' %}
+        {% assign s_title = 'telegram' %}
+        {% assign s_label = 'Telegram' %}
+        {% assign s_icon = 'fa-brands fa-telegram' %}
+      {% endif %}
+    {% when 'whatsapp' %}
+      {% if site.whatsapp_number %}
+        {% assign s_href = site.whatsapp_number | prepend: 'https://wa.me/' %}
+        {% assign s_title = 'whatsapp' %}
+        {% assign s_label = 'WhatsApp' %}
+        {% assign s_icon = 'fa-brands fa-whatsapp' %}
+      {% endif %}
+    {% when 'scholar' %}
+      {% if site.scholar_userid %}
+        {% assign s_href = site.scholar_userid | prepend: 'https://scholar.google.com/citations?user=' %}
+        {% assign s_title = 'Google Scholar' %}
+        {% assign s_label = 'Scholar' %}
+        {% assign s_icon = 'ai ai-google-scholar' %}
+      {% endif %}
+    {% when 'orcid' %}
+      {% if site.orcid_id %}
+        {% assign s_href = site.orcid_id | prepend: 'https://orcid.org/' %}
+        {% assign s_title = 'ORCID' %}
+        {% assign s_label = 'ORCID' %}
+        {% assign s_icon = 'ai ai-orcid' %}
+      {% endif %}
+    {% when 'inspirehep' %}
+      {% if site.inspirehep_id %}
+        {% assign s_href = site.inspirehep_id | prepend: 'https://inspirehep.net/authors/' %}
+        {% assign s_title = 'Inspire HEP' %}
+        {% assign s_label = 'Inspire HEP' %}
+        {% assign s_icon = 'ai ai-inspire' %}
+      {% endif %}
+    {% when 'semanticscholar' %}
+      {% if site.semanticscholar_id %}
+        {% assign s_href = site.semanticscholar_id | prepend: 'https://www.semanticscholar.org/author/' %}
+        {% assign s_title = 'Semantic Scholar' %}
+        {% assign s_label = 'Semantic Scholar' %}
+        {% assign s_icon = 'ai ai-semantic-scholar' %}
+      {% endif %}
+    {% when 'publons' %}
+      {% if site.publons_id %}
+        {% assign s_href = site.publons_id | prepend: 'https://publons.com/a/' | append: '/' %}
+        {% assign s_title = 'Publons' %}
+        {% assign s_label = 'Publons' %}
+        {% assign s_icon = 'ai ai-publons' %}
+      {% endif %}
+    {% when 'lattes' %}
+      {% if site.lattes_id %}
+        {% assign s_href = site.lattes_id | prepend: 'http://lattes.cnpq.br/' %}
+        {% assign s_title = 'Lattes' %}
+        {% assign s_label = 'Lattes' %}
+        {% assign s_icon = 'ai ai-lattes' %}
+        {% assign s_attrs = 'target="_blank"' %}
+      {% endif %}
+    {% when 'osf' %}
+      {% if site.osf_id %}
+        {% assign s_href = site.osf_id | prepend: 'https://osf.io/' | append: '/' %}
+        {% assign s_title = 'Open Science Framework' %}
+        {% assign s_label = 'OSF' %}
+        {% assign s_icon = 'ai ai-osf' %}
+      {% endif %}
+    {% when 'researchgate' %}
+      {% if site.research_gate_profile %}
+        {% assign s_href = site.research_gate_profile | prepend: 'https://www.researchgate.net/profile/' | append: '/' %}
+        {% assign s_title = 'ResearchGate' %}
+        {% assign s_label = 'ResearchGate' %}
+        {% assign s_icon = 'ai ai-researchgate' %}
+      {% endif %}
+    {% when 'ieee' %}
+      {% if site.ieee_id %}
+        {% assign s_href = site.ieee_id | prepend: 'https://ieeexplore.ieee.org/author/' | append: '/' %}
+        {% assign s_title = 'IEEE Xplore' %}
+        {% assign s_label = 'IEEE Xplore' %}
+        {% assign s_icon = 'ai ai-ieee' %}
+      {% endif %}
+    {% when 'acm' %}
+      {% if site.acm_id %}
+        {% assign s_href = site.acm_id | prepend: 'https://dl.acm.org/profile/' | append: '/' %}
+        {% assign s_title = 'ACM DL' %}
+        {% assign s_label = 'ACM DL' %}
+        {% assign s_icon = 'ai ai-acm' %}
+      {% endif %}
+    {% when 'scopus' %}
+      {% if site.scopus_id %}
+        {% assign s_href = site.scopus_id | prepend: 'https://www.scopus.com/authid/detail.uri?authorId=' %}
+        {% assign s_title = 'Scopus' %}
+        {% assign s_label = 'Scopus' %}
+        {% assign s_icon = 'ai ai-scopus' %}
+      {% endif %}
+    {% when 'github' %}
+      {% if site.github_username %}
+        {% assign s_href = site.github_username | prepend: 'https://github.com/' %}
+        {% assign s_title = 'GitHub' %}
+        {% assign s_label = 'GitHub' %}
+        {% assign s_icon = 'fa-brands fa-github' %}
+      {% endif %}
+    {% when 'linkedin' %}
+      {% if site.linkedin_username %}
+        {% assign s_href = site.linkedin_username | prepend: 'https://www.linkedin.com/in/' %}
+        {% assign s_title = 'LinkedIn' %}
+        {% assign s_label = 'LinkedIn' %}
+        {% assign s_icon = 'fa-brands fa-linkedin' %}
+      {% endif %}
+    {% when 'x' %}
+      {% if site.x_username %}
+        {% assign s_href = site.x_username | prepend: 'https://twitter.com/' %}
+        {% assign s_title = 'X' %}
+        {% assign s_label = 'X' %}
+        {% assign s_icon = 'fa-brands fa-x-twitter' %}
+      {% endif %}
+    {% when 'mastodon' %}
+      {% if site.mastodon_username %}
+        {% assign s_href = site.mastodon_username | prepend: 'https://' %}
+        {% assign s_title = 'Mastodon' %}
+        {% assign s_label = 'Mastodon' %}
+        {% assign s_icon = 'fa-brands fa-mastodon' %}
+        {% assign s_attrs = 'rel="me"' %}
+      {% endif %}
+    {% when 'medium' %}
+      {% if site.medium_username %}
+        {% assign s_href = site.medium_username | prepend: 'https://medium.com/@' %}
+        {% assign s_title = 'Medium' %}
+        {% assign s_label = 'Medium' %}
+        {% assign s_icon = 'fa-brands fa-medium' %}
+      {% endif %}
+    {% when 'quora' %}
+      {% if site.quora_username %}
+        {% assign s_href = site.quora_username | prepend: 'https://www.quora.com/profile/' %}
+        {% assign s_title = 'Quora' %}
+        {% assign s_label = 'Quora' %}
+        {% assign s_icon = 'fa-brands fa-quora' %}
+      {% endif %}
+    {% when 'flickr' %}
+      {% if site.flickr_id %}
+        {% assign s_href = site.flickr_id | prepend: 'https://www.flickr.com/' %}
+        {% assign s_title = 'Flickr' %}
+        {% assign s_label = 'Flickr' %}
+        {% assign s_icon = 'fa-brands fa-flickr' %}
+      {% endif %}
+    {% when 'blogger' %}
+      {% if site.blogger_url %}
+        {% assign s_href = site.blogger_url %}
+        {% assign s_title = 'Blogger' %}
+        {% assign s_label = 'Blogger' %}
+        {% assign s_icon = 'fa-brands fa-blogger-b' %}
+      {% endif %}
+    {% when 'work' %}
+      {% if site.work_url %}
+        {% assign s_href = site.work_url %}
+        {% assign s_title = 'Work' %}
+        {% assign s_label = 'Work' %}
+        {% assign s_icon = 'fa-solid fa-briefcase' %}
+      {% endif %}
+    {% when 'wikidata' %}
+      {% if site.wikidata_id %}
+        {% assign s_href = site.wikidata_id | prepend: 'https://www.wikidata.org/wiki/' %}
+        {% assign s_title = 'Wikidata' %}
+        {% assign s_label = 'Wikidata' %}
+        {% assign s_icon = 'fa-solid fa-barcode' %}
+      {% endif %}
+    {% when 'wikipedia' %}
+      {% if site.wikipedia_id %}
+        {% assign s_href = site.wikipedia_id | prepend: 'https://wikipedia.org/wiki/User:' %}
+        {% assign s_title = 'Wikipedia' %}
+        {% assign s_label = 'Wikipedia' %}
+        {% assign s_icon = 'fa-brands fa-wikipedia-w' %}
+      {% endif %}
+    {% when 'strava' %}
+      {% if site.strava_userid %}
+        {% assign s_href = site.strava_userid | prepend: 'https://www.strava.com/athletes/' %}
+        {% assign s_title = 'Strava' %}
+        {% assign s_label = 'Strava' %}
+        {% assign s_icon = 'fa-brands fa-strava' %}
+      {% endif %}
+    {% when 'keybase' %}
+      {% if site.keybase_username %}
+        {% assign s_href = site.keybase_username | prepend: 'https://keybase.io/' %}
+        {% assign s_title = 'Keybase' %}
+        {% assign s_label = 'Keybase' %}
+        {% assign s_icon = 'fa-brands fa-keybase' %}
+      {% endif %}
+    {% when 'gitlab' %}
+      {% if site.gitlab_username %}
+        {% assign s_href = site.gitlab_username | prepend: 'https://gitlab.com/' %}
+        {% assign s_title = 'GitLab' %}
+        {% assign s_label = 'GitLab' %}
+        {% assign s_icon = 'fa-brands fa-gitlab' %}
+      {% endif %}
+    {% when 'dblp' %}
+      {% if site.dblp_url %}
+        {% assign s_href = site.dblp_url %}
+        {% assign s_title = 'DBLP' %}
+        {% assign s_label = 'DBLP' %}
+        {% assign s_icon = 'ai ai-dblp' %}
+      {% endif %}
+    {% when 'stackoverflow' %}
+      {% if site.stackoverflow_id %}
+        {% assign s_href = site.stackoverflow_id | prepend: 'https://stackoverflow.com/users/' %}
+        {% assign s_title = 'Stackoverflow' %}
+        {% assign s_label = 'Stack Overflow' %}
+        {% assign s_icon = 'fa-brands fa-stack-overflow' %}
+      {% endif %}
+    {% when 'kaggle' %}
+      {% if site.kaggle_id %}
+        {% assign s_href = site.kaggle_id | prepend: 'https://www.kaggle.com/' %}
+        {% assign s_title = 'Kaggle' %}
+        {% assign s_label = 'Kaggle' %}
+        {% assign s_icon = 'fa-brands fa-kaggle' %}
+      {% endif %}
+    {% when 'lastfm' %}
+      {% if site.lastfm_id %}
+        {% assign s_href = site.lastfm_id | prepend: 'https://www.last.fm/user/' %}
+        {% assign s_title = 'Last FM' %}
+        {% assign s_label = 'Last.fm' %}
+        {% assign s_icon = 'fa-brands fa-lastfm' %}
+      {% endif %}
+    {% when 'spotify' %}
+      {% if site.spotify_id %}
+        {% assign s_href = site.spotify_id | prepend: 'https://open.spotify.com/user/' %}
+        {% assign s_title = 'Spotify' %}
+        {% assign s_label = 'Spotify' %}
+        {% assign s_icon = 'fa-brands fa-spotify' %}
+      {% endif %}
+    {% when 'pinterest' %}
+      {% if site.pinterest_id %}
+        {% assign s_href = site.pinterest_id | prepend: 'https://www.pinterest.com/' %}
+        {% assign s_title = 'Pinterest' %}
+        {% assign s_label = 'Pinterest' %}
+        {% assign s_icon = 'fa-brands fa-pinterest' %}
+      {% endif %}
+    {% when 'unsplash' %}
+      {% if site.unsplash_id %}
+        {% assign s_href = site.unsplash_id | prepend: 'https://unsplash.com/@' %}
+        {% assign s_title = 'Unsplash' %}
+        {% assign s_label = 'Unsplash' %}
+        {% assign s_icon = 'fa-brands fa-unsplash' %}
+      {% endif %}
+    {% when 'instagram' %}
+      {% if site.instagram_id %}
+        {% assign s_href = site.instagram_id | prepend: 'https://instagram.com/' %}
+        {% assign s_title = 'Instagram' %}
+        {% assign s_label = 'Instagram' %}
+        {% assign s_icon = 'fa-brands fa-instagram' %}
+      {% endif %}
+    {% when 'facebook' %}
+      {% if site.facebook_id %}
+        {% assign s_href = site.facebook_id | prepend: 'https://facebook.com/' %}
+        {% assign s_title = 'Facebook' %}
+        {% assign s_label = 'Facebook' %}
+        {% assign s_icon = 'fa-brands fa-facebook' %}
+      {% endif %}
+    {% when 'bluesky' %}
+      {% if site.bluesky_url %}
+        {% assign s_href = site.bluesky_url %}
+        {% assign s_title = 'Bluesky' %}
+        {% assign s_label = 'Bluesky' %}
+        {% assign s_icon = 'fa-brands fa-bluesky' %}
+      {% endif %}
+    {% when 'youtube' %}
+      {% if site.youtube_id %}
+        {% assign s_href = site.youtube_id | prepend: 'https://youtube.com/@' %}
+        {% assign s_title = 'YouTube' %}
+        {% assign s_label = 'YouTube' %}
+        {% assign s_icon = 'fa-brands fa-youtube' %}
+      {% endif %}
+    {% when 'discord' %}
+      {% if site.discord_id %}
+        {% assign s_href = site.discord_id | prepend: 'https://discord.com/users/' %}
+        {% assign s_title = 'Discord' %}
+        {% assign s_label = 'Discord' %}
+        {% assign s_icon = 'fa-brands fa-discord' %}
+      {% endif %}
+    {% when 'zotero' %}
+      {% if site.zotero_username %}
+        {% assign s_href = site.zotero_username | prepend: 'https://www.zotero.org/' %}
+        {% assign s_title = 'Zotero' %}
+        {% assign s_label = 'Zotero' %}
+        {% assign s_icon = 'ai ai-zotero' %}
+      {% endif %}
+    {% when 'rss' %}
+      {% if site.rss_icon %}
+        {% assign s_href = site.baseurl | append: '/feed.xml' %}
+        {% assign s_title = 'RSS Feed' %}
+        {% assign s_label = 'RSS' %}
+        {% assign s_icon = 'fa-solid fa-square-rss' %}
+      {% endif %}
+    {% when 'wechat' %}
+      {% comment %} The trigger must stay immediately before its modal (see scripts/wechatModal.liquid). {% endcomment %}
+      {% if site.wechat_qr %}
+        {% assign wechat_qr_path = site.wechat_qr | prepend: 'assets/img/' | relative_url %}
+        <a
+          class="wechat-trigger{% if social_class != '' %} {{ social_class }}{% endif %}"
+          href="{{ wechat_qr_path }}"
+          title="WeChat"
+          aria-label="Show WeChat QR code"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          data-wechat-trigger
+          ><i aria-hidden="true" class="fa-brands fa-weixin"></i>
+          {%- if include.labels -%}
+            WeChat
+          {%- endif -%}
+        </a>
+        <div
+          class="wechat-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-label="WeChat QR code"
+          aria-hidden="true"
+          tabindex="-1"
+          data-wechat-modal
+          hidden
+        >
+          <button class="wechat-modal__close" type="button" aria-label="Close WeChat QR code" data-wechat-close>&times;</button>
+          <img class="wechat-modal__qr" src="{{ wechat_qr_path }}" alt="Scan this QR code to connect on WeChat">
+        </div>
+        {% include scripts/wechatModal.liquid %}
+      {% endif %}
+  {% endcase %}
+
+  {% if s_href != '' %}
+    <a
+      {% if social_class != '' %}
+        class="{{ social_class }}"
+      {% endif %}
+      href="{{ s_href }}"
+      title="{{ s_title }}"
+      aria-label="{{ s_title }}"
+      {{ s_attrs }}
+      ><i aria-hidden="true" class="{{ s_icon }}"></i>
+      {%- if include.labels -%}
+        {{ s_label }}
+      {%- endif -%}
+    </a>
+  {% endif %}
+{% endfor %}

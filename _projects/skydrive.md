@@ -5,7 +5,7 @@ description: SkyDrive is a multi-agent human-in-the-loop, digital-twin-enabled t
 img: assets/img/research_overview.jpg
 importance: 1
 category: UW-Madison
-related_publications: true
+related_publications: false
 ---
 
 Sky-Drive is a distributed multi-agent simulation platform developed at Sky-Lab for socially-aware and human-AI collaborative future transportation research. It combines a multi-modal human-in-the-loop framework, a human-AI collaboration mechanism, and a digital-twin framework for building high-fidelity virtual replicas of real-world transportation environments, supporting applications such as AV-VRU interaction modeling, socially-aware reinforcement learning, and personalized driving policy.

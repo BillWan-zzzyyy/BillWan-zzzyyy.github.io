@@ -56,9 +56,10 @@ body.sticky-bottom-footer {
   margin: 0;
 
   .about-title {
+    font-family: var(--font-display);
     font-size: 72px;
     font-weight: $fw-semibold;
-    letter-spacing: -0.045em;
+    letter-spacing: -0.02em;
     line-height: 1.06;
     margin-bottom: $sp-4;
     white-space: nowrap;
@@ -112,18 +113,6 @@ body.sticky-bottom-footer {
       &:focus-visible {
         box-shadow: 0 0 0 2px var(--global-theme-color);
       }
-
-      // The glyph itself fills with the Apple Intelligence spectrum.
-      @supports (-webkit-background-clip: text) {
-        &:hover i::before,
-        &:focus-visible i::before {
-          color: transparent;
-          background: var(--ai-gradient);
-          background-clip: text;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-      }
     }
   }
   .contact-note:empty {
@@ -150,118 +139,8 @@ body.sticky-bottom-footer {
   }
 }
 
-// Reserve the metallic gradient for identity and primary index-page titles.
-// Unsupported browsers keep the normal solid heading color declared in base.
-// background-clip: text only paints glyphs inside the element's box, so tight
-// headings pad their bottom for descenders ("g", "y") and take the same amount
-// back from the margin below — the visual rhythm is unchanged.
-@supports (-webkit-background-clip: text) {
-  .post-header .post-title.gradient-title {
-    width: fit-content;
-    max-width: 100%;
-    padding-bottom: 0.12em;
-    margin-bottom: calc(#{$sp-2} - 0.12em);
-    color: transparent;
-    background: linear-gradient(105deg, var(--title-gradient-start) 5%, var(--title-gradient-middle) 52%, var(--title-gradient-end) 95%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    span {
-      color: inherit;
-    }
-  }
-
-  .about-home .about-hero__header .about-title.gradient-title {
-    margin-bottom: calc(#{$sp-4} - 0.12em);
-  }
-
-  // Homepage subtitle, section titles, About me headings and the /publications/
-  // stat numbers: "colorful black" ink gradient. `h2.` outranks the base
-  // .home-section__title rule declared further down; the base .about-me h4 and
-  // .growth-card__value rules set none of these properties, and the card link's
-  // hover color stops at the <strong>, which keeps its own (transparent) color.
-  .about-subtitle,
-  .home-section > h2.home-section__title,
-  .about-me h4,
-  .growth-cards .growth-card__value {
-    width: fit-content;
-    max-width: 100%;
-    color: transparent;
-    background: var(--ink-gradient);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .home-section > h2.home-section__title {
-    padding-bottom: 0.1em;
-    margin-bottom: calc(#{$sp-5} - 0.1em);
-  }
-}
-
-.home-hero-prepared .about-home .about-hero__header,
-.home-hero-prepared .about-home .about-hero__bio,
-.home-hero-prepared .about-home .about-hero__media {
-  opacity: 0;
-  transform: translateY(8px);
-}
-
-.home-hero-started .about-home .about-hero__header,
-.home-hero-started .about-home .about-hero__bio {
-  animation: home-hero-enter 1100ms $ease-out both;
-}
-
-.home-hero-started .about-home .about-hero__media {
-  animation: home-hero-enter 1100ms $ease-out 200ms both;
-}
-
-@keyframes home-hero-enter {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .home-hero-prepared .about-home .about-hero__header,
-  .home-hero-prepared .about-home .about-hero__bio,
-  .home-hero-prepared .about-home .about-hero__media,
-  .about-home .about-hero__header,
-  .about-home .about-hero__bio,
-  .about-home .about-hero__media {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-}
-
+// Venue tags: plain system colors in forced-colors mode and print.
 @media (forced-colors: active) {
-  .post-header .post-title.gradient-title,
-  .post-header .post-title.gradient-title span,
-  .about-subtitle,
-  .about-subtitle span,
-  .home-section > h2.home-section__title,
-  .about-me h4 {
-    color: CanvasText;
-    background: none;
-    -webkit-text-fill-color: CanvasText;
-  }
-
-  html .home-section > .home-section__title a,
-  .growth-cards .growth-card__value,
-  .about-home .about-social .contact-icons a:hover i::before,
-  .about-home .about-social .contact-icons a:focus-visible i::before {
-    color: LinkText;
-    background: none;
-    -webkit-text-fill-color: LinkText;
-  }
-
   html .publications ol.bibliography > li .abbr abbr,
   html .publications ol.bibliography > li .abbr abbr.venue--strong,
   html .publications ol.bibliography > li .abbr abbr a,
@@ -274,19 +153,6 @@ body.sticky-bottom-footer {
 }
 
 @media print {
-  .post-header .post-title.gradient-title,
-  .post-header .post-title.gradient-title span,
-  .about-subtitle,
-  .about-subtitle span,
-  .home-section > .home-section__title,
-  .home-section > .home-section__title a,
-  .about-me h4,
-  .growth-cards .growth-card__value {
-    color: #1d1d1f !important;
-    background: none !important;
-    -webkit-text-fill-color: #1d1d1f !important;
-  }
-
   html .publications ol.bibliography > li .abbr abbr,
   html .publications ol.bibliography > li .abbr abbr.venue--strong,
   html .publications ol.bibliography > li .abbr abbr a,
@@ -295,17 +161,6 @@ body.sticky-bottom-footer {
     background: none !important;
     border-color: #6e6e73 !important;
     -webkit-text-fill-color: #1d1d1f !important;
-  }
-
-  .about-home .about-hero__header,
-  .about-home .about-hero__bio,
-  .about-home .about-hero__media,
-  .home-hero-prepared .about-home .about-hero__header,
-  .home-hero-prepared .about-home .about-hero__bio,
-  .home-hero-prepared .about-home .about-hero__media {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
   }
 }
 
@@ -362,7 +217,7 @@ body.sticky-bottom-footer {
     width: min(300px, 100%);
   }
   .about-home .about-hero__header .about-title {
-    font-size: 44px;
+    font-size: 40px;
   }
 
   .bio.about-hero__bio {
@@ -370,21 +225,14 @@ body.sticky-bottom-footer {
   }
 }
 
-@media (max-width: 340px) {
+// Serif caps run wider than the old sans; keep the nowrap name on one line.
+@media (max-width: 360px) {
   .about-home .about-hero__header .about-title {
-    font-size: 38px;
+    font-size: 34px;
   }
 }
 
-.eyebrow {
-  font-family: $ff-sans;
-  font-size: $fs-xs;
-  font-weight: $fw-semibold;
-  letter-spacing: $tracking-wide;
-  text-transform: uppercase;
-  color: var(--mono-meta-color);
-  margin: 0 0 $sp-2;
-}
+// .eyebrow lives with the shared primitives in _base.scss.
 
 .highlight-text {
   // Intentionally not tinted — names / role labels stay in body color.
@@ -447,10 +295,10 @@ body.sticky-bottom-footer {
   margin-top: $sp-7;
 
   > .home-section__title {
-    font-family: $ff-serif;
+    font-family: var(--font-display);
     font-size: 40px;
     font-weight: $fw-semibold;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.01em;
     text-transform: none;
     color: var(--global-text-color);
     display: block;
@@ -497,20 +345,16 @@ body.sticky-bottom-footer {
     gap: $sp-5;
     margin-top: $sp-6;
 
-    // Store-style product card: the figure is the card, the caption its title.
-    // Hover motion lives here, not on the [data-reveal] wrapper, so it never
-    // competes with the reveal transform.
+    // Hairline card: the figure is the card, the caption its title.
     figure {
       height: 100%;
       margin: 0;
       overflow: hidden;
-      isolation: isolate; // keeps Safari clipping the image to the radius while scaling
+      isolation: isolate; // keeps Safari clipping the image to the radius
       background: var(--global-card-bg-color);
-      border-radius: 18px;
-      box-shadow: var(--card-shadow);
-      transition:
-        transform 300ms cubic-bezier(0, 0, 0.5, 1),
-        box-shadow 300ms cubic-bezier(0, 0, 0.5, 1);
+      border: 1px solid var(--global-divider-color);
+      border-radius: $r-md;
+      box-shadow: none;
     }
 
     img {
@@ -551,18 +395,6 @@ body.sticky-bottom-footer {
   }
 }
 
-@media (hover: hover) {
-  .research-block .research-card figure:hover {
-    box-shadow: var(--card-shadow-hover);
-  }
-}
-
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .research-block .research-card figure:hover {
-    transform: scale(1.01);
-  }
-}
-
 @media (max-width: 575px) {
   .research-block .research-figures {
     grid-template-columns: minmax(0, 1fr);
@@ -593,28 +425,6 @@ body.sticky-bottom-footer {
   font-size: $fs-sm;
   color: var(--mono-meta-color);
   letter-spacing: 0;
-}
-
-// Keep `transition`, `transform` and `opacity` off [data-reveal] elements
-// themselves; put hover motion on an inner element (see .research-card).
-[data-reveal].reveal-pending {
-  opacity: 0;
-  transform: translateY(32px);
-}
-
-// Re-armed after scrolling out through the top edge (see reveal.js): wait above,
-// so the offset never nudges the element back into view.
-[data-reveal].reveal-pending.reveal-above {
-  transform: translateY(-32px);
-}
-
-[data-reveal].reveal-visible {
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity 1000ms $ease-out,
-    transform 1000ms $ease-out;
-  transition-delay: var(--reveal-delay, 0ms);
 }
 
 .content-page > article > p,
@@ -648,7 +458,7 @@ body.sticky-bottom-footer {
 }
 
 /******************************************************************************
- * About me page (/about-me/) — ink-gradient section titles over stacked entries.
+ * About me page (/about-me/) — section titles over stacked entries.
  ******************************************************************************/
 
 .about-me {
@@ -663,17 +473,13 @@ body.sticky-bottom-footer {
     line-height: $lh-relaxed;
   }
 
-  // Ink gradient: see the @supports block above. The 0.1em pad gives the
-  // clipped descenders room and the margin takes it back, so the 16px gap
-  // to the first entry holds with or without the gradient.
   h4 {
     font-family: $ff-sans;
     font-size: 28px;
     font-weight: $fw-semibold;
     letter-spacing: -0.02em;
     line-height: $lh-snug;
-    padding-bottom: 0.1em;
-    margin: $sp-7 0 calc(#{$sp-4} - 0.1em);
+    margin: $sp-7 0 $sp-4;
   }
 
   > h4:first-of-type {

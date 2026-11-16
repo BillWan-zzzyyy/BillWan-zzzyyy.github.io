@@ -1,13 +1,26 @@
 /*******************************************************************************
  * Themes — consume tokens from _tokens.scss, expose via CSS variables.
  *
- * Neutral light and dark palettes with familiar platform-blue interactions.
+ * Neutral light and dark palettes with a single platform-blue accent.
+ *
+ * Shared primitives (use these names; do not add duplicates):
+ *   --font-display            serif stack for h1–h3, page titles, site name
+ *   --font-body               system sans stack for body text
+ *   --global-theme-color      the accent (links, primary buttons only)
+ *   --global-hover-color      accent hover state
+ *   --global-hover-text-color text drawn on an accent fill
+ *   --global-divider-color    1px hairline borders / dividers (alias: --hairline)
  ******************************************************************************/
 
 @use "sass:color";
+@use "sass:meta";
 
 :root {
-  // Surfaces (Claude cream — warmer than prior warm off-white)
+  // Type families — theme-independent.
+  --font-display: #{meta.inspect($ff-display)};
+  --font-body: #{meta.inspect($ff-sans)};
+
+  // Surfaces (pure white)
   --global-bg-color: #{$cream-bg};
   --global-card-bg-color: #{$n-0};
   --global-code-bg-color: #{$cream-subtle};
@@ -23,29 +36,13 @@
   --global-hover-text-color: #{$cream-bg};
   --global-highlight-color: #0066cc;
   --global-quote-left: #0066cc;
-  --title-gradient-start: #52606f;
-  --title-gradient-middle: #1479c9;
-  --title-gradient-end: #008b95;
 
-  // Publication actions — filled primary pill and neutral metric pills
-  --pub-primary-bg: #0071e3;
-  --pub-primary-hover: #0077ed;
+  // Publication actions — filled primary pill uses the single accent; metric
+  // pills stay neutral.
+  --pub-primary-bg: var(--global-theme-color);
+  --pub-primary-hover: var(--global-hover-color);
   --pub-metric-bg: #e8e8ed;
   --pub-metric-hover: #dcdce1;
-
-  // Apple Intelligence palette — identical in both themes
-  --ai-c1: #0894ff;
-  --ai-c2: #c959dd;
-  --ai-c3: #ff2e54;
-  --ai-c4: #ff9004;
-  --ai-gradient: linear-gradient(90deg, var(--ai-c1) 0%, var(--ai-c2) 34%, var(--ai-c3) 68%, var(--ai-c4) 100%);
-
-  // "Colorful black" — reads as body ink, tinted with the AI hues
-  --ink-gradient: linear-gradient(100deg, #1d1d1f 0%, #16305a 30%, #3b1e57 55%, #561c33 78%, #4a2c0c 100%);
-
-  // Store-style product card shadows
-  --card-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
-  --card-shadow-hover: 2px 4px 16px rgba(0, 0, 0, 0.16);
 
   // Footer
   --global-footer-bg-color: #{$n-900};
@@ -132,29 +129,13 @@ html[data-theme="dark"] {
   --global-hover-text-color: #{$warm-dark-bg};
   --global-highlight-color: #2997ff;
   --global-quote-left: #2997ff;
-  --title-gradient-start: #d7dde5;
-  --title-gradient-middle: #63adff;
-  --title-gradient-end: #4ddbd3;
 
-  // Publication actions — filled primary pill and neutral metric pills
-  --pub-primary-bg: #0071e3;
-  --pub-primary-hover: #0077ed;
+  // Publication actions — filled primary pill uses the single accent; metric
+  // pills stay neutral.
+  --pub-primary-bg: var(--global-theme-color);
+  --pub-primary-hover: var(--global-hover-color);
   --pub-metric-bg: #3a3a3c;
   --pub-metric-hover: #48484a;
-
-  // Apple Intelligence palette — identical in both themes
-  --ai-c1: #0894ff;
-  --ai-c2: #c959dd;
-  --ai-c3: #ff2e54;
-  --ai-c4: #ff9004;
-  --ai-gradient: linear-gradient(90deg, var(--ai-c1) 0%, var(--ai-c2) 34%, var(--ai-c3) 68%, var(--ai-c4) 100%);
-
-  // "Colorful white" — reads as body ink on dark, tinted with the AI hues
-  --ink-gradient: linear-gradient(100deg, #f5f5f7 0%, #cfe3ff 30%, #ead5ff 55%, #ffd3de 78%, #ffe2c2 100%);
-
-  // Store-style product card shadows (deeper so they read on dark surfaces)
-  --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
-  --card-shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.6);
 
   // Footer
   --global-footer-bg-color: #{$warm-dark-card};

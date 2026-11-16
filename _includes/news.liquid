@@ -1,3 +1,8 @@
+{% comment %}
+  News list, newest first.
+    limit=true  → use announcements.limit from _config.yml
+    limit=<n>   → show at most n items (the homepage passes 3)
+{% endcomment %}
 <div class="news">
   {% if site.news != blank %}
     {% assign news_size = site.news | size %}
@@ -7,15 +12,17 @@
         style="max-height: 60vh; overflow-y: auto;"
       {% endif %}
     >
-      {% assign news = site.news | reverse %}
-      {% if include.limit and site.announcements.limit %}
-        {% assign news_limit = site.announcements.limit %}
+      {% assign news = site.news | sort: 'date' | reverse %}
+      {% if include.limit == true %}
+        {% assign news_limit = site.announcements.limit | default: news_size %}
+      {% elsif include.limit %}
+        {% assign news_limit = include.limit %}
       {% else %}
         {% assign news_limit = news_size %}
       {% endif %}
       <ol class="news-list">
         {% for item in news limit: news_limit %}
-          <li class="news-row" data-reveal>
+          <li class="news-row">
             <time class="news-date" datetime="{{ item.date | date_to_xmlschema }}">
               {{- item.date | date: '%b %d, %Y' -}}
             </time>

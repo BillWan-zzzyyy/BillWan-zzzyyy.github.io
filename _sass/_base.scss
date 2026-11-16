@@ -2,7 +2,8 @@
  * Styles for the base elements of the theme.
  ******************************************************************************/
 
-// Typography — system sans throughout, with system mono for code.
+// Typography — system sans body, system serif display headings (h1–h3,
+// page titles, site name) via var(--font-display), system mono for code.
 
 body {
   font-family: $ff-sans;
@@ -38,24 +39,24 @@ h6 {
   color: var(--global-text-color);
 }
 
-// Large, compact headings follow the platform's clear information hierarchy.
+// Editorial hierarchy: serif display for h1–h3, sans for h4–h6.
 h1 {
-  font-family: $ff-serif;
+  font-family: var(--font-display);
   font-size: $fs-2xl;
   font-weight: $fw-semibold;
   line-height: $lh-tight;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.005em;
 }
 
 h2 {
-  font-family: $ff-serif;
+  font-family: var(--font-display);
   font-size: $fs-xl;
   font-weight: $fw-semibold;
   line-height: $lh-snug;
 }
 
 h3 {
-  font-family: $ff-serif;
+  font-family: var(--font-display);
   font-size: $fs-lg;
   font-weight: $fw-semibold;
   line-height: $lh-heading;
@@ -83,6 +84,104 @@ h6 {
   text-transform: uppercase;
   color: var(--mono-meta-color);
 }
+
+// ============================================================================
+// SHARED PRIMITIVES — reused by the home, publications and page partials.
+// Colors come from CSS variables (see _themes.scss) so dark mode just works:
+//   var(--font-display)            serif display stack
+//   var(--global-theme-color)      single accent (links + primary buttons)
+//   var(--global-hover-color)      accent hover
+//   var(--global-hover-text-color) text on an accent fill
+//   var(--global-divider-color)    1px hairline (alias var(--hairline))
+// ============================================================================
+
+// Small muted label line above a heading. Sentence case — write the text the
+// way it should read; no text-transform.
+.eyebrow {
+  display: block;
+  margin: 0 0 $sp-2;
+  font-family: $ff-sans;
+  font-size: $fs-sm;
+  font-weight: $fw-medium;
+  line-height: $lh-snug;
+  letter-spacing: 0.01em;
+  color: var(--global-text-color-light);
+}
+
+// Bordered card: 1px hairline, modest radius, no shadow, no hover motion.
+.hairline-card {
+  display: block;
+  padding: $sp-5;
+  background: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: $r-md;
+  box-shadow: none;
+  color: var(--global-text-color);
+}
+
+// Small link buttons: .link-btn-primary (filled accent) and .link-btn-outline
+// (accent outline that fills on hover). Work on <a> and <button>.
+.link-btn-primary,
+.link-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 14px;
+  border: 1px solid var(--global-theme-color);
+  border-radius: $r-pill;
+  font-family: $ff-sans;
+  font-size: 15px;
+  font-weight: $fw-semibold;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color $dur-base $ease-out,
+    background-color $dur-base $ease-out,
+    border-color $dur-base $ease-out;
+
+  i {
+    color: inherit;
+    font-size: 0.95em;
+  }
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--global-theme-color);
+    outline-offset: 2px;
+  }
+}
+
+.link-btn-primary {
+  color: var(--global-hover-text-color);
+  background: var(--global-theme-color);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--global-hover-text-color);
+    background: var(--global-hover-color);
+    border-color: var(--global-hover-color);
+  }
+}
+
+.link-btn-outline {
+  color: var(--global-theme-color);
+  background: transparent;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--global-hover-text-color);
+    background: var(--global-theme-color);
+  }
+}
+
+// ============================================================================
 
 hr {
   border: 0;
@@ -239,6 +338,9 @@ ul.task-list input[type="checkbox"] {
 
 .card {
   background-color: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: $r-md;
+  box-shadow: none;
 
   .card-img {
     width: 100%;
@@ -330,7 +432,7 @@ ul.task-list input[type="checkbox"] {
   background-color: var(--global-card-bg-color);
   border: 1px solid var(--global-divider-color);
   border-radius: $r-sm;
-  box-shadow: $sh-hover;
+  box-shadow: none;
 
   a:not(.active) {
     color: var(--global-text-color);
@@ -363,30 +465,21 @@ ul.task-list input[type="checkbox"] {
     }
   }
 
+  // Site name in the top-left: serif display, solid ink.
   .navbar-brand {
     color: var(--global-text-color);
-    font-family: $ff-sans;
-    font-weight: $fw-medium;
-    letter-spacing: -0.005em;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: $fw-semibold;
+    letter-spacing: 0;
     text-decoration: none;
-  }
 
-  // Name in the top-left: same blue identity gradient as the homepage
-  // .gradient-title (_layout.scss); solid text color stays the fallback.
-  @supports (-webkit-background-clip: text) {
-    .navbar-brand.title {
-      width: fit-content;
-      padding-bottom: calc(0.3125rem + 0.08em); // keep "g"/"y" descenders inside the clip
-      color: transparent;
-      background: linear-gradient(105deg, var(--title-gradient-start) 5%, var(--title-gradient-middle) 52%, var(--title-gradient-end) 95%);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    span {
+      color: inherit;
+    }
 
-      span {
-        color: inherit;
-        -webkit-text-fill-color: inherit;
-      }
+    &:hover {
+      color: var(--global-text-color);
     }
   }
 
@@ -401,6 +494,7 @@ ul.task-list input[type="checkbox"] {
       min-height: 44px;
       display: inline-flex;
       align-items: center;
+      white-space: nowrap;
       transition: color $dur-base $ease-out;
 
       &:hover {
@@ -591,7 +685,7 @@ ul.task-list input[type="checkbox"] {
   }
 }
 
-// Footer — hairline separator, mono metadata, red on hover.
+// Footer — one slim line: copyright + last-updated date.
 footer.fixed-bottom {
   background-color: var(--global-footer-bg-color);
   font-family: $ff-sans;
@@ -617,8 +711,9 @@ footer.fixed-bottom {
 }
 
 footer.sticky-bottom {
-  padding-top: $sp-6;
-  padding-bottom: $sp-6;
+  padding-top: $sp-5;
+  padding-bottom: $sp-5;
+  border-top: 1px solid var(--global-divider-color);
   font-family: $ff-sans;
   font-size: $fs-xs;
   letter-spacing: 0.02em;
@@ -748,7 +843,7 @@ footer.sticky-bottom {
 
   h1 {
     color: var(--global-text-color);
-    font-family: $ff-serif;
+    font-family: var(--font-display);
     font-size: $fs-3xl;
     font-weight: $fw-semibold;
     letter-spacing: -0.01em;
@@ -782,12 +877,12 @@ footer.sticky-bottom {
   position: relative;
 
   .post-title {
-    font-family: $ff-serif;
+    font-family: var(--font-display);
     font-size: 40px;
     font-weight: $fw-semibold;
     line-height: $lh-tight;
     margin: 0 0 $sp-2;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.005em;
   }
 
   .post-description {
@@ -902,7 +997,7 @@ footer.sticky-bottom {
 }
 
 // ----------------------------------------------------------------------------
-// Projects — soft-shadow Store cards, hover scale, mono tag pills, mono star count.
+// Projects — hairline-bordered cards, tag pills, star count.
 // Category rendered as chip-row filter instead of a right-aligned heading.
 // ----------------------------------------------------------------------------
 
@@ -916,14 +1011,12 @@ footer.sticky-bottom {
 
   .card {
     background: var(--global-card-bg-color);
-    border: 0;
-    border-radius: $r-lg;
-    box-shadow: var(--card-shadow);
+    border: 1px solid var(--global-divider-color);
+    border-radius: $r-md;
+    box-shadow: none;
     overflow: hidden;
-    isolation: isolate; // keeps Safari clipping the image to the radius while scaling
-    transition:
-      transform 300ms cubic-bezier(0, 0, 0.5, 1),
-      box-shadow 300ms cubic-bezier(0, 0, 0.5, 1);
+    isolation: isolate; // keeps Safari clipping the image to the radius
+    transition: border-color $dur-base $ease-out;
 
     figure {
       margin: 0;
@@ -944,7 +1037,7 @@ footer.sticky-bottom {
     }
 
     .card-title {
-      font-family: $ff-serif;
+      font-family: var(--font-display);
       font-size: $fs-md;
       font-weight: $fw-semibold;
       line-height: $lh-heading;
@@ -1030,15 +1123,8 @@ footer.sticky-bottom {
 @media (hover: hover) and (pointer: fine) {
   .projects .card:hover,
   .projects .card.hoverable:hover {
-    box-shadow: var(--card-shadow-hover);
-    transform: scale(1.01);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .projects .card:hover,
-  .projects .card.hoverable:hover {
-    transform: none;
+    border-color: var(--global-text-color-light);
+    box-shadow: none;
   }
 }
 
@@ -1088,25 +1174,19 @@ footer.sticky-bottom {
 // pill buttons (filled primary "Paper"), counts as neutral metric pills.
 // ----------------------------------------------------------------------------
 
-// Used only if the --ai-gradient theme variable is missing, so gradient text
-// can never render as fully transparent.
-$ai-gradient-fallback: linear-gradient(90deg, #0894ff 0%, #c959dd 34%, #ff2e54 68%, #ff9004 100%);
-
 .publications {
   margin-top: $sp-4;
 
   h1 {
     color: var(--global-text-color);
-    font-family: $ff-serif;
+    font-family: var(--font-display);
     font-size: $fs-2xl;
     font-weight: $fw-medium;
     text-align: left;
     margin: $sp-6 0 $sp-4;
   }
 
-  // Scholar / GitHub stat cards (Apple Store style): big number + key facts.
-  // The outer .growth-card carries [data-reveal]'s transform, so the hover
-  // scale lives on the inner link.
+  // Scholar / GitHub stat cards: hairline-bordered, big number + key facts.
   .growth-cards {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1127,29 +1207,20 @@ $ai-gradient-fallback: linear-gradient(90deg, #0894ff 0%, #c959dd 34%, #ff2e54 6
     flex-direction: column;
     height: 100%;
     padding: $sp-5;
-    border-radius: 18px;
+    border-radius: $r-md;
     background: var(--global-card-bg-color);
-    box-shadow: var(--card-shadow);
+    border: 1px solid var(--global-divider-color);
+    box-shadow: none;
     font-family: $ff-sans;
     color: var(--global-text-color);
     text-decoration: none;
-    transition:
-      transform 300ms cubic-bezier(0, 0, 0.5, 1),
-      box-shadow 300ms cubic-bezier(0, 0, 0.5, 1);
+    transition: border-color $dur-base $ease-out;
 
     &:hover,
     &:focus-visible {
       color: var(--global-text-color);
       text-decoration: none;
-      transform: scale(1.01);
-      box-shadow: var(--card-shadow-hover);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      &:hover,
-      &:focus-visible {
-        transform: none;
-      }
+      border-color: var(--global-text-color-light);
     }
   }
 
@@ -1292,19 +1363,11 @@ $ai-gradient-fallback: linear-gradient(90deg, #0894ff 0%, #c959dd 34%, #ff2e54 6
         font-size: $fs-sm;
         font-weight: $fw-semibold;
         line-height: $lh-snug;
-        color: var(--global-theme-color);
-
-        @supports (-webkit-background-clip: text) {
-          background: var(--ai-gradient, $ai-gradient-fallback);
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-          -webkit-text-fill-color: transparent;
-        }
+        color: var(--global-text-color-light);
       }
 
       .title {
-        font-family: $ff-serif;
+        font-family: var(--font-display);
         font-size: 24px;
         font-weight: $fw-semibold;
         line-height: $lh-heading;
@@ -1458,7 +1521,7 @@ $ai-gradient-fallback: linear-gradient(90deg, #0894ff 0%, #c959dd 34%, #ff2e54 6
 
           &:hover,
           &:focus-visible {
-            color: #fff;
+            color: var(--global-hover-text-color);
             background: var(--pub-primary-bg);
             border-color: var(--pub-primary-bg);
             text-decoration: none;
@@ -1471,13 +1534,13 @@ $ai-gradient-fallback: linear-gradient(90deg, #0894ff 0%, #c959dd 34%, #ff2e54 6
         }
 
         a.pub-link--primary {
-          color: #fff;
+          color: var(--global-hover-text-color);
           background: var(--pub-primary-bg);
           border-color: var(--pub-primary-bg);
 
           &:hover,
           &:focus-visible {
-            color: #fff;
+            color: var(--global-hover-text-color);
             background: var(--pub-primary-hover);
             border-color: var(--pub-primary-hover);
           }
@@ -1588,27 +1651,6 @@ $ai-gradient-fallback: linear-gradient(90deg, #0894ff 0%, #c959dd 34%, #ff2e54 6
   display: none;
 }
 
-// Gradient-text fallbacks (the venue tags have theirs in _layout.scss).
-@media (forced-colors: active) {
-  .navbar.navbar-light .navbar-brand.title,
-  .navbar.navbar-light .navbar-brand.title span,
-  .publications ol.bibliography > li .pub-featured {
-    color: CanvasText;
-    background: none;
-    -webkit-text-fill-color: CanvasText;
-  }
-}
-
-@media print {
-  .navbar.navbar-light .navbar-brand.title,
-  .navbar.navbar-light .navbar-brand.title span,
-  .publications ol.bibliography > li .pub-featured {
-    color: #1d1d1f;
-    background: none;
-    -webkit-text-fill-color: #1d1d1f;
-  }
-}
-
 @media (max-width: 767px) {
   body {
     font-size: 16px;
@@ -1702,10 +1744,24 @@ iframe {
     display: flex;
     justify-content: flex-end;
     padding-inline: $sp-3;
+    font-size: $fs-base;
+  }
+
+  // Collapsed menu: the active item is marked by color and weight only; the
+  // desktop underline would span the whole row here.
+  .navbar.navbar-light .navbar-nav .nav-item.active > .nav-link::after {
+    content: none;
   }
 
   .navbar .dropdown-menu {
     box-shadow: none;
+  }
+}
+
+// Desktop: match the active underline inset to the link's side padding.
+@media (min-width: 768px) {
+  .navbar.navbar-light .navbar-nav .nav-item .nav-link {
+    padding-inline: $sp-3;
   }
 }
 
@@ -1717,11 +1773,6 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal] {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
   *,
   *::before,
   *::after {
@@ -1729,14 +1780,6 @@ button {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-}
-
-@media print {
-  [data-reveal] {
-    opacity: 1 !important;
-    transform: none !important;
-    visibility: visible !important;
   }
 }
 
@@ -2042,7 +2085,7 @@ img[data-zoomable] {
   margin-top: $sp-4;
   border-radius: 18px;
   overflow: hidden;
-  background: radial-gradient(ellipse at 50% 35%, var(--travel-ocean) 40%, var(--travel-ocean-deep));
+  background: var(--travel-ocean);
   // An outline paints above the SVG, so the hairline survives land at the edge.
   outline: 1px solid var(--global-divider-color);
   outline-offset: -1px;
@@ -2100,7 +2143,7 @@ img[data-zoomable] {
 
   .jvm-zoom-btn {
     border: 1px solid var(--global-divider-color);
-    box-shadow: var(--card-shadow);
+    box-shadow: none;
     font-size: 1rem;
     line-height: calc(var(--jvm-zoom-btn-size) - 2px);
   }
@@ -2171,7 +2214,7 @@ html[data-theme="dark"] .about-me .travel-map {
   --jvm-tooltip-font-size: 0.8rem;
   --jvm-tooltip-padding: 4px 8px;
   --jvm-tooltip-radius: 8px;
-  --jvm-tooltip-shadow: var(--card-shadow);
+  --jvm-tooltip-shadow: none;
   border: 1px solid var(--global-divider-color);
   pointer-events: none;
   z-index: 1000;

@@ -1,19 +1,19 @@
+{% capture footer_line %}
+  &copy; {{ site.time | date: '%Y' }}
+  {{ site.first_name }}
+  {{ site.middle_name }}
+  {{ site.last_name }}
+  {% if site.last_updated %}
+    · Last updated {{ site.time | date: '%B %-d, %Y' }}
+  {% endif %}
+  {% if site.impressum_path %}
+    · <a href="{{ site.url }}{{ site.baseurl }}{{ site.impressum_path }}">Impressum</a>
+  {% endif %}
+{% endcapture %}
 {% if site.footer_fixed %}
   <footer class="fixed-bottom" role="contentinfo">
     <div class="container mt-0">
-      <p class="mono-meta m-0">
-        &copy; {{ site.time | date: '%Y' }}
-        {{ site.first_name }}
-        {{ site.middle_name }}
-        {{ site.last_name }}.
-        {{ site.footer_text }}
-        {% if site.impressum_path %}
-          · <a href="{{ site.url }}{{ site.baseurl }}{{ site.impressum_path }}">Impressum</a>
-        {% endif %}
-        {% if site.last_updated %}
-          · Updated {{ 'now' | date: '%Y-%m-%d' }}
-        {% endif %}
-      </p>
+      <p class="mono-meta m-0">{{ footer_line | normalize_whitespace }}</p>
     </div>
   </footer>
 {% else %}
@@ -23,19 +23,7 @@
     {% endif %}
 
     <div class="container">
-      <p class="mono-meta">
-        &copy; {{ site.time | date: '%Y' }}
-        {{ site.first_name }}
-        {{ site.middle_name }}
-        {{ site.last_name }}.
-        {{ site.footer_text }}
-        {% if site.impressum_path %}
-          · <a href="{{ site.url }}{{ site.baseurl }}{{ site.impressum_path }}">Impressum</a>
-        {% endif %}
-        {% if site.last_updated %}
-          · Updated {{ 'now' | date: '%Y-%m-%d' }}
-        {% endif %}
-      </p>
+      <p class="mono-meta">{{ footer_line | normalize_whitespace }}</p>
     </div>
   </footer>
 {% endif %}
