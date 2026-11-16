@@ -51,14 +51,17 @@
     margin: 0 0.25em 0 0.1em;
   }
 
-  // Inline links read as text with a visible (muted) underline; accent on hover.
+  // Inline links are marked by the accent colour alone; the underline only appears on hover.
   a {
-    color: var(--global-text-color);
-    text-decoration-color: var(--global-text-color-light);
+    color: var(--global-theme-color);
+    text-decoration: none;
+    border-bottom: 0;
+    background-image: none;
 
-    &:hover {
-      color: var(--global-theme-color);
-      text-decoration-color: currentColor;
+    &:hover,
+    &:focus-visible {
+      color: var(--global-hover-color);
+      text-decoration: underline;
     }
   }
 }
