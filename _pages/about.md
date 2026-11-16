@@ -7,8 +7,8 @@ permalink: /
 # replaces the image (muted, looping; paused for visitors who prefer reduced motion).
 hero:
   image: assets/img/profile.jpg
-  alt: Zhengyang Wan at Queen's Landing, Chicago
-  caption: "Queen's Landing, Chicago" # shown under the photo
+  alt: Zhengyang Wan at Queen's Landing, Chicago, 2025
+  caption: "Queen's Landing, Chicago, 2025" # shown under the photo
   video: ""
   poster: ""
 
