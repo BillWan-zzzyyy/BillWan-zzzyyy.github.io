@@ -24,7 +24,7 @@
 }
 
 .home-v2-name {
-  margin: 0 0 $sp-3;
+  margin: 0 0 $sp-5;
   font-family: var(--font-display);
   font-size: 2rem;
   font-weight: $fw-semibold;
@@ -102,7 +102,7 @@
 // Photo column: sits a little below the name, with the place it was taken underneath.
 .home-v2-photo {
   min-width: 0;
-  margin-top: 44px;
+  margin-top: 56px;
 }
 
 .home-v2-photo__caption {
