@@ -15,7 +15,7 @@
 
 .home-v2-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
   column-gap: var(--home-v2-gutter);
   row-gap: $sp-6;
   align-items: center;
@@ -221,7 +221,7 @@
   }
 
   .home-v2-media {
-    max-width: 560px;
+    max-width: 280px;
   }
 }
 

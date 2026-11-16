@@ -22,8 +22,9 @@ hero:
 # Three research themes; each card links to a section of the Research page.
 research:
   title: Research
-  # One-sentence research summary shown at the start of the Research section.
-  lead: "I take driving policies from simulation onto a real, full-scale vehicle."
+  # Optional one-sentence research summary shown at the start of the Research section.
+  # Uncomment to show it:
+  # lead: "I take driving policies from simulation onto a real, full-scale vehicle."
   cards:
     - title: Sim-to-real driving
       text: Deploying driving policies trained in simulation on a full-scale autonomous vehicle.
