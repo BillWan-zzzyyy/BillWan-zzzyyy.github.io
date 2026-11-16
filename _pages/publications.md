@@ -8,22 +8,62 @@ nav_order: 2
 
 <div class="publications">
   {% assign total_citations = site.data.scholar_citations.total_citations %}
-  {% capture paper_count %}{% bibliography_count %}{% endcapture %}
-  {% assign paper_count = paper_count | strip %}
-  {% assign has_paper_count = false %}
-  {% if paper_count != '' and paper_count != '0' %}
-    {% assign has_paper_count = true %}
-  {% endif %}
-  {% if has_paper_count or total_citations != null %}
-    <p class="pub-page-meta">
-      {% if has_paper_count %}
-        {{ paper_count }} {% if paper_count == '1' %}paper{% else %}papers{% endif %}
-      {% endif %}
-      {% if has_paper_count and total_citations != null %}<span aria-hidden="true">·</span>{% endif %}
+  {% assign total_stars = site.data.github_stars.total_stars %}
+  {% assign cites_per_year = site.data.scholar_citations.cites_per_year %}
+  {% assign this_year = site.time | date: '%Y' %}
+  {% assign cites_this_year = cites_per_year[this_year] %}
+  {% assign first_cite_year = null %}
+  {% for year_cites in cites_per_year %}
+    {% assign first_cite_year = year_cites[0] %}
+    {% break %}
+  {% endfor %}
+  {% assign star_repos = site.data.github_stars.repos %}
+  {% assign star_repo_count = star_repos | size %}
+  {% assign top_repo = null %}
+  {% assign top_repo_stars = 0 %}
+  {% for repo_stars in star_repos %}
+    {% if repo_stars[1] > top_repo_stars %}
+      {% assign top_repo = repo_stars[0] %}
+      {% assign top_repo_stars = repo_stars[1] %}
+    {% endif %}
+  {% endfor %}
+  {% if total_citations != null or total_stars != null %}
+    <div class="growth-cards" role="group" aria-label="Publication impact">
       {% if total_citations != null %}
-        <a href="https://scholar.google.com/citations?user={{ site.scholar_userid }}">{{ total_citations }} {% if total_citations == 1 %}citation{% else %}citations{% endif %} on Google Scholar</a>
+        <div class="growth-card">
+          <a class="growth-card__inner" href="https://scholar.google.com/citations?user={{ site.scholar_userid }}">
+            <span class="growth-card__label"><i class="ai ai-google-scholar" aria-hidden="true"></i>Citations</span>
+            <strong class="growth-card__value">{{ total_citations }}</strong>
+            {% if cites_this_year > 0 or first_cite_year != null %}
+              <div class="growth-card__facts">
+                {% if cites_this_year > 0 %}
+                  <span>+{{ cites_this_year }} in {{ this_year }}</span>
+                {% endif %}
+                {% if first_cite_year != null %}
+                  <span>since {{ first_cite_year }}</span>
+                {% endif %}
+              </div>
+            {% endif %}
+          </a>
+        </div>
       {% endif %}
-    </p>
+      {% if total_stars != null %}
+        <div class="growth-card">
+          <a class="growth-card__inner" href="https://github.com/{{ site.github_username }}">
+            <span class="growth-card__label"><i class="fa-brands fa-github" aria-hidden="true"></i>GitHub stars</span>
+            <strong class="growth-card__value">{{ total_stars }}</strong>
+            {% if star_repo_count > 0 %}
+              <div class="growth-card__facts">
+                <span>across {{ star_repo_count }} {% if star_repo_count == 1 %}repository{% else %}repositories{% endif %}</span>
+                {% if top_repo != null %}
+                  <span>top: {{ top_repo | split: '/' | last }} ★ {{ top_repo_stars }}</span>
+                {% endif %}
+              </div>
+            {% endif %}
+          </a>
+        </div>
+      {% endif %}
+    </div>
   {% endif %}
 
 {% bibliography %}
