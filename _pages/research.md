@@ -42,7 +42,7 @@ nav_order: 1
       <div class="research-step__year">2025</div>
       <div class="research-step__content">
         <div class="research-step__media">
-          {% include figure.liquid path="assets/img/research/human-ai-collab.png" class="img-fluid" sizes="(min-width: 768px) 200px, 100vw" alt="Sky-Drive LLMs for personalized driving: a human agent and an LLM-based driving agent exchange dialogue, perception and route plans in the simulator" zoomable=true %}
+          {% include figure.liquid path="assets/img/research/multi-agent-lab.jpg" class="img-fluid" sizes="(min-width: 768px) 200px, 100vw" alt="Three people sharing one Sky-Drive simulation in the lab: a pedestrian wearing a VR headset and two drivers at steering-wheel stations" zoomable=true %}
         </div>
         <div class="research-step__body">
           <p class="research-step__kicker">Simulate with people in the loop</p>
